@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Vivo-proxy
+Bundle-SymbolicName: ca.uqam.tool.vivo-proxy
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
