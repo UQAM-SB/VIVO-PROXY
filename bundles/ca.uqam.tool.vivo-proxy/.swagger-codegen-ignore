@@ -23,4 +23,4 @@
 #!docs/README.md
 
 #src/gen/java/main/io/swagger/api/PersonApi.java
-/src/main/java/io/swagger/api/impl/PersonApiServiceImpl.java
+#/src/main/java/io/swagger/api/impl/PersonApiServiceImpl.java

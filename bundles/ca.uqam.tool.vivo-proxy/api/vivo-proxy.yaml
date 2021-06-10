@@ -6,9 +6,10 @@ info:
   termsOfService: "http://swagger.io/terms/"
   contact:
     email: "vivo@uqam.ca"
+    name: "Michel Héon PhD"
   license:
     name: "Apache 2.0"
-    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+    url: "http://www.apache.org/licenses/LICENSE2.0.html"
 host: "localhost:9090"
 basePath: "/vivoproxy"
 tags:

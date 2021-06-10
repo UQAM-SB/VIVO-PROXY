@@ -18,11 +18,11 @@ Get an individual by IRI
 ### Example
 ```java
 // Import classes:
-//import io.swagger.client.ApiClient;
-//import io.swagger.client.ApiException;
-//import io.swagger.client.Configuration;
-//import io.swagger.client.auth.*;
-//import io.swagger.client.api.VivoApi;
+//import ca.uqam.tool.vivoproxy.swagger.client.handler.ApiClient;
+//import ca.uqam.tool.vivoproxy.swagger.client.handler.ApiException;
+//import ca.uqam.tool.vivoproxy.swagger.client.handler.Configuration;
+//import ca.uqam.tool.vivoproxy.swagger.client.handler.auth.*;
+//import ca.uqam.tool.vivoproxy.swagger.client.api.VivoApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 

@@ -15,7 +15,7 @@
 # This is a Bash client for VIVO Proxy API.
 #
 # LICENSE:
-# http://www.apache.org/licenses/LICENSE-2.0.html
+# http://www.apache.org/licenses/LICENSE2.0.html
 #
 # CONTACT:
 # vivo@uqam.ca

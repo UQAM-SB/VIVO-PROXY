@@ -29,3 +29,5 @@ swagger-ui will be directed to that host and not localhost!
 # References:
 [RESTEasy Basic Authentication and Authorization Tutorial](https://howtodoinjava.com/resteasy/jax-rs-resteasy-basic-authentication-and-authorization-tutorial/)
 https://howtodoinjava.com/jersey/jersey-rest-security/
+
+[Rest modeling for Rational Architect](https://www.visual-paradigm.com/support/documents/vpuserguide/276/3420/85154_modelingrest.html)

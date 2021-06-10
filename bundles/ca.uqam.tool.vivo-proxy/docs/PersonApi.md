@@ -20,11 +20,11 @@ This can only be done by the logged in person.
 ### Example
 ```java
 // Import classes:
-//import io.swagger.client.ApiClient;
-//import io.swagger.client.ApiException;
-//import io.swagger.client.Configuration;
-//import io.swagger.client.auth.*;
-//import io.swagger.client.api.PersonApi;
+//import ca.uqam.tool.vivoproxy.swagger.client.handler.ApiClient;
+//import ca.uqam.tool.vivoproxy.swagger.client.handler.ApiException;
+//import ca.uqam.tool.vivoproxy.swagger.client.handler.Configuration;
+//import ca.uqam.tool.vivoproxy.swagger.client.handler.auth.*;
+//import ca.uqam.tool.vivoproxy.swagger.client.api.PersonApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -73,11 +73,11 @@ Get person by ID
 ### Example
 ```java
 // Import classes:
-//import io.swagger.client.ApiClient;
-//import io.swagger.client.ApiException;
-//import io.swagger.client.Configuration;
-//import io.swagger.client.auth.*;
-//import io.swagger.client.api.PersonApi;
+//import ca.uqam.tool.vivoproxy.swagger.client.handler.ApiClient;
+//import ca.uqam.tool.vivoproxy.swagger.client.handler.ApiException;
+//import ca.uqam.tool.vivoproxy.swagger.client.handler.Configuration;
+//import ca.uqam.tool.vivoproxy.swagger.client.handler.auth.*;
+//import ca.uqam.tool.vivoproxy.swagger.client.api.PersonApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -127,11 +127,11 @@ Get person by VIVO IRI
 ### Example
 ```java
 // Import classes:
-//import io.swagger.client.ApiClient;
-//import io.swagger.client.ApiException;
-//import io.swagger.client.Configuration;
-//import io.swagger.client.auth.*;
-//import io.swagger.client.api.PersonApi;
+//import ca.uqam.tool.vivoproxy.swagger.client.handler.ApiClient;
+//import ca.uqam.tool.vivoproxy.swagger.client.handler.ApiException;
+//import ca.uqam.tool.vivoproxy.swagger.client.handler.Configuration;
+//import ca.uqam.tool.vivoproxy.swagger.client.handler.auth.*;
+//import ca.uqam.tool.vivoproxy.swagger.client.api.PersonApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
