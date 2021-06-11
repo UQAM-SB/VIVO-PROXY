@@ -24,7 +24,7 @@ import javax.validation.Valid;
 /**
  * Vivo
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2021-06-11T16:42:46.963-04:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2021-06-11T16:56:11.478-04:00")
 public class Vivo   {
   @JsonProperty("iri")
   private String iri = null;

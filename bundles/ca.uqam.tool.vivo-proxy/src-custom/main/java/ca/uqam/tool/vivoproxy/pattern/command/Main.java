@@ -4,7 +4,7 @@ import java.util.logging.Logger;
 
 import com.squareup.okhttp.Request;
 
-import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
+import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;;
 
 public class Main {
     private final static Logger LOGGER = Logger.getLogger(Main.class.getName());

@@ -11,6 +11,7 @@ import com.squareup.okhttp.Response;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
 
 
+
 public class SparqlQueryReceiver extends CommandResult implements Receiver {
 
     private Response response;
