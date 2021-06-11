@@ -23,4 +23,9 @@
 #!docs/README.md
 
 #src/gen/java/main/io/swagger/api/PersonApi.java
-#/src/main/java/io/swagger/api/impl/PersonApiServiceImpl.java
+/src/main/java/ca/uqam/tool/vivoproxy/swagger/api/impl/OrganizationApiServiceImpl.java
+/src/main/java/ca/uqam/tool/vivoproxy/swagger/api/impl/PersonApiServiceImpl.java
+/src/main/java/ca/uqam/tool/vivoproxy/swagger/api/impl/VivoApiServiceImpl.java
+/src/test/java/ca/uqam/tool/vivoproxy/swagger/client/api/OrganizationApiTest.java
+/src/test/java/ca/uqam/tool/vivoproxy/swagger/client/api/PersonApiTest.java
+/src/test/java/ca/uqam/tool/vivoproxy/swagger/client/api/VivoApiTest.java

@@ -4,6 +4,7 @@ import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddMemberOfCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddOrganizationCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddPersonCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.LoginCommand;
+import ca.uqam.tool.vivoproxy.pattern.command.concrete.SparqlDescribeCommand;
 
 public class CommandFactory {
     private CommandInvoker invoker;
@@ -47,7 +48,9 @@ public class CommandFactory {
     public void setInvoker(CommandInvoker invoker) {
         this.invoker = invoker;
     }
-    
-
-
+    public Command createSparqlDescribeCommand(String login, String passwd, String iri) {
+        SparqlDescribeCommand sparqlDescribeCommand = new SparqlDescribeCommand(login, passwd, iri);
+        register(sparqlDescribeCommand);
+        return sparqlDescribeCommand;
+    }
 }

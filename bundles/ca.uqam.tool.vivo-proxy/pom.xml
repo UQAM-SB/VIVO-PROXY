@@ -3,19 +3,167 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>ca.uqam.tool.vivo-proxy</groupId>
     <artifactId>ca.uqam.tool.vivo-proxy</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
     <build>
-        <sourceDirectory>src</sourceDirectory>
+        <sourceDirectory>src/main/java</sourceDirectory>
+
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.java</include>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <excludes>
+                    <exclude>**/ca/uqam/tool/vivoproxy/swagger/api/impl/*.java</exclude>
+                </excludes>
+            </resource>
+        </resources>
+        <!-- <resource> -->
+        <!-- <directory>src/server/main/java</directory> -->
+        <!-- <includes> -->
+        <!-- <include>**/*.java</include> -->
+        <!-- <include>**/*.properties</include> -->
+        <!-- <include>**/*.xml</include> -->
+        <!-- </includes> -->
+        <!-- </resource> -->
+        <!-- <resource> -->
+        <!-- <directory>src-overlay/main/java</directory> -->
+        <!-- <includes> -->
+        <!-- <include>**/*.java</include> -->
+        <!-- <include>**/*.properties</include> -->
+        <!-- <include>**/*.xml</include> -->
+        <!-- </includes> -->
+        <!-- </resource> -->
+        <!-- <resource> -->
+        <!-- <directory>src-custom/main/java</directory> -->
+        <!-- <includes> -->
+        <!-- <include>**/*.java</include> -->
+        <!-- <include>**/*.properties</include> -->
+        <!-- <include>**/*.xml</include> -->
+        <!-- </includes> -->
+        <!-- </resource> -->
+        <!-- <resource> -->
+        <!-- <directory>src/client/main/java</directory> -->
+        <!-- <includes> -->
+        <!-- <include>**/*.java</include> -->
+        <!-- <include>**/*.properties</include> -->
+        <!-- <include>**/*.xml</include> -->
+        <!-- </includes> -->
+        <!-- </resource> -->
+        <!-- </resources> -->
+        <!-- <sourceDirectory>src, src-custom, src-overlay</sourceDirectory> -->
         <plugins>
             <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>src/server/main/javac</source>
+                                <source>src-overlay/main/java</source>
+                                <source>src-custom/main/java</source>
+                                <source>src/client/main/java</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.12.4</version>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+            <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.3</version>
+                <version>3.8.1</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                    <excludes>
+                        <exclude>src/main/java/ca/uqam/tool/vivoproxy/swagger/api/impl/*.java</exclude>
+                    </excludes>
+                    <testExcludes>
+                        <testExclude>src/main/java/ca/uqam/tool/vivoproxy/swagger/api/impl/*.java</testExclude>
+                    </testExcludes>
+                    <!-- <includes> -->
+                    <!-- <include>src-overlay/main/java/*.java</include> -->
+                    <!-- </includes> -->
                 </configuration>
+                <!-- <executions> -->
+                <!-- <execution> -->
+                <!-- <id>default-testCompile</id> -->
+                <!-- <phase>test-compile</phase> -->
+                <!-- <goals> -->
+                <!-- <goal>testCompile</goal> -->
+                <!-- </goals> -->
+                <!-- <configuration> -->
+                <!-- <skip>true</skip> -->
+                <!-- </configuration> -->
+                <!-- </execution> -->
+                <!-- </executions> -->
             </plugin>
+            <!-- <plugin> -->
+            <!-- <artifactId>maven-war-plugin</artifactId> -->
+            <!-- <version>3.3.1</version> -->
+            <!-- <executions> -->
+            <!-- <execution> -->
+            <!-- <id>default-war</id> -->
+            <!-- <phase>package</phase> -->
+            <!-- <goals> -->
+            <!-- <goal>war</goal> -->
+            <!-- </goals> -->
+            <!-- <configuration> -->
+            <!-- <warSourceDirectory>src/main/java</warSourceDirectory> -->
+            <!-- <warSourceExcludes>**/ca/uqam/tool/vivoproxy/swagger/api/impl</warSourceExcludes> -->
+            <!-- <webResources> -->
+            <!-- <webResource> -->
+            <!-- <directory>src/main/java</directory> -->
+            <!-- <includes> -->
+            <!-- <include>**/*.java</include> -->
+            <!-- </includes> -->
+            <!-- <includes> -->
+            <!-- <include>**/ca/uqam/tool/vivoproxy/swagger/api/*.java</include> -->
+            <!-- <include>**/ca/uqam/tool/vivoproxy/swagger/api/factories/*.java</include> -->
+            <!-- </includes> -->
+            <!-- <excludes> -->
+            <!-- <exclude>**/ca/uqam/tool/vivoproxy/swagger/api/impl/*.java</exclude> -->
+            <!-- </excludes> -->
+            <!-- </webResource> -->
+            <!-- <webResource> -->
+            <!-- <directory>src/server/main/java</directory> -->
+            <!-- <includes> -->
+            <!-- <include>**/*.java</include> -->
+            <!-- </includes> -->
+            <!-- </webResource> -->
+            <!-- <webResource> -->
+            <!-- <directory>src-overlay/main/java</directory> -->
+            <!-- <includes> -->
+            <!-- <include>**/*.java</include> -->
+            <!-- </includes> -->
+            <!-- </webResource> -->
+            <!-- <webResource> -->
+            <!-- <directory>src-custom/main/java</directory> -->
+            <!-- <includes> -->
+            <!-- <include>**/*.java</include> -->
+            <!-- </includes> -->
+            <!-- </webResource> -->
+            <!-- </webResources> -->
+            <!-- </configuration> -->
+            <!-- </execution> -->
+            <!-- </executions> -->
+            <!-- </plugin> -->
             <!-- voir https://github.com/swagger-api/swagger-codegen/tree/master/modules/swagger-codegen-maven-plugin -->
             <plugin>
                 <groupId>io.swagger</groupId>
@@ -36,7 +184,7 @@
                             <invokerPackage>${default.package}.handler</invokerPackage>
                             <output>${project.basedir}</output>
                             <configOptions>
-                                <sourceFolder>src/server/java/main</sourceFolder>
+                                <sourceFolder>src/server/main/java</sourceFolder>
                             </configOptions>
                         </configuration>
                     </execution>
@@ -52,7 +200,7 @@
                             <invokerPackage>${default.package}.handler</invokerPackage>
                             <inputSpec>${project.basedir}/api/vivo-proxy.yaml</inputSpec>
                             <language>bash</language>
-                            <output>${project.basedir}/src/bash</output>
+                            <output>${project.basedir}/src/client/main//bash</output>
                         </configuration>
                     </execution>
                     <execution>
@@ -69,7 +217,7 @@
                             <modelPackage>${default.package}.client.model</modelPackage>
                             <invokerPackage>${default.package}.client.handler</invokerPackage>
                             <configOptions>
-                                <sourceFolder>src/client/java/main</sourceFolder>
+                                <sourceFolder>src/client/main/java</sourceFolder>
                             </configOptions>
                         </configuration>
                     </execution>
@@ -353,7 +501,7 @@
             <version>2.1.1</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.jboss.resteasy/resteasy-jaxrs -->
- 
+
     </dependencies>
     <properties>
 

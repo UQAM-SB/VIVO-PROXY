@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.util.UUID;
 
 import ca.uqam.tool.vivoproxy.pattern.command.Command;
-import ca.uqam.tool.vivoproxy.pattern.command.CommandFactory;
-import ca.uqam.tool.vivoproxy.pattern.command.CommandInvoker;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
-import ca.uqam.tool.vivoproxy.pattern.command.VivoReceiver;
+import ca.uqam.tool.vivoproxy.pattern.command.receiver.Receiver;
+import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
+
 
 public class LoginCommand implements Command {
     private String name;
@@ -22,10 +22,10 @@ public class LoginCommand implements Command {
     private String username;
 
 
-    public CommandResult execute(VivoReceiver vivo) {
+    public CommandResult execute(Receiver vivo) {
         CommandResult result = null;
         try {
-            result = vivo.login(username, password);
+            result = ((VivoReceiver)vivo).login(username, password);
         } catch (IOException e) {
             e.printStackTrace();
         }

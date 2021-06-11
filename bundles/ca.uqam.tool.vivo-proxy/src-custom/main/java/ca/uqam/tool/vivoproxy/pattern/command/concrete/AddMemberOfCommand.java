@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import ca.uqam.tool.vivoproxy.pattern.command.Command;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
-import ca.uqam.tool.vivoproxy.pattern.command.VivoReceiver;
+import ca.uqam.tool.vivoproxy.pattern.command.receiver.*;
 
 public class AddMemberOfCommand implements Command {
 
@@ -30,10 +30,10 @@ public class AddMemberOfCommand implements Command {
 
     }
 
-    public CommandResult execute(VivoReceiver vivo) {
+    public CommandResult execute(Receiver vivo) {
         CommandResult result = null;
         try {
-            result = vivo.addMemberOf(getPersonUri(), getOrganizationUri(), getOrganizationLabel(), getRoleLabel(), getStartField_year(),
+            result = ((VivoReceiver)vivo).addMemberOf(getPersonUri(), getOrganizationUri(), getOrganizationLabel(), getRoleLabel(), getStartField_year(),
                     getEndField_year(), getVivoOrganisationType());
          
         } catch (IOException e) {

@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
 
+import ca.uqam.tool.vivoproxy.pattern.command.receiver.Receiver;
+import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
+
 public class CommandInvoker {
     private final static Logger LOGGER = Logger.getLogger(CommandInvoker.class.getName());
 
@@ -24,7 +27,7 @@ public class CommandInvoker {
     private final HashMap<String, Command> commandMap = new HashMap<>();
     private List<Command> history = new ArrayList<Command>();
 
-    private VivoReceiver vivoSession;
+    private Receiver session;
 
     public void register(String commandName, Command command) {
         LOGGER.info("Register ("+commandName+")");
@@ -39,12 +42,12 @@ public class CommandInvoker {
             throw new IllegalStateException("no command registered for " + cmdName);
         }
         this.history.add(command); // optional 
-        return command.execute(vivoSession);
+        return command.execute(session);
     }
     public CommandResult execute(Command command) {
         return execute(command.getName());
     }
-    public void setSession(VivoReceiver vivoSession) {
-        this.vivoSession = vivoSession;
+    public void setSession(Receiver session) {
+        this.session = session;
     }
 }

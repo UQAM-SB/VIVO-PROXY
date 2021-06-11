@@ -5,7 +5,8 @@ import java.util.UUID;
 
 import ca.uqam.tool.vivoproxy.pattern.command.Command;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
-import ca.uqam.tool.vivoproxy.pattern.command.VivoReceiver;
+import ca.uqam.tool.vivoproxy.pattern.command.receiver.Receiver;
+import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
 
 public class AddPersonCommand implements Command {
 
@@ -24,10 +25,11 @@ public class AddPersonCommand implements Command {
         setName(toString());
     }
 
-    public CommandResult execute(VivoReceiver vivo) {
+    @Override
+    public CommandResult execute(Receiver vivo) {
         CommandResult result = null;
         try {
-            result = vivo.addPerson(getFirstName(), getMiddleName(), getLastName(), getVivoPersonType());
+            result = ((VivoReceiver)vivo).addPerson(getFirstName(), getMiddleName(), getLastName(), getVivoPersonType());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -84,5 +86,6 @@ public class AddPersonCommand implements Command {
                 + (lastName != null ? "lastName=" + lastName + ", " : "")
                 + (vivoPersonType != null ? "vivoPersonType=" + vivoPersonType : "") + "]";
     }
+
 
 }
