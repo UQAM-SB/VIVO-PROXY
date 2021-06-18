@@ -297,8 +297,7 @@ case $state in
     # Operations
     _values "Operations" \
             "createOrganization[Create an organization in VIVO]"             "createPerson[Create a person in VIVO]" \
-            "getPersonByID[Get person by ID]" \
-            "getPersonByIRI[Get person by VIVO IRI]"             "getindividualByIRI[Get an individual by IRI]" 
+            "createPositionFor[Create organizational position for]"             "getindividualByIRI[Get an individual by IRI]" 
     _arguments "(--help)--help[Print information about operation]"
 
     ret=0
@@ -317,18 +316,10 @@ case $state in
                               )
         _describe -t actions 'operations' _op_arguments -S '' && ret=0
         ;;
-      getPersonByID)
+      createPositionFor)
         local -a _op_arguments
         _op_arguments=(
-          "id=:[PATH] The name that needs to be fetched. Use person1 for testing."
-                    )
-        _describe -t actions 'operations' _op_arguments -S '' && ret=0
-        ;;
-      getPersonByIRI)
-        local -a _op_arguments
-        _op_arguments=(
-                    "iri=:[QUERY] The iri that needs to be fetched. Use person1 for testing."
-          )
+                              )
         _describe -t actions 'operations' _op_arguments -S '' && ret=0
         ;;
       getindividualByIRI)

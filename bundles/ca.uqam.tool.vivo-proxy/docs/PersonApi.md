@@ -5,8 +5,7 @@ All URIs are relative to *http://localhost:9090/vivoproxy*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createPerson**](PersonApi.md#createPerson) | **POST** /person | Create a person in VIVO
-[**getPersonByID**](PersonApi.md#getPersonByID) | **GET** /person/{id} | Get person by ID
-[**getPersonByIRI**](PersonApi.md#getPersonByIRI) | **GET** /person/iri | Get person by VIVO IRI
+[**createPositionFor**](PersonApi.md#createPositionFor) | **PUT** /person | Create organizational position for
 
 
 <a name="createPerson"></a>
@@ -60,67 +59,13 @@ null (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/xml, application/json
+ - **Accept**: application/json, text/plain, application/rdf+xml, text/n3, text/turtle, text/funtional, text/manchester, application/owl+xml
 
-<a name="getPersonByID"></a>
-# **getPersonByID**
-> Person getPersonByID(id)
+<a name="createPositionFor"></a>
+# **createPositionFor**
+> createPositionFor(body)
 
-Get person by ID
-
-
-
-### Example
-```java
-// Import classes:
-//import ca.uqam.tool.vivoproxy.swagger.client.handler.ApiClient;
-//import ca.uqam.tool.vivoproxy.swagger.client.handler.ApiException;
-//import ca.uqam.tool.vivoproxy.swagger.client.handler.Configuration;
-//import ca.uqam.tool.vivoproxy.swagger.client.handler.auth.*;
-//import ca.uqam.tool.vivoproxy.swagger.client.api.PersonApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure HTTP basic authorization: basicAuth
-HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
-basicAuth.setUsername("YOUR USERNAME");
-basicAuth.setPassword("YOUR PASSWORD");
-
-PersonApi apiInstance = new PersonApi();
-String id = "id_example"; // String | The name that needs to be fetched. Use person1 for testing. 
-try {
-    Person result = apiInstance.getPersonByID(id);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling PersonApi#getPersonByID");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The name that needs to be fetched. Use person1 for testing.  |
-
-### Return type
-
-[**Person**](Person.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/xml, application/json
-
-<a name="getPersonByIRI"></a>
-# **getPersonByIRI**
-> Person getPersonByIRI(iri)
-
-Get person by VIVO IRI
+Create organizational position for
 
 
 
@@ -141,12 +86,11 @@ basicAuth.setUsername("YOUR USERNAME");
 basicAuth.setPassword("YOUR PASSWORD");
 
 PersonApi apiInstance = new PersonApi();
-String iri = "iri_example"; // String | The iri that needs to be fetched. Use person1 for testing. 
+PositionOfPerson body = new PositionOfPerson(); // PositionOfPerson | Person that need to be in an organization
 try {
-    Person result = apiInstance.getPersonByIRI(iri);
-    System.out.println(result);
+    apiInstance.createPositionFor(body);
 } catch (ApiException e) {
-    System.err.println("Exception when calling PersonApi#getPersonByIRI");
+    System.err.println("Exception when calling PersonApi#createPositionFor");
     e.printStackTrace();
 }
 ```
@@ -155,11 +99,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **iri** | **String**| The iri that needs to be fetched. Use person1 for testing.  |
+ **body** | [**PositionOfPerson**](PositionOfPerson.md)| Person that need to be in an organization |
 
 ### Return type
 
-[**Person**](Person.md)
+null (empty response body)
 
 ### Authorization
 
@@ -167,6 +111,6 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/xml, application/json
+ - **Content-Type**: application/json, application/xml
+ - **Accept**: application/json, text/plain, application/rdf+xml, text/n3, text/turtle, text/funtional, text/manchester, application/owl+xml
 

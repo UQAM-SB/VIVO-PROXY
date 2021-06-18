@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.jaxrs.*;
 
 import ca.uqam.tool.vivoproxy.swagger.model.Person;
+import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
 
 import java.util.Map;
 import java.util.List;
@@ -29,7 +30,7 @@ import javax.validation.constraints.*;
 
 
 @io.swagger.annotations.Api(description = "the person API")
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2021-06-11T16:56:11.478-04:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2021-06-18T16:30:38.733-04:00")
 public class PersonApi  {
    private final PersonApiService delegate;
 
@@ -57,7 +58,7 @@ public class PersonApi  {
     @POST
     
     
-    @Produces({ "application/xml", "application/json" })
+    @Produces({ "application/json", "text/plain", "application/rdf+xml", "text/n3", "text/turtle", "text/funtional", "text/manchester", "application/owl+xml" })
     @io.swagger.annotations.ApiOperation(value = "Create a person in VIVO", notes = "This can only be done by the logged in person.", response = Void.class, authorizations = {
         @io.swagger.annotations.Authorization(value = "basicAuth")
     }, tags={ "person", })
@@ -72,44 +73,22 @@ public class PersonApi  {
     throws NotFoundException {
         return delegate.createPerson(body,securityContext);
     }
-    @GET
-    @Path("/{id}")
+    @PUT
     
-    @Produces({ "application/xml", "application/json" })
-    @io.swagger.annotations.ApiOperation(value = "Get person by ID", notes = "", response = Person.class, authorizations = {
+    @Consumes({ "application/json", "application/xml" })
+    @Produces({ "application/json", "text/plain", "application/rdf+xml", "text/n3", "text/turtle", "text/funtional", "text/manchester", "application/owl+xml" })
+    @io.swagger.annotations.ApiOperation(value = "Create organizational position for", notes = "", response = Void.class, authorizations = {
         @io.swagger.annotations.Authorization(value = "basicAuth")
     }, tags={ "person", })
     @io.swagger.annotations.ApiResponses(value = { 
-        @io.swagger.annotations.ApiResponse(code = 200, message = "successful operation", response = Person.class),
+        @io.swagger.annotations.ApiResponse(code = 400, message = "Invalid ID supplied", response = Void.class),
         
-        @io.swagger.annotations.ApiResponse(code = 400, message = "Invalid personname supplied", response = Void.class),
+        @io.swagger.annotations.ApiResponse(code = 404, message = "Pet not found", response = Void.class),
         
-        @io.swagger.annotations.ApiResponse(code = 401, message = "Authentication information is missing or invalid", response = Void.class),
-        
-        @io.swagger.annotations.ApiResponse(code = 404, message = "person not found", response = Void.class) })
-    public Response getPersonByID(@ApiParam(value = "The name that needs to be fetched. Use person1 for testing. ",required=true) @PathParam("id") String id
+        @io.swagger.annotations.ApiResponse(code = 405, message = "Validation exception", response = Void.class) })
+    public Response createPositionFor(@ApiParam(value = "Person that need to be in an organization" ,required=true) PositionOfPerson body
 ,@Context SecurityContext securityContext)
     throws NotFoundException {
-        return delegate.getPersonByID(id,securityContext);
-    }
-    @GET
-    @Path("/iri")
-    
-    @Produces({ "application/xml", "application/json" })
-    @io.swagger.annotations.ApiOperation(value = "Get person by VIVO IRI", notes = "", response = Person.class, authorizations = {
-        @io.swagger.annotations.Authorization(value = "basicAuth")
-    }, tags={ "person", })
-    @io.swagger.annotations.ApiResponses(value = { 
-        @io.swagger.annotations.ApiResponse(code = 200, message = "successful operation", response = Person.class),
-        
-        @io.swagger.annotations.ApiResponse(code = 400, message = "Invalid personname supplied", response = Void.class),
-        
-        @io.swagger.annotations.ApiResponse(code = 401, message = "Authentication information is missing or invalid", response = Void.class),
-        
-        @io.swagger.annotations.ApiResponse(code = 404, message = "person not found", response = Void.class) })
-    public Response getPersonByIRI(@ApiParam(value = "The iri that needs to be fetched. Use person1 for testing. ",required=true) @QueryParam("iri") String iri
-,@Context SecurityContext securityContext)
-    throws NotFoundException {
-        return delegate.getPersonByIRI(iri,securityContext);
+        return delegate.createPositionFor(body,securityContext);
     }
 }

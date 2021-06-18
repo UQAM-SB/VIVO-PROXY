@@ -12,12 +12,14 @@ import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
 
 
 
-public class SparqlQueryReceiver extends CommandResult implements Receiver {
+public class SparqlQueryReceiver extends AbstractReceiver {
 
     private Response response;
     private String hostName;
     private String vivoSiteName;
-    public CommandResult DESCRIBE(String username, String passwd, String IRI) throws IOException{
+    private String MIME_Type;
+    public CommandResult DESCRIBE(String username, String passwd, String IRI, String MIME_Type) throws IOException{
+        MIME_Type = MIME_Type;
         String bodyValue = 
                 "email="+username+
                 "&password="+passwd+
@@ -30,11 +32,14 @@ public class SparqlQueryReceiver extends CommandResult implements Receiver {
         Request request = new Request.Builder()
                 .url(getSiteUrl()+"/api/sparqlQuery")
                 .method("POST", body)
-                .addHeader("Accept", "application/json")
+                .addHeader("Accept", MIME_Type)
                 .addHeader("Content-Type", "application/x-www-form-urlencoded")
                 .build();
         Response response = client.newCall(request).execute();
         return CommandResult.asCommandResult(response);
+    }
+    public CommandResult DESCRIBE(String username, String passwd, String IRI) throws IOException{
+        return DESCRIBE(username, passwd, IRI, "application/json");
     }
     public static void main(String[] args) throws IOException {
         String username = "vivo@uqam.ca";

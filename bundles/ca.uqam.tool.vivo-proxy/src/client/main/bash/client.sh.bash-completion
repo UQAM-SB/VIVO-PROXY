@@ -70,8 +70,7 @@ _()
     declare -A operations
     operations["createOrganization"]=1
     operations["createPerson"]=1
-    operations["getPersonByID"]=1
-    operations["getPersonByIRI"]=1
+    operations["createPositionFor"]=1
     operations["getindividualByIRI"]=1
 
     # An associative array of operations to their parameters
@@ -79,8 +78,7 @@ _()
     declare -A operation_parameters
     operation_parameters["createOrganization"]=""
     operation_parameters["createPerson"]=""
-    operation_parameters["getPersonByID"]="id= "
-    operation_parameters["getPersonByIRI"]="iri= "
+    operation_parameters["createPositionFor"]=""
     operation_parameters["getindividualByIRI"]="IRI= "
 
     # An associative array of possible values for enum parameters

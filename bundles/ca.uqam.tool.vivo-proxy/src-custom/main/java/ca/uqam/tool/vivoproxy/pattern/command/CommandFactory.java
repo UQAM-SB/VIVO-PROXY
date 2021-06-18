@@ -1,10 +1,11 @@
 package ca.uqam.tool.vivoproxy.pattern.command;
 
-import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddMemberOfCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddOrganizationCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddPersonCommand;
+import ca.uqam.tool.vivoproxy.pattern.command.concrete.CreatePositionForCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.LoginCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.SparqlDescribeCommand;
+import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
 
 public class CommandFactory {
     private CommandInvoker invoker;
@@ -34,11 +35,11 @@ public class CommandFactory {
         register(addOrganizationCommand);
         return addOrganizationCommand;
     }
-    public Command createAddMemberOf(String personUri, String organizationUri, String roleLabel, String startField_year, String endField_year, String vivoOrganisationType) {
-        AddMemberOfCommand addOrganizationCommand = new AddMemberOfCommand( personUri,  organizationUri,  roleLabel,  startField_year,  endField_year,  vivoOrganisationType);
-        register(addOrganizationCommand);
-        return addOrganizationCommand;
-    }
+//    public Command createAddMemberOf(String personUri, String organizationUri, String roleLabel, String startField_year, String endField_year, String vivoOrganisationType) {
+//        AddMemberOfCommand addOrganizationCommand = new AddMemberOfCommand( personUri,  organizationUri,  roleLabel,  startField_year,  endField_year,  vivoOrganisationType);
+//        register(addOrganizationCommand);
+//        return addOrganizationCommand;
+//    }
     private void register(Command aCommand) {
         if (getInvoker() != null )getInvoker().register(aCommand);
     }
@@ -49,8 +50,16 @@ public class CommandFactory {
         this.invoker = invoker;
     }
     public Command createSparqlDescribeCommand(String login, String passwd, String iri) {
-        SparqlDescribeCommand sparqlDescribeCommand = new SparqlDescribeCommand(login, passwd, iri);
+        return createSparqlDescribeCommand(login, passwd, iri, "text/turtle");
+    }
+    public Command createSparqlDescribeCommand(String login, String passwd, String iri, String MINE_TYPE) {
+        SparqlDescribeCommand sparqlDescribeCommand = new SparqlDescribeCommand(login, passwd, iri, MINE_TYPE);
         register(sparqlDescribeCommand);
         return sparqlDescribeCommand;
+    }
+    public Command createPositionFor(PositionOfPerson body) {
+        CreatePositionForCommand createPositionForCommand = new CreatePositionForCommand(body);
+        register(createPositionForCommand);
+        return createPositionForCommand;
     }
 }

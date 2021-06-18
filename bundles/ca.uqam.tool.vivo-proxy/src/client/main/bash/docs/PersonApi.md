@@ -5,8 +5,7 @@ All URIs are relative to */vivoproxy*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createPerson**](PersonApi.md#createPerson) | **POST** /person | Create a person in VIVO
-[**getPersonByID**](PersonApi.md#getPersonByID) | **GET** /person/{id} | Get person by ID
-[**getPersonByIRI**](PersonApi.md#getPersonByIRI) | **GET** /person/iri | Get person by VIVO IRI
+[**createPositionFor**](PersonApi.md#createPositionFor) | **PUT** /person | Create organizational position for
 
 
 ## **createPerson**
@@ -37,30 +36,30 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not Applicable
- - **Accept**: application/xml, application/json
+ - **Accept**: application/json, text/plain, application/rdf+xml, text/n3, text/turtle, text/funtional, text/manchester, application/owl+xml
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-## **getPersonByID**
+## **createPositionFor**
 
-Get person by ID
+Create organizational position for
 
 
 
 ### Example
 ```bash
- getPersonByID id=value
+ createPositionFor
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **string** | The name that needs to be fetched. Use person1 for testing. |
+ **body** | [**PositionOfPerson**](PositionOfPerson.md) | Person that need to be in an organization |
 
 ### Return type
 
-[**Person**](Person.md)
+(empty response body)
 
 ### Authorization
 
@@ -68,40 +67,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not Applicable
- - **Accept**: application/xml, application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-## **getPersonByIRI**
-
-Get person by VIVO IRI
-
-
-
-### Example
-```bash
- getPersonByIRI  iri=value
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **iri** | **string** | The iri that needs to be fetched. Use person1 for testing. |
-
-### Return type
-
-[**Person**](Person.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not Applicable
- - **Accept**: application/xml, application/json
+ - **Content-Type**: application/json, application/xml
+ - **Accept**: application/json, text/plain, application/rdf+xml, text/n3, text/turtle, text/funtional, text/manchester, application/owl+xml
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

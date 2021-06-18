@@ -96,8 +96,7 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *OrganizationApi* | [**createOrganization**](docs/OrganizationApi.md#createorganization) | **POST** /organization | Create an organization in VIVO
 *PersonApi* | [**createPerson**](docs/PersonApi.md#createperson) | **POST** /person | Create a person in VIVO
-*PersonApi* | [**getPersonByID**](docs/PersonApi.md#getpersonbyid) | **GET** /person/{id} | Get person by ID
-*PersonApi* | [**getPersonByIRI**](docs/PersonApi.md#getpersonbyiri) | **GET** /person/iri | Get person by VIVO IRI
+*PersonApi* | [**createPositionFor**](docs/PersonApi.md#createpositionfor) | **PUT** /person | Create organizational position for
 *VivoApi* | [**getindividualByIRI**](docs/VivoApi.md#getindividualbyiri) | **GET** /vivo | Get an individual by IRI
 
 
@@ -105,6 +104,7 @@ Class | Method | HTTP request | Description
 
  - [Organization](docs/Organization.md)
  - [Person](docs/Person.md)
+ - [PositionOfPerson](docs/PositionOfPerson.md)
  - [Vivo](docs/Vivo.md)
 
 

@@ -28,6 +28,7 @@ import java.io.IOException;
 
 
 import ca.uqam.tool.vivoproxy.swagger.client.model.Person;
+import ca.uqam.tool.vivoproxy.swagger.client.model.PositionOfPerson;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -76,7 +77,7 @@ public class PersonApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "application/xml", "application/json"
+            "application/json", "text/plain", "application/rdf+xml", "text/n3", "text/turtle", "text/funtional", "text/manchester", "application/owl+xml"
         };
         final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
@@ -173,19 +174,18 @@ public class PersonApi {
         return call;
     }
     /**
-     * Build call for getPersonByID
-     * @param id The name that needs to be fetched. Use person1 for testing.  (required)
+     * Build call for createPositionFor
+     * @param body Person that need to be in an organization (required)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call getPersonByIDCall(String id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        Object localVarPostBody = null;
+    public com.squareup.okhttp.Call createPositionForCall(PositionOfPerson body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = body;
 
         // create path and map variables
-        String localVarPath = "/person/{id}"
-            .replaceAll("\\{" + "id" + "\\}", apiClient.escapeString(id.toString()));
+        String localVarPath = "/person";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -195,13 +195,13 @@ public class PersonApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "application/xml", "application/json"
+            "application/json", "text/plain", "application/rdf+xml", "text/n3", "text/turtle", "text/funtional", "text/manchester", "application/owl+xml"
         };
         final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
 
         final String[] localVarContentTypes = {
-            
+            "application/json", "application/xml"
         };
         final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
@@ -219,57 +219,54 @@ public class PersonApi {
         }
 
         String[] localVarAuthNames = new String[] { "basicAuth" };
-        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+        return apiClient.buildCall(localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call getPersonByIDValidateBeforeCall(String id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call createPositionForValidateBeforeCall(PositionOfPerson body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new ApiException("Missing the required parameter 'id' when calling getPersonByID(Async)");
+        // verify the required parameter 'body' is set
+        if (body == null) {
+            throw new ApiException("Missing the required parameter 'body' when calling createPositionFor(Async)");
         }
         
 
-        com.squareup.okhttp.Call call = getPersonByIDCall(id, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = createPositionForCall(body, progressListener, progressRequestListener);
         return call;
 
     }
 
     /**
-     * Get person by ID
+     * Create organizational position for
      * 
-     * @param id The name that needs to be fetched. Use person1 for testing.  (required)
-     * @return Person
+     * @param body Person that need to be in an organization (required)
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public Person getPersonByID(String id) throws ApiException {
-        ApiResponse<Person> resp = getPersonByIDWithHttpInfo(id);
-        return resp.getData();
+    public void createPositionFor(PositionOfPerson body) throws ApiException {
+        createPositionForWithHttpInfo(body);
     }
 
     /**
-     * Get person by ID
+     * Create organizational position for
      * 
-     * @param id The name that needs to be fetched. Use person1 for testing.  (required)
-     * @return ApiResponse&lt;Person&gt;
+     * @param body Person that need to be in an organization (required)
+     * @return ApiResponse&lt;Void&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<Person> getPersonByIDWithHttpInfo(String id) throws ApiException {
-        com.squareup.okhttp.Call call = getPersonByIDValidateBeforeCall(id, null, null);
-        Type localVarReturnType = new TypeToken<Person>(){}.getType();
-        return apiClient.execute(call, localVarReturnType);
+    public ApiResponse<Void> createPositionForWithHttpInfo(PositionOfPerson body) throws ApiException {
+        com.squareup.okhttp.Call call = createPositionForValidateBeforeCall(body, null, null);
+        return apiClient.execute(call);
     }
 
     /**
-     * Get person by ID (asynchronously)
+     * Create organizational position for (asynchronously)
      * 
-     * @param id The name that needs to be fetched. Use person1 for testing.  (required)
+     * @param body Person that need to be in an organization (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call getPersonByIDAsync(String id, final ApiCallback<Person> callback) throws ApiException {
+    public com.squareup.okhttp.Call createPositionForAsync(PositionOfPerson body, final ApiCallback<Void> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -290,133 +287,8 @@ public class PersonApi {
             };
         }
 
-        com.squareup.okhttp.Call call = getPersonByIDValidateBeforeCall(id, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<Person>(){}.getType();
-        apiClient.executeAsync(call, localVarReturnType, callback);
-        return call;
-    }
-    /**
-     * Build call for getPersonByIRI
-     * @param iri The iri that needs to be fetched. Use person1 for testing.  (required)
-     * @param progressListener Progress listener
-     * @param progressRequestListener Progress request listener
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     */
-    public com.squareup.okhttp.Call getPersonByIRICall(String iri, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/person/iri";
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        if (iri != null)
-        localVarQueryParams.addAll(apiClient.parameterToPair("iri", iri));
-
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/xml", "application/json"
-        };
-        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        if(progressListener != null) {
-            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
-                @Override
-                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
-                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
-                    return originalResponse.newBuilder()
-                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
-                    .build();
-                }
-            });
-        }
-
-        String[] localVarAuthNames = new String[] { "basicAuth" };
-        return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call getPersonByIRIValidateBeforeCall(String iri, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
-        // verify the required parameter 'iri' is set
-        if (iri == null) {
-            throw new ApiException("Missing the required parameter 'iri' when calling getPersonByIRI(Async)");
-        }
-        
-
-        com.squareup.okhttp.Call call = getPersonByIRICall(iri, progressListener, progressRequestListener);
-        return call;
-
-    }
-
-    /**
-     * Get person by VIVO IRI
-     * 
-     * @param iri The iri that needs to be fetched. Use person1 for testing.  (required)
-     * @return Person
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     */
-    public Person getPersonByIRI(String iri) throws ApiException {
-        ApiResponse<Person> resp = getPersonByIRIWithHttpInfo(iri);
-        return resp.getData();
-    }
-
-    /**
-     * Get person by VIVO IRI
-     * 
-     * @param iri The iri that needs to be fetched. Use person1 for testing.  (required)
-     * @return ApiResponse&lt;Person&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     */
-    public ApiResponse<Person> getPersonByIRIWithHttpInfo(String iri) throws ApiException {
-        com.squareup.okhttp.Call call = getPersonByIRIValidateBeforeCall(iri, null, null);
-        Type localVarReturnType = new TypeToken<Person>(){}.getType();
-        return apiClient.execute(call, localVarReturnType);
-    }
-
-    /**
-     * Get person by VIVO IRI (asynchronously)
-     * 
-     * @param iri The iri that needs to be fetched. Use person1 for testing.  (required)
-     * @param callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     */
-    public com.squareup.okhttp.Call getPersonByIRIAsync(String iri, final ApiCallback<Person> callback) throws ApiException {
-
-        ProgressResponseBody.ProgressListener progressListener = null;
-        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
-
-        if (callback != null) {
-            progressListener = new ProgressResponseBody.ProgressListener() {
-                @Override
-                public void update(long bytesRead, long contentLength, boolean done) {
-                    callback.onDownloadProgress(bytesRead, contentLength, done);
-                }
-            };
-
-            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
-                @Override
-                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
-                    callback.onUploadProgress(bytesWritten, contentLength, done);
-                }
-            };
-        }
-
-        com.squareup.okhttp.Call call = getPersonByIRIValidateBeforeCall(iri, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<Person>(){}.getType();
-        apiClient.executeAsync(call, localVarReturnType, callback);
+        com.squareup.okhttp.Call call = createPositionForValidateBeforeCall(body, progressListener, progressRequestListener);
+        apiClient.executeAsync(call, callback);
         return call;
     }
 }

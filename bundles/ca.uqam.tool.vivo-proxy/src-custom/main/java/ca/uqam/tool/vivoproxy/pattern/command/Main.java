@@ -29,7 +29,7 @@ public class Main {
         Command addPersonCommand = cf.createAddPerson(firstName, "2", lastName, VivoReceiver.VIVO_GRADUATE_STUDENT);
         Command addMichelCommand = cf.createAddPerson("Michel", "2", "Héon", VivoReceiver.VIVO_GRADUATE_STUDENT);
         Command addOrganizationCommand = cf.createOrganization(organisationName, VivoReceiver.VIVO_COLLEGE);
-        Command addMemberOfCommand = cf.createAddMemberOf("n4851", "n868", "Professeur",  "2001", "2021", VivoReceiver.VIVO_COLLEGE);
+ //       Command addMemberOfCommand = cf.createAddMemberOf("n4851", "n868", "Professeur",  "2001", "2021", VivoReceiver.VIVO_COLLEGE);
         invoker.execute(loginCommand);
         invoker.execute(addPersonCommand);
         invoker.execute(addMichelCommand);

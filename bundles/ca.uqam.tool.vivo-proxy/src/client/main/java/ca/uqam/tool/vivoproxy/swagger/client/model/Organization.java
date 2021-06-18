@@ -27,34 +27,13 @@ import java.io.IOException;
 /**
  * Organization
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-06-11T16:56:11.567-04:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-06-18T16:30:38.984-04:00")
 public class Organization {
-  @SerializedName("id")
-  private String id = null;
-
   @SerializedName("organizationType")
   private String organizationType = null;
 
   @SerializedName("Name")
   private String name = null;
-
-  public Organization id(String id) {
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * Get id
-   * @return id
-  **/
-  @ApiModelProperty(example = "http://localhost:8080/vivo/individual/n1234", value = "")
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
 
   public Organization organizationType(String organizationType) {
     this.organizationType = organizationType;
@@ -102,14 +81,13 @@ public class Organization {
       return false;
     }
     Organization organization = (Organization) o;
-    return Objects.equals(this.id, organization.id) &&
-        Objects.equals(this.organizationType, organization.organizationType) &&
+    return Objects.equals(this.organizationType, organization.organizationType) &&
         Objects.equals(this.name, organization.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, organizationType, name);
+    return Objects.hash(organizationType, name);
   }
 
 
@@ -118,7 +96,6 @@ public class Organization {
     StringBuilder sb = new StringBuilder();
     sb.append("class Organization {\n");
     
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    organizationType: ").append(toIndentedString(organizationType)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("}");

@@ -4,7 +4,7 @@ import java.io.IOException;
 import ca.uqam.tool.vivoproxy.pattern.command.Command;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
 import ca.uqam.tool.vivoproxy.pattern.command.receiver.Receiver;
-import ca.uqam.tool.vivoproxy.pattern.command.receiver.SparqlQueryReceiver;
+import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
 
 public class SparqlDescribeCommand implements Command {
 
@@ -12,20 +12,30 @@ public class SparqlDescribeCommand implements Command {
     private String login;
     private String passwd;
     private String iri;
+    private String MINE_TYPE;
 
     public SparqlDescribeCommand(String login, String passwd, String iri) {
         super();
         this.setLogin(login);
         this.setPasswd(passwd);
         this.setIri(iri);
+        this.setMINE_TYPE("text/turtle");
+        setName(toString());
+    }
+
+    public SparqlDescribeCommand(String login, String passwd, String iri, String MINE_TYPE) {
+        super();
+        this.setLogin(login);
+        this.setPasswd(passwd);
+        this.setIri(iri);
+        this.setMINE_TYPE(MINE_TYPE);
         setName(toString());
     }
 
     public CommandResult execute(Receiver receiver) {
         CommandResult result = null;
         try {
-            
-            result = ((SparqlQueryReceiver)receiver).DESCRIBE(login, passwd, iri);
+            result = ((VivoReceiver)receiver).DESCRIBE(login, passwd, iri, MINE_TYPE);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -81,14 +91,30 @@ public class SparqlDescribeCommand implements Command {
         this.iri = iri;
     }
 
+
+
+    /**
+     * @return the mINE_TYPE
+     */
+    public String getMINE_TYPE() {
+        return MINE_TYPE;
+    }
+
+    /**
+     * @param mINE_TYPE the mINE_TYPE to set
+     */
+    public void setMINE_TYPE(String mINE_TYPE) {
+        MINE_TYPE = mINE_TYPE;
+    }
+
     /* (non-Javadoc)
      * @see java.lang.Object#toString()
      */
     @Override
     public String toString() {
         return "SparqlDescribeCommand [" + (name != null ? "name=" + name + ", " : "")
-                + (login != null ? "login=" + login + ", " : "") + (passwd != null ? "passwd=secret" + ", " : "")
-                + (iri != null ? "iri=" + iri : "") + "]";
+                + (login != null ? "login=" + login + ", " : "") + (iri != null ? "iri=" + iri + ", " : "")
+                + (MINE_TYPE != null ? "MINE_TYPE=" + MINE_TYPE : "") + "]";
     }
 
 }

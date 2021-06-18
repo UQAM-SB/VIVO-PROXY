@@ -1,0 +1,115 @@
+<!doctype html><!-- wilma home.ftl  -->
+<html lang="fr-CA"> 
+ <head> 
+  <meta charset="utf-8"> <!-- Google Chrome Frame open source plug-in brings Google Chrome's open web technologies and speedy JavaScript engine to Internet Explorer--> 
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+  <meta name="generator" content="VIVO 1.11.2-SNAPSHOT"> 
+  <title>Connectez-vous - VIVO</title> <!-- vitro base styles (application-wide) --> 
+  <link rel="stylesheet" href="/vivo/css/vitro.css"> 
+  <link rel="stylesheet" href="/vivo/css/login.css?version=60d0"> 
+  <link rel="stylesheet" href="/vivo/css/edit.css"> 
+  <link rel="stylesheet" href="/vivo/themes/wilma/css/screen.css"> 
+  <script>
+var i18nStrings = {
+    allCapitalized: 'Tous',
+};
+</script> 
+  <script type="text/javascript" src="/vivo/js/jquery-1.12.4.min.js"></script> 
+  <script type="text/javascript" src="/vivo/js/jquery-migrate-1.4.1.js"></script> 
+  <script type="text/javascript" src="/vivo/js/vitroUtils.js"></script> <!--[if lt IE 9]>
+<script type="text/javascript" src="/vivo/js/html5.js"></script>
+<![endif]--> <!--[if (gte IE 6)&(lte IE 8)]>
+<script type="text/javascript" src="/vivo/js/selectivizr.js"></script>
+<![endif]--> 
+  <link rel="shortcut icon" type="image/x-icon" href="/vivo/favicon.ico"> 
+ </head> 
+ <body class="login" onload=""> 
+  <header id="branding" role="banner"> 
+   <h1 class="vivo-logo"><a title="VIVO | Connecter, partager, découvrir" href="/vivo"><span class="displace">VIVO</span></a></h1> 
+   <nav role="navigation"> 
+    <ul id="header-nav" role="list"> 
+     <li>
+      <ul class="language-dropdown"> 
+       <li id="language-menu"><a id="lang-link" href="#" title="Choisir une langue">Choisir une langue</a>
+        <ul class="sub_menu"> 
+         <li status="selected"> <a href="/vivo/selectLocale?selection=fr_CA" title="Choisir une langue -- français">Français (Canada)</a> </li> 
+         <li> <a href="/vivo/selectLocale?selection=en_US" title="Choisir une langue -- English">English (United States)</a> </li> 
+         <li> <a href="/vivo/selectLocale?selection=de_DE" title="Choisir une langue -- Deutsch">Deutsch (Deutschland)</a> </li> 
+        </ul> </li>
+      </ul></li> 
+     <script type="text/javascript">
+var i18nStringsLangMenu = {
+    selectLanguage: "Choisir une langue"
+};
+</script> 
+     <li role="listitem"><a href="/vivo/browse" title="Index">Index</a></li> 
+     <li role="listitem"><a class="log-out" title="Connectez-vous pour gérer ce site" href="/vivo/authenticate?return=true">Connexion</a></li> 
+    </ul> 
+   </nav> 
+   <section id="search" role="region"> 
+    <fieldset> <legend>Formulaire de recherche</legend> 
+     <form id="search-form" action="/vivo/search" name="search" role="search" accept-charset="UTF-8" method="POST"> 
+      <div id="search-field"> 
+       <input type="text" name="querytext" class="search-vivo" value="" autocapitalize="off"> 
+       <input type="submit" value="Chercher" class="search"> 
+      </div> 
+     </form> 
+    </fieldset> 
+   </section> 
+  </header> 
+  <div id="developerPanel"> 
+  </div> 
+  <script>
+    developerAjaxUrl = '/vivo/admin/developerAjax'
+    developerCssLinks = ["/vivo/css/developer/developerPanel.css", "/vivo/js/jquery-ui/css/smoothness/jquery-ui-1.12.1.css"]
+</script> 
+  <nav role="navigation"> 
+   <ul id="main-nav" role="list"> 
+    <li role="listitem"><a href="/vivo/" title="Accueil élément de menu">Accueil</a></li> 
+    <li role="listitem"><a href="/vivo/people" title="Personnes élément de menu">Personnes</a></li> 
+    <li role="listitem"><a href="/vivo/organizations" title="Organisations élément de menu">Organisations</a></li> 
+    <li role="listitem"><a href="/vivo/research" title="Recherche élément de menu">Recherche</a></li> 
+    <li role="listitem"><a href="/vivo/events" title="Événements élément de menu">Événements</a></li> 
+    <li role="listitem"><a href="/vivo/vis/capabilitymap" title="Expertises élément de menu">Expertises</a></li> 
+   </ul> 
+  </nav> 
+  <div id="wrapper-content" role="main"> <!--[if lte IE 8]>
+    <noscript>
+        <p class="ie-alert">This site uses HTML elements that are not recognized by Internet Explorer 8 and below in the absence of JavaScript. As a result, the site will not be rendered appropriately. To correct this, please either enable JavaScript, upgrade to Internet Explorer 9, or use another browser. Here are the <a href="http://www.enable-javascript.com"  title="java script instructions">instructions for enabling JavaScript in your web browser</a>.</p>
+    </noscript>
+    <![endif]--> 
+   <noscript> 
+    <section id="error-alert"> 
+     <img src="/vivo/images/iconAlertBig.png" alt="Icône d'alerte"> 
+     <p>Pour pouvoir modifier le contenu, vous devez activer JavaScript. <a href="http://www.enable-javascript.com" title="instructions JavaScript">Voici les instructions pour activer JavaScript dans votre navigateur Web</a>.</p> 
+    </section> 
+   </noscript> 
+   <section id="login" class="hidden"> 
+    <h2>Connexion</h2> 
+    <form role="form" id="login-form" action="/vivo/authenticate" method="post" name="login-form"> 
+     <div> <label for="loginName">Courriel</label> 
+      <input id="loginName" name="loginName" class="text-field focus" type="text" value="" autocapitalize="off" required autofocus> <label for="loginPassword">Mot de passe</label> 
+      <input id="loginPassword" name="loginPassword" class="text-field" type="password" required> 
+      <p class="submit"><input name="loginForm" class="green button" type="submit" value="Connexion"></p> 
+     </div> 
+    </form> 
+   </section><!-- #log-in --> 
+   <script>
+$('div.vivoAccount').show();
+</script> 
+  </div> <!-- #wrapper-content --> 
+  <footer role="contentinfo"> 
+   <p class="copyright"> <small>©2021 VIVO Project | <a class="terms" href="/vivo/termsOfUse" title="Conditions d'utilisation">Conditions d'utilisation</a></small> | Propulsé par <a class="powered-by-vivo" href="http://vivoweb.org" target="_blank" title="Propulsé par VIVO"><strong>VIVO</strong></a> </p> 
+   <nav role="navigation"> 
+    <ul id="footer-nav" role="list"> 
+     <li role="listitem"><a href="/vivo/about" title="À propos">À propos</a></li> 
+     <li role="listitem"><a href="http://www.vivoweb.org/support" target="blank" title="Aide">Aide</a></li> 
+    </ul> 
+   </nav> 
+  </footer> 
+  <script async type="text/javascript" src="/vivo/js/login/loginUtils.js?version=60d0"></script> 
+  <script type="text/javascript" src="/vivo/js/languageMenuUtils.js?version=60d0"></script> 
+  <script type="text/javascript" src="/vivo/js/developer/developerPanel.js?version=60d0"></script> 
+  <script type="text/javascript" src="/vivo/js/jquery-ui/js/jquery-ui-1.12.1.min.js?version=60d0"></script>  
+ </body>
+</html>

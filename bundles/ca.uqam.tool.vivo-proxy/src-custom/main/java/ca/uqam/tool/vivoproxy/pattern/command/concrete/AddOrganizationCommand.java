@@ -27,6 +27,7 @@ public class AddOrganizationCommand implements Command {
         CommandResult result = null;
         try {
             result = ((VivoReceiver)vivo).addOrganization(getOrganisationName(), getVivoOrganisationType());
+            return result;
         } catch (IOException e) {
             e.printStackTrace();
         }

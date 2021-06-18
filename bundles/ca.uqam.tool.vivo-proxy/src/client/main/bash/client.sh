@@ -97,8 +97,7 @@ declare -a result_color_table=( "$WHITE" "$WHITE" "$GREEN" "$YELLOW" "$WHITE" "$
 declare -A operation_parameters_minimum_occurrences
 operation_parameters_minimum_occurrences["createOrganization:::body"]=1
 operation_parameters_minimum_occurrences["createPerson:::body"]=1
-operation_parameters_minimum_occurrences["getPersonByID:::id"]=1
-operation_parameters_minimum_occurrences["getPersonByIRI:::iri"]=1
+operation_parameters_minimum_occurrences["createPositionFor:::body"]=1
 operation_parameters_minimum_occurrences["getindividualByIRI:::IRI"]=1
 
 ##
@@ -110,8 +109,7 @@ operation_parameters_minimum_occurrences["getindividualByIRI:::IRI"]=1
 declare -A operation_parameters_maximum_occurrences
 operation_parameters_maximum_occurrences["createOrganization:::body"]=0
 operation_parameters_maximum_occurrences["createPerson:::body"]=0
-operation_parameters_maximum_occurrences["getPersonByID:::id"]=0
-operation_parameters_maximum_occurrences["getPersonByIRI:::iri"]=0
+operation_parameters_maximum_occurrences["createPositionFor:::body"]=0
 operation_parameters_maximum_occurrences["getindividualByIRI:::IRI"]=0
 
 ##
@@ -120,8 +118,7 @@ operation_parameters_maximum_occurrences["getindividualByIRI:::IRI"]=0
 declare -A operation_parameters_collection_type
 operation_parameters_collection_type["createOrganization:::body"]=""
 operation_parameters_collection_type["createPerson:::body"]=""
-operation_parameters_collection_type["getPersonByID:::id"]=""
-operation_parameters_collection_type["getPersonByIRI:::iri"]=""
+operation_parameters_collection_type["createPositionFor:::body"]=""
 operation_parameters_collection_type["getindividualByIRI:::IRI"]=""
 
 
@@ -495,8 +492,7 @@ echo "  $ops" | column -t -s ';'
     echo -e "${BOLD}${WHITE}[person]${OFF}"
 read -r -d '' ops <<EOF
   ${CYAN}createPerson${OFF};Create a person in VIVO (AUTH)
-  ${CYAN}getPersonByID${OFF};Get person by ID (AUTH)
-  ${CYAN}getPersonByIRI${OFF};Get person by VIVO IRI (AUTH)
+  ${CYAN}createPositionFor${OFF};Create organizational position for (AUTH)
 EOF
 echo "  $ops" | column -t -s ';'
     echo ""
@@ -608,56 +604,26 @@ print_createPerson_help() {
 }
 ##############################################################################
 #
-# Print help for getPersonByID operation
+# Print help for createPositionFor operation
 #
 ##############################################################################
-print_getPersonByID_help() {
+print_createPositionFor_help() {
     echo ""
-    echo -e "${BOLD}${WHITE}getPersonByID - Get person by ID${OFF}${BLUE}(AUTH - BASIC)${OFF}" | paste -sd' ' | fold -sw 80 | sed '2,$s/^/    /'
+    echo -e "${BOLD}${WHITE}createPositionFor - Create organizational position for${OFF}${BLUE}(AUTH - BASIC)${OFF}" | paste -sd' ' | fold -sw 80 | sed '2,$s/^/    /'
     echo -e ""
     echo -e "" | paste -sd' ' | fold -sw 80
     echo -e ""
     echo -e "${BOLD}${WHITE}Parameters${OFF}"
-    echo -e "  * ${GREEN}id${OFF} ${BLUE}[string]${OFF} ${RED}(required)${OFF}${OFF} - The name that needs to be fetched. Use person1 for testing. ${YELLOW}Specify as: id=value${OFF}" | paste -sd' ' | fold -sw 80 | sed '2,$s/^/    /'
+    echo -e "  * ${GREEN}body${OFF} ${BLUE}[application/json,application/xml]${OFF} ${RED}(required)${OFF}${OFF} - Person that need to be in an organization" | paste -sd' ' | fold -sw 80 | sed '2,$s/^/    /'
+    echo -e ""
     echo ""
     echo -e "${BOLD}${WHITE}Responses${OFF}"
-    code=200
-    echo -e "${result_color_table[${code:0:1}]}  200;successful operation${OFF}" | paste -sd' ' | column -t -s ';' | fold -sw 80 | sed '2,$s/^/       /'
     code=400
-    echo -e "${result_color_table[${code:0:1}]}  400;Invalid personname supplied${OFF}" | paste -sd' ' | column -t -s ';' | fold -sw 80 | sed '2,$s/^/       /'
-    code=401
-    echo -e "${result_color_table[${code:0:1}]}  401;Authentication information is missing or invalid${OFF}" | paste -sd' ' | column -t -s ';' | fold -sw 80 | sed '2,$s/^/       /'
-        echo -e "       ${BOLD}${WHITE}Response headers${OFF}"
-        echo -e "       ${BLUE}WWW_Authenticate${OFF} - " | paste -sd' ' | fold -sw 80 | sed '2,$s/^/        /'
+    echo -e "${result_color_table[${code:0:1}]}  400;Invalid ID supplied${OFF}" | paste -sd' ' | column -t -s ';' | fold -sw 80 | sed '2,$s/^/       /'
     code=404
-    echo -e "${result_color_table[${code:0:1}]}  404;person not found${OFF}" | paste -sd' ' | column -t -s ';' | fold -sw 80 | sed '2,$s/^/       /'
-}
-##############################################################################
-#
-# Print help for getPersonByIRI operation
-#
-##############################################################################
-print_getPersonByIRI_help() {
-    echo ""
-    echo -e "${BOLD}${WHITE}getPersonByIRI - Get person by VIVO IRI${OFF}${BLUE}(AUTH - BASIC)${OFF}" | paste -sd' ' | fold -sw 80 | sed '2,$s/^/    /'
-    echo -e ""
-    echo -e "" | paste -sd' ' | fold -sw 80
-    echo -e ""
-    echo -e "${BOLD}${WHITE}Parameters${OFF}"
-    echo -e "  * ${GREEN}iri${OFF} ${BLUE}[string]${OFF} ${RED}(required)${OFF}${OFF} - The iri that needs to be fetched. Use person1 for testing.${YELLOW} Specify as: iri=value${OFF}" \
-        | paste -sd' ' | fold -sw 80 | sed '2,$s/^/    /'
-    echo ""
-    echo -e "${BOLD}${WHITE}Responses${OFF}"
-    code=200
-    echo -e "${result_color_table[${code:0:1}]}  200;successful operation${OFF}" | paste -sd' ' | column -t -s ';' | fold -sw 80 | sed '2,$s/^/       /'
-    code=400
-    echo -e "${result_color_table[${code:0:1}]}  400;Invalid personname supplied${OFF}" | paste -sd' ' | column -t -s ';' | fold -sw 80 | sed '2,$s/^/       /'
-    code=401
-    echo -e "${result_color_table[${code:0:1}]}  401;Authentication information is missing or invalid${OFF}" | paste -sd' ' | column -t -s ';' | fold -sw 80 | sed '2,$s/^/       /'
-        echo -e "       ${BOLD}${WHITE}Response headers${OFF}"
-        echo -e "       ${BLUE}WWW_Authenticate${OFF} - " | paste -sd' ' | fold -sw 80 | sed '2,$s/^/        /'
-    code=404
-    echo -e "${result_color_table[${code:0:1}]}  404;person not found${OFF}" | paste -sd' ' | column -t -s ';' | fold -sw 80 | sed '2,$s/^/       /'
+    echo -e "${result_color_table[${code:0:1}]}  404;Pet not found${OFF}" | paste -sd' ' | column -t -s ';' | fold -sw 80 | sed '2,$s/^/       /'
+    code=405
+    echo -e "${result_color_table[${code:0:1}]}  405;Validation exception${OFF}" | paste -sd' ' | column -t -s ';' | fold -sw 80 | sed '2,$s/^/       /'
 }
 ##############################################################################
 #
@@ -828,59 +794,23 @@ call_createPerson() {
 
 ##############################################################################
 #
-# Call getPersonByID operation
+# Call createPositionFor operation
 #
 ##############################################################################
-call_getPersonByID() {
-    # ignore error about 'path_parameter_names' being unused; passed by reference
-    # shellcheck disable=SC2034
-    local path_parameter_names=(id)
-    # ignore error about 'query_parameter_names' being unused; passed by reference
-    # shellcheck disable=SC2034
-    local query_parameter_names=(  )
-    local path
-
-    if ! path=$(build_request_path "/vivoproxy/person/{id}" path_parameter_names query_parameter_names); then
-        ERROR_MSG=$path
-        exit 1
-    fi
-    local method="GET"
-    local headers_curl
-    headers_curl=$(header_arguments_to_curl)
-    if [[ -n $header_accept ]]; then
-        headers_curl="${headers_curl} -H 'Accept: ${header_accept}'"
-    fi
-
-    local basic_auth_option=""
-    if [[ -n $basic_auth_credential ]]; then
-        basic_auth_option="-u ${basic_auth_credential}"
-    fi
-    if [[ "$print_curl" = true ]]; then
-        echo "curl ${basic_auth_option} ${curl_arguments} ${headers_curl} -X ${method} \"${host}${path}\""
-    else
-        eval "curl ${basic_auth_option} ${curl_arguments} ${headers_curl} -X ${method} \"${host}${path}\""
-    fi
-}
-
-##############################################################################
-#
-# Call getPersonByIRI operation
-#
-##############################################################################
-call_getPersonByIRI() {
+call_createPositionFor() {
     # ignore error about 'path_parameter_names' being unused; passed by reference
     # shellcheck disable=SC2034
     local path_parameter_names=()
     # ignore error about 'query_parameter_names' being unused; passed by reference
     # shellcheck disable=SC2034
-    local query_parameter_names=(iri  )
+    local query_parameter_names=(  )
     local path
 
-    if ! path=$(build_request_path "/vivoproxy/person/iri" path_parameter_names query_parameter_names); then
+    if ! path=$(build_request_path "/vivoproxy/person" path_parameter_names query_parameter_names); then
         ERROR_MSG=$path
         exit 1
     fi
-    local method="GET"
+    local method="PUT"
     local headers_curl
     headers_curl=$(header_arguments_to_curl)
     if [[ -n $header_accept ]]; then
@@ -891,10 +821,50 @@ call_getPersonByIRI() {
     if [[ -n $basic_auth_credential ]]; then
         basic_auth_option="-u ${basic_auth_credential}"
     fi
-    if [[ "$print_curl" = true ]]; then
-        echo "curl ${basic_auth_option} ${curl_arguments} ${headers_curl} -X ${method} \"${host}${path}\""
+    local body_json_curl=""
+
+    #
+    # Check if the user provided 'Content-type' headers in the
+    # command line. If not try to set them based on the Swagger specification
+    # if values produces and consumes are defined unambigously
+    #
+
+
+    if [[ -z $header_content_type && "$force" = false ]]; then
+        :
+        echo "ERROR: Request's content-type not specified!!!"
+        echo "This operation expects content-type in one of the following formats:"
+        echo -e "\\t- application/json"
+        echo -e "\\t- application/xml"
+        echo ""
+        echo "Use '--content-type' to set proper content type"
+        exit 1
     else
-        eval "curl ${basic_auth_option} ${curl_arguments} ${headers_curl} -X ${method} \"${host}${path}\""
+        headers_curl="${headers_curl} -H 'Content-type: ${header_content_type}'"
+    fi
+
+
+    #
+    # If we have received some body content over pipe, pass it from the
+    # temporary file to cURL
+    #
+    if [[ -n $body_content_temp_file ]]; then
+        if [[ "$print_curl" = true ]]; then
+            echo "cat ${body_content_temp_file} | curl ${basic_auth_option} ${curl_arguments} ${headers_curl} -X ${method} \"${host}${path}\" -d @-"
+        else
+            eval "cat ${body_content_temp_file} | curl ${basic_auth_option} ${curl_arguments} ${headers_curl} -X ${method} \"${host}${path}\" -d @-"
+        fi
+        rm "${body_content_temp_file}"
+    #
+    # If not, try to build the content body from arguments KEY==VALUE and KEY:=VALUE
+    #
+    else
+        body_json_curl=$(body_parameters_to_json)
+        if [[ "$print_curl" = true ]]; then
+            echo "curl ${basic_auth_option} ${curl_arguments} ${headers_curl} -X ${method} ${body_json_curl} \"${host}${path}\""
+        else
+            eval "curl ${basic_auth_option} ${curl_arguments} ${headers_curl} -X ${method} ${body_json_curl} \"${host}${path}\""
+        fi
     fi
 }
 
@@ -1037,11 +1007,8 @@ case $key in
     createPerson)
     operation="createPerson"
     ;;
-    getPersonByID)
-    operation="getPersonByID"
-    ;;
-    getPersonByIRI)
-    operation="getPersonByIRI"
+    createPositionFor)
+    operation="createPositionFor"
     ;;
     getindividualByIRI)
     operation="getindividualByIRI"
@@ -1129,11 +1096,8 @@ case $operation in
     createPerson)
     call_createPerson
     ;;
-    getPersonByID)
-    call_getPersonByID
-    ;;
-    getPersonByIRI)
-    call_getPersonByIRI
+    createPositionFor)
+    call_createPositionFor
     ;;
     getindividualByIRI)
     call_getindividualByIRI

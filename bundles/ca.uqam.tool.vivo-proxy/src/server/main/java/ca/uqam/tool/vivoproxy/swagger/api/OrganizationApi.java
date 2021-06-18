@@ -29,7 +29,7 @@ import javax.validation.constraints.*;
 
 
 @io.swagger.annotations.Api(description = "the organization API")
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2021-06-11T16:56:11.478-04:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2021-06-18T16:30:38.733-04:00")
 public class OrganizationApi  {
    private final OrganizationApiService delegate;
 
@@ -57,7 +57,7 @@ public class OrganizationApi  {
     @POST
     
     
-    @Produces({ "application/xml", "application/json" })
+    @Produces({ "application/json", "text/plain", "application/rdf+xml", "text/n3", "text/turtle", "text/funtional", "text/manchester", "application/owl+xml" })
     @io.swagger.annotations.ApiOperation(value = "Create an organization in VIVO", notes = "This can only be done by the logged in VIVO.", response = Void.class, authorizations = {
         @io.swagger.annotations.Authorization(value = "basicAuth")
     }, tags={ "organization", })

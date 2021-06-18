@@ -1,0 +1,1 @@
+implement AbstractCredential with your login, password

@@ -20,40 +20,40 @@
                     <exclude>**/ca/uqam/tool/vivoproxy/swagger/api/impl/*.java</exclude>
                 </excludes>
             </resource>
+            <!-- <resource> -->
+            <!-- <directory>src/server/main/java</directory> -->
+            <!-- <includes> -->
+            <!-- <include>**/*.java</include> -->
+            <!-- <include>**/*.properties</include> -->
+            <!-- <include>**/*.xml</include> -->
+            <!-- </includes> -->
+            <!-- </resource> -->
+            <resource>
+                <directory>src-overlay/main/java</directory>
+                <includes>
+                    <include>**/*.java</include>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+            <!-- <resource> -->
+            <!-- <directory>src-custom/main/java</directory> -->
+            <!-- <includes> -->
+            <!-- <include>**/*.java</include> -->
+            <!-- <include>**/*.properties</include> -->
+            <!-- <include>**/*.xml</include> -->
+            <!-- </includes> -->
+            <!-- </resource> -->
+            <!-- <resource> -->
+            <!-- <directory>src/client/main/java</directory> -->
+            <!-- <includes> -->
+            <!-- <include>**/*.java</include> -->
+            <!-- <include>**/*.properties</include> -->
+            <!-- <include>**/*.xml</include> -->
+            <!-- </includes> -->
+            <!-- </resource> -->
+            <!-- </resources> -->
         </resources>
-        <!-- <resource> -->
-        <!-- <directory>src/server/main/java</directory> -->
-        <!-- <includes> -->
-        <!-- <include>**/*.java</include> -->
-        <!-- <include>**/*.properties</include> -->
-        <!-- <include>**/*.xml</include> -->
-        <!-- </includes> -->
-        <!-- </resource> -->
-        <!-- <resource> -->
-        <!-- <directory>src-overlay/main/java</directory> -->
-        <!-- <includes> -->
-        <!-- <include>**/*.java</include> -->
-        <!-- <include>**/*.properties</include> -->
-        <!-- <include>**/*.xml</include> -->
-        <!-- </includes> -->
-        <!-- </resource> -->
-        <!-- <resource> -->
-        <!-- <directory>src-custom/main/java</directory> -->
-        <!-- <includes> -->
-        <!-- <include>**/*.java</include> -->
-        <!-- <include>**/*.properties</include> -->
-        <!-- <include>**/*.xml</include> -->
-        <!-- </includes> -->
-        <!-- </resource> -->
-        <!-- <resource> -->
-        <!-- <directory>src/client/main/java</directory> -->
-        <!-- <includes> -->
-        <!-- <include>**/*.java</include> -->
-        <!-- <include>**/*.properties</include> -->
-        <!-- <include>**/*.xml</include> -->
-        <!-- </includes> -->
-        <!-- </resource> -->
-        <!-- </resources> -->
         <!-- <sourceDirectory>src, src-custom, src-overlay</sourceDirectory> -->
         <plugins>
             <plugin>
@@ -97,6 +97,9 @@
                     <testExcludes>
                         <testExclude>src/main/java/ca/uqam/tool/vivoproxy/swagger/api/impl/*.java</testExclude>
                     </testExcludes>
+                    <fork>true</fork>
+                    <meminitial>1024m</meminitial>
+                    <maxmem>2048m</maxmem>
                     <!-- <includes> -->
                     <!-- <include>src-overlay/main/java/*.java</include> -->
                     <!-- </includes> -->
@@ -168,7 +171,7 @@
             <plugin>
                 <groupId>io.swagger</groupId>
                 <artifactId>swagger-codegen-maven-plugin</artifactId>
-                <version>2.4.19</version>
+                <version>2.4.20</version>
                 <executions>
                     <execution>
                         <id>server</id>
@@ -369,6 +372,23 @@
                                         <ignore></ignore>
                                     </action>
                                 </pluginExecution>
+                                <pluginExecution>
+                                	<pluginExecutionFilter>
+                                		<groupId>io.swagger</groupId>
+                                		<artifactId>
+                                			swagger-codegen-maven-plugin
+                                		</artifactId>
+                                		<versionRange>
+                                			[2.4.20,)
+                                		</versionRange>
+                                		<goals>
+                                			<goal>generate</goal>
+                                		</goals>
+                                	</pluginExecutionFilter>
+                                	<action>
+                                		<ignore></ignore>
+                                	</action>
+                                </pluginExecution>
                             </pluginExecutions>
                         </lifecycleMappingMetadata>
                     </configuration>
@@ -501,7 +521,12 @@
             <version>2.1.1</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.jboss.resteasy/resteasy-jaxrs -->
-
+        <!-- https://mvnrepository.com/artifact/net.sourceforge.owlapi/owlapi-distribution -->
+        <dependency>
+            <groupId>net.sourceforge.owlapi</groupId>
+            <artifactId>owlapi-distribution</artifactId>
+            <version>5.1.17</version>
+        </dependency>
     </dependencies>
     <properties>
 
@@ -521,9 +546,11 @@
         <!-- <servlet-version>2.5</servlet-version> -->
 
         <jetty-version>9.3.27.v20190418</jetty-version>
+        <!-- <jersey2-version>2.34</jersey2-version> -->
         <jersey2-version>2.22.2</jersey2-version>
         <jackson-version>2.11.4</jackson-version>
         <swagger-version>1.5.24</swagger-version>
+        <!-- <swagger-version>1.6.2</swagger-version> -->
         <logback-version>1.2.0</logback-version>
         <servlet-version>2.5</servlet-version>
         <skipGen-client>false</skipGen-client>

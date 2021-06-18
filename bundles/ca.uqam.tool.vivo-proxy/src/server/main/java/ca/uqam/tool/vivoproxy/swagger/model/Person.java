@@ -24,19 +24,10 @@ import javax.validation.Valid;
 /**
  * Person
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2021-06-11T16:56:11.478-04:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2021-06-18T16:30:38.733-04:00")
 public class Person   {
-  @JsonProperty("id")
-  private String id = null;
-
-  @JsonProperty("iri")
-  private String iri = null;
-
   @JsonProperty("personType")
   private String personType = null;
-
-  @JsonProperty("personName")
-  private String personName = null;
 
   @JsonProperty("firstName")
   private String firstName = null;
@@ -46,44 +37,6 @@ public class Person   {
 
   @JsonProperty("middleName")
   private String middleName = null;
-
-  public Person id(String id) {
-    this.id = id;
-    return this;
-  }
-
-  /**
-   * Get id
-   * @return id
-   **/
-  @JsonProperty("id")
-  @ApiModelProperty(example = "n6870", value = "")
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public Person iri(String iri) {
-    this.iri = iri;
-    return this;
-  }
-
-  /**
-   * Get iri
-   * @return iri
-   **/
-  @JsonProperty("iri")
-  @ApiModelProperty(example = "http://localhost:8080/vivo/individual/n6870", value = "")
-  public String getIri() {
-    return iri;
-  }
-
-  public void setIri(String iri) {
-    this.iri = iri;
-  }
 
   public Person personType(String personType) {
     this.personType = personType;
@@ -102,25 +55,6 @@ public class Person   {
 
   public void setPersonType(String personType) {
     this.personType = personType;
-  }
-
-  public Person personName(String personName) {
-    this.personName = personName;
-    return this;
-  }
-
-  /**
-   * Get personName
-   * @return personName
-   **/
-  @JsonProperty("personName")
-  @ApiModelProperty(example = "Peters, Jasper I", value = "")
-  public String getPersonName() {
-    return personName;
-  }
-
-  public void setPersonName(String personName) {
-    this.personName = personName;
   }
 
   public Person firstName(String firstName) {
@@ -190,10 +124,7 @@ public class Person   {
       return false;
     }
     Person person = (Person) o;
-    return Objects.equals(this.id, person.id) &&
-        Objects.equals(this.iri, person.iri) &&
-        Objects.equals(this.personType, person.personType) &&
-        Objects.equals(this.personName, person.personName) &&
+    return Objects.equals(this.personType, person.personType) &&
         Objects.equals(this.firstName, person.firstName) &&
         Objects.equals(this.lastName, person.lastName) &&
         Objects.equals(this.middleName, person.middleName);
@@ -201,7 +132,7 @@ public class Person   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, iri, personType, personName, firstName, lastName, middleName);
+    return Objects.hash(personType, firstName, lastName, middleName);
   }
 
 
@@ -210,10 +141,7 @@ public class Person   {
     StringBuilder sb = new StringBuilder();
     sb.append("class Person {\n");
     
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    iri: ").append(toIndentedString(iri)).append("\n");
     sb.append("    personType: ").append(toIndentedString(personType)).append("\n");
-    sb.append("    personName: ").append(toIndentedString(personName)).append("\n");
     sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");
     sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
     sb.append("    middleName: ").append(toIndentedString(middleName)).append("\n");

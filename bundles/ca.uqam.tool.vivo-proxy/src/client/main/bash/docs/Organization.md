@@ -3,7 +3,6 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **string** |  | [optional] [default to null]
 **organizationType** | **string** |  | [optional] [default to null]
 **Name** | **string** |  | [optional] [default to null]
 

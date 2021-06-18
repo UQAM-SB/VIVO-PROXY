@@ -6,6 +6,7 @@ import io.swagger.models.*;
 import io.swagger.models.auth.*;
 
 import javax.servlet.http.HttpServlet;
+import javax.ws.rs.ext.MessageBodyWriter;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -25,7 +26,8 @@ public class Bootstrap extends HttpServlet {
 
     ServletContext context = config.getServletContext();
     Swagger swagger = new Swagger().info(info);
-
+  
+  
     new SwaggerContextService().withServletConfig(config).updateSwagger(swagger);
   }
 }

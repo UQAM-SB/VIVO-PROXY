@@ -29,7 +29,7 @@ import javax.validation.constraints.*;
 
 
 @io.swagger.annotations.Api(description = "the vivo API")
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2021-06-11T16:56:11.478-04:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2021-06-18T16:30:38.733-04:00")
 public class VivoApi  {
    private final VivoApiService delegate;
 
@@ -57,7 +57,7 @@ public class VivoApi  {
     @GET
     
     
-    @Produces({ "application/xml", "application/json" })
+    @Produces({ "application/json", "text/plain", "application/rdf+xml", "text/n3", "text/turtle", "text/funtional", "text/manchester", "application/owl+xml" })
     @io.swagger.annotations.ApiOperation(value = "Get an individual by IRI", notes = "", response = Vivo.class, authorizations = {
         @io.swagger.annotations.Authorization(value = "basicAuth")
     }, tags={ "vivo", })

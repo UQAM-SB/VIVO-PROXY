@@ -30,6 +30,7 @@ public class AddPersonCommand implements Command {
         CommandResult result = null;
         try {
             result = ((VivoReceiver)vivo).addPerson(getFirstName(), getMiddleName(), getLastName(), getVivoPersonType());
+            return result;
         } catch (IOException e) {
             e.printStackTrace();
         }

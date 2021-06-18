@@ -58,5 +58,5 @@ null (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/xml, application/json
+ - **Accept**: application/json, text/plain, application/rdf+xml, text/n3, text/turtle, text/funtional, text/manchester, application/owl+xml
 

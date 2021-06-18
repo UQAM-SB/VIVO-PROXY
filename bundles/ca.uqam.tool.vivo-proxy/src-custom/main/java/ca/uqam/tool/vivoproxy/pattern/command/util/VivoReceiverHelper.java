@@ -16,6 +16,8 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
+import ca.uqam.tool.vivoproxy.pattern.command.receiver.util.EditKeyForPosition;
+
 public class VivoReceiverHelper {
 
     public static Response gotoAdminPage(String siteUrl, OkHttpClient httpClient) throws IOException {
@@ -32,7 +34,7 @@ public class VivoReceiverHelper {
         Response response = httpClient.newCall(request).execute();
         return response;
     }
-    public static Response gotoPeoplePage(String siteUrl, OkHttpClient httpClient, String personUri ) throws IOException {
+    public static Response gotoIndividualPage(String siteUrl, OkHttpClient httpClient, String personUri ) throws IOException {
         Request request = new Request.Builder()
                 .url(personUri)
                 .method("GET", null)
@@ -92,6 +94,26 @@ public class VivoReceiverHelper {
                 .addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
                 .addHeader("Connection", "keep-alive")
                 .addHeader("Referer", siteUrl +"/siteAdmin")
+                .addHeader("Upgrade-Insecure-Requests", "1")
+                .build();
+        Response response = httpClient.newCall(request).execute();
+        return getKeyValue(response.body().string());
+    }
+    public static String getEditKey(String siteUrl, OkHttpClient httpClient, EditKeyForPosition editKeyVar) throws IOException {
+        HttpUrl url = HttpUrl.parse(siteUrl +"/editRequestDispatch").newBuilder()
+                .addQueryParameter("subjectUri", editKeyVar.getSubjectUri())
+                .addQueryParameter("predicateUri", editKeyVar.getPredicateUri())
+                .addQueryParameter("domainUri", editKeyVar.getDomainUri())
+                .addQueryParameter("rangeUri", editKeyVar.getRangeUri())
+                .build();
+        Request request = new Request.Builder()
+                .url(url)
+                .method("GET", null)
+                .addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0")
+                .addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+                .addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
+                .addHeader("Connection", "keep-alive")
+                .addHeader("Referer", editKeyVar.getSubjectUri() )
                 .addHeader("Upgrade-Insecure-Requests", "1")
                 .build();
         Response response = httpClient.newCall(request).execute();

@@ -1,0 +1,65 @@
+## Goto user
+
+OkHttpClient client = new OkHttpClient().newBuilder()
+  .build();
+Request request = new Request.Builder()
+  .url("http://localhost:8080/vivo/display/n128")
+  .method("GET", null)
+  .addHeader("User-Agent", "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0")
+  .addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+  .addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
+  .addHeader("Connection", "keep-alive")
+  .addHeader("Referer", "http://localhost:8080/vivo/")
+  .addHeader("Cookie", "JSESSIONID=9B49E102F104BC4B9C6E712A5A2565EF")
+  .addHeader("Upgrade-Insecure-Requests", "1")
+  .build();
+Response response = client.newCall(request).execute();
+
+
+## click Add POSITION
+OkHttpClient client = new OkHttpClient().newBuilder()
+  .build();
+Request request = new Request.Builder()
+  .url("http://localhost:8080/vivo/editRequestDispatch?subjectUri=http%3A%2F%2Flocalhost%3A8080%2Fvivo%2Findividual%2Fn128&predicateUri=http%3A%2F%2Fvivoweb.org%2Fontology%2Fcore%23relatedBy&domainUri=http%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2FPerson&rangeUri=http%3A%2F%2Fvivoweb.org%2Fontology%2Fcore%23Position")
+   ## http://localhost:8080/vivo/editRequestDispatch?subjectUri=http://localhost:8080/vivo/individual/n128&predicateUri=http://vivoweb.org/ontology/core#relatedBy&domainUri=http://xmlns.com/foaf/0.1/Person&rangeUri=http://vivoweb.org/ontology/core#Position
+  .method("GET", null)
+  .addHeader("User-Agent", "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0")
+  .addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+  .addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
+  .addHeader("Connection", "keep-alive")
+  .addHeader("Referer", "http://localhost:8080/vivo/display/n128")
+  .addHeader("Cookie", "JSESSIONID=9B49E102F104BC4B9C6E712A5A2565EF")
+  .addHeader("Upgrade-Insecure-Requests", "1")
+  .build();
+Response response = client.newCall(request).execute();
+
+## Creation position
+
+OkHttpClient client = new OkHttpClient().newBuilder()
+  .build();
+Request request = new Request.Builder()
+  .url("http://localhost:8080/vivo/edit/process?orgType=http%3A%2F%2Fvivoweb.org%2Fontology%2Fcore%23University&orgLabel=Harvard+University&orgLabelDisplay=&existingOrg=%3ESUBMITTED+VALUE+WAS+BLANK%3C&positionTitle=Professor&positionType=http%3A%2F%2Fvivoweb.org%2Fontology%2Fcore%23FacultyPosition&startField-year=2017&endField-year=2020&editKey=55076138&submit-Create=Create+Entry")
+## http://localhost:8080/vivo/edit/process?
+orgType=http://vivoweb.org/ontology/core#University&
+orgLabel=Harvard+University&
+orgLabelDisplay=
+&existingOrg=>SUBMITTED+VALUE+WAS+BLANK<&
+positionTitle=Professor&
+positionType=http://vivoweb.org/ontology/core#FacultyPosition&
+startField-year=2017&
+endField-year=2020&
+editKey=55076138&
+submit-Create=Create+Entry
+
+  .method("GET", null)
+  .addHeader("User-Agent", "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0")
+  .addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+  .addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
+  .addHeader("Connection", "keep-alive")
+  .addHeader("Referer", "http://localhost:8080/vivo/editRequestDispatch?subjectUri=http%3A%2F%2Flocalhost%3A8080%2Fvivo%2Findividual%2Fn128&predicateUri=http%3A%2F%2Fvivoweb.org%2Fontology%2Fcore%23relatedBy&domainUri=http%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2FPerson&rangeUri=http%3A%2F%2Fvivoweb.org%2Fontology%2Fcore%23Position")
+  ## http://localhost:8080/vivo/editRequestDispatch?subjectUri=http://localhost:8080/vivo/individual/n128&predicateUri=http://vivoweb.org/ontology/core#relatedBy&domainUri=http://xmlns.com/foaf/0.1/Person&rangeUri=http://vivoweb.org/ontology/core#Position"
+  .addHeader("Cookie", "JSESSIONID=9B49E102F104BC4B9C6E712A5A2565EF")
+  .addHeader("Upgrade-Insecure-Requests", "1")
+  .build();
+Response response = client.newCall(request).execute();
+
