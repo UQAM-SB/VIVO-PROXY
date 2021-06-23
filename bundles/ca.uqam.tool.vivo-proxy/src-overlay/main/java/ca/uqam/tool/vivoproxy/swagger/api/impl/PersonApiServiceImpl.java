@@ -45,14 +45,22 @@ public class PersonApiServiceImpl extends PersonApiService {
         /*
          * Commands invocation
          */
-        
+
         CommandResult result =invoker.execute(loginCommand);
         result = invoker.execute(createPositionForCmd);
+        String newUserIri = body.getPersonIRI();
+        Command sparqlDescribeCommand = cf.createSparqlDescribeCommand(Credential.getLogin(), Credential.getPasswd(), newUserIri, "application/rdf+xml");
+        com.squareup.okhttp.Response sparqlResponse = invoker.execute(sparqlDescribeCommand).getOkhttpResult();
 
+        try {
+            return Response.ok().entity(new VivoProxyResponseMessage(VivoProxyResponseMessage.OK, sparqlResponse.body().string() )).build();
 
-        return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
+        } catch (Exception e) {
+            return Response.serverError().entity(new VivoProxyResponseMessage(VivoProxyResponseMessage.ERROR, e.getMessage())).build();
+
+        }
     }
-private com.squareup.okhttp.Response runCreatePerson(Person person) throws IOException  {
+    private com.squareup.okhttp.Response runCreatePerson(Person person) throws IOException  {
         CommandFactory cf = CommandFactory.getInstance();
         VivoReceiver session = new VivoReceiver();
         CommandInvoker invoker = new CommandInvoker();
@@ -68,15 +76,15 @@ private com.squareup.okhttp.Response runCreatePerson(Person person) throws IOExc
         com.squareup.okhttp.Response sparqlResponse = invoker.execute(sparqlDescribeCommand).getOkhttpResult();
         return sparqlResponse;
     }    
-    
+
     public static void main(String[]  args) throws IOException, OWLOntologyCreationException, OWLOntologyStorageException {
         if (true ){
-        Person person = new Person();
-        person.firstName("Michel10");
-        person.lastName("Héon");
-        PersonApiService service = new PersonApiServiceImpl();
-        String response = ((PersonApiServiceImpl) service).runCreatePerson(person).body().string();
-        System.out.println(response);
+            Person person = new Person();
+            person.firstName("Michel10");
+            person.lastName("Héon");
+            PersonApiService service = new PersonApiServiceImpl();
+            String response = ((PersonApiServiceImpl) service).runCreatePerson(person).body().string();
+            System.out.println(response);
         }
         System.out.println("Done!");
     }

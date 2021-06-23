@@ -18,7 +18,7 @@ import ca.uqam.tool.vivoproxy.swagger.client.handler.Pair;
 import java.util.Map;
 import java.util.List;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-06-18T16:30:38.984-04:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-06-21T10:33:37.911-04:00")
 public class ApiKeyAuth implements Authentication {
   private final String location;
   private final String paramName;

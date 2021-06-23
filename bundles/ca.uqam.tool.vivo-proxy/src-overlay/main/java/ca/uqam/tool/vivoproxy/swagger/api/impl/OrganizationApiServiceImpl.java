@@ -28,7 +28,7 @@ public class OrganizationApiServiceImpl extends OrganizationApiService {
     private static final String LOGIN = "vivo@uqam.ca";
     @Override
     public Response createOrganization(Organization body, SecurityContext securityContext) throws NotFoundException {
-        try {
+        try { 
             return Response.ok().entity(new VivoProxyResponseMessage(VivoProxyResponseMessage.OK, run(body).body().string())).build();
         } catch (IOException e) {
             throw new NotFoundException(-1, e.getMessage());

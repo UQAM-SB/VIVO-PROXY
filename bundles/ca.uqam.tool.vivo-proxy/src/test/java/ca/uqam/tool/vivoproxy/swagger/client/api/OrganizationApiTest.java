@@ -37,7 +37,7 @@ public class OrganizationApiTest {
      *
      * This can only be done by the logged in VIVO.
      *
-     * @throws ApiException
+     * @throws ApiExceptions
      *          if the Api call fails
      */
     @Test
