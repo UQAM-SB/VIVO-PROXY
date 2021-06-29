@@ -27,7 +27,7 @@ import java.io.IOException;
 /**
  * Vivo
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-06-25T02:54:30.467-04:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-06-29T14:46:58.961-04:00")
 public class Vivo {
   @SerializedName("iri")
   private String iri = null;
