@@ -24,7 +24,7 @@ import javax.validation.Valid;
 /**
  * Organization
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2021-06-21T10:33:37.813-04:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2021-06-29T14:46:58.837-04:00")
 public class Organization   {
   @JsonProperty("organizationType")
   private String organizationType = null;
@@ -61,7 +61,7 @@ public class Organization   {
    * @return name
    **/
   @JsonProperty("Name")
-  @ApiModelProperty(example = "Université du Québec à Montréal", value = "")
+  @ApiModelProperty(example = "Harvard University", value = "")
   public String getName() {
     return name;
   }

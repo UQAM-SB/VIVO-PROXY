@@ -30,7 +30,7 @@ import javax.validation.constraints.*;
 
 
 @io.swagger.annotations.Api(description = "the person API")
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2021-06-21T10:33:37.813-04:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2021-06-29T14:46:58.837-04:00")
 public class PersonApi  {
    private final PersonApiService delegate;
 
@@ -83,7 +83,7 @@ public class PersonApi  {
     @io.swagger.annotations.ApiResponses(value = { 
         @io.swagger.annotations.ApiResponse(code = 400, message = "Invalid ID supplied", response = Void.class),
         
-        @io.swagger.annotations.ApiResponse(code = 404, message = "Pet not found", response = Void.class),
+        @io.swagger.annotations.ApiResponse(code = 404, message = "Organisation not found", response = Void.class),
         
         @io.swagger.annotations.ApiResponse(code = 405, message = "Validation exception", response = Void.class) })
     public Response createPositionFor(@ApiParam(value = "Person that need to be in an organization" ,required=true) PositionOfPerson body

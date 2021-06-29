@@ -24,7 +24,7 @@ import javax.validation.Valid;
 /**
  * PositionOfPerson
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2021-06-21T10:33:37.813-04:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2021-06-29T14:46:58.837-04:00")
 public class PositionOfPerson   {
   @JsonProperty("personIRI")
   private String personIRI = null;
@@ -60,7 +60,7 @@ public class PositionOfPerson   {
    * @return personIRI
    **/
   @JsonProperty("personIRI")
-  @ApiModelProperty(example = "http://localhost:8080/vivo/individual/n733", value = "")
+  @ApiModelProperty(example = "http://localhost:8080/vivo/individual/n774", value = "")
   public String getPersonIRI() {
     return personIRI;
   }
