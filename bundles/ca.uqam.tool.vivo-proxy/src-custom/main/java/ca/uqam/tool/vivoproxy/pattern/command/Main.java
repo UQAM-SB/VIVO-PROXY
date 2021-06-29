@@ -10,7 +10,7 @@ public class Main {
     private final static Logger LOGGER = Logger.getLogger(Main.class.getName());
 
     /**
-     * Main class for testing
+     * Main class for testing 
      * @param args
      */
     public static void main(String[] args) {

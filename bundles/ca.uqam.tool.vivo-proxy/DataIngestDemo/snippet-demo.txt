@@ -9,5 +9,4 @@ client.sh -d @UnivQcMtl.json --host http://localhost:9090 --content-type json --
 #
 # createPositionFor action
 #
-n4259
 client.sh -d @michelPositionUnivQcMtl.json --host http://localhost:9090 --content-type json --accept 'text/turtle' createPositionFor

@@ -27,7 +27,7 @@ import java.io.IOException;
 /**
  * Organization
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-06-21T10:33:37.911-04:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-06-25T02:54:30.467-04:00")
 public class Organization {
   @SerializedName("organizationType")
   private String organizationType = null;
@@ -62,7 +62,7 @@ public class Organization {
    * Get name
    * @return name
   **/
-  @ApiModelProperty(example = "Université du Québec à Montréal", value = "")
+  @ApiModelProperty(example = "Harvard University", value = "")
   public String getName() {
     return name;
   }
