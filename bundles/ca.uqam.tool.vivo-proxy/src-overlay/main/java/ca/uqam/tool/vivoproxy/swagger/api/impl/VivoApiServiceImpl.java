@@ -58,10 +58,9 @@ public class VivoApiServiceImpl extends VivoApiService {
         CommandFactory cf = CommandFactory.getInstance();
         VivoReceiver session = new VivoReceiver();
         CommandInvoker invoker = new CommandInvoker();
-        invoker.setSession(session);
-        cf.setInvoker(invoker);
         Command sparqlDescribeCommand = cf.createSparqlDescribeCommand(Credential.getLogin(), Credential.getPasswd(), iri, "application/rdf+xml");
-        CommandResult resu = invoker.execute(sparqlDescribeCommand);
+        invoker.register(sparqlDescribeCommand);
+        CommandResult resu = invoker.execute();
         com.squareup.okhttp.Response response = (com.squareup.okhttp.Response)resu.getResult();
         return response;
     }

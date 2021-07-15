@@ -5,10 +5,10 @@ import java.util.UUID;
 
 import ca.uqam.tool.vivoproxy.pattern.command.Command;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
-import ca.uqam.tool.vivoproxy.pattern.command.receiver.Receiver;
+import ca.uqam.tool.vivoproxy.pattern.command.Receiver;
 import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
 
-public class AddPersonCommand implements Command {
+public class AddPersonCommand extends Command {
 
     private String firstName;
     private String middleName;
@@ -30,6 +30,7 @@ public class AddPersonCommand implements Command {
         CommandResult result = null;
         try {
             result = ((VivoReceiver)vivo).addPerson(getFirstName(), getMiddleName(), getLastName(), getVivoPersonType());
+            setCommandResult(result);
             return result;
         } catch (IOException e) {
             e.printStackTrace();

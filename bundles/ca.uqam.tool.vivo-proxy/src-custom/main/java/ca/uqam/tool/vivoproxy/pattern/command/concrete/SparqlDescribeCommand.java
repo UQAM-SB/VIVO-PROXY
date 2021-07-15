@@ -3,10 +3,10 @@ import java.io.IOException;
 
 import ca.uqam.tool.vivoproxy.pattern.command.Command;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
-import ca.uqam.tool.vivoproxy.pattern.command.receiver.Receiver;
+import ca.uqam.tool.vivoproxy.pattern.command.Receiver;
 import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
 
-public class SparqlDescribeCommand implements Command {
+public class SparqlDescribeCommand extends Command {
 
     private String name;
     private String login;
@@ -36,18 +36,11 @@ public class SparqlDescribeCommand implements Command {
         CommandResult result = null;
         try {
             result = ((VivoReceiver)receiver).DESCRIBE(login, passwd, iri, MINE_TYPE);
+            setCommandResult(result);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return result;    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     /**
      * @return the login

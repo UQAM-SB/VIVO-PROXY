@@ -38,16 +38,19 @@ public class OrganizationApiServiceImpl extends OrganizationApiService {
         CommandFactory cf = CommandFactory.getInstance();
         VivoReceiver session = new VivoReceiver();
         CommandInvoker invoker = new CommandInvoker(); 
-        invoker.setSession(session);
-        cf.setInvoker(invoker);
         Command loginCommand = cf.createLogin(Credential.getLogin(), Credential.getPasswd());
         Command addOrganisationCommand = cf.createOrganization(organ.getName(), organ.getOrganizationType());
-        invoker.execute(loginCommand);
-        CommandResult result = invoker.execute(addOrganisationCommand);
-        com.squareup.okhttp.Response response = result.getOkhttpResult();
+        Command logout = cf.createLogout();
+        invoker.register(loginCommand);
+        invoker.register(addOrganisationCommand);
+        invoker.register(logout);
+        CommandResult result = invoker.execute();
+        com.squareup.okhttp.Response response = addOrganisationCommand.getCommandResult().getOkhttpResult();
         String newUserIri = VivoReceiverHelper.getUriResponse(response.body().string());
         Command sparqlDescribeCommand = cf.createSparqlDescribeCommand(Credential.getLogin(), Credential.getPasswd(), newUserIri, "application/rdf+xml");
-        com.squareup.okhttp.Response sparqlResponse = invoker.execute(sparqlDescribeCommand).getOkhttpResult();
+        invoker.flush();
+        invoker.register(sparqlDescribeCommand);
+        com.squareup.okhttp.Response sparqlResponse = invoker.execute().getOkhttpResult();
         return sparqlResponse;
     }    
     

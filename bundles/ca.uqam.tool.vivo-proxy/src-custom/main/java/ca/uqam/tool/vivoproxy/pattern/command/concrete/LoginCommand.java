@@ -5,11 +5,11 @@ import java.util.UUID;
 
 import ca.uqam.tool.vivoproxy.pattern.command.Command;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
-import ca.uqam.tool.vivoproxy.pattern.command.receiver.Receiver;
+import ca.uqam.tool.vivoproxy.pattern.command.Receiver;
 import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
 
 
-public class LoginCommand implements Command {
+public class LoginCommand extends Command {
     private String name;
     public LoginCommand(String username, String password) {
         super();
@@ -22,10 +22,11 @@ public class LoginCommand implements Command {
     private String username;
 
 
-    public CommandResult execute(Receiver vivo) {
+    public CommandResult execute(Receiver receiver) {
         CommandResult result = null;
         try {
-            result = ((VivoReceiver)vivo).login(username, password);
+            result = ((VivoReceiver)receiver).login(username, password);
+            setCommandResult(result);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -40,12 +41,5 @@ public class LoginCommand implements Command {
     public String getUsername() {
         return username;
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+ 
 }

@@ -18,3 +18,15 @@ client.sh -d @michelPositionUnivQcMtl.json --host http://localhost:9090 --conten
 
 
 <http://localhost:8080/vivo/individual/n1571> 
+
+curl --location --request POST 'http://localhost:8080/vivo/robot_authenticate' \
+--header 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8' \
+--header 'Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3' \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--header 'Origin: http://localhost:8080' \
+--header 'Connection: keep-alive' \
+--header 'Referer: http://localhost:8080/vivo/' \
+--header 'Upgrade-Insecure-Requests: 1' \
+--data-urlencode 'loginName=vivo@uqam.ca' \
+--data-urlencode 'loginPassword=Vivo1234.' \
+--data-urlencode 'loginForm=Log+in'
