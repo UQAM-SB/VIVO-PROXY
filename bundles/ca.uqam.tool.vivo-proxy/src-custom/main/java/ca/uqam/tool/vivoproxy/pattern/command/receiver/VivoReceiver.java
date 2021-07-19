@@ -3,6 +3,9 @@ package ca.uqam.tool.vivoproxy.pattern.command.receiver;
 import java.io.IOException;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Logger;
 
 import org.eclipse.rdf4j.model.vocabulary.FOAF;
@@ -18,6 +21,7 @@ import ca.uqam.tool.vivoproxy.pattern.command.AbstractReceiver;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
 import ca.uqam.tool.vivoproxy.pattern.command.receiver.util.EditKeyForPosition;
 import ca.uqam.tool.vivoproxy.pattern.command.util.VivoReceiverHelper;
+import ca.uqam.tool.vivoproxy.swagger.model.Person;
 import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
 import ca.uqam.vivo.vocabulary.VIVO;
 
@@ -128,19 +132,19 @@ public class VivoReceiver extends AbstractReceiver {
 	protected String getSiteUrl() {
 		return getHostName()+"/"+getVivoSiteName();
 	}
-	public CommandResult addPerson(String firstName, String middleName, String lastName, String vivoPersonType) throws IOException {
+	public CommandResult addPerson(Person person) throws IOException {
 		Response response = VivoReceiverHelper.gotoAdminPage(getHostName()+"/"+getVivoSiteName(), getHttpClient());
 		LOGGER.info(getHostName()+"/"+getVivoSiteName() + "with return code " + response.code());
 		// Get an editKey, a must to have before adding data to VIVO
-		editKey = VivoReceiverHelper.getEditKey(getHostName()+"/"+getVivoSiteName(), getHttpClient(), vivoPersonType);
+		editKey = VivoReceiverHelper.getEditKey(getHostName()+"/"+getVivoSiteName(), getHttpClient(), person.getPersonType());
 		//
 		// Adding to VIVO
-		String label = (firstName != null ? firstName + "+" : "")
-				+ (middleName != null ? middleName + "+" : "")
-				+ (lastName != null ? lastName : "");
-		String bodyValue = (firstName != null ? "firstName=" + firstName : "")
-				+ (middleName != null ? "&middleName=" + middleName : "")
-				+ (lastName != null ? "&lastName=" + lastName : "")
+		String label = (person.getFirstName() != null ? person.getFirstName() + "+" : "")
+				+ (person.getMiddleName() != null ? person.getMiddleName() + "+" : "")
+				+ (person.getLastName() != null ? person.getLastName() : "");
+		String bodyValue = (person.getFirstName() != null ? "firstName=" + person.getFirstName() : "")
+				+ (person.getMiddleName() != null ? "&middleName=" + person.getMiddleName() : "")
+				+ (person.getLastName()  != null ? "&lastName=" + person.getLastName()  : "")
 				+"&label="+label+"&editKey="+editKey;
 
 		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
@@ -154,7 +158,7 @@ public class VivoReceiver extends AbstractReceiver {
 				.addHeader("Connection", "keep-alive")
 				.addHeader("Referer", 
 						getHostName()+"/"+getVivoSiteName()+
-						"/editRequestDispatch?typeOfNew="+vivoPersonType+
+						"/editRequestDispatch?typeOfNew="+person.getPersonType()+
 						"&editForm=edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.VIVONewIndividualFormGenerator")
 				.addHeader("Upgrade-Insecure-Requests", "1")
 				.addHeader("Content-Type", "application/x-www-form-urlencoded")
@@ -176,7 +180,7 @@ public class VivoReceiver extends AbstractReceiver {
 		 * Get the Edit Key for this operation
 		 */
 		EditKeyForPosition editKeyVar = new EditKeyForPosition();
-		editKeyVar.setSubjectUri(body.getPersonIRI());
+		editKeyVar.setSubjectUri(body.getPersonIRI()); 
 		editKeyVar.setPredicateUri(VIVO.relatedBy.getURI());
 		editKeyVar.setDomainUri(FOAF.PERSON.stringValue());
 		editKeyVar.setRangeUri(VIVO.Position.getURI());
@@ -335,6 +339,40 @@ public class VivoReceiver extends AbstractReceiver {
 		Response response = client.newCall(request).execute();
 		return CommandResult.asCommandResult(response);
 	}
+	
+	/**
+	 * @param username
+	 * @param passwd
+	 * @param IriList
+	 * @return
+	 * @throws IOException
+	 */
+	public CommandResult DESCRIBE(String username, String passwd, List<String> IriList, String MIME_Type) throws IOException{
+		String bodyValue = 
+				"email="+username+
+				"&password="+passwd+
+				"&query=DESCRIBE";
+		
+		for (Iterator iterator = IriList.iterator(); iterator.hasNext();) {
+			String IRI = (String) iterator.next();
+			bodyValue += " <"+IRI+"> ";
+		}
+
+		OkHttpClient client = new OkHttpClient();
+		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+		RequestBody body = RequestBody.create(mediaType, bodyValue);
+		Request request = new Request.Builder()
+				.url(getSiteUrl()+"/api/sparqlQuery")
+				.method("POST", body)
+				.addHeader("Accept", MIME_Type)
+				.addHeader("Content-Type", "application/x-www-form-urlencoded")
+				.build();
+		Response response = client.newCall(request).execute();
+		System.out.println(response.body().string());
+
+		return CommandResult.asCommandResult(response);
+	}
+
 	/**
 	 * @param username
 	 * @param passwd
@@ -344,5 +382,15 @@ public class VivoReceiver extends AbstractReceiver {
 	 */
 	public CommandResult DESCRIBE(String username, String passwd, String IRI) throws IOException{
 		return DESCRIBE(username, passwd, IRI, "application/json");
+	}
+	public CommandResult addPerson(List<Person> personsList) throws IOException {
+		List<String> personsUriList = new ArrayList<>();
+
+		for (Iterator iterator = personsList.iterator(); iterator.hasNext();) {
+			Person person = (Person) iterator.next();
+			CommandResult commandResult = addPerson(person);
+			personsUriList.add(VivoReceiverHelper.getUriResponse(commandResult.getOkhttpResult()));
+		}
+		return CommandResult.asCommandResult(personsUriList);
 	}
 }

@@ -1,11 +1,15 @@
 package ca.uqam.tool.vivoproxy.pattern.command;
 
+import java.util.List;
+
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddOrganizationCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddPersonCommand;
+import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddPersonListCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.CreatePositionForCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.LoginCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.LogoutCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.SparqlDescribeCommand;
+import ca.uqam.tool.vivoproxy.swagger.model.Person;
 import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
 
 public class CommandFactory {
@@ -27,11 +31,6 @@ public class CommandFactory {
         LogoutCommand aCommand = new LogoutCommand();
         return aCommand;
     }
-    public Command createAddPerson(String firstName, String middleName, String lastName, String vivoPersonType) {
-        AddPersonCommand addPersonCmd = new AddPersonCommand(firstName, middleName,lastName, vivoPersonType);
-        return addPersonCmd;
-        
-    }
     public Command createOrganization(String organisationName, String vivoOrganisationType) {
         AddOrganizationCommand addOrganizationCommand = new AddOrganizationCommand(organisationName, vivoOrganisationType);
         return addOrganizationCommand;
@@ -52,4 +51,16 @@ public class CommandFactory {
         CreatePositionForCommand createPositionForCommand = new CreatePositionForCommand(body);
         return createPositionForCommand;
     }
+	public Command createAddPerson(Person person) {
+        AddPersonCommand addPersonCmd = new AddPersonCommand(person);
+		return addPersonCmd;
+	}
+	public Command createAddPerson(List<Person> personsList) {
+		AddPersonListCommand addPersonCmd = new AddPersonListCommand(personsList);
+		return addPersonCmd;
+	}
+	public Command createSparqlDescribeCommand(String login, String passwd, List<String> uris, String MINE_TYPE) {
+        SparqlDescribeCommand sparqlDescribeCommand = new SparqlDescribeCommand(login, passwd, uris, MINE_TYPE);
+        return sparqlDescribeCommand;
+	}
 }

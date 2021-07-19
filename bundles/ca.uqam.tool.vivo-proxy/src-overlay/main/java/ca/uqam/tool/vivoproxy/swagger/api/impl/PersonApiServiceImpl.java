@@ -1,6 +1,9 @@
 package ca.uqam.tool.vivoproxy.swagger.api.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.ws.rs.core.Response;
@@ -25,7 +28,20 @@ import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2021-06-16T17:59:05.995-04:00")
 public class PersonApiServiceImpl extends PersonApiService {
 	private final static Logger LOGGER = Logger.getLogger(VivoReceiver.class.getName());
-
+	/*
+	 * Script for testing
+	 */
+	public static void main(String[]  args) throws IOException, OWLOntologyCreationException, OWLOntologyStorageException {
+		if (true ){
+			Person person = new Person();
+			person.firstName("Michel11");
+			person.lastName("Héon");
+			PersonApiService service = new PersonApiServiceImpl();
+			String response = ((PersonApiServiceImpl) service).runCreatePerson(person).body().string();
+			System.out.println(response);
+		}
+		System.out.println("Done!");
+	}
 	public Response createPerson(Person body, SecurityContext securityContext) throws NotFoundException {
 		try {
 			return Response.ok().entity(new VivoProxyResponseMessage(VivoProxyResponseMessage.OK, runCreatePerson(body).body().string())).build();
@@ -63,7 +79,6 @@ public class PersonApiServiceImpl extends PersonApiService {
 			return Response.serverError().entity(new VivoProxyResponseMessage(VivoProxyResponseMessage.ERROR, e.getMessage())).build();
 		}
 	}
-
 	private com.squareup.okhttp.Response runCreatePerson(Person person) throws IOException  {
 		CommandFactory cf = CommandFactory.getInstance();
 		VivoReceiver session = new VivoReceiver();
@@ -72,7 +87,7 @@ public class PersonApiServiceImpl extends PersonApiService {
 		 * Create commands
 		 */
 		Command loginCommand = cf.createLogin(Credential.getLogin(), Credential.getPasswd());
-		Command addPersonCommand = cf.createAddPerson(person.getFirstName(), person.getMiddleName(), person.getLastName(), person.getPersonType());
+		Command addPersonCommand = cf.createAddPerson(person);
 		Command logOutCommand = cf.createLogout();
 
 		/*
@@ -94,18 +109,45 @@ public class PersonApiServiceImpl extends PersonApiService {
 		com.squareup.okhttp.Response sparqlResponse = invoker.execute().getOkhttpResult();
 		return sparqlResponse;
 	}    
-	/*
-	 * Script for testing
-	 */
-	public static void main(String[]  args) throws IOException, OWLOntologyCreationException, OWLOntologyStorageException {
-		if (true ){
-			Person person = new Person();
-			person.firstName("Michel11");
-			person.lastName("Héon");
-			PersonApiService service = new PersonApiServiceImpl();
-			String response = ((PersonApiServiceImpl) service).runCreatePerson(person).body().string();
-			System.out.println(response);
+	@Override
+	public Response createUsersWithListInput(List<Person> body, SecurityContext securityContext)
+			throws NotFoundException {
+		CommandFactory cf = CommandFactory.getInstance();
+		VivoReceiver session = new VivoReceiver();
+		CommandInvoker invoker = new CommandInvoker();
+		CommandResult result = null;
+		/*
+		 * Create commands
+		 */
+		Command loginCommand = cf.createLogin(Credential.getLogin(), Credential.getPasswd());
+		Command logOutCommand = cf.createLogout();
+
+		/*
+		 * Register commands
+		 */
+		invoker.register(loginCommand);
+		Command createAddPersonCmd = cf.createAddPerson(body);
+		invoker.register(createAddPersonCmd);
+		invoker.register(logOutCommand);
+		try {
+			invoker.execute();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		System.out.println("Done!");
+		List<Person> personsList = new ArrayList<>();
+		result = createAddPersonCmd.getCommandResult();
+		List<String> uris = (List<String>) result.getResult();
+		Command sparqlDescribeCommand = cf.createSparqlDescribeCommand(Credential.getLogin(), Credential.getPasswd(), uris, "application/rdf+xml");
+		invoker.flush();
+		invoker.register(sparqlDescribeCommand);
+
+		try {
+			invoker.execute();
+			com.squareup.okhttp.Response sparqlResponse = sparqlDescribeCommand.getCommandResult().getOkhttpResult();
+			return Response.ok().entity(new VivoProxyResponseMessage(VivoProxyResponseMessage.OK, loginCommand.getCommandResult().getOkhttpResult().body().string())).build();
+		} catch (IOException e) {
+			throw new NotFoundException(-1, e.getMessage());
+		}
 	}
 }

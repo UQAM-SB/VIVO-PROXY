@@ -7,6 +7,7 @@ import ca.uqam.tool.vivoproxy.swagger.api.factories.PersonApiServiceFactory;
 import io.swagger.annotations.ApiParam;
 import io.swagger.jaxrs.*;
 
+import java.util.List;
 import ca.uqam.tool.vivoproxy.swagger.model.Person;
 import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
 
@@ -30,7 +31,7 @@ import javax.validation.constraints.*;
 
 
 @io.swagger.annotations.Api(description = "the person API")
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2021-07-15T06:02:28.027-04:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2021-07-19T10:52:45.494-04:00")
 public class PersonApi  {
    private final PersonApiService delegate;
 
@@ -90,5 +91,21 @@ public class PersonApi  {
 ,@Context SecurityContext securityContext)
     throws NotFoundException {
         return delegate.createPositionFor(body,securityContext);
+    }
+    @POST
+    @Path("/createWithList")
+    
+    @Produces({ "application/json", "text/plain", "application/rdf+xml", "text/n3", "text/turtle", "text/funtional", "text/manchester", "application/owl+xml" })
+    @io.swagger.annotations.ApiOperation(value = "Creates list of users with given input array", notes = "", response = Void.class, authorizations = {
+        @io.swagger.annotations.Authorization(value = "basicAuth")
+    }, tags={ "person", })
+    @io.swagger.annotations.ApiResponses(value = { 
+        @io.swagger.annotations.ApiResponse(code = 405, message = "Validation exception", response = Void.class),
+        
+        @io.swagger.annotations.ApiResponse(code = 200, message = "successful operation", response = Void.class) })
+    public Response createUsersWithListInput(@ApiParam(value = "List of user object" ,required=true) List<Person> body
+,@Context SecurityContext securityContext)
+    throws NotFoundException {
+        return delegate.createUsersWithListInput(body,securityContext);
     }
 }

@@ -94,7 +94,36 @@
             description: "Organisation not found"
           "405":
             description: "Validation exception"
-      
+    /person/createWithList:
+      post:
+        tags:
+        - "person"
+        summary: "Creates list of users with given input array"
+        description: ""
+        operationId: "createUsersWithListInput"
+        produces:
+        - "application/json"
+        - "text/plain"
+        - "application/rdf+xml"
+        - "text/n3"
+        - "text/turtle"
+        - "text/funtional"
+        - "text/manchester"
+        - "application/owl+xml"
+        parameters:
+        - in: "body"
+          name: "body"
+          description: "List of user object"
+          required: true
+          schema:
+           type: "array"
+           items:
+             $ref: "#/definitions/person"
+        responses:
+          default:
+            description: "successful operation"
+          "405":
+            description: "Validation exception"
   #  /person/{id}:
   #    get:
   #      tags:

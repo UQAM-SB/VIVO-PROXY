@@ -163,5 +163,7 @@ public class VivoReceiverHelper {
 		}
 		return uri;
 	}
-
+	public static String getUriResponse(Response result) throws IOException {
+		return getUriResponse(result.body().string());
+	}
 }

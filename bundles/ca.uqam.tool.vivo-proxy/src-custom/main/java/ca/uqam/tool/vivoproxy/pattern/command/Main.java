@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import com.squareup.okhttp.Request;
 
 import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
+import ca.uqam.tool.vivoproxy.swagger.model.Person;
 import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
 import ca.uqam.vivo.vocabulary.VIVO;;
 
@@ -23,16 +24,21 @@ public class Main {
      * @throws IOException 
      */
     public static void main(String[] args) throws IOException {
+        Person person = new Person();
         String username = "vivo@uqam.ca";
         String password = "Vivo1234.";
         String firstName = "Pierre1";
         String lastName = "Jacques2";
         String middleName = "Jean2";
         String organisationName = "Collège du vieux Montréal";
+        person.setFirstName(firstName);
+        person.setMiddleName(middleName);
+        person.setLastName(lastName);
+        person.setPersonType(VIVO.FacultyMember.toString());
         CommandFactory cf = CommandFactory.getInstance(); 
         CommandInvoker invoker = new CommandInvoker();
         Command loginCommand = cf.createLogin(username, password);
-        Command addPersonCommand = cf.createAddPerson(firstName, "2", lastName, VIVO.GraduateStudent.getURI());
+        Command addPersonCommand = cf.createAddPerson(person);
         invoker.register(loginCommand);
         String U_Title = "Université du Québec à Montréal";
 //        invoker.register(cf.createAddPerson(firstName, "1", lastName, VIVO.GraduateStudent.getURI()));
