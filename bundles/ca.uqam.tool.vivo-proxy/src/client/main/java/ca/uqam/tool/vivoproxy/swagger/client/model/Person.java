@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package ca.uqam.tool.vivoproxy.swagger.client.model;
 
 import java.util.Objects;
@@ -20,14 +19,13 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-
 /**
  * Person
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-07-19T10:52:45.694-04:00")
+
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2021-07-29T16:22:49.200-04:00[America/New_York]")
 public class Person {
   @SerializedName("personType")
   private String personType = null;
@@ -50,7 +48,7 @@ public class Person {
    * Get personType
    * @return personType
   **/
-  @ApiModelProperty(example = "http://vivoweb.org/ontology/core#FacultyMember", value = "")
+  @Schema(example = "http://vivoweb.org/ontology/core#FacultyMember", required = true, description = "")
   public String getPersonType() {
     return personType;
   }
@@ -68,7 +66,7 @@ public class Person {
    * Get firstName
    * @return firstName
   **/
-  @ApiModelProperty(example = "Peters", value = "")
+  @Schema(example = "Peters", required = true, description = "")
   public String getFirstName() {
     return firstName;
   }
@@ -86,7 +84,7 @@ public class Person {
    * Get lastName
    * @return lastName
   **/
-  @ApiModelProperty(example = "Jasper", value = "")
+  @Schema(example = "Jasper", required = true, description = "")
   public String getLastName() {
     return lastName;
   }
@@ -104,7 +102,7 @@ public class Person {
    * Get middleName
    * @return middleName
   **/
-  @ApiModelProperty(example = "I", value = "")
+  @Schema(example = "I", description = "")
   public String getMiddleName() {
     return middleName;
   }
@@ -160,4 +158,3 @@ public class Person {
   }
 
 }
-

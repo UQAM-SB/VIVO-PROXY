@@ -1,4 +1,4 @@
-package ca.uqam.tool.vivoproxy.swagger.api.impl.util;
+package ca.uqam.tool.util.credential;
 
 public abstract class AbstractCredential {
 

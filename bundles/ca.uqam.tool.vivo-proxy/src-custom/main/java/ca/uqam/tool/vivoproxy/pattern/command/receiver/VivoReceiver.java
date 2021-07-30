@@ -21,8 +21,11 @@ import ca.uqam.tool.vivoproxy.pattern.command.AbstractReceiver;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
 import ca.uqam.tool.vivoproxy.pattern.command.receiver.util.EditKeyForPosition;
 import ca.uqam.tool.vivoproxy.pattern.command.util.VivoReceiverHelper;
+import ca.uqam.tool.vivoproxy.swagger.model.Concept;
+import ca.uqam.tool.vivoproxy.swagger.model.ConceptLabel;
 import ca.uqam.tool.vivoproxy.swagger.model.Person;
 import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
+import ca.uqam.tool.vivoproxy.util.SemanticWebMediaType;
 import ca.uqam.vivo.vocabulary.VIVO;
 
 /**
@@ -123,8 +126,8 @@ public class VivoReceiver extends AbstractReceiver {
 				.build();
 		LOGGER.info("Sending "+ organisationName );
 		Response orgResp = getHttpClient().newCall(request).execute();
-//		String responseUri = VivoReceiverHelper.getUriResponse(orgResp.body().string());
-//		LOGGER.info("Adding "+ organisationName + "at uri "+ responseUri+" with return code " + response.code());
+		//		String responseUri = VivoReceiverHelper.getUriResponse(orgResp.body().string());
+		//		LOGGER.info("Adding "+ organisationName + "at uri "+ responseUri+" with return code " + response.code());
 		return CommandResult.asCommandResult(orgResp);
 		//        return CommandResult.asCommandResult(responseUri);
 	}
@@ -166,7 +169,7 @@ public class VivoReceiver extends AbstractReceiver {
 		LOGGER.info("Sending "+ label );
 		response = getHttpClient().newCall(request).execute();
 
-//		String responseUri = VivoReceiverHelper.getUriResponse(response.body().string());
+		//		String responseUri = VivoReceiverHelper.getUriResponse(response.body().string());
 		LOGGER.info("Adding "+ label + " with return code " + response.code());
 		return CommandResult.asCommandResult(response);
 	}    
@@ -339,7 +342,55 @@ public class VivoReceiver extends AbstractReceiver {
 		Response response = client.newCall(request).execute();
 		return CommandResult.asCommandResult(response);
 	}
-	
+	public CommandResult addConcept(String username, String passwd, Concept concept, String MIME_Type) throws IOException{
+		String iri = concept.getIRI();
+		String updateConceptQuery = ""
+				+ "INSERT DATA  { GRAPH <> { ";
+		List<ConceptLabel> labels = concept.getLabels();
+		for (Iterator iterator = labels.iterator(); iterator.hasNext();) {
+			ConceptLabel conceptLabel = (ConceptLabel) iterator.next();
+			String subject = "<" +iri +"> ";
+			String predicate = "<http://www.w3.org/2000/01/rdf-schema#label> ";
+			String object = "\"" +conceptLabel.getLabel() +"\"@"+conceptLabel.getLanguage() + " . ";
+			updateConceptQuery+= subject;
+			updateConceptQuery+= predicate;
+			updateConceptQuery+= object;
+		}		
+		updateConceptQuery += "<" +iri +">  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://www.w3.org/2004/02/skos/core#Concept> . }}" ;
+
+		String bodyValue = 
+				"email="+username+
+				"&password="+passwd+
+				"&update="+updateConceptQuery;
+		System.out.println(bodyValue);
+		OkHttpClient client = new OkHttpClient();
+		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+		RequestBody body = RequestBody.create(mediaType, bodyValue);
+		Request request = new Request.Builder()
+				.url(getSiteUrl()+"/api/sparqlUpdate")
+				.method("POST", body)
+				.addHeader("Accept", MIME_Type)
+				.addHeader("Content-Type", "application/x-www-form-urlencoded")
+				.build();
+		Response response = client.newCall(request).execute();
+		return CommandResult.asCommandResult(response);
+	}
+    public static void main (String[] argv) throws IOException
+    {
+    	VivoReceiver vr = new VivoReceiver();
+    	Concept concept = new Concept();
+    	concept.setIRI("http://purl.org/uqam.ca/vocabulary/expertise#pompom");
+    	ConceptLabel cl = new ConceptLabel();
+    	cl.label("toto");
+    	cl.language("fr-CA");
+    	concept.addLabelsItem(cl);
+    	ConceptLabel cl2 = new ConceptLabel();
+    	cl.label("tota");
+    	cl.language("en-CA");
+    	concept.addLabelsItem(cl);
+    	CommandResult resu = vr.addConcept("vivo@uqam.ca", "Vivo1234.", concept, SemanticWebMediaType.TEXT_TURTLE.toString());
+    	System.err.println(resu.getOkhttpResult().body().string());
+    }
 	/**
 	 * @param username
 	 * @param passwd
@@ -352,7 +403,7 @@ public class VivoReceiver extends AbstractReceiver {
 				"email="+username+
 				"&password="+passwd+
 				"&query=DESCRIBE";
-		
+
 		for (Iterator iterator = IriList.iterator(); iterator.hasNext();) {
 			String IRI = (String) iterator.next();
 			bodyValue += " <"+IRI+"> ";
@@ -368,7 +419,6 @@ public class VivoReceiver extends AbstractReceiver {
 				.addHeader("Content-Type", "application/x-www-form-urlencoded")
 				.build();
 		Response response = client.newCall(request).execute();
-		System.out.println(response.body().string());
 
 		return CommandResult.asCommandResult(response);
 	}

@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package ca.uqam.tool.vivoproxy.swagger.client.api;
 
 import ca.uqam.tool.vivoproxy.swagger.client.handler.ApiCallback;
@@ -65,7 +64,7 @@ public class PersonApi {
      */
     public com.squareup.okhttp.Call createPersonCall(Person body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = body;
-
+        
         // create path and map variables
         String localVarPath = "/person";
 
@@ -77,13 +76,13 @@ public class PersonApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "application/json", "text/plain", "application/rdf+xml", "text/n3", "text/turtle", "text/funtional", "text/manchester", "application/owl+xml"
+            "application/ld+json", "text/plain", "text/n3", "text/turtle", "text/owl-manchester", "text/owl-functional", "application/rdf+xml", "application/owl+xml"
         };
         final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
 
         final String[] localVarContentTypes = {
-            
+            "application/json"
         };
         final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
@@ -103,41 +102,46 @@ public class PersonApi {
         String[] localVarAuthNames = new String[] { "basicAuth" };
         return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
-
+    
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call createPersonValidateBeforeCall(Person body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
         // verify the required parameter 'body' is set
         if (body == null) {
             throw new ApiException("Missing the required parameter 'body' when calling createPerson(Async)");
         }
         
-
         com.squareup.okhttp.Call call = createPersonCall(body, progressListener, progressRequestListener);
         return call;
 
+        
+        
+        
+        
     }
 
     /**
      * Create a person in VIVO
      * This can only be done by the logged in person.
      * @param body Created person object (required)
+     * @return Person
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public void createPerson(Person body) throws ApiException {
-        createPersonWithHttpInfo(body);
+    public Person createPerson(Person body) throws ApiException {
+        ApiResponse<Person> resp = createPersonWithHttpInfo(body);
+        return resp.getData();
     }
 
     /**
      * Create a person in VIVO
      * This can only be done by the logged in person.
      * @param body Created person object (required)
-     * @return ApiResponse&lt;Void&gt;
+     * @return ApiResponse&lt;Person&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<Void> createPersonWithHttpInfo(Person body) throws ApiException {
+    public ApiResponse<Person> createPersonWithHttpInfo(Person body) throws ApiException {
         com.squareup.okhttp.Call call = createPersonValidateBeforeCall(body, null, null);
-        return apiClient.execute(call);
+        Type localVarReturnType = new TypeToken<Person>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
     }
 
     /**
@@ -170,7 +174,8 @@ public class PersonApi {
         }
 
         com.squareup.okhttp.Call call = createPersonValidateBeforeCall(body, progressListener, progressRequestListener);
-        apiClient.executeAsync(call, callback);
+        Type localVarReturnType = new TypeToken<String>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
     /**
@@ -183,7 +188,7 @@ public class PersonApi {
      */
     public com.squareup.okhttp.Call createPositionForCall(PositionOfPerson body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = body;
-
+        
         // create path and map variables
         String localVarPath = "/person";
 
@@ -195,13 +200,13 @@ public class PersonApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "application/json", "text/plain", "application/rdf+xml", "text/n3", "text/turtle", "text/funtional", "text/manchester", "application/owl+xml"
+            
         };
         final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
 
         final String[] localVarContentTypes = {
-            "application/json", "application/xml"
+            "application/ld+json", "application/xml", "text/plain", "application/rdf+xml", "text/manchester", "text/n3", "text/turtle", "application/owl+xml"
         };
         final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
@@ -221,19 +226,21 @@ public class PersonApi {
         String[] localVarAuthNames = new String[] { "basicAuth" };
         return apiClient.buildCall(localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
-
+    
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call createPositionForValidateBeforeCall(PositionOfPerson body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
         // verify the required parameter 'body' is set
         if (body == null) {
             throw new ApiException("Missing the required parameter 'body' when calling createPositionFor(Async)");
         }
         
-
         com.squareup.okhttp.Call call = createPositionForCall(body, progressListener, progressRequestListener);
         return call;
 
+        
+        
+        
+        
     }
 
     /**
@@ -301,7 +308,7 @@ public class PersonApi {
      */
     public com.squareup.okhttp.Call createUsersWithListInputCall(List<Person> body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = body;
-
+        
         // create path and map variables
         String localVarPath = "/person/createWithList";
 
@@ -313,13 +320,13 @@ public class PersonApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "application/json", "text/plain", "application/rdf+xml", "text/n3", "text/turtle", "text/funtional", "text/manchester", "application/owl+xml"
+            
         };
         final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
 
         final String[] localVarContentTypes = {
-            
+            "*/*"
         };
         final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
@@ -339,19 +346,21 @@ public class PersonApi {
         String[] localVarAuthNames = new String[] { "basicAuth" };
         return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
-
+    
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call createUsersWithListInputValidateBeforeCall(List<Person> body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
         // verify the required parameter 'body' is set
         if (body == null) {
             throw new ApiException("Missing the required parameter 'body' when calling createUsersWithListInput(Async)");
         }
         
-
         com.squareup.okhttp.Call call = createUsersWithListInputCall(body, progressListener, progressRequestListener);
         return call;
 
+        
+        
+        
+        
     }
 
     /**
@@ -384,7 +393,7 @@ public class PersonApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call createUsersWithListInputAsync(List<Person> body, final ApiCallback<Void> callback) throws ApiException {
+    public com.squareup.okhttp.Call createUsersWithListInputAsync(List<Person> body, final ApiCallback<String> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;

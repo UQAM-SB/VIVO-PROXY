@@ -10,26 +10,23 @@
  * Do not edit the class manually.
  */
 
-
 package ca.uqam.tool.vivoproxy.swagger.model;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
 
 /**
  * Organization
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2021-07-19T10:52:45.494-04:00")
-public class Organization   {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-07-29T16:22:48.953-04:00[America/New_York]")public class Organization   {
   @JsonProperty("organizationType")
   private String organizationType = null;
 
-  @JsonProperty("Name")
+  @JsonProperty("name")
   private String name = null;
 
   public Organization organizationType(String organizationType) {
@@ -42,7 +39,8 @@ public class Organization   {
    * @return organizationType
    **/
   @JsonProperty("organizationType")
-  @ApiModelProperty(example = "http://vivoweb.org/ontology/core#University", value = "")
+  @Schema(example = "http://vivoweb.org/ontology/core#University", required = true, description = "")
+  @NotNull
   public String getOrganizationType() {
     return organizationType;
   }
@@ -60,8 +58,9 @@ public class Organization   {
    * Get name
    * @return name
    **/
-  @JsonProperty("Name")
-  @ApiModelProperty(example = "Harvard University", value = "")
+  @JsonProperty("name")
+  @Schema(example = "Harvard University", required = true, description = "")
+  @NotNull
   public String getName() {
     return name;
   }
@@ -112,4 +111,3 @@ public class Organization   {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

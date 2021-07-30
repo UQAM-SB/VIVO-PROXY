@@ -62,15 +62,15 @@
 	<classpathentry exported="true" kind="lib" path="lib/javax.annotation-api-1.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/javax.inject-1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/javax.inject-2.4.0-b34.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/javax.ws.rs-api-2.1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/javax.ws.rs-api-2.1.1.jar" sourcepath="lib_src/javax.ws.rs-api-2.1.1-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jcl-over-slf4j-1.7.22.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jersey-client-2.22.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/jersey-common-2.22.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jersey-common-2.22.2.jar" sourcepath="lib_src/jersey-common-2.22.2-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jersey-container-servlet-core-2.22.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jersey-guava-2.22.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jersey-media-jaxb-2.22.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jersey-media-multipart-2.22.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/jersey-server-2.22.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jersey-server-2.22.2.jar" sourcepath="lib_src/jersey-server-2.22.2-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/joda-time-2.9.9.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jsonld-java-0.13.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jsoup-1.13.1.jar"/>
@@ -146,27 +146,26 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry exported="true" kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry excluding="src/main/java/ca/uqam/tool/vivoproxy/swagger/api/impl/*.java" including="**/*.java" kind="src" output="target/classes" path="src/main/java">
-		<attributes>
-			<attribute name="optional" value="true"/>
-			<attribute name="maven.pomderived" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="src" path="src/server/main/java"/>
-	<classpathentry excluding="src/main/java/ca/uqam/tool/vivoproxy/swagger/api/impl/*.java" kind="src" output="target/classes" path="src-custom/main/java">
-		<attributes>
-			<attribute name="optional" value="true"/>
-			<attribute name="maven.pomderived" value="true"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="src" path="src-overlay/main/java"/>
-	<classpathentry excluding="src/main/java/ca/uqam/tool/vivoproxy/swagger/api/impl/*.java" kind="src" output="target/classes" path="src/client/main/java">
+	<classpathentry excluding="ca/uqam/tool/vivoproxy/swagger/api/impl/*.java" including="**/*.java" kind="src" output="target/classes" path="src/main/java">
 		<attributes>
 			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry excluding="src/main/java/ca/uqam/tool/vivoproxy/swagger/api/impl/*.java" kind="src" output="target/test-classes" path="src/test/java">
+	<classpathentry excluding="ca/uqam/tool/vivoproxy/swagger/api/impl/*.java" kind="src" output="target/classes" path="src/server/main/java">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry excluding="ca/uqam/tool/vivoproxy/swagger/api/impl/*.java" kind="src" output="target/classes" path="src-custom/main/java">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry excluding="ca/uqam/tool/vivoproxy/swagger/api/impl/*.java" kind="src" output="target/test-classes" path="src/test/java">
 		<attributes>
 			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
@@ -174,7 +173,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src-custom/test/java"/>
-	<classpathentry exported="true" kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>

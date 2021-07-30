@@ -6,14 +6,11 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**getindividualByIRI**](VivoApi.md#getindividualByIRI) | **GET** /vivo | Get an individual by IRI
 
-
 <a name="getindividualByIRI"></a>
 # **getindividualByIRI**
 > Vivo getindividualByIRI(IRI)
 
 Get an individual by IRI
-
-
 
 ### Example
 ```java
@@ -25,7 +22,6 @@ Get an individual by IRI
 //import ca.uqam.tool.vivoproxy.swagger.client.api.VivoApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
-
 // Configure HTTP basic authorization: basicAuth
 HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
 basicAuth.setUsername("YOUR USERNAME");

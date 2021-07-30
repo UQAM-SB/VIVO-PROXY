@@ -1,67 +1,95 @@
 package ca.uqam.tool.vivoproxy.swagger.api.impl;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
+
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
+import ca.uqam.tool.util.credential.LOGIN;
 import ca.uqam.tool.vivoproxy.pattern.command.Command;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandFactory;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandInvoker;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
 import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
 import ca.uqam.tool.vivoproxy.pattern.command.util.VivoReceiverHelper;
-import ca.uqam.tool.vivoproxy.swagger.api.ApiResponseMessage;
 import ca.uqam.tool.vivoproxy.swagger.api.NotFoundException;
 import ca.uqam.tool.vivoproxy.swagger.api.OrganizationApiService;
-import ca.uqam.tool.vivoproxy.swagger.api.PersonApiService;
 import ca.uqam.tool.vivoproxy.swagger.api.VivoProxyResponseMessage;
-import ca.uqam.tool.vivoproxy.swagger.api.impl.util.Credential;
 import ca.uqam.tool.vivoproxy.swagger.model.Organization;
-import ca.uqam.tool.vivoproxy.swagger.model.Person;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2021-06-10T18:18:23.710-04:00")
+import ca.uqam.tool.vivoproxy.util.SemanticWebMediaType;
+import ca.uqam.tool.vivoproxy.swagger.api.*;
+import ca.uqam.tool.vivoproxy.swagger.model.*;
+
+import ca.uqam.tool.vivoproxy.swagger.model.Organization;
+
+import java.util.Map;
+import java.util.List;
+import ca.uqam.tool.vivoproxy.swagger.api.NotFoundException;
+
+import java.io.InputStream;
+
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
+
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.SecurityContext;
+import javax.validation.constraints.*;
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-07-21T06:59:15.044-04:00[America/New_York]")
 public class OrganizationApiServiceImpl extends OrganizationApiService {
-    private static final String PASSWD = "Vivo2435....";
-    private static final String LOGIN = "vivo@uqam.ca";
-    @Override
-    public Response createOrganization(Organization body, SecurityContext securityContext) throws NotFoundException {
-        try { 
-            return Response.ok().entity(new VivoProxyResponseMessage(VivoProxyResponseMessage.OK, run(body).body().string())).build();
-        } catch (IOException e) {
-            throw new NotFoundException(-1, e.getMessage());
-        }
-    }
-    private com.squareup.okhttp.Response run(Organization organ) throws IOException  {
-        CommandFactory cf = CommandFactory.getInstance();
-        VivoReceiver session = new VivoReceiver();
-        CommandInvoker invoker = new CommandInvoker(); 
-        Command loginCommand = cf.createLogin(Credential.getLogin(), Credential.getPasswd());
-        Command addOrganisationCommand = cf.createOrganization(organ.getName(), organ.getOrganizationType());
-        Command logout = cf.createLogout();
-        invoker.register(loginCommand);
-        invoker.register(addOrganisationCommand);
-        invoker.register(logout);
-        CommandResult result = invoker.execute();
-        com.squareup.okhttp.Response response = addOrganisationCommand.getCommandResult().getOkhttpResult();
-        String newUserIri = VivoReceiverHelper.getUriResponse(response.body().string());
-        Command sparqlDescribeCommand = cf.createSparqlDescribeCommand(Credential.getLogin(), Credential.getPasswd(), newUserIri, "application/rdf+xml");
-        invoker.flush();
-        invoker.register(sparqlDescribeCommand);
-        com.squareup.okhttp.Response sparqlResponse = invoker.execute().getOkhttpResult();
-        return sparqlResponse;
-    }    
-    
-    public static void main(String[]  args) throws IOException, OWLOntologyCreationException, OWLOntologyStorageException {
+	private static final String YOUR_PASSWD = LOGIN.getPasswd();
+	private static final String YOUR_LOGIN = LOGIN.getUserName();
+	private final static Logger LOGGER = Logger.getLogger(OrganizationApiService.class.getName());
+
+	/* (non-Javadoc)
+	 * @see ca.uqam.tool.vivoproxy.swagger.api.OrganizationApiService#createOrganization(ca.uqam.tool.vivoproxy.swagger.model.Organization, javax.ws.rs.core.SecurityContext)
+	 */
+	public Response createOrganization(Organization organization,SecurityContext securityContext)
+			throws NotFoundException {
+		try {
+			CommandFactory cf = CommandFactory.getInstance();
+			VivoReceiver session = new VivoReceiver();
+			CommandInvoker invoker = new CommandInvoker();  
+			Command loginCommand = cf.createLogin(YOUR_LOGIN, YOUR_PASSWD);
+			Command addOrganisationCommand = cf.createOrganization(organization.getName(), organization.getOrganizationType());
+			Command logoutCommand = cf.createLogout();
+			invoker.register(loginCommand);
+			invoker.register(addOrganisationCommand);
+			invoker.register(logoutCommand);
+			CommandResult result = invoker.execute();
+			com.squareup.okhttp.Response response = addOrganisationCommand.getCommandResult().getOkhttpResult();
+			String newUserIri = VivoReceiverHelper.getUriResponse(response.body().string());
+			Command sparqlDescribeCommand = cf.createSparqlDescribeCommand(YOUR_LOGIN, YOUR_PASSWD, newUserIri,SemanticWebMediaType.APPLICATION_RDF_XML.toString());
+			invoker.flush();
+			invoker.register(sparqlDescribeCommand);
+			invoker.register(logoutCommand);
+			invoker.execute();
+			com.squareup.okhttp.Response sparqlResponse = sparqlDescribeCommand.getCommandResult().getOkhttpResult();
+			String sparqlResp = sparqlResponse.body().string();
+			VivoProxyResponseMessage vivoMessage = new VivoProxyResponseMessage(VivoProxyResponseMessage.OK, sparqlResp);
+			Response apiResponse = Response.ok().entity(vivoMessage).build();
+			return apiResponse;
+		} catch (IOException e) {
+			throw new NotFoundException(-1, e.getMessage());
+		}  
+	}
+    /**
+     * @param args
+     * @throws IOException
+     * @throws OWLOntologyCreationException
+     * @throws OWLOntologyStorageException
+     * @throws NotFoundException 
+     */
+    public static void main(String[]  args) throws IOException, OWLOntologyCreationException, OWLOntologyStorageException, NotFoundException {
         Organization organ = new Organization();
         organ.setName("Test Organization");
         organ.setOrganizationType("http://vivoweb.org/ontology/core#University");
         OrganizationApiService service = new OrganizationApiServiceImpl();
-        String response = ((OrganizationApiServiceImpl)service).run(organ).body().string();
+        Response response = service.createOrganization(organ, null);
         System.out.println(response);
         System.out.println("Done!");
     }
 }
-

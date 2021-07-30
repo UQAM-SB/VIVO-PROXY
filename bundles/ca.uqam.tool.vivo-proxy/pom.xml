@@ -6,28 +6,16 @@
     <version>1.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
     <build>
-        <sourceDirectory>src/main/java</sourceDirectory>
-
+<!--         <sourceDirectory>src/main/java</sourceDirectory> -->
         <resources>
             <resource>
                 <directory>src/main/java</directory>
-                <includes>
-                    <include>**/*.java</include>
-                    <include>**/*.properties</include>
-                    <include>**/*.xml</include>
-                </includes>
-                <excludes>
-                    <exclude>**/ca/uqam/tool/vivoproxy/swagger/api/impl/*.java</exclude>
-                </excludes>
+<!--                 <includes> -->
+<!--                     <include>**/*.java</include> -->
+<!--                     <include>**/*.properties</include> -->
+<!--                     <include>**/*.xml</include> -->
+<!--                 </includes> -->
             </resource>
-            <!-- <resource> -->
-            <!-- <directory>src/server/main/java</directory> -->
-            <!-- <includes> -->
-            <!-- <include>**/*.java</include> -->
-            <!-- <include>**/*.properties</include> -->
-            <!-- <include>**/*.xml</include> -->
-            <!-- </includes> -->
-            <!-- </resource> -->
             <resource>
                 <directory>src-overlay/main/java</directory>
                 <includes>
@@ -36,23 +24,6 @@
                     <include>**/*.xml</include>
                 </includes>
             </resource>
-            <!-- <resource> -->
-            <!-- <directory>src-custom/main/java</directory> -->
-            <!-- <includes> -->
-            <!-- <include>**/*.java</include> -->
-            <!-- <include>**/*.properties</include> -->
-            <!-- <include>**/*.xml</include> -->
-            <!-- </includes> -->
-            <!-- </resource> -->
-            <!-- <resource> -->
-            <!-- <directory>src/client/main/java</directory> -->
-            <!-- <includes> -->
-            <!-- <include>**/*.java</include> -->
-            <!-- <include>**/*.properties</include> -->
-            <!-- <include>**/*.xml</include> -->
-            <!-- </includes> -->
-            <!-- </resource> -->
-            <!-- </resources> -->
         </resources>
         <!-- <sourceDirectory>src, src-custom, src-overlay</sourceDirectory> -->
         <plugins>
@@ -68,10 +39,11 @@
                         </goals>
                         <configuration>
                             <sources>
-                                <source>src/server/main/javac</source>
+<!--                                 <source>src/main/java</source> -->
+                                <source>src/server/main/java</source>
                                 <source>src-overlay/main/java</source>
                                 <source>src-custom/main/java</source>
-                                <source>src/client/main/java</source>
+<!--                                 <source>src/client/main/java</source> -->
                             </sources>
                         </configuration>
                     </execution>
@@ -92,10 +64,10 @@
                     <source>1.8</source>
                     <target>1.8</target>
                     <excludes>
-                        <exclude>src/main/java/ca/uqam/tool/vivoproxy/swagger/api/impl/*.java</exclude>
+                        <exclude>ca/uqam/tool/vivoproxy/swagger/api/impl/*.java</exclude>
                     </excludes>
                     <testExcludes>
-                        <testExclude>src/main/java/ca/uqam/tool/vivoproxy/swagger/api/impl/*.java</testExclude>
+                        <testExclude>ca/uqam/tool/vivoproxy/swagger/api/impl/*.java</testExclude>
                     </testExcludes>
                     <fork>true</fork>
                     <meminitial>1024m</meminitial>
@@ -169,9 +141,12 @@
             <!-- </plugin> -->
             <!-- voir https://github.com/swagger-api/swagger-codegen/tree/master/modules/swagger-codegen-maven-plugin -->
             <plugin>
-                <groupId>io.swagger</groupId>
+                <!-- <groupId>io.swagger</groupId> -->
+                <!-- <artifactId>swagger-codegen-maven-plugin</artifactId> -->
+                <!-- <version>2.4.21</version> -->
+                <groupId>io.swagger.codegen.v3</groupId>
                 <artifactId>swagger-codegen-maven-plugin</artifactId>
-                <version>2.4.20</version>
+                <version>3.0.27</version>
                 <executions>
                     <execution>
                         <id>server</id>
@@ -181,7 +156,7 @@
                         <configuration>
                             <skip>${skipGen}</skip>
                             <inputSpec>${project.basedir}/api/vivo-proxy.yaml</inputSpec>
-                            <language>jaxrs</language>
+                            <language>jaxrs-jersey</language>
                             <apiPackage>${default.package}.api</apiPackage>
                             <modelPackage>${default.package}.model</modelPackage>
                             <invokerPackage>${default.package}.handler</invokerPackage>
@@ -191,21 +166,21 @@
                             </configOptions>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>client</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <skip>${skipGen-client}</skip>
-                            <apiPackage>${default.package}.api</apiPackage>
-                            <modelPackage>${default.package}.model</modelPackage>
-                            <invokerPackage>${default.package}.handler</invokerPackage>
-                            <inputSpec>${project.basedir}/api/vivo-proxy.yaml</inputSpec>
-                            <language>bash</language>
-                            <output>${project.basedir}/src/client/main//bash</output>
-                        </configuration>
-                    </execution>
+                    <!-- <execution> -->
+                    <!-- <id>client</id> -->
+                    <!-- <goals> -->
+                    <!-- <goal>generate</goal> -->
+                    <!-- </goals> -->
+                    <!-- <configuration> -->
+                    <!-- <skip>${skipGen-client}</skip> -->
+                    <!-- <apiPackage>${default.package}.api</apiPackage> -->
+                    <!-- <modelPackage>${default.package}.model</modelPackage> -->
+                    <!-- <invokerPackage>${default.package}.handler</invokerPackage> -->
+                    <!-- <inputSpec>${project.basedir}/api/vivo-proxy.yaml</inputSpec> -->
+                    <!-- <language>bash</language> -->
+                    <!-- <output>${project.basedir}/src/client/main//bash</output> -->
+                    <!-- </configuration> -->
+                    <!-- </execution> -->
                     <execution>
                         <id>client-java</id>
                         <goals>
@@ -397,6 +372,13 @@
         </pluginManagement>
     </build>
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/io.swagger.core.v3/swagger-annotations -->
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>2.1.10</version>
+        </dependency>
+
         <dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-jersey2-jaxrs</artifactId>
@@ -546,6 +528,8 @@
             <artifactId>owlapi-distribution</artifactId>
             <version>5.1.17</version>
         </dependency>
+
+
     </dependencies>
     <properties>
 
@@ -557,23 +541,27 @@
         <junit-version>4.13.1</junit-version>
         <default.package>ca.uqam.tool.vivoproxy.swagger</default.package>
 
-        <!-- <jetty-version>9.4.41.v20210516</jetty-version> -->
+<!--        <jetty-version>9.4.41.v20210516</jetty-version> -->
+        <jetty-version>9.4.43.v20210629</jetty-version>
         <!-- <jersey2-version>2.34</jersey2-version> -->
         <!-- <jackson-version>2.12.3</jackson-version> -->
         <!-- <swagger-version>1.6.2</swagger-version> -->
         <!-- <logback-version>1.2.3</logback-version> -->
         <!-- <servlet-version>2.5</servlet-version> -->
 
-        <jetty-version>9.3.27.v20190418</jetty-version>
+<!--         <jetty-version>9.3.27.v20190418</jetty-version> -->
         <okhttp-version>2.7.5</okhttp-version>
 
-        <!-- <jersey2-version>2.34</jersey2-version> -->
-        <jersey2-version>2.22.2</jersey2-version>
+<!--         <jersey2-version>2.34</jersey2-version> -->
+        <jersey2-version>2.25.1</jersey2-version>
         <jackson-version>2.11.4</jackson-version>
-        <swagger-version>1.5.24</swagger-version>
+<!--         <swagger-version>1.5.24</swagger-version> -->
+        <swagger-version>1.6.2</swagger-version>
         <!-- <swagger-version>1.6.2</swagger-version> -->
         <logback-version>1.2.0</logback-version>
         <servlet-version>2.5</servlet-version>
+
+
         <skipGen-client>false</skipGen-client>
         <skipGen>false</skipGen>
 

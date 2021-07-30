@@ -2,6 +2,7 @@ package ca.uqam.tool.vivoproxy.pattern.command;
 
 import java.util.List;
 
+import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddConceptCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddOrganizationCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddPersonCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddPersonListCommand;
@@ -9,6 +10,7 @@ import ca.uqam.tool.vivoproxy.pattern.command.concrete.CreatePositionForCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.LoginCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.LogoutCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.SparqlDescribeCommand;
+import ca.uqam.tool.vivoproxy.swagger.model.Concept;
 import ca.uqam.tool.vivoproxy.swagger.model.Person;
 import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
 
@@ -23,7 +25,7 @@ public class CommandFactory {
     public static CommandFactory getInstance() {
         return CommandFactoryHolder.SINGLE_INSTANCE;
     }
-    public Command createLogin(String username, String password) {
+    public Command createLogin(String username, String password) { 
         LoginCommand login = new LoginCommand(username, password);
         return login;
     }
@@ -61,6 +63,10 @@ public class CommandFactory {
 	}
 	public Command createSparqlDescribeCommand(String login, String passwd, List<String> uris, String MINE_TYPE) {
         SparqlDescribeCommand sparqlDescribeCommand = new SparqlDescribeCommand(login, passwd, uris, MINE_TYPE);
+        return sparqlDescribeCommand;
+	}
+	public Command createAddConceptCommand(String login, String passwd, Concept concept, String MINE_TYPE) {
+		AddConceptCommand sparqlDescribeCommand = new AddConceptCommand(login, passwd, concept, MINE_TYPE);
         return sparqlDescribeCommand;
 	}
 }

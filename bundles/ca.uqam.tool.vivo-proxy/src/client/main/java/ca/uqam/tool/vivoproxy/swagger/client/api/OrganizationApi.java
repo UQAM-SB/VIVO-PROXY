@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package ca.uqam.tool.vivoproxy.swagger.client.api;
 
 import ca.uqam.tool.vivoproxy.swagger.client.handler.ApiCallback;
@@ -64,7 +63,7 @@ public class OrganizationApi {
      */
     public com.squareup.okhttp.Call createOrganizationCall(Organization body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = body;
-
+        
         // create path and map variables
         String localVarPath = "/organization";
 
@@ -76,13 +75,13 @@ public class OrganizationApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "application/json", "text/plain", "application/rdf+xml", "text/n3", "text/turtle", "text/funtional", "text/manchester", "application/owl+xml"
+            "text/plain", "application/ld+json", "text/n3", "text/turtle", "text/owl-manchester", "text/owl-functional", "application/rdf+xml", "application/owl+xml"
         };
         final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
 
         final String[] localVarContentTypes = {
-            
+            "application/json"
         };
         final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
@@ -102,41 +101,46 @@ public class OrganizationApi {
         String[] localVarAuthNames = new String[] { "basicAuth" };
         return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
-
+    
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call createOrganizationValidateBeforeCall(Organization body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
         // verify the required parameter 'body' is set
         if (body == null) {
             throw new ApiException("Missing the required parameter 'body' when calling createOrganization(Async)");
         }
         
-
         com.squareup.okhttp.Call call = createOrganizationCall(body, progressListener, progressRequestListener);
         return call;
 
+        
+        
+        
+        
     }
 
     /**
      * Create an organization in VIVO
      * This can only be done by the logged in VIVO.
      * @param body Created organization object (required)
+     * @return String
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public void createOrganization(Organization body) throws ApiException {
-        createOrganizationWithHttpInfo(body);
+    public String createOrganization(Organization body) throws ApiException {
+        ApiResponse<String> resp = createOrganizationWithHttpInfo(body);
+        return resp.getData();
     }
 
     /**
      * Create an organization in VIVO
      * This can only be done by the logged in VIVO.
      * @param body Created organization object (required)
-     * @return ApiResponse&lt;Void&gt;
+     * @return ApiResponse&lt;String&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<Void> createOrganizationWithHttpInfo(Organization body) throws ApiException {
+    public ApiResponse<String> createOrganizationWithHttpInfo(Organization body) throws ApiException {
         com.squareup.okhttp.Call call = createOrganizationValidateBeforeCall(body, null, null);
-        return apiClient.execute(call);
+        Type localVarReturnType = new TypeToken<String>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
     }
 
     /**
@@ -147,7 +151,7 @@ public class OrganizationApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call createOrganizationAsync(Organization body, final ApiCallback<Void> callback) throws ApiException {
+    public com.squareup.okhttp.Call createOrganizationAsync(Organization body, final ApiCallback<String> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -169,7 +173,8 @@ public class OrganizationApi {
         }
 
         com.squareup.okhttp.Call call = createOrganizationValidateBeforeCall(body, progressListener, progressRequestListener);
-        apiClient.executeAsync(call, callback);
+        Type localVarReturnType = new TypeToken<String>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
 }

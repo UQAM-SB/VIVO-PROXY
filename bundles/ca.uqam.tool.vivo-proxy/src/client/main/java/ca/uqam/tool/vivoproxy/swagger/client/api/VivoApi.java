@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package ca.uqam.tool.vivoproxy.swagger.client.api;
 
 import ca.uqam.tool.vivoproxy.swagger.client.handler.ApiCallback;
@@ -64,7 +63,7 @@ public class VivoApi {
      */
     public com.squareup.okhttp.Call getindividualByIRICall(String IRI, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
-
+        
         // create path and map variables
         String localVarPath = "/vivo";
 
@@ -104,19 +103,21 @@ public class VivoApi {
         String[] localVarAuthNames = new String[] { "basicAuth" };
         return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
-
+    
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call getindividualByIRIValidateBeforeCall(String IRI, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
         // verify the required parameter 'IRI' is set
         if (IRI == null) {
             throw new ApiException("Missing the required parameter 'IRI' when calling getindividualByIRI(Async)");
         }
         
-
         com.squareup.okhttp.Call call = getindividualByIRICall(IRI, progressListener, progressRequestListener);
         return call;
 
+        
+        
+        
+        
     }
 
     /**

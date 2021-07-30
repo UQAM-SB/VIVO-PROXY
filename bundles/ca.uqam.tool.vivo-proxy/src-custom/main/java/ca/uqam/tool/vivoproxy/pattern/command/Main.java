@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 import com.squareup.okhttp.Request;
 
+import ca.uqam.tool.util.credential.LOGIN;
 import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
 import ca.uqam.tool.vivoproxy.swagger.model.Person;
 import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
@@ -25,8 +26,8 @@ public class Main {
      */
     public static void main(String[] args) throws IOException {
         Person person = new Person();
-        String username = "vivo@uqam.ca";
-        String password = "Vivo1234.";
+        String username = LOGIN.getUserName();
+        String password = LOGIN.getPasswd();
         String firstName = "Pierre1";
         String lastName = "Jacques2";
         String middleName = "Jean2";

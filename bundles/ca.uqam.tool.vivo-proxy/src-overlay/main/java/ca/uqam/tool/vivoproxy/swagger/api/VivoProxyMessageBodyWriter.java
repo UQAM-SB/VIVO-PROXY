@@ -30,17 +30,18 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
+import ca.uqam.tool.vivoproxy.util.SemanticWebMediaType;
 import io.swagger.util.Json;
 
 @Provider
 @Produces({
-    "application/json", 
+    "text/turtle",
+    "application/ld+json", 
     "text/plain",
     "application/rdf+xml",
     "text/n3",
-    "text/turtle",
-	"text/funtional",
-	"text/manchester",
+	"text/owl-functional",
+	"text/owl-manchester",
     "application/owl+xml"
 	})
 public class VivoProxyMessageBodyWriter implements MessageBodyWriter<VivoProxyResponseMessage> {
@@ -63,21 +64,21 @@ public class VivoProxyMessageBodyWriter implements MessageBodyWriter<VivoProxyRe
 			OWLOntology ontology = manager.loadOntologyFromOntologyDocument(new ByteArrayInputStream(ontoString.getBytes()));
 			OWLDocumentFormat owlDocFormat = null;
 			ByteArrayOutputStream stream = new ByteArrayOutputStream();
-			if ("text/turtle".equals(mediaType.toString())) {
+			if (SemanticWebMediaType.TEXT_TURTLE.toString().equals(mediaType.toString())) {
 				owlDocFormat = new TurtleDocumentFormat();
-			} else if ("application/json".equals(mediaType.toString())) {
+			} else if (SemanticWebMediaType.APPLICATION_LD_JSON.toString().equals(mediaType.toString())) {
 				owlDocFormat = new RDFJsonLDDocumentFormat();
-			} else if ("text/plain".equals(mediaType.toString())) {
+			} else if (SemanticWebMediaType.TEXT_PLAIN.toString().equals(mediaType.toString())) {
 				owlDocFormat = new NTriplesDocumentFormat();
-			} else if ("application/rdf+xml".equals(mediaType.toString())) {
+			} else if (SemanticWebMediaType.APPLICATION_RDF_XML.toString().equals(mediaType.toString())) {
 				owlDocFormat = new RDFXMLDocumentFormat();
-			} else if ("text/n3".equals(mediaType.toString())) {
+			} else if (SemanticWebMediaType.TEXT_N3.toString().equals(mediaType.toString())) {
 				owlDocFormat = new N3DocumentFormat();
-			} else if ("text/funtional".equals(mediaType.toString())) {
+			} else if (SemanticWebMediaType.TEXT_OWL_FUNCTIONAL.toString().equals(mediaType.toString())) {
 				owlDocFormat = new FunctionalSyntaxDocumentFormat();
-			} else if ("text/manchester".equals(mediaType.toString())) {
+			} else if (SemanticWebMediaType.TEXT_OWL_MANCHESTER.toString().equals(mediaType.toString())) {
 				owlDocFormat = new ManchesterSyntaxDocumentFormat();
-			} else if ("application/owl+xml".equals(mediaType.toString())) {
+			} else if (SemanticWebMediaType.APPLICATION_OWL_XML.toString().equals(mediaType.toString())) {
 				owlDocFormat = new OWLXMLDocumentFormat();
 			} else {
 				owlDocFormat = new TurtleDocumentFormat();

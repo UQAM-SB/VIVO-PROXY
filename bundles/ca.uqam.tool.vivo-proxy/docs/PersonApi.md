@@ -8,10 +8,9 @@ Method | HTTP request | Description
 [**createPositionFor**](PersonApi.md#createPositionFor) | **PUT** /person | Create organizational position for
 [**createUsersWithListInput**](PersonApi.md#createUsersWithListInput) | **POST** /person/createWithList | Creates list of users with given input array
 
-
 <a name="createPerson"></a>
 # **createPerson**
-> createPerson(body)
+> String createPerson(body)
 
 Create a person in VIVO
 
@@ -27,7 +26,6 @@ This can only be done by the logged in person.
 //import ca.uqam.tool.vivoproxy.swagger.client.api.PersonApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
-
 // Configure HTTP basic authorization: basicAuth
 HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
 basicAuth.setUsername("YOUR USERNAME");
@@ -36,7 +34,8 @@ basicAuth.setPassword("YOUR PASSWORD");
 PersonApi apiInstance = new PersonApi();
 Person body = new Person(); // Person | Created person object
 try {
-    apiInstance.createPerson(body);
+    String result = apiInstance.createPerson(body);
+    System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling PersonApi#createPerson");
     e.printStackTrace();
@@ -51,7 +50,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-null (empty response body)
+**String**
 
 ### Authorization
 
@@ -59,16 +58,14 @@ null (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json, text/plain, application/rdf+xml, text/n3, text/turtle, text/funtional, text/manchester, application/owl+xml
+ - **Content-Type**: application/json
+ - **Accept**: text/plain, application/ld+json, text/n3, text/turtle, text/owl-manchester, text/owl-functional, application/rdf+xml, application/owl+xml
 
 <a name="createPositionFor"></a>
 # **createPositionFor**
-> createPositionFor(body)
+> String createPositionFor(body)
 
 Create organizational position for
-
-
 
 ### Example
 ```java
@@ -80,7 +77,6 @@ Create organizational position for
 //import ca.uqam.tool.vivoproxy.swagger.client.api.PersonApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
-
 // Configure HTTP basic authorization: basicAuth
 HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
 basicAuth.setUsername("YOUR USERNAME");
@@ -89,7 +85,8 @@ basicAuth.setPassword("YOUR PASSWORD");
 PersonApi apiInstance = new PersonApi();
 PositionOfPerson body = new PositionOfPerson(); // PositionOfPerson | Person that need to be in an organization
 try {
-    apiInstance.createPositionFor(body);
+    String result = apiInstance.createPositionFor(body);
+    System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling PersonApi#createPositionFor");
     e.printStackTrace();
@@ -104,7 +101,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-null (empty response body)
+**String**
 
 ### Authorization
 
@@ -112,16 +109,14 @@ null (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, application/xml
- - **Accept**: application/json, text/plain, application/rdf+xml, text/n3, text/turtle, text/funtional, text/manchester, application/owl+xml
+ - **Content-Type**: application/json
+ - **Accept**: text/plain, application/ld+json, text/n3, text/turtle, text/owl-manchester, text/owl-functional, application/rdf+xml, application/owl+xml
 
 <a name="createUsersWithListInput"></a>
 # **createUsersWithListInput**
-> createUsersWithListInput(body)
+> String createUsersWithListInput(body)
 
 Creates list of users with given input array
-
-
 
 ### Example
 ```java
@@ -133,7 +128,6 @@ Creates list of users with given input array
 //import ca.uqam.tool.vivoproxy.swagger.client.api.PersonApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
-
 // Configure HTTP basic authorization: basicAuth
 HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
 basicAuth.setUsername("YOUR USERNAME");
@@ -142,7 +136,8 @@ basicAuth.setPassword("YOUR PASSWORD");
 PersonApi apiInstance = new PersonApi();
 List<Person> body = Arrays.asList(new Person()); // List<Person> | List of user object
 try {
-    apiInstance.createUsersWithListInput(body);
+    String result = apiInstance.createUsersWithListInput(body);
+    System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling PersonApi#createUsersWithListInput");
     e.printStackTrace();
@@ -157,7 +152,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-null (empty response body)
+**String**
 
 ### Authorization
 
@@ -165,6 +160,6 @@ null (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json, text/plain, application/rdf+xml, text/n3, text/turtle, text/funtional, text/manchester, application/owl+xml
+ - **Content-Type**: application/json
+ - **Accept**: text/plain, application/ld+json, text/n3, text/turtle, text/owl-manchester, text/owl-functional, application/rdf+xml, application/owl+xml
 
