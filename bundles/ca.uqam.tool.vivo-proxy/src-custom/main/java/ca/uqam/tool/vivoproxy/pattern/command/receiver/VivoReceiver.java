@@ -25,6 +25,7 @@ import ca.uqam.tool.vivoproxy.swagger.model.Concept;
 import ca.uqam.tool.vivoproxy.swagger.model.ConceptLabel;
 import ca.uqam.tool.vivoproxy.swagger.model.Person;
 import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
+import ca.uqam.tool.vivoproxy.swagger.model.ResourceToResource;
 import ca.uqam.tool.vivoproxy.util.SemanticWebMediaType;
 import ca.uqam.vivo.vocabulary.VIVO;
 
@@ -375,22 +376,84 @@ public class VivoReceiver extends AbstractReceiver {
 		Response response = client.newCall(request).execute();
 		return CommandResult.asCommandResult(response);
 	}
-    public static void main (String[] argv) throws IOException
-    {
-    	VivoReceiver vr = new VivoReceiver();
-    	Concept concept = new Concept();
-    	concept.setIRI("http://purl.org/uqam.ca/vocabulary/expertise#pompom");
-    	ConceptLabel cl = new ConceptLabel();
-    	cl.label("toto");
-    	cl.language("fr-CA");
-    	concept.addLabelsItem(cl);
-    	ConceptLabel cl2 = new ConceptLabel();
-    	cl.label("tota");
-    	cl.language("en-CA");
-    	concept.addLabelsItem(cl);
-    	CommandResult resu = vr.addConcept("vivo@uqam.ca", "Vivo1234.", concept, SemanticWebMediaType.TEXT_TURTLE.toString());
-    	System.err.println(resu.getOkhttpResult().body().string());
-    }
+	public CommandResult addPersonHasResearchArea(String username, String passwd, ResourceToResource resourcesToLink, String MIME_Type) throws IOException{
+		/*
+		 * Build SPARQL update
+		 */
+		String updateConceptQuery = ""
+				+ "INSERT DATA  { GRAPH <> { ";
+		String subject = "<" +resourcesToLink.getSubjectIRI() +"> ";
+		String predicate = "<" +VIVO.hasResearchArea.getURI() +"> ";
+		String object = "<" +resourcesToLink.getObjectIRI() +"> ";
+		updateConceptQuery+= subject;
+		updateConceptQuery+= predicate;
+		updateConceptQuery+= object;
+		updateConceptQuery += " . }}" ;
+
+		String bodyValue = 
+				"email="+username+
+				"&password="+passwd+
+				"&update="+updateConceptQuery;
+		OkHttpClient client = new OkHttpClient();
+		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+		RequestBody body = RequestBody.create(mediaType, bodyValue);
+		Request request = new Request.Builder()
+				.url(getSiteUrl()+"/api/sparqlUpdate")
+				.method("POST", body)
+				.addHeader("Accept", MIME_Type)
+				.addHeader("Content-Type", "application/x-www-form-urlencoded")
+				.build();
+		Response response = client.newCall(request).execute();
+		return CommandResult.asCommandResult(response);
+
+	}
+	public CommandResult addResearchAreaOfafPerson(String username, String passwd, ResourceToResource resourcesToLink, String MIME_Type) throws IOException{
+		/*
+		 * Build SPARQL update
+		 */
+		String updateConceptQuery = ""
+				+ "INSERT DATA  { GRAPH <> { ";
+		String subject = "<" +resourcesToLink.getSubjectIRI() +"> ";
+		String predicate = "<" +VIVO.researchAreaOf.getURI() +"> ";
+		String object = "<" +resourcesToLink.getObjectIRI() +"> ";
+		updateConceptQuery+= subject;
+		updateConceptQuery+= predicate;
+		updateConceptQuery+= object;
+		updateConceptQuery += " . }}" ;
+
+		String bodyValue = 
+				"email="+username+
+				"&password="+passwd+
+				"&update="+updateConceptQuery;
+		/*
+		 * send SPARQL update
+		 */
+
+		OkHttpClient client = new OkHttpClient();
+		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+		RequestBody body = RequestBody.create(mediaType, bodyValue);
+		Request request = new Request.Builder()
+				.url(getSiteUrl()+"/api/sparqlUpdate")
+				.method("POST", body)
+				.addHeader("Accept", MIME_Type)
+				.addHeader("Content-Type", "application/x-www-form-urlencoded")
+				.build();
+		Response response = client.newCall(request).execute();
+		return CommandResult.asCommandResult(response);
+
+	}
+
+	public static void main (String[] argv) throws IOException
+	{
+		
+		VivoReceiver vr = new VivoReceiver();
+		ResourceToResource rToLink = new ResourceToResource();
+		rToLink.setObjectIRI("http://purl.org/uqam.ca/vocabulary/expertise#semanticwebee");
+		rToLink.setSubjectIRI("http://localhost:8080/vivo/individual/n2935");
+
+		CommandResult resu = vr.addResearchAreaOfafPerson("vivo@uqam.ca", "Vivo1234.", rToLink, SemanticWebMediaType.TEXT_TURTLE.toString());
+		System.err.println(resu.getOkhttpResult().body().string());
+	}
 	/**
 	 * @param username
 	 * @param passwd

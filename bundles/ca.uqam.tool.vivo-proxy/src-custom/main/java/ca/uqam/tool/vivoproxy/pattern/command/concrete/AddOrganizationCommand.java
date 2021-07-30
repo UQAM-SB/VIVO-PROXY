@@ -11,8 +11,7 @@ import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
 public class AddOrganizationCommand extends Command {
 
     private String organisationName;
-    private String vivoOrganisationType;
-    private String name;
+    private String vivoOrganisationType; 
     private VivoReceiver vivo;
 
     public AddOrganizationCommand(String organisationName, String vivoOrganisationType) {

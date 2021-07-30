@@ -28,7 +28,7 @@ import java.util.Map;
 @Ignore
 public class ConceptApiTest {
 
-    private final ConceptApi api = new ConceptApi(); 
+    private final ConceptApi api = new ConceptApi();
 
     /**
      * Create a concept(skos:Concept) in VIVO

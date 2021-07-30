@@ -22,51 +22,51 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 /**
- * Organization
+ * ResourceToResource
  */
 
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2021-07-30T06:22:19.832-04:00[America/New_York]")
-public class Organization {
-  @SerializedName("organizationType")
-  private String organizationType = null;
+public class ResourceToResource {
+  @SerializedName("subject-IRI")
+  private String subjectIRI = null;
 
-  @SerializedName("name")
-  private String name = null;
+  @SerializedName("object-IRI")
+  private String objectIRI = null;
 
-  public Organization organizationType(String organizationType) {
-    this.organizationType = organizationType;
+  public ResourceToResource subjectIRI(String subjectIRI) {
+    this.subjectIRI = subjectIRI;
     return this;
   }
 
    /**
-   * Get organizationType
-   * @return organizationType
+   * Get subjectIRI
+   * @return subjectIRI
   **/
-  @Schema(example = "http://vivoweb.org/ontology/core#University", required = true, description = "")
-  public String getOrganizationType() {
-    return organizationType;
+  @Schema(example = "http://localhost:8080/vivo/individual/n774", required = true, description = "")
+  public String getSubjectIRI() {
+    return subjectIRI;
   }
 
-  public void setOrganizationType(String organizationType) {
-    this.organizationType = organizationType;
+  public void setSubjectIRI(String subjectIRI) {
+    this.subjectIRI = subjectIRI;
   }
 
-  public Organization name(String name) {
-    this.name = name;
+  public ResourceToResource objectIRI(String objectIRI) {
+    this.objectIRI = objectIRI;
     return this;
   }
 
    /**
-   * Get name
-   * @return name
+   * Get objectIRI
+   * @return objectIRI
   **/
-  @Schema(example = "Harvard University", required = true, description = "")
-  public String getName() {
-    return name;
+  @Schema(example = "http://localhost:8080/vivo/individual/n6687", required = true, description = "")
+  public String getObjectIRI() {
+    return objectIRI;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setObjectIRI(String objectIRI) {
+    this.objectIRI = objectIRI;
   }
 
 
@@ -78,24 +78,24 @@ public class Organization {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Organization organization = (Organization) o;
-    return Objects.equals(this.organizationType, organization.organizationType) &&
-        Objects.equals(this.name, organization.name);
+    ResourceToResource resourceToResource = (ResourceToResource) o;
+    return Objects.equals(this.subjectIRI, resourceToResource.subjectIRI) &&
+        Objects.equals(this.objectIRI, resourceToResource.objectIRI);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(organizationType, name);
+    return Objects.hash(subjectIRI, objectIRI);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Organization {\n");
+    sb.append("class ResourceToResource {\n");
     
-    sb.append("    organizationType: ").append(toIndentedString(organizationType)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    subjectIRI: ").append(toIndentedString(subjectIRI)).append("\n");
+    sb.append("    objectIRI: ").append(toIndentedString(objectIRI)).append("\n");
     sb.append("}");
     return sb.toString();
   }

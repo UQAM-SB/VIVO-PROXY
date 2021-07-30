@@ -4,6 +4,7 @@ public abstract class Command {
 	protected String name;
 	private CommandResult commandResult;
 
+
 	public CommandResult execute(Receiver receiver){
 		return null;};
 

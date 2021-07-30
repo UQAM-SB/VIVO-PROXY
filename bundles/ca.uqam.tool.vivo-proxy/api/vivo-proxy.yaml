@@ -38,9 +38,6 @@ paths:
       requestBody:
         description: Created skos concept
         content:
-#          application/x-www-form-urlencoded:
-#            schema:
-#               $ref: '#/components/schemas/concept'
           application/json:
             schema:
                 $ref: '#/components/schemas/concept'
@@ -152,81 +149,6 @@ paths:
       security:
       - basicAuth: []
       x-codegen-request-body-name: body
-    put:
-      tags:
-      - person
-      summary: Create organizational position for
-      operationId: createPositionFor
-      requestBody:
-        description: Person that need to be in an organization
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/positionOfPerson'
-        required: true
-      responses:
-        200:
-          description: OK (successfully authenticated)
-          content:
-            text/plain:
-              schema:
-                type: string
-            application/ld+json:
-              schema:
-                type: string
-            text/n3:
-              schema:
-                type: string
-            text/turtle:
-              schema:
-                type: string
-            text/owl-manchester:
-              schema:
-                type: string
-            text/owl-functional:
-              schema:
-                type: string
-            application/rdf+xml:
-              schema:
-                type: string
-            application/owl+xml:
-              schema:
-                type: string
-        401:
-          description: Authentication information is missing or invalid
-          headers:
-            WWW_Authenticate:
-              schema:
-                type: string
-          content: {}
-        default:
-          description: successful operation
-          content:
-            text/plain:
-              schema:
-                type: string
-            application/ld+json:
-              schema:
-                type: string
-            text/n3:
-              schema:
-                type: string
-            text/turtle:
-              schema:
-                type: string
-            text/owl-manchester:
-              schema:
-                type: string
-            text/owl-functional:
-              schema:
-                type: string
-            application/rdf+xml:
-              schema:
-                type: string
-            application/owl+xml:
-              schema:
-                type: string
-      x-codegen-request-body-name: body
   /person/createWithList:
     post:
       tags:
@@ -300,6 +222,153 @@ paths:
             application/owl+xml:
               schema:
                 type: string
+      x-codegen-request-body-name: body
+  /person/addPositionFor:
+    put:
+      tags:
+      - person
+      summary: Add an organizational position for
+      operationId: personAddOrganisationalPositionTo
+      requestBody:
+        description: Person that need to be in an organization
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/positionOfPerson'
+        required: true
+      responses:
+        200:
+          description: OK (successfully authenticated)
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/ld+json:
+              schema:
+                type: string
+            text/n3:
+              schema:
+                type: string
+            text/turtle:
+              schema:
+                type: string
+            text/owl-manchester:
+              schema:
+                type: string
+            text/owl-functional:
+              schema:
+                type: string
+            application/rdf+xml:
+              schema:
+                type: string
+            application/owl+xml:
+              schema:
+                type: string
+        401:
+          description: Authentication information is missing or invalid
+          headers:
+            WWW_Authenticate:
+              schema:
+                type: string
+          content: {}
+      x-codegen-request-body-name: body
+  /person/addHasResearchArea:
+    put:
+      tags:
+      - person
+      summary: Create 'has Research Area' for a person
+      operationId: personHasAddResearchArea
+      requestBody:
+        description: Research Area of a person
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/resourceToResource'
+        required: true
+      responses:
+        200:
+          description: OK (successfully authenticated)
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/ld+json:
+              schema:
+                type: string
+            text/n3:
+              schema:
+                type: string
+            text/turtle:
+              schema:
+                type: string
+            text/owl-manchester:
+              schema:
+                type: string
+            text/owl-functional:
+              schema:
+                type: string
+            application/rdf+xml:
+              schema:
+                type: string
+            application/owl+xml:
+              schema:
+                type: string
+        401:
+          description: Authentication information is missing or invalid
+          headers:
+            WWW_Authenticate:
+              schema:
+                type: string
+          content: {}
+      x-codegen-request-body-name: body
+  /person/addResearchAreaOf:
+    put:
+      tags:
+      - person
+      summary: Create a 'Research Area of' a person
+      operationId: personAddResearchAreaOf
+      requestBody:
+        description: Research Area of a person
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/resourceToResource'
+        required: true
+      responses:
+        200:
+          description: OK (successfully authenticated)
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/ld+json:
+              schema:
+                type: string
+            text/n3:
+              schema:
+                type: string
+            text/turtle:
+              schema:
+                type: string
+            text/owl-manchester:
+              schema:
+                type: string
+            text/owl-functional:
+              schema:
+                type: string
+            application/rdf+xml:
+              schema:
+                type: string
+            application/owl+xml:
+              schema:
+                type: string
+        401:
+          description: Authentication information is missing or invalid
+          headers:
+            WWW_Authenticate:
+              schema:
+                type: string
+          content: {}
       x-codegen-request-body-name: body
   /vivo:
     get:
@@ -552,7 +621,19 @@ components:
           type: string
           example: Harvard University
       xml:
-        name: person
+        name: organization
+    resourceToResource:
+      required:
+        - subject-IRI
+        - object-IRI
+      type: object
+      properties:
+        subject-IRI:
+          type: string
+          example: http://localhost:8080/vivo/individual/n774
+        object-IRI:
+          type: string
+          example: http://localhost:8080/vivo/individual/n6687
   responses:
     UnauthorizedError:
       description: Authentication information is missing or invalid

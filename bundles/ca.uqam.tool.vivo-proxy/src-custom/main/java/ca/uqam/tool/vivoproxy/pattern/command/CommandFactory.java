@@ -3,9 +3,11 @@ package ca.uqam.tool.vivoproxy.pattern.command;
 import java.util.List;
 
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddConceptCommand;
+import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddHasResearchAreaCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddOrganizationCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddPersonCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddPersonListCommand;
+import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddResearchAreaOfCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.CreatePositionForCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.LoginCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.LogoutCommand;
@@ -13,6 +15,7 @@ import ca.uqam.tool.vivoproxy.pattern.command.concrete.SparqlDescribeCommand;
 import ca.uqam.tool.vivoproxy.swagger.model.Concept;
 import ca.uqam.tool.vivoproxy.swagger.model.Person;
 import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
+import ca.uqam.tool.vivoproxy.swagger.model.ResourceToResource;
 
 public class CommandFactory {
     /*
@@ -66,7 +69,15 @@ public class CommandFactory {
         return sparqlDescribeCommand;
 	}
 	public Command createAddConceptCommand(String login, String passwd, Concept concept, String MINE_TYPE) {
-		AddConceptCommand sparqlDescribeCommand = new AddConceptCommand(login, passwd, concept, MINE_TYPE);
-        return sparqlDescribeCommand;
+		AddConceptCommand command = new AddConceptCommand(login, passwd, concept, MINE_TYPE);
+        return command;
+	}
+	public Command createAddResearchAreaOfCommand(String login, String passwd, ResourceToResource resourcesToLink, String MINE_TYPE) {
+		AddResearchAreaOfCommand command = new AddResearchAreaOfCommand(login, passwd, resourcesToLink, MINE_TYPE);
+        return command;
+	}
+	public Command createAddHasResearchAreaCommand(String login, String passwd, ResourceToResource resourcesToLink, String MINE_TYPE) {
+		AddHasResearchAreaCommand command = new AddHasResearchAreaCommand(login, passwd, resourcesToLink, MINE_TYPE);
+        return command;
 	}
 }

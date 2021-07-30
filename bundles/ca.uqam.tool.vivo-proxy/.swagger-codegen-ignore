@@ -33,7 +33,7 @@
 /src/main/java/ca/uqam/tool/vivoproxy/swagger/api/impl/VivoApiServiceImpl.java
 /src/main/java/ca/uqam/tool/vivoproxy/swagger/api/impl/ConceptApiServiceImpl.java
 /src/test/java/ca/uqam/tool/vivoproxy/swagger/client/api/OrganizationApiTest.java
-# /src/test/java/ca/uqam/tool/vivoproxy/swagger/client/api/PersonApiTest.java
+/src/test/java/ca/uqam/tool/vivoproxy/swagger/client/api/PersonApiTest.java
 /src/test/java/ca/uqam/tool/vivoproxy/swagger/client/api/VivoApiTest.java
 #  /src/client/main/java/ca/uqam/tool/vivoproxy/swagger/client/api/PersonApi.java
 
