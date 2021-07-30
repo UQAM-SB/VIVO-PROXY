@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
+import ca.uqam.tool.vivoproxy.swagger.model.ModelAPIResponse;
 import ca.uqam.tool.vivoproxy.swagger.model.Person;
 import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
 import ca.uqam.tool.vivoproxy.swagger.model.ResourceToResource;
@@ -38,7 +39,7 @@ import javax.validation.constraints.*;
 @Path("/person")
 
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-07-30T06:22:19.556-04:00[America/New_York]")public class PersonApi  {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-07-30T09:54:09.106-04:00[America/New_York]")public class PersonApi  {
    private final PersonApiService delegate;
 
    public PersonApi(@Context ServletConfig servletContext) {
@@ -65,11 +66,11 @@ import javax.validation.constraints.*;
     @POST
     
     @Consumes({ "application/json" })
-    @Produces({ "text/plain", "application/ld+json", "text/n3", "text/turtle", "text/owl-manchester", "text/owl-functional", "application/rdf+xml", "application/owl+xml" })
+    @Produces({ "application/json" })
     @Operation(summary = "Create a person in VIVO", description = "This can only be done by the logged in person.", security = {
         @SecurityRequirement(name = "basicAuth")    }, tags={ "person" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "OK Successful operation", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class))),
+        @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ModelAPIResponse.class))),
         
         @ApiResponse(responseCode = "401", description = "Authentication information is missing or invalid"),
         
@@ -101,11 +102,11 @@ import javax.validation.constraints.*;
     @PUT
     @Path("/addPositionFor")
     @Consumes({ "application/json" })
-    @Produces({ "text/plain", "application/ld+json", "text/n3", "text/turtle", "text/owl-manchester", "text/owl-functional", "application/rdf+xml", "application/owl+xml" })
+    @Produces({ "application/json" })
     @Operation(summary = "Add an organizational position for", description = "", security = {
         @SecurityRequirement(name = "basicAuth")    }, tags={ "person" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class))),
+        @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ModelAPIResponse.class))),
         
         @ApiResponse(responseCode = "401", description = "Authentication information is missing or invalid") })
     public Response personAddOrganisationalPositionTo(@Parameter(in = ParameterIn.DEFAULT, description = "Person that need to be in an organization" ,required=true) PositionOfPerson body
@@ -117,11 +118,11 @@ import javax.validation.constraints.*;
     @PUT
     @Path("/addResearchAreaOf")
     @Consumes({ "application/json" })
-    @Produces({ "text/plain", "application/ld+json", "text/n3", "text/turtle", "text/owl-manchester", "text/owl-functional", "application/rdf+xml", "application/owl+xml" })
+    @Produces({ "application/json" })
     @Operation(summary = "Create a 'Research Area of' a person", description = "", security = {
         @SecurityRequirement(name = "basicAuth")    }, tags={ "person" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class))),
+        @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ModelAPIResponse.class))),
         
         @ApiResponse(responseCode = "401", description = "Authentication information is missing or invalid") })
     public Response personAddResearchAreaOf(@Parameter(in = ParameterIn.DEFAULT, description = "Research Area of a person" ,required=true) ResourceToResource body
@@ -133,11 +134,11 @@ import javax.validation.constraints.*;
     @PUT
     @Path("/addHasResearchArea")
     @Consumes({ "application/json" })
-    @Produces({ "text/plain", "application/ld+json", "text/n3", "text/turtle", "text/owl-manchester", "text/owl-functional", "application/rdf+xml", "application/owl+xml" })
+    @Produces({ "application/json" })
     @Operation(summary = "Create 'has Research Area' for a person", description = "", security = {
         @SecurityRequirement(name = "basicAuth")    }, tags={ "person" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class))),
+        @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ModelAPIResponse.class))),
         
         @ApiResponse(responseCode = "401", description = "Authentication information is missing or invalid") })
     public Response personHasAddResearchArea(@Parameter(in = ParameterIn.DEFAULT, description = "Research Area of a person" ,required=true) ResourceToResource body

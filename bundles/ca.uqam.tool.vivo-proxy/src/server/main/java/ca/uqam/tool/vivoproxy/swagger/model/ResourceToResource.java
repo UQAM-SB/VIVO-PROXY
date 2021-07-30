@@ -22,7 +22,7 @@ import javax.validation.Valid;
 /**
  * ResourceToResource
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-07-30T06:22:19.556-04:00[America/New_York]")public class ResourceToResource   {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-07-30T09:54:09.106-04:00[America/New_York]")public class ResourceToResource   {
   @JsonProperty("subject-IRI")
   private String subjectIRI = null;
 
@@ -59,7 +59,7 @@ import javax.validation.Valid;
    * @return objectIRI
    **/
   @JsonProperty("object-IRI")
-  @Schema(example = "http://localhost:8080/vivo/individual/n6687", required = true, description = "")
+  @Schema(example = "http://purl.org/uqam.ca/vocabulary/expertise#semanticweb", required = true, description = "")
   @NotNull
   public String getObjectIRI() {
     return objectIRI;

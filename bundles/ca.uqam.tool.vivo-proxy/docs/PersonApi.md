@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 <a name="createPerson"></a>
 # **createPerson**
-> String createPerson(body)
+> ModelAPIResponse createPerson(body)
 
 Create a person in VIVO
 
@@ -36,7 +36,7 @@ basicAuth.setPassword("YOUR PASSWORD");
 PersonApi apiInstance = new PersonApi();
 Person body = new Person(); // Person | Created person object
 try {
-    String result = apiInstance.createPerson(body);
+    ModelAPIResponse result = apiInstance.createPerson(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling PersonApi#createPerson");
@@ -52,7 +52,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**String**
+[**ModelAPIResponse**](ModelAPIResponse.md)
 
 ### Authorization
 
@@ -61,7 +61,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: text/plain, application/ld+json, text/n3, text/turtle, text/owl-manchester, text/owl-functional, application/rdf+xml, application/owl+xml
+ - **Accept**: application/json
 
 <a name="createUsersWithListInput"></a>
 # **createUsersWithListInput**
@@ -116,7 +116,7 @@ Name | Type | Description  | Notes
 
 <a name="personAddOrganisationalPositionTo"></a>
 # **personAddOrganisationalPositionTo**
-> String personAddOrganisationalPositionTo(body)
+> ModelAPIResponse personAddOrganisationalPositionTo(body)
 
 Add an organizational position for
 
@@ -138,7 +138,7 @@ basicAuth.setPassword("YOUR PASSWORD");
 PersonApi apiInstance = new PersonApi();
 PositionOfPerson body = new PositionOfPerson(); // PositionOfPerson | Person that need to be in an organization
 try {
-    String result = apiInstance.personAddOrganisationalPositionTo(body);
+    ModelAPIResponse result = apiInstance.personAddOrganisationalPositionTo(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling PersonApi#personAddOrganisationalPositionTo");
@@ -154,7 +154,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**String**
+[**ModelAPIResponse**](ModelAPIResponse.md)
 
 ### Authorization
 
@@ -163,11 +163,11 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: text/plain, application/ld+json, text/n3, text/turtle, text/owl-manchester, text/owl-functional, application/rdf+xml, application/owl+xml
+ - **Accept**: application/json
 
 <a name="personAddResearchAreaOf"></a>
 # **personAddResearchAreaOf**
-> String personAddResearchAreaOf(body)
+> ModelAPIResponse personAddResearchAreaOf(body)
 
 Create a &#x27;Research Area of&#x27; a person
 
@@ -189,7 +189,7 @@ basicAuth.setPassword("YOUR PASSWORD");
 PersonApi apiInstance = new PersonApi();
 ResourceToResource body = new ResourceToResource(); // ResourceToResource | Research Area of a person
 try {
-    String result = apiInstance.personAddResearchAreaOf(body);
+    ModelAPIResponse result = apiInstance.personAddResearchAreaOf(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling PersonApi#personAddResearchAreaOf");
@@ -205,7 +205,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**String**
+[**ModelAPIResponse**](ModelAPIResponse.md)
 
 ### Authorization
 
@@ -214,11 +214,11 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: text/plain, application/ld+json, text/n3, text/turtle, text/owl-manchester, text/owl-functional, application/rdf+xml, application/owl+xml
+ - **Accept**: application/json
 
 <a name="personHasAddResearchArea"></a>
 # **personHasAddResearchArea**
-> String personHasAddResearchArea(body)
+> ModelAPIResponse personHasAddResearchArea(body)
 
 Create &#x27;has Research Area&#x27; for a person
 
@@ -240,7 +240,7 @@ basicAuth.setPassword("YOUR PASSWORD");
 PersonApi apiInstance = new PersonApi();
 ResourceToResource body = new ResourceToResource(); // ResourceToResource | Research Area of a person
 try {
-    String result = apiInstance.personHasAddResearchArea(body);
+    ModelAPIResponse result = apiInstance.personHasAddResearchArea(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling PersonApi#personHasAddResearchArea");
@@ -256,7 +256,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**String**
+[**ModelAPIResponse**](ModelAPIResponse.md)
 
 ### Authorization
 
@@ -265,5 +265,5 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: text/plain, application/ld+json, text/n3, text/turtle, text/owl-manchester, text/owl-functional, application/rdf+xml, application/owl+xml
+ - **Accept**: application/json
 

@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 <a name="createOrganization"></a>
 # **createOrganization**
-> String createOrganization(body)
+> ModelAPIResponse createOrganization(body)
 
 Create an organization in VIVO
 
@@ -32,7 +32,7 @@ basicAuth.setPassword("YOUR PASSWORD");
 OrganizationApi apiInstance = new OrganizationApi();
 Organization body = new Organization(); // Organization | Created organization object
 try {
-    String result = apiInstance.createOrganization(body);
+    ModelAPIResponse result = apiInstance.createOrganization(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling OrganizationApi#createOrganization");
@@ -48,7 +48,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**String**
+[**ModelAPIResponse**](ModelAPIResponse.md)
 
 ### Authorization
 
@@ -57,5 +57,5 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: text/plain, application/ld+json, text/n3, text/turtle, text/owl-manchester, text/owl-functional, application/rdf+xml, application/owl+xml
+ - **Accept**: application/json
 

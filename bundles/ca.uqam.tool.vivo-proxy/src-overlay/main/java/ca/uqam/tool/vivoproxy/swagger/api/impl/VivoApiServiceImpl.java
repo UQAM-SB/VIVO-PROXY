@@ -33,12 +33,26 @@ import ca.uqam.tool.vivoproxy.swagger.api.VivoProxyResponseMessage;
 			CommandFactory cf = CommandFactory.getInstance();
 			VivoReceiver session = new VivoReceiver();
 			CommandInvoker invoker = new CommandInvoker();
-			Command sparqlDescribeCommand = cf.createSparqlDescribeCommand(LOGIN.getUserName(), LOGIN.getPasswd(), IRI, "application/rdf+xml");
+			Command sparqlDescribeCommand = cf.createSparqlDescribeCommand(LOGIN.getUserName(), LOGIN.getPasswd(), IRI, "text/turtle");
 			invoker.register(sparqlDescribeCommand);
 			CommandResult resu; 
 			resu = invoker.execute();
-			com.squareup.okhttp.Response response = (com.squareup.okhttp.Response)resu.getResult();
-			return Response.ok().entity(new VivoProxyResponseMessage(VivoProxyResponseMessage.OK, response.body().string())).build();
+			com.squareup.okhttp.Response response = (com.squareup.okhttp.Response)sparqlDescribeCommand.getCommandResult().getOkhttpResult();
+			String message = response.body().string();
+			return Response.ok().entity(new VivoProxyResponseMessage(VivoProxyResponseMessage.OK, message)).build();
+			
+			
+			//
+//			Command sparqlDescribeCommand = cf.createSparqlDescribeCommand(LOGIN.getUserName(), LOGIN.getPasswd(), newUserIri, SemanticWebMediaType.APPLICATION_RDF_XML.toString());
+//			invoker.flush();
+//			invoker.register(sparqlDescribeCommand);
+//			com.squareup.okhttp.Response sparqlResponse = invoker.execute().getOkhttpResult();
+//			String body = sparqlResponse.body().string();
+//			VivoProxyResponseMessage vivoMessage = new VivoProxyResponseMessage(VivoProxyResponseMessage.OK, body);
+//			Response apiResponse = Response.ok().entity(vivoMessage)
+//					.build();
+//
+//			return apiResponse;
 		} catch (IOException e) {
 			return Response.serverError().entity(new VivoProxyResponseMessage(VivoProxyResponseMessage.ERROR, e.getMessage())).build();
 		}
@@ -46,17 +60,19 @@ import ca.uqam.tool.vivoproxy.swagger.api.VivoProxyResponseMessage;
 	
     public static void main(String[]  args) throws IOException, OWLOntologyCreationException, OWLOntologyStorageException, NotFoundException {
         VivoApiServiceImpl vivoApiServiceImpl = new VivoApiServiceImpl();
-        String iri = "http://localhost:8080/vivo/individual/n4595";
+        String iri = "http://localhost:8080/vivo/individual/n5595";
         Response reponse = vivoApiServiceImpl.getindividualByIRI(iri, null);
         String ontoString = ((VivoProxyResponseMessage) (reponse.getEntity())).getMessage();
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-        OWLOntology ontology = manager.loadOntologyFromOntologyDocument(new ByteArrayInputStream(ontoString.getBytes()));
-        TurtleDocumentFormat turtleFormat = new TurtleDocumentFormat();
-        try {
-            manager.saveOntology(ontology, turtleFormat, System.out);
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-        }
+        System.out.println(ontoString);
+        
+//        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+//        OWLOntology ontology = manager.loadOntologyFromOntologyDocument(new ByteArrayInputStream(ontoString.getBytes()));
+//        TurtleDocumentFormat turtleFormat = new TurtleDocumentFormat();
+//        try {
+//            manager.saveOntology(ontology, turtleFormat, System.out);
+//        } catch (RuntimeException e) {
+//            e.printStackTrace();
+//        }
         System.out.println("Done!");
     }
 }

@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 <a name="createConcept"></a>
 # **createConcept**
-> String createConcept(body)
+> ModelAPIResponse createConcept(body)
 
 Create a concept(skos:Concept) in VIVO
 
@@ -32,7 +32,7 @@ basicAuth.setPassword("YOUR PASSWORD");
 ConceptApi apiInstance = new ConceptApi();
 Concept body = new Concept(); // Concept | Created skos concept
 try {
-    String result = apiInstance.createConcept(body);
+    ModelAPIResponse result = apiInstance.createConcept(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ConceptApi#createConcept");
@@ -48,7 +48,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**String**
+[**ModelAPIResponse**](ModelAPIResponse.md)
 
 ### Authorization
 
@@ -57,5 +57,5 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: text/plain, application/ld+json, text/n3, text/turtle, text/owl-manchester, text/owl-functional, application/rdf+xml, application/owl+xml
+ - **Accept**: application/json
 

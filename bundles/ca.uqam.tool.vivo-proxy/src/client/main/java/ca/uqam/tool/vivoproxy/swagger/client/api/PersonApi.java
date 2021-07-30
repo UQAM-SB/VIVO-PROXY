@@ -26,6 +26,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
+import ca.uqam.tool.vivoproxy.swagger.client.model.ModelAPIResponse;
 import ca.uqam.tool.vivoproxy.swagger.client.model.Person;
 import ca.uqam.tool.vivoproxy.swagger.client.model.PositionOfPerson;
 import ca.uqam.tool.vivoproxy.swagger.client.model.ResourceToResource;
@@ -77,7 +78,7 @@ public class PersonApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "text/plain", "application/ld+json", "text/n3", "text/turtle", "text/owl-manchester", "text/owl-functional", "application/rdf+xml", "application/owl+xml"
+            "application/json"
         };
         final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
@@ -124,11 +125,11 @@ public class PersonApi {
      * Create a person in VIVO
      * This can only be done by the logged in person.
      * @param body Created person object (required)
-     * @return String
+     * @return ModelAPIResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public String createPerson(Person body) throws ApiException {
-        ApiResponse<String> resp = createPersonWithHttpInfo(body);
+    public ModelAPIResponse createPerson(Person body) throws ApiException {
+        ApiResponse<ModelAPIResponse> resp = createPersonWithHttpInfo(body);
         return resp.getData();
     }
 
@@ -136,12 +137,12 @@ public class PersonApi {
      * Create a person in VIVO
      * This can only be done by the logged in person.
      * @param body Created person object (required)
-     * @return ApiResponse&lt;String&gt;
+     * @return ApiResponse&lt;ModelAPIResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<String> createPersonWithHttpInfo(Person body) throws ApiException {
+    public ApiResponse<ModelAPIResponse> createPersonWithHttpInfo(Person body) throws ApiException {
         com.squareup.okhttp.Call call = createPersonValidateBeforeCall(body, null, null);
-        Type localVarReturnType = new TypeToken<String>(){}.getType();
+        Type localVarReturnType = new TypeToken<ModelAPIResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
@@ -153,7 +154,7 @@ public class PersonApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call createPersonAsync(Person body, final ApiCallback<String> callback) throws ApiException {
+    public com.squareup.okhttp.Call createPersonAsync(Person body, final ApiCallback<ModelAPIResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -175,7 +176,7 @@ public class PersonApi {
         }
 
         com.squareup.okhttp.Call call = createPersonValidateBeforeCall(body, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<String>(){}.getType();
+        Type localVarReturnType = new TypeToken<ModelAPIResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
@@ -325,7 +326,7 @@ public class PersonApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "text/plain", "application/ld+json", "text/n3", "text/turtle", "text/owl-manchester", "text/owl-functional", "application/rdf+xml", "application/owl+xml"
+            "application/json"
         };
         final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
@@ -372,11 +373,11 @@ public class PersonApi {
      * Add an organizational position for
      * 
      * @param body Person that need to be in an organization (required)
-     * @return String
+     * @return ModelAPIResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public String personAddOrganisationalPositionTo(PositionOfPerson body) throws ApiException {
-        ApiResponse<String> resp = personAddOrganisationalPositionToWithHttpInfo(body);
+    public ModelAPIResponse personAddOrganisationalPositionTo(PositionOfPerson body) throws ApiException {
+        ApiResponse<ModelAPIResponse> resp = personAddOrganisationalPositionToWithHttpInfo(body);
         return resp.getData();
     }
 
@@ -384,12 +385,12 @@ public class PersonApi {
      * Add an organizational position for
      * 
      * @param body Person that need to be in an organization (required)
-     * @return ApiResponse&lt;String&gt;
+     * @return ApiResponse&lt;ModelAPIResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<String> personAddOrganisationalPositionToWithHttpInfo(PositionOfPerson body) throws ApiException {
+    public ApiResponse<ModelAPIResponse> personAddOrganisationalPositionToWithHttpInfo(PositionOfPerson body) throws ApiException {
         com.squareup.okhttp.Call call = personAddOrganisationalPositionToValidateBeforeCall(body, null, null);
-        Type localVarReturnType = new TypeToken<String>(){}.getType();
+        Type localVarReturnType = new TypeToken<ModelAPIResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
@@ -401,7 +402,7 @@ public class PersonApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call personAddOrganisationalPositionToAsync(PositionOfPerson body, final ApiCallback<String> callback) throws ApiException {
+    public com.squareup.okhttp.Call personAddOrganisationalPositionToAsync(PositionOfPerson body, final ApiCallback<ModelAPIResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -423,7 +424,7 @@ public class PersonApi {
         }
 
         com.squareup.okhttp.Call call = personAddOrganisationalPositionToValidateBeforeCall(body, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<String>(){}.getType();
+        Type localVarReturnType = new TypeToken<ModelAPIResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
@@ -449,7 +450,7 @@ public class PersonApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "text/plain", "application/ld+json", "text/n3", "text/turtle", "text/owl-manchester", "text/owl-functional", "application/rdf+xml", "application/owl+xml"
+            "application/json"
         };
         final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
@@ -496,11 +497,11 @@ public class PersonApi {
      * Create a &#x27;Research Area of&#x27; a person
      * 
      * @param body Research Area of a person (required)
-     * @return String
+     * @return ModelAPIResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public String personAddResearchAreaOf(ResourceToResource body) throws ApiException {
-        ApiResponse<String> resp = personAddResearchAreaOfWithHttpInfo(body);
+    public ModelAPIResponse personAddResearchAreaOf(ResourceToResource body) throws ApiException {
+        ApiResponse<ModelAPIResponse> resp = personAddResearchAreaOfWithHttpInfo(body);
         return resp.getData();
     }
 
@@ -508,12 +509,12 @@ public class PersonApi {
      * Create a &#x27;Research Area of&#x27; a person
      * 
      * @param body Research Area of a person (required)
-     * @return ApiResponse&lt;String&gt;
+     * @return ApiResponse&lt;ModelAPIResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<String> personAddResearchAreaOfWithHttpInfo(ResourceToResource body) throws ApiException {
+    public ApiResponse<ModelAPIResponse> personAddResearchAreaOfWithHttpInfo(ResourceToResource body) throws ApiException {
         com.squareup.okhttp.Call call = personAddResearchAreaOfValidateBeforeCall(body, null, null);
-        Type localVarReturnType = new TypeToken<String>(){}.getType();
+        Type localVarReturnType = new TypeToken<ModelAPIResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
@@ -525,7 +526,7 @@ public class PersonApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call personAddResearchAreaOfAsync(ResourceToResource body, final ApiCallback<String> callback) throws ApiException {
+    public com.squareup.okhttp.Call personAddResearchAreaOfAsync(ResourceToResource body, final ApiCallback<ModelAPIResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -547,7 +548,7 @@ public class PersonApi {
         }
 
         com.squareup.okhttp.Call call = personAddResearchAreaOfValidateBeforeCall(body, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<String>(){}.getType();
+        Type localVarReturnType = new TypeToken<ModelAPIResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
@@ -573,7 +574,7 @@ public class PersonApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "text/plain", "application/ld+json", "text/n3", "text/turtle", "text/owl-manchester", "text/owl-functional", "application/rdf+xml", "application/owl+xml"
+            "application/json"
         };
         final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
@@ -620,11 +621,11 @@ public class PersonApi {
      * Create &#x27;has Research Area&#x27; for a person
      * 
      * @param body Research Area of a person (required)
-     * @return String
+     * @return ModelAPIResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public String personHasAddResearchArea(ResourceToResource body) throws ApiException {
-        ApiResponse<String> resp = personHasAddResearchAreaWithHttpInfo(body);
+    public ModelAPIResponse personHasAddResearchArea(ResourceToResource body) throws ApiException {
+        ApiResponse<ModelAPIResponse> resp = personHasAddResearchAreaWithHttpInfo(body);
         return resp.getData();
     }
 
@@ -632,12 +633,12 @@ public class PersonApi {
      * Create &#x27;has Research Area&#x27; for a person
      * 
      * @param body Research Area of a person (required)
-     * @return ApiResponse&lt;String&gt;
+     * @return ApiResponse&lt;ModelAPIResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<String> personHasAddResearchAreaWithHttpInfo(ResourceToResource body) throws ApiException {
+    public ApiResponse<ModelAPIResponse> personHasAddResearchAreaWithHttpInfo(ResourceToResource body) throws ApiException {
         com.squareup.okhttp.Call call = personHasAddResearchAreaValidateBeforeCall(body, null, null);
-        Type localVarReturnType = new TypeToken<String>(){}.getType();
+        Type localVarReturnType = new TypeToken<ModelAPIResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
@@ -649,7 +650,7 @@ public class PersonApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call personHasAddResearchAreaAsync(ResourceToResource body, final ApiCallback<String> callback) throws ApiException {
+    public com.squareup.okhttp.Call personHasAddResearchAreaAsync(ResourceToResource body, final ApiCallback<ModelAPIResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -671,7 +672,7 @@ public class PersonApi {
         }
 
         com.squareup.okhttp.Call call = personHasAddResearchAreaValidateBeforeCall(body, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<String>(){}.getType();
+        Type localVarReturnType = new TypeToken<ModelAPIResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }

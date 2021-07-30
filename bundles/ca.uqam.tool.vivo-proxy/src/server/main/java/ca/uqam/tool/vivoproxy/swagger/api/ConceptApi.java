@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 import ca.uqam.tool.vivoproxy.swagger.model.Concept;
+import ca.uqam.tool.vivoproxy.swagger.model.ModelAPIResponse;
 
 import java.util.Map;
 import java.util.List;
@@ -36,7 +37,7 @@ import javax.validation.constraints.*;
 @Path("/concept")
 
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-07-30T06:22:19.556-04:00[America/New_York]")public class ConceptApi  {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-07-30T09:54:09.106-04:00[America/New_York]")public class ConceptApi  {
    private final ConceptApiService delegate;
 
    public ConceptApi(@Context ServletConfig servletContext) {
@@ -63,11 +64,11 @@ import javax.validation.constraints.*;
     @POST
     
     @Consumes({ "application/json" })
-    @Produces({ "text/plain", "application/ld+json", "text/n3", "text/turtle", "text/owl-manchester", "text/owl-functional", "application/rdf+xml", "application/owl+xml" })
+    @Produces({ "application/json" })
     @Operation(summary = "Create a concept(skos:Concept) in VIVO", description = "This can only be done by the logged in person.", security = {
         @SecurityRequirement(name = "basicAuth")    }, tags={ "concept" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "OK Successful operation", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class))),
+        @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ModelAPIResponse.class))),
         
         @ApiResponse(responseCode = "401", description = "Authentication information is missing or invalid"),
         

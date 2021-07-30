@@ -22,9 +22,11 @@ import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddHasResearchAreaCommand
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddResearchAreaOfCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
 import ca.uqam.tool.vivoproxy.pattern.command.util.VivoReceiverHelper;
+import ca.uqam.tool.vivoproxy.swagger.api.ApiResponseMessage;
 import ca.uqam.tool.vivoproxy.swagger.api.NotFoundException;
 import ca.uqam.tool.vivoproxy.swagger.api.PersonApiService;
 import ca.uqam.tool.vivoproxy.swagger.api.VivoProxyResponseMessage;
+import ca.uqam.tool.vivoproxy.swagger.model.ModelAPIResponse;
 import ca.uqam.tool.vivoproxy.swagger.model.Person;
 import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
 import ca.uqam.tool.vivoproxy.swagger.model.ResourceToResource;
@@ -81,16 +83,24 @@ public class PersonApiServiceImpl extends PersonApiService {
 			com.squareup.okhttp.Response response = addPersonCommand.getCommandResult().getOkhttpResult();
 			String newUserIri = VivoReceiverHelper.getUriResponse(response.body().string());
 			LOGGER.info("Creating user at uri "+ newUserIri+" with return code " + response.code());
-			Command sparqlDescribeCommand = cf.createSparqlDescribeCommand(LOGIN.getUserName(), LOGIN.getPasswd(), newUserIri, SemanticWebMediaType.APPLICATION_RDF_XML.toString());
-			invoker.flush();
-			invoker.register(sparqlDescribeCommand);
-			com.squareup.okhttp.Response sparqlResponse = invoker.execute().getOkhttpResult();
-			String body = sparqlResponse.body().string();
-			VivoProxyResponseMessage vivoMessage = new VivoProxyResponseMessage(VivoProxyResponseMessage.OK, body);
-			Response apiResponse = Response.ok().entity(vivoMessage)
-					.build();
-
+			ModelAPIResponse apiResp = new ModelAPIResponse();
+			apiResp.setIrIValue(newUserIri);
+			apiResp.setViVOMessage(" return code: " +response.code()+ " "  +response.message());
+			apiResp.setCode(ApiResponseMessage.OK);
+			apiResp.setType(new ApiResponseMessage(ApiResponseMessage.OK,"").getType());
+			Response apiResponse = Response.ok().entity(apiResp).build();
 			return apiResponse;
+//
+//			Command sparqlDescribeCommand = cf.createSparqlDescribeCommand(LOGIN.getUserName(), LOGIN.getPasswd(), newUserIri, SemanticWebMediaType.APPLICATION_RDF_XML.toString());
+//			invoker.flush();
+//			invoker.register(sparqlDescribeCommand);
+//			com.squareup.okhttp.Response sparqlResponse = invoker.execute().getOkhttpResult();
+//			String body = sparqlResponse.body().string();
+//			VivoProxyResponseMessage vivoMessage = new VivoProxyResponseMessage(VivoProxyResponseMessage.OK, body);
+//			Response apiResponse = Response.ok().entity(vivoMessage)
+//					.build();
+//
+//			return apiResponse;
 		} catch (IOException e) {
 			return Response.serverError().entity(new VivoProxyResponseMessage(VivoProxyResponseMessage.ERROR, e.getMessage())).build();
 		}
@@ -157,7 +167,7 @@ public class PersonApiServiceImpl extends PersonApiService {
 		person.setMiddleName(middleName);
 		return this.createPerson(person, securityContext);
 	}
-	public Response personAddOrganisationalPositionTo(PositionOfPerson body, SecurityContext securityContext)
+	public Response personAddOrganisationalPositionTo(PositionOfPerson posOfPers, SecurityContext securityContext)
 			throws NotFoundException {
 		try {
 			CommandFactory cf = CommandFactory.getInstance();
@@ -167,7 +177,7 @@ public class PersonApiServiceImpl extends PersonApiService {
 			 * Commands creation
 			 */
 			Command loginCommand = cf.createLogin(LOGIN.getUserName(), LOGIN.getPasswd());
-			Command createPositionForCmd = cf.createPositionFor(body);
+			Command createPositionForCmd = cf.createPositionFor(posOfPers);
 			Command logOutCommand = cf.createLogout();
 			/*
 			 * Commands registration
@@ -175,15 +185,14 @@ public class PersonApiServiceImpl extends PersonApiService {
 			invoker.register(loginCommand);
 			invoker.register(createPositionForCmd);
 			invoker.register(logOutCommand);
-			CommandResult result =invoker.execute();
-			String newUserIri = body.getPersonIRI();
-			Command sparqlDescribeCommand = cf.createSparqlDescribeCommand(LOGIN.getUserName(), LOGIN.getPasswd(), newUserIri, SemanticWebMediaType.TEXT_PLAIN.toString());
-			invoker.flush();
-			invoker.register(sparqlDescribeCommand);
-			com.squareup.okhttp.Response sparqlResponse = invoker.execute().getOkhttpResult();
-			String sparqlResp = sparqlResponse.body().string();
-			VivoProxyResponseMessage respMessage = new VivoProxyResponseMessage(VivoProxyResponseMessage.OK, sparqlResp);
-			Response apiResponse = Response.ok().entity(respMessage).type(SemanticWebMediaType.TEXT_PLAIN).build();
+			invoker.execute();
+			String sparqlResp = createPositionForCmd.getCommandResult().getOkhttpResult().body().string();
+			ModelAPIResponse apiResp = new ModelAPIResponse();
+			apiResp.setIrIValue(posOfPers.getPersonIRI());
+			apiResp.setViVOMessage(sparqlResp);
+			apiResp.setCode(ApiResponseMessage.OK);
+			apiResp.setType(new ApiResponseMessage(ApiResponseMessage.OK,"").getType());
+			Response apiResponse = Response.ok().entity(apiResp).build();
 			return apiResponse;
 
 		} catch (Exception e) {
@@ -203,16 +212,12 @@ public class PersonApiServiceImpl extends PersonApiService {
 			invoker.execute();
 			com.squareup.okhttp.Response createAddConceptResponse = addResearchAreaOfCommand.getCommandResult().getOkhttpResult();
 			String sparqlResp = createAddConceptResponse.body().string();
-
-
-			Command sparqlDescribeCommand = cf.createSparqlDescribeCommand(VIVO_LOGIN, VIVO_PASSWD, resourceToLink.getSubjectIRI(),SemanticWebMediaType.APPLICATION_RDF_XML.toString());
-			invoker.flush();
-			invoker.register(sparqlDescribeCommand);
-			invoker.execute();
-			com.squareup.okhttp.Response sparqlResponse = sparqlDescribeCommand.getCommandResult().getOkhttpResult();
-			String reponseString = sparqlResponse.body().string();
-			VivoProxyResponseMessage vivoMessage = new VivoProxyResponseMessage(VivoProxyResponseMessage.OK, reponseString);
-			Response apiResponse = Response.ok().entity(vivoMessage).build();
+			ModelAPIResponse apiResp = new ModelAPIResponse();
+			apiResp.setIrIValue(resourceToLink.getSubjectIRI());
+			apiResp.setViVOMessage(sparqlResp);
+			apiResp.setCode(ApiResponseMessage.OK);
+			apiResp.setType(new ApiResponseMessage(ApiResponseMessage.OK,"").getType());
+			Response apiResponse = Response.ok().entity(apiResp).build();
 			return apiResponse;
 
 		} catch (IOException e) {
@@ -232,20 +237,15 @@ public class PersonApiServiceImpl extends PersonApiService {
 			invoker.register(addHasResearchAreaCommand);
 			invoker.execute();
 			com.squareup.okhttp.Response createAddConceptResponse = addHasResearchAreaCommand.getCommandResult().getOkhttpResult();
+			
 			String sparqlResp = createAddConceptResponse.body().string();
-			System.err.println(sparqlResp);
-
-
-			Command sparqlDescribeCommand = cf.createSparqlDescribeCommand(VIVO_LOGIN, VIVO_PASSWD, resourceToLink.getSubjectIRI(),SemanticWebMediaType.APPLICATION_RDF_XML.toString());
-			invoker.flush();
-			invoker.register(sparqlDescribeCommand);
-			invoker.execute();
-			com.squareup.okhttp.Response sparqlResponse = sparqlDescribeCommand.getCommandResult().getOkhttpResult();
-			String reponseString = sparqlResponse.body().string();
-			VivoProxyResponseMessage vivoMessage = new VivoProxyResponseMessage(VivoProxyResponseMessage.OK, reponseString);
-			Response apiResponse = Response.ok().entity(vivoMessage).build();
+			ModelAPIResponse apiResp = new ModelAPIResponse();
+			apiResp.setIrIValue(resourceToLink.getSubjectIRI());
+			apiResp.setViVOMessage(sparqlResp);
+			apiResp.setCode(ApiResponseMessage.OK);
+			apiResp.setType(new ApiResponseMessage(ApiResponseMessage.OK,"").getType());
+			Response apiResponse = Response.ok().entity(apiResp).build();
 			return apiResponse;
-
 		} catch (IOException e) {
 			throw new NotFoundException(-1, e.getMessage());
 		}

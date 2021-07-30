@@ -57,32 +57,11 @@ paths:
         required: true
       responses:
         200:
-          description: OK Successful operation
+          description: OK (successfully authenticated)
           content:
-            text/plain:
+            application/json:
               schema:
-                type: string
-            application/ld+json:
-              schema:
-                type: string
-            text/n3:
-              schema:
-                type: string
-            text/turtle:
-              schema:
-                type: string
-            text/owl-manchester:
-              schema:
-                type: string
-            text/owl-functional:
-              schema:
-                type: string
-            application/rdf+xml:
-              schema:
-                type: string
-            application/owl+xml:
-              schema:
-                type: string
+                $ref: '#/components/schemas/API-Response'
         401:
           description: Authentication information is missing or invalid
           headers:
@@ -111,32 +90,11 @@ paths:
         required: true
       responses:
         200:
-          description: OK Successful operation
+          description: OK (successfully authenticated)
           content:
-            text/plain:
+            application/json:
               schema:
-                type: string
-            application/ld+json:
-              schema:
-                type: string
-            text/n3:
-              schema:
-                type: string
-            text/turtle:
-              schema:
-                type: string
-            text/owl-manchester:
-              schema:
-                type: string
-            text/owl-functional:
-              schema:
-                type: string
-            application/rdf+xml:
-              schema:
-                type: string
-            application/owl+xml:
-              schema:
-                type: string
+                $ref: '#/components/schemas/API-Response'
         401:
           description: Authentication information is missing or invalid
           headers:
@@ -163,6 +121,19 @@ paths:
               type: array
               items:
                 $ref: '#/components/schemas/person'
+              example: [
+  {
+    "personType": "http://vivoweb.org/ontology/core#FacultyMember",
+    "firstName": "Peters",
+    "lastName": "Jasper",
+    "middleName": "I"
+  },
+  {
+    "personType": "http://vivoweb.org/ontology/core#EmeritusProfessor",
+    "firstName": "Ben",
+    "lastName": "Jonson",
+  }
+]
         required: true
       responses:
         200:
@@ -240,30 +211,9 @@ paths:
         200:
           description: OK (successfully authenticated)
           content:
-            text/plain:
+            application/json:
               schema:
-                type: string
-            application/ld+json:
-              schema:
-                type: string
-            text/n3:
-              schema:
-                type: string
-            text/turtle:
-              schema:
-                type: string
-            text/owl-manchester:
-              schema:
-                type: string
-            text/owl-functional:
-              schema:
-                type: string
-            application/rdf+xml:
-              schema:
-                type: string
-            application/owl+xml:
-              schema:
-                type: string
+                $ref: '#/components/schemas/API-Response'
         401:
           description: Authentication information is missing or invalid
           headers:
@@ -289,30 +239,9 @@ paths:
         200:
           description: OK (successfully authenticated)
           content:
-            text/plain:
+            application/json:
               schema:
-                type: string
-            application/ld+json:
-              schema:
-                type: string
-            text/n3:
-              schema:
-                type: string
-            text/turtle:
-              schema:
-                type: string
-            text/owl-manchester:
-              schema:
-                type: string
-            text/owl-functional:
-              schema:
-                type: string
-            application/rdf+xml:
-              schema:
-                type: string
-            application/owl+xml:
-              schema:
-                type: string
+                $ref: '#/components/schemas/API-Response'
         401:
           description: Authentication information is missing or invalid
           headers:
@@ -338,30 +267,9 @@ paths:
         200:
           description: OK (successfully authenticated)
           content:
-            text/plain:
+            application/json:
               schema:
-                type: string
-            application/ld+json:
-              schema:
-                type: string
-            text/n3:
-              schema:
-                type: string
-            text/turtle:
-              schema:
-                type: string
-            text/owl-manchester:
-              schema:
-                type: string
-            text/owl-functional:
-              schema:
-                type: string
-            application/rdf+xml:
-              schema:
-                type: string
-            application/owl+xml:
-              schema:
-                type: string
+                $ref: '#/components/schemas/API-Response'
         401:
           description: Authentication information is missing or invalid
           headers:
@@ -387,28 +295,31 @@ paths:
         200:
           description: successful operation
           content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/vivo'
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/vivo'
-            application/rdf+xml:
-              schema:
-                $ref: '#/components/schemas/vivo'
-            text/n3:
-              schema:
-                $ref: '#/components/schemas/vivo'
             text/turtle:
               schema:
-                $ref: '#/components/schemas/vivo'
-            text/funtional:
+                type: string
+            text/plain:
               schema:
-                $ref: '#/components/schemas/vivo'
-            text/manchester:
+                type: string
+            application/ld+json:
               schema:
-                $ref: '#/components/schemas/vivo'
+                type: string
+            text/n3:
+              schema:
+                type: string
+            text/owl-manchester:
+              schema:
+                type: string
+            text/owl-functional:
+              schema:
+                type: string
+            application/rdf+xml:
+              schema:
+                type: string
             application/owl+xml:
+              schema:
+                type: string
+            application/json:
               schema:
                 $ref: '#/components/schemas/vivo'
         400:
@@ -444,30 +355,9 @@ paths:
         200:
           description: OK (successfully authenticated)
           content:
-            text/plain:
+            application/json:
               schema:
-                type: string
-            application/ld+json:
-              schema:
-                type: string
-            text/n3:
-              schema:
-                type: string
-            text/turtle:
-              schema:
-                type: string
-            text/owl-manchester:
-              schema:
-                type: string
-            text/owl-functional:
-              schema:
-                type: string
-            application/rdf+xml:
-              schema:
-                type: string
-            application/owl+xml:
-              schema:
-                type: string
+                $ref: '#/components/schemas/API-Response'
         401:
           description: Authentication information is missing or invalid
           headers:
@@ -475,33 +365,6 @@ paths:
               schema:
                 type: string
           content: {}
-        default:
-          description: successful operation
-          content:
-            text/plain:
-              schema:
-                type: string
-            application/ld+json:
-              schema:
-                type: string
-            text/n3:
-              schema:
-                type: string
-            text/turtle:
-              schema:
-                type: string
-            text/owl-manchester:
-              schema:
-                type: string
-            text/owl-functional:
-              schema:
-                type: string
-            application/rdf+xml:
-              schema:
-                type: string
-            application/owl+xml:
-              schema:
-                type: string
       security:
       - basicAuth: []
       x-codegen-request-body-name: body
@@ -622,6 +485,23 @@ components:
           example: Harvard University
       xml:
         name: organization
+    API-Response:
+      type: object
+      properties:
+        code:
+          type: integer
+        type:
+          type: string
+        apiMessage:
+          type: string
+        IRI-value:
+          type: string
+          example: http://localhost:8080/vivo/individual/n774
+          description: The subject IRI of the created statement
+        VIVO-Message:
+          type: string
+          example: <H1>200 SPARQL update accepted.</H1>
+          description: The transaction message transmitted by the VIVO server
     resourceToResource:
       required:
         - subject-IRI
@@ -633,7 +513,7 @@ components:
           example: http://localhost:8080/vivo/individual/n774
         object-IRI:
           type: string
-          example: http://localhost:8080/vivo/individual/n6687
+          example: http://purl.org/uqam.ca/vocabulary/expertise#semanticweb
   responses:
     UnauthorizedError:
       description: Authentication information is missing or invalid

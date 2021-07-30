@@ -38,17 +38,24 @@ public class ConceptApiServiceImpl extends ConceptApiService {
 			invoker.execute();
 			com.squareup.okhttp.Response createAddConceptResponse = createAddConceptCommand.getCommandResult().getOkhttpResult();
 			String sparqlResp = createAddConceptResponse.body().string();
-			
-			
-			Command sparqlDescribeCommand = cf.createSparqlDescribeCommand(YOUR_LOGIN, YOUR_PASSWD, concept.getIRI(),SemanticWebMediaType.APPLICATION_RDF_XML.toString());
-			invoker.flush();
-			invoker.register(sparqlDescribeCommand);
-			invoker.execute();
-			com.squareup.okhttp.Response sparqlResponse = sparqlDescribeCommand.getCommandResult().getOkhttpResult();
-			String reponseString = sparqlResponse.body().string();
-			VivoProxyResponseMessage vivoMessage = new VivoProxyResponseMessage(VivoProxyResponseMessage.OK, reponseString);
-			Response apiResponse = Response.ok().entity(vivoMessage).build();
+			ModelAPIResponse apiResp = new ModelAPIResponse();
+			apiResp.setIrIValue(concept.getIRI());
+			apiResp.setViVOMessage(sparqlResp);
+			apiResp.setCode(ApiResponseMessage.OK);
+			apiResp.setType(new ApiResponseMessage(ApiResponseMessage.OK,"").getType());
+			Response apiResponse = Response.ok().entity(apiResp).build();
 			return apiResponse;
+			
+			
+//			Command sparqlDescribeCommand = cf.createSparqlDescribeCommand(YOUR_LOGIN, YOUR_PASSWD, concept.getIRI(),SemanticWebMediaType.APPLICATION_RDF_XML.toString());
+//			invoker.flush();
+//			invoker.register(sparqlDescribeCommand);
+//			invoker.execute();
+//			com.squareup.okhttp.Response sparqlResponse = sparqlDescribeCommand.getCommandResult().getOkhttpResult();
+//			String reponseString = sparqlResponse.body().string();
+//			VivoProxyResponseMessage vivoMessage = new VivoProxyResponseMessage(VivoProxyResponseMessage.OK, reponseString);
+//			Response apiResponse = Response.ok().entity(vivoMessage).build();
+//			return apiResponse;
 
 		} catch (IOException e) {
 			throw new NotFoundException(-1, e.getMessage());

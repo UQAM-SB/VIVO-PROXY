@@ -14,7 +14,6 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
-import ca.uqam.tool.vivoproxy.swagger.model.Vivo;
 
 import java.util.Map;
 import java.util.List;
@@ -36,7 +35,7 @@ import javax.validation.constraints.*;
 @Path("/vivo")
 
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-07-30T06:22:19.556-04:00[America/New_York]")public class VivoApi  {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-07-30T09:54:09.106-04:00[America/New_York]")public class VivoApi  {
    private final VivoApiService delegate;
 
    public VivoApi(@Context ServletConfig servletContext) {
@@ -63,11 +62,11 @@ import javax.validation.constraints.*;
     @GET
     
     
-    @Produces({ "application/json", "text/plain", "application/rdf+xml", "text/n3", "text/turtle", "text/funtional", "text/manchester", "application/owl+xml" })
+    @Produces({ "text/turtle", "text/plain", "application/ld+json", "text/n3", "text/owl-manchester", "text/owl-functional", "application/rdf+xml", "application/owl+xml", "application/json" })
     @Operation(summary = "Get an individual by IRI", description = "", security = {
         @SecurityRequirement(name = "basicAuth")    }, tags={ "vivo" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Vivo.class))),
+        @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(mediaType = "text/turtle", schema = @Schema(implementation = String.class))),
         
         @ApiResponse(responseCode = "400", description = "Invalid personname supplied"),
         
