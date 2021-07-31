@@ -67,7 +67,7 @@ public class VivoReceiver extends AbstractReceiver {
 		password = password +"";
 		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
 		RequestBody body = RequestBody.create(mediaType, "loginName="+username+"&loginPassword="+password+"&loginForm=Connexion");
-		String url = getHostName()+"/"+getVivoSiteName() + "/robot_authenticate";
+		String url = getHostName()+"/"+getVivoSiteName() + "/authenticate";
 		String origin = getHostName();
 		String referer = getHostName()+"/"+getVivoSiteName()+"/login";
 		Request request = new Request.Builder()

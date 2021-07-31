@@ -17,7 +17,7 @@ import ca.uqam.tool.vivoproxy.swagger.client.handler.Pair;
 import java.util.Map;
 import java.util.List;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2021-07-30T09:54:09.424-04:00[America/New_York]")public class OAuth implements Authentication {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2021-07-31T08:37:04.234-04:00[America/New_York]")public class OAuth implements Authentication {
   private String accessToken;
 
   public String getAccessToken() {

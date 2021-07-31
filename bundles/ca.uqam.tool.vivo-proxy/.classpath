@@ -146,13 +146,13 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry exported="true" kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry kind="src" path="src-overlay/main/java"/>
 	<classpathentry excluding="ca/uqam/tool/vivoproxy/swagger/api/impl/*.java" including="**/*.java" kind="src" output="target/classes" path="src/main/java">
 		<attributes>
 			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="src" path="src-overlay/main/java"/>
 	<classpathentry excluding="ca/uqam/tool/vivoproxy/swagger/api/impl/*.java" kind="src" output="target/classes" path="src/server/main/java">
 		<attributes>
 			<attribute name="optional" value="true"/>
@@ -165,14 +165,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry excluding="ca/uqam/tool/vivoproxy/swagger/api/impl/*.java" kind="src" output="target/test-classes" path="src/test/java">
-		<attributes>
-			<attribute name="optional" value="true"/>
-			<attribute name="maven.pomderived" value="true"/>
-			<attribute name="test" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="src" path="src-custom/test/java"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>

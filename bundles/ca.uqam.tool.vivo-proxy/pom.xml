@@ -39,7 +39,7 @@
                         </goals>
                         <configuration>
                             <sources>
-<!--                                 <source>src/main/java</source> -->
+                                <source>src/main/java</source>
                                 <source>src/server/main/java</source>
                                 <source>src-overlay/main/java</source>
                                 <source>src-custom/main/java</source>
@@ -364,6 +364,25 @@
                                         <ignore></ignore>
                                     </action>
                                 </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>
+                                            io.swagger.codegen.v3
+                                        </groupId>
+                                        <artifactId>
+                                            swagger-codegen-maven-plugin
+                                        </artifactId>
+                                        <versionRange>
+                                            [3.0.27,)
+                                        </versionRange>
+                                        <goals>
+                                            <goal>generate</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore></ignore>
+                                    </action>
+                                </pluginExecution>
                             </pluginExecutions>
                         </lifecycleMappingMetadata>
                     </configuration>
@@ -562,8 +581,8 @@
         <servlet-version>2.5</servlet-version>
 
 
-        <skipGen-client>false</skipGen-client>
-        <skipGen>false</skipGen>
+        <skipGen-client>true</skipGen-client>
+        <skipGen>true</skipGen>
 
 
     </properties>
