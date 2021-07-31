@@ -1,14 +1,23 @@
 package ca.uqam.tool.vivoproxy.pattern.command;
 
+import java.util.List;
+
+import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddConceptCommand;
+import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddHasResearchAreaCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddOrganizationCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddPersonCommand;
+import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddPersonListCommand;
+import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddResearchAreaOfCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.CreatePositionForCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.LoginCommand;
+import ca.uqam.tool.vivoproxy.pattern.command.concrete.LogoutCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.SparqlDescribeCommand;
+import ca.uqam.tool.vivoproxy.swagger.model.Concept;
+import ca.uqam.tool.vivoproxy.swagger.model.Person;
 import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
+import ca.uqam.tool.vivoproxy.swagger.model.ResourceToResource;
 
 public class CommandFactory {
-    private CommandInvoker invoker;
     /*
      * CommandReceiver has Singleton
      */
@@ -19,20 +28,16 @@ public class CommandFactory {
     public static CommandFactory getInstance() {
         return CommandFactoryHolder.SINGLE_INSTANCE;
     }
-    public Command createLogin(String username, String password) {
+    public Command createLogin(String username, String password) { 
         LoginCommand login = new LoginCommand(username, password);
-        register(login);
         return login;
     }
-    public Command createAddPerson(String firstName, String middleName, String lastName, String vivoPersonType) {
-        AddPersonCommand addPersonCmd = new AddPersonCommand(firstName, middleName,lastName, vivoPersonType);
-        register(addPersonCmd);
-        return addPersonCmd;
-        
+    public Command createLogout() {
+        LogoutCommand aCommand = new LogoutCommand();
+        return aCommand;
     }
     public Command createOrganization(String organisationName, String vivoOrganisationType) {
         AddOrganizationCommand addOrganizationCommand = new AddOrganizationCommand(organisationName, vivoOrganisationType);
-        register(addOrganizationCommand);
         return addOrganizationCommand;
     }
 //    public Command createAddMemberOf(String personUri, String organizationUri, String roleLabel, String startField_year, String endField_year, String vivoOrganisationType) {
@@ -40,26 +45,39 @@ public class CommandFactory {
 //        register(addOrganizationCommand);
 //        return addOrganizationCommand;
 //    }
-    private void register(Command aCommand) {
-        if (getInvoker() != null )getInvoker().register(aCommand);
-    }
-    public CommandInvoker getInvoker() {
-        return invoker;
-    }
-    public void setInvoker(CommandInvoker invoker) {
-        this.invoker = invoker;
-    }
     public Command createSparqlDescribeCommand(String login, String passwd, String iri) {
         return createSparqlDescribeCommand(login, passwd, iri, "text/turtle");
     }
     public Command createSparqlDescribeCommand(String login, String passwd, String iri, String MINE_TYPE) {
         SparqlDescribeCommand sparqlDescribeCommand = new SparqlDescribeCommand(login, passwd, iri, MINE_TYPE);
-        register(sparqlDescribeCommand);
         return sparqlDescribeCommand;
     }
     public Command createPositionFor(PositionOfPerson body) {
         CreatePositionForCommand createPositionForCommand = new CreatePositionForCommand(body);
-        register(createPositionForCommand);
         return createPositionForCommand;
     }
+	public Command createAddPerson(Person person) {
+        AddPersonCommand addPersonCmd = new AddPersonCommand(person);
+		return addPersonCmd;
+	}
+	public Command createAddPerson(List<Person> personsList) {
+		AddPersonListCommand addPersonCmd = new AddPersonListCommand(personsList);
+		return addPersonCmd;
+	}
+	public Command createSparqlDescribeCommand(String login, String passwd, List<String> uris, String MINE_TYPE) {
+        SparqlDescribeCommand sparqlDescribeCommand = new SparqlDescribeCommand(login, passwd, uris, MINE_TYPE);
+        return sparqlDescribeCommand;
+	}
+	public Command createAddConceptCommand(String login, String passwd, Concept concept, String MINE_TYPE) {
+		AddConceptCommand command = new AddConceptCommand(login, passwd, concept, MINE_TYPE);
+        return command;
+	}
+	public Command createAddResearchAreaOfCommand(String login, String passwd, ResourceToResource resourcesToLink, String MINE_TYPE) {
+		AddResearchAreaOfCommand command = new AddResearchAreaOfCommand(login, passwd, resourcesToLink, MINE_TYPE);
+        return command;
+	}
+	public Command createAddHasResearchAreaCommand(String login, String passwd, ResourceToResource resourcesToLink, String MINE_TYPE) {
+		AddHasResearchAreaCommand command = new AddHasResearchAreaCommand(login, passwd, resourcesToLink, MINE_TYPE);
+        return command;
+	}
 }

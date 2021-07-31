@@ -46,7 +46,7 @@ public class OrganizationApiTest {
 
     
     /**
-     * Create an organization in VIVO
+     * Create an organization in VIVO 
      *
      * This can only be done by the logged in VIVO.
      *

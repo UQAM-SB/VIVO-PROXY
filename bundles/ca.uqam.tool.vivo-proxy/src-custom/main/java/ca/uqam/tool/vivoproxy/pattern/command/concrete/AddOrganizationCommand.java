@@ -4,15 +4,14 @@ import java.io.IOException;
 
 import ca.uqam.tool.vivoproxy.pattern.command.Command;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
-import ca.uqam.tool.vivoproxy.pattern.command.receiver.Receiver;
+import ca.uqam.tool.vivoproxy.pattern.command.Receiver;
 import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
 
 
-public class AddOrganizationCommand implements Command {
+public class AddOrganizationCommand extends Command {
 
     private String organisationName;
-    private String vivoOrganisationType;
-    private String name;
+    private String vivoOrganisationType; 
     private VivoReceiver vivo;
 
     public AddOrganizationCommand(String organisationName, String vivoOrganisationType) {
@@ -27,6 +26,7 @@ public class AddOrganizationCommand implements Command {
         CommandResult result = null;
         try {
             result = ((VivoReceiver)vivo).addOrganization(getOrganisationName(), getVivoOrganisationType());
+            setCommandResult(result);
             return result;
         } catch (IOException e) {
             e.printStackTrace();

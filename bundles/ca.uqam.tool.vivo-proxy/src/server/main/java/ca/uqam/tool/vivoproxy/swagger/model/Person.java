@@ -10,22 +10,19 @@
  * Do not edit the class manually.
  */
 
-
 package ca.uqam.tool.vivoproxy.swagger.model;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
 
 /**
  * Person
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2021-06-29T14:46:58.837-04:00")
-public class Person   {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-07-30T09:54:09.106-04:00[America/New_York]")public class Person   {
   @JsonProperty("personType")
   private String personType = null;
 
@@ -48,7 +45,8 @@ public class Person   {
    * @return personType
    **/
   @JsonProperty("personType")
-  @ApiModelProperty(example = "http://vivoweb.org/ontology/core#FacultyMember", value = "")
+  @Schema(example = "http://vivoweb.org/ontology/core#FacultyMember", required = true, description = "")
+  @NotNull
   public String getPersonType() {
     return personType;
   }
@@ -67,7 +65,8 @@ public class Person   {
    * @return firstName
    **/
   @JsonProperty("firstName")
-  @ApiModelProperty(example = "Peters", value = "")
+  @Schema(example = "Peters", required = true, description = "")
+  @NotNull
   public String getFirstName() {
     return firstName;
   }
@@ -86,7 +85,8 @@ public class Person   {
    * @return lastName
    **/
   @JsonProperty("lastName")
-  @ApiModelProperty(example = "Jasper", value = "")
+  @Schema(example = "Jasper", required = true, description = "")
+  @NotNull
   public String getLastName() {
     return lastName;
   }
@@ -105,7 +105,7 @@ public class Person   {
    * @return middleName
    **/
   @JsonProperty("middleName")
-  @ApiModelProperty(example = "I", value = "")
+  @Schema(example = "I", description = "")
   public String getMiddleName() {
     return middleName;
   }
@@ -160,4 +160,3 @@ public class Person   {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

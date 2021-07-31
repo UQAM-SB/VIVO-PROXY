@@ -4,11 +4,20 @@ import ca.uqam.tool.vivoproxy.swagger.model.*;
 import ca.uqam.tool.vivoproxy.swagger.api.PersonApiService;
 import ca.uqam.tool.vivoproxy.swagger.api.factories.PersonApiServiceFactory;
 
-import io.swagger.annotations.ApiParam;
-import io.swagger.jaxrs.*;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
+import ca.uqam.tool.vivoproxy.swagger.model.ModelAPIResponse;
 import ca.uqam.tool.vivoproxy.swagger.model.Person;
 import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
+import ca.uqam.tool.vivoproxy.swagger.model.ResourceToResource;
 
 import java.util.Map;
 import java.util.List;
@@ -26,12 +35,11 @@ import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.*;
 import javax.validation.constraints.*;
 
+
 @Path("/person")
 
 
-@io.swagger.annotations.Api(description = "the person API")
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2021-06-29T14:46:58.837-04:00")
-public class PersonApi  {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-07-30T09:54:09.106-04:00[America/New_York]")public class PersonApi  {
    private final PersonApiService delegate;
 
    public PersonApi(@Context ServletConfig servletContext) {
@@ -57,38 +65,86 @@ public class PersonApi  {
 
     @POST
     
-    
-    @Produces({ "application/json", "text/plain", "application/rdf+xml", "text/n3", "text/turtle", "text/funtional", "text/manchester", "application/owl+xml" })
-    @io.swagger.annotations.ApiOperation(value = "Create a person in VIVO", notes = "This can only be done by the logged in person.", response = Void.class, authorizations = {
-        @io.swagger.annotations.Authorization(value = "basicAuth")
-    }, tags={ "person", })
-    @io.swagger.annotations.ApiResponses(value = { 
-        @io.swagger.annotations.ApiResponse(code = 200, message = "OK (successfully authenticated)", response = Void.class),
+    @Consumes({ "application/json" })
+    @Produces({ "application/json" })
+    @Operation(summary = "Create a person in VIVO", description = "This can only be done by the logged in person.", security = {
+        @SecurityRequirement(name = "basicAuth")    }, tags={ "person" })
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ModelAPIResponse.class))),
         
-        @io.swagger.annotations.ApiResponse(code = 401, message = "Authentication information is missing or invalid", response = Void.class),
+        @ApiResponse(responseCode = "401", description = "Authentication information is missing or invalid"),
         
-        @io.swagger.annotations.ApiResponse(code = 200, message = "successful operation", response = Void.class) })
-    public Response createPerson(@ApiParam(value = "Created person object" ,required=true) Person body
+        @ApiResponse(responseCode = "405", description = "Invalid input") })
+    public Response createPerson(@Parameter(in = ParameterIn.DEFAULT, description = "Created person object" ,required=true) Person body
+
 ,@Context SecurityContext securityContext)
     throws NotFoundException {
         return delegate.createPerson(body,securityContext);
     }
-    @PUT
-    
-    @Consumes({ "application/json", "application/xml" })
-    @Produces({ "application/json", "text/plain", "application/rdf+xml", "text/n3", "text/turtle", "text/funtional", "text/manchester", "application/owl+xml" })
-    @io.swagger.annotations.ApiOperation(value = "Create organizational position for", notes = "", response = Void.class, authorizations = {
-        @io.swagger.annotations.Authorization(value = "basicAuth")
-    }, tags={ "person", })
-    @io.swagger.annotations.ApiResponses(value = { 
-        @io.swagger.annotations.ApiResponse(code = 400, message = "Invalid ID supplied", response = Void.class),
+    @POST
+    @Path("/createWithList")
+    @Consumes({ "application/json" })
+    @Produces({ "text/plain", "application/ld+json", "text/n3", "text/turtle", "text/owl-manchester", "text/owl-functional", "application/rdf+xml", "application/owl+xml" })
+    @Operation(summary = "Creates list of users with given input array", description = "", security = {
+        @SecurityRequirement(name = "basicAuth")    }, tags={ "person" })
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class))),
         
-        @io.swagger.annotations.ApiResponse(code = 404, message = "Organisation not found", response = Void.class),
+        @ApiResponse(responseCode = "405", description = "Validation exception"),
         
-        @io.swagger.annotations.ApiResponse(code = 405, message = "Validation exception", response = Void.class) })
-    public Response createPositionFor(@ApiParam(value = "Person that need to be in an organization" ,required=true) PositionOfPerson body
+        @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class))) })
+    public Response createUsersWithListInput(@Parameter(in = ParameterIn.DEFAULT, description = "List of user object" ,required=true) List<Person> body
+
 ,@Context SecurityContext securityContext)
     throws NotFoundException {
-        return delegate.createPositionFor(body,securityContext);
+        return delegate.createUsersWithListInput(body,securityContext);
+    }
+    @PUT
+    @Path("/addPositionFor")
+    @Consumes({ "application/json" })
+    @Produces({ "application/json" })
+    @Operation(summary = "Add an organizational position for", description = "", security = {
+        @SecurityRequirement(name = "basicAuth")    }, tags={ "person" })
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ModelAPIResponse.class))),
+        
+        @ApiResponse(responseCode = "401", description = "Authentication information is missing or invalid") })
+    public Response personAddOrganisationalPositionTo(@Parameter(in = ParameterIn.DEFAULT, description = "Person that need to be in an organization" ,required=true) PositionOfPerson body
+
+,@Context SecurityContext securityContext)
+    throws NotFoundException {
+        return delegate.personAddOrganisationalPositionTo(body,securityContext);
+    }
+    @PUT
+    @Path("/addResearchAreaOf")
+    @Consumes({ "application/json" })
+    @Produces({ "application/json" })
+    @Operation(summary = "Create a 'Research Area of' a person", description = "", security = {
+        @SecurityRequirement(name = "basicAuth")    }, tags={ "person" })
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ModelAPIResponse.class))),
+        
+        @ApiResponse(responseCode = "401", description = "Authentication information is missing or invalid") })
+    public Response personAddResearchAreaOf(@Parameter(in = ParameterIn.DEFAULT, description = "Research Area of a person" ,required=true) ResourceToResource body
+
+,@Context SecurityContext securityContext)
+    throws NotFoundException {
+        return delegate.personAddResearchAreaOf(body,securityContext);
+    }
+    @PUT
+    @Path("/addHasResearchArea")
+    @Consumes({ "application/json" })
+    @Produces({ "application/json" })
+    @Operation(summary = "Create 'has Research Area' for a person", description = "", security = {
+        @SecurityRequirement(name = "basicAuth")    }, tags={ "person" })
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ModelAPIResponse.class))),
+        
+        @ApiResponse(responseCode = "401", description = "Authentication information is missing or invalid") })
+    public Response personHasAddResearchArea(@Parameter(in = ParameterIn.DEFAULT, description = "Research Area of a person" ,required=true) ResourceToResource body
+
+,@Context SecurityContext securityContext)
+    throws NotFoundException {
+        return delegate.personHasAddResearchArea(body,securityContext);
     }
 }

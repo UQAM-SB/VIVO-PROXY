@@ -2,18 +2,20 @@ package ca.uqam.tool.vivoproxy.pattern.command;
 
 import com.squareup.okhttp.Response;
 
+import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
+
 public class CommandResult {
     private Object result;
-    private String hostName = "http://localhost:8080";
-    private String vivoSiteName = "vivo";
+    private static String hostName = "http://localhost:8080";
+    private static String vivoSiteName = "vivo";
 
     public Object getResult() {
         return result;
     }
     public Response getOkhttpResult() {
-        if (result instanceof com.squareup.okhttp.Response){
-            return (Response)result;
-        }
+    	if (result instanceof com.squareup.okhttp.Response) {
+            return (Response)this.getResult();
+    	}
         return null;
     }
 
@@ -26,13 +28,13 @@ public class CommandResult {
         cmdResult.setResult(response);
         return cmdResult;
     }
-    public String getHostName() {
+    public static String getHostName() {
         return hostName;
     }
     public void setHostName(String hostName) {
         this.hostName = hostName;
     }
-    public String getVivoSiteName() {
+    public static String getVivoSiteName() {
         return vivoSiteName;
     }
     public void setVivoSiteName(String vivoSiteName) {

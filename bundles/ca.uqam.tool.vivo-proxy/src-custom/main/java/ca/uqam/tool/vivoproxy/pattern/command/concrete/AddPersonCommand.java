@@ -5,31 +5,26 @@ import java.util.UUID;
 
 import ca.uqam.tool.vivoproxy.pattern.command.Command;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
-import ca.uqam.tool.vivoproxy.pattern.command.receiver.Receiver;
+import ca.uqam.tool.vivoproxy.pattern.command.Receiver;
 import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
+import ca.uqam.tool.vivoproxy.swagger.model.Person;
 
-public class AddPersonCommand implements Command {
+public class AddPersonCommand extends Command {
 
-    private String firstName;
-    private String middleName;
-    private String lastName;
-    private String vivoPersonType;
-    private String name;
+    private Person person;
 
-    public AddPersonCommand(String firstName, String middleName, String lastName, String vivoPersonType) {
-        super();
-        this.setFirstName(firstName);
-        this.setMiddleName(middleName);
-        this.setLastName(lastName);
-        this.setVivoPersonType(vivoPersonType);
-        setName(toString());
+
+    public AddPersonCommand(Person person) {
+    	super();
+    	this.person = person;
     }
 
-    @Override
+	@Override
     public CommandResult execute(Receiver vivo) {
         CommandResult result = null;
         try {
-            result = ((VivoReceiver)vivo).addPerson(getFirstName(), getMiddleName(), getLastName(), getVivoPersonType());
+            result = ((VivoReceiver)vivo).addPerson(person);
+            setCommandResult(result);
             return result;
         } catch (IOException e) {
             e.printStackTrace();
@@ -37,56 +32,9 @@ public class AddPersonCommand implements Command {
         return null;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name=name;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getVivoPersonType() {
-        return vivoPersonType;
-    }
-
-    public void setVivoPersonType(String vivoPersonType) {
-        this.vivoPersonType = vivoPersonType;
-    }
-
-    /* (non-Javadoc)
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        return "AddPersonCommand [" + (firstName != null ? "firstName=" + firstName + ", " : "")
-                + (middleName != null ? "middleName=" + middleName + ", " : "")
-                + (lastName != null ? "lastName=" + lastName + ", " : "")
-                + (vivoPersonType != null ? "vivoPersonType=" + vivoPersonType : "") + "]";
-    }
-
+	@Override
+	public String toString() {
+		return "AddPersonCommand [name=" + name + ", person=" + person + "]";
+	}
 
 }

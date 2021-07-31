@@ -4,15 +4,15 @@ import java.io.IOException;
 
 import ca.uqam.tool.vivoproxy.pattern.command.Command;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
-import ca.uqam.tool.vivoproxy.pattern.command.receiver.Receiver;
+import ca.uqam.tool.vivoproxy.pattern.command.Receiver;
 import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
 import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
 
-public class CreatePositionForCommand implements Command {
+public class CreatePositionForCommand extends Command {
 
     private String name;
     private PositionOfPerson positionOfPerson;
-    private CommandResult result;
+	private CommandResult result;
 
     public CreatePositionForCommand(PositionOfPerson body) {
         super();
@@ -22,6 +22,7 @@ public class CreatePositionForCommand implements Command {
     public CommandResult execute(Receiver vivo) {
         try {
             result = ((VivoReceiver)vivo).setPositionOfPerson(positionOfPerson);
+            this.setCommandResult(result);
             return  result;
         } catch (IOException e) {
             e.printStackTrace();
@@ -29,15 +30,7 @@ public class CreatePositionForCommand implements Command {
         return null;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name=name;
-    }
-
-    /**
+     /**
      * @return the positionOfPerson
      */
     public PositionOfPerson getPositionOfPerson() {

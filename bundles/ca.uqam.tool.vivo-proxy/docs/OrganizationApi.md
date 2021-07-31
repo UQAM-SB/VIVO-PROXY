@@ -6,10 +6,9 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createOrganization**](OrganizationApi.md#createOrganization) | **POST** /organization | Create an organization in VIVO
 
-
 <a name="createOrganization"></a>
 # **createOrganization**
-> createOrganization(body)
+> ModelAPIResponse createOrganization(body)
 
 Create an organization in VIVO
 
@@ -25,7 +24,6 @@ This can only be done by the logged in VIVO.
 //import ca.uqam.tool.vivoproxy.swagger.client.api.OrganizationApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
-
 // Configure HTTP basic authorization: basicAuth
 HttpBasicAuth basicAuth = (HttpBasicAuth) defaultClient.getAuthentication("basicAuth");
 basicAuth.setUsername("YOUR USERNAME");
@@ -34,7 +32,8 @@ basicAuth.setPassword("YOUR PASSWORD");
 OrganizationApi apiInstance = new OrganizationApi();
 Organization body = new Organization(); // Organization | Created organization object
 try {
-    apiInstance.createOrganization(body);
+    ModelAPIResponse result = apiInstance.createOrganization(body);
+    System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling OrganizationApi#createOrganization");
     e.printStackTrace();
@@ -49,7 +48,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-null (empty response body)
+[**ModelAPIResponse**](ModelAPIResponse.md)
 
 ### Authorization
 
@@ -57,6 +56,6 @@ null (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json, text/plain, application/rdf+xml, text/n3, text/turtle, text/funtional, text/manchester, application/owl+xml
+ - **Content-Type**: application/json
+ - **Accept**: application/json
 

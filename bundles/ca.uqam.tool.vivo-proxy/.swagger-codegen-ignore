@@ -23,12 +23,23 @@
 #!docs/README.md
 
 #src/gen/java/main/io/swagger/api/PersonApi.java
-/src/main/java/ca/uqam/tool/vivoproxy/swagger/api/impl/OrganizationApiServiceImpl.java
-/src/main/java/ca/uqam/tool/vivoproxy/swagger/api/impl/PersonApiServiceImpl.java
-/src/main/java/ca/uqam/tool/vivoproxy/swagger/api/impl/VivoApiServiceImpl.java
 # /src/server/main/java/ca/uqam/tool/vivoproxy/swagger/api/OrganizationApi.java
 # /src/server/main/java/ca/uqam/tool/vivoproxy/swagger/api/PersonApi.java
 # /src/server/main/java/ca/uqam/tool/vivoproxy/swagger/api/VivoApi.java
+
+
+/src/main/java/ca/uqam/tool/vivoproxy/swagger/api/impl/OrganizationApiServiceImpl.java
+/src/main/java/ca/uqam/tool/vivoproxy/swagger/api/impl/PersonApiServiceImpl.java
+/src/main/java/ca/uqam/tool/vivoproxy/swagger/api/impl/VivoApiServiceImpl.java
+/src/main/java/ca/uqam/tool/vivoproxy/swagger/api/impl/ConceptApiServiceImpl.java
+
+#
+# Associated to test
+#
 /src/test/java/ca/uqam/tool/vivoproxy/swagger/client/api/OrganizationApiTest.java
 /src/test/java/ca/uqam/tool/vivoproxy/swagger/client/api/PersonApiTest.java
 /src/test/java/ca/uqam/tool/vivoproxy/swagger/client/api/VivoApiTest.java
+/src/test/java/ca/uqam/tool/vivoproxy/swagger/client/api/ConceptApiTest.java
+#  /src/client/main/java/ca/uqam/tool/vivoproxy/swagger/client/api/PersonApi.java
+
+# /src/client/main/java/ca/uqam/tool/vivoproxy/swagger/client/api/PersonApi.java

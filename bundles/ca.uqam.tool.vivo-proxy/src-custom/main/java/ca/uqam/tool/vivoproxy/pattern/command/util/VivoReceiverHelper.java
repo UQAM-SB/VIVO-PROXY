@@ -3,6 +3,7 @@ package ca.uqam.tool.vivoproxy.pattern.command.util;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.logging.Logger;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -16,9 +17,12 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
+import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
 import ca.uqam.tool.vivoproxy.pattern.command.receiver.util.EditKeyForPosition;
 
 public class VivoReceiverHelper {
+	private final static Logger LOGGER = Logger.getLogger(VivoReceiverHelper.class.getName());
+
 
     public static Response gotoAdminPage(String siteUrl, OkHttpClient httpClient) throws IOException {
         Request request = new Request.Builder()
@@ -97,7 +101,12 @@ public class VivoReceiverHelper {
                 .addHeader("Upgrade-Insecure-Requests", "1")
                 .build();
         Response response = httpClient.newCall(request).execute();
-        return getKeyValue(response.body().string());
+        String respUrl = response.networkResponse().request().urlString();
+        String doc = response.body().string();
+ //       System.out.println(doc);
+        String editKey = getKeyValue(doc);  
+		LOGGER.info(siteUrl +"/siteAdmin : editKey =  " + editKey + " return url="+respUrl+" with return code " + response.code());
+        return editKey;
     }
     public static String getEditKey(String siteUrl, OkHttpClient httpClient, EditKeyForPosition editKeyVar) throws IOException {
         HttpUrl url = HttpUrl.parse(siteUrl +"/editRequestDispatch").newBuilder()
@@ -146,5 +155,15 @@ public class VivoReceiverHelper {
         if (uri_link != null ) uri = uri_link.select("a").first().attr("href");        
         return uri;
     }
-
+	public static String getNetworkUri(Response response) {
+		String uri = null; 
+		try {
+			uri = response.networkResponse().request().urlString();
+		} catch (Exception e) {
+		}
+		return uri;
+	}
+	public static String getUriResponse(Response result) throws IOException {
+		return getUriResponse(result.body().string());
+	}
 }

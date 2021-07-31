@@ -1,18 +1,20 @@
 package ca.uqam.tool.vivoproxy.pattern.command.concrete;
 import java.io.IOException;
+import java.util.List;
 
 import ca.uqam.tool.vivoproxy.pattern.command.Command;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
-import ca.uqam.tool.vivoproxy.pattern.command.receiver.Receiver;
+import ca.uqam.tool.vivoproxy.pattern.command.Receiver;
 import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
 
-public class SparqlDescribeCommand implements Command {
+public class SparqlDescribeCommand extends Command {
 
     private String name;
     private String login;
     private String passwd;
     private String iri;
-    private String MINE_TYPE;
+    private List<String> iris;
+	private String MINE_TYPE;
 
     public SparqlDescribeCommand(String login, String passwd, String iri) {
         super();
@@ -32,22 +34,27 @@ public class SparqlDescribeCommand implements Command {
         setName(toString());
     }
 
-    public CommandResult execute(Receiver receiver) {
+    public SparqlDescribeCommand(String login, String passwd, List<String> iris, String MINE_TYPE) {
+        super();
+        this.setLogin(login);
+        this.setPasswd(passwd);
+        this.setIris(iris);
+        this.setMINE_TYPE(MINE_TYPE);
+        setName(toString());	}
+
+	public CommandResult execute(Receiver receiver) {
         CommandResult result = null;
         try {
-            result = ((VivoReceiver)receiver).DESCRIBE(login, passwd, iri, MINE_TYPE);
+        	if (iri != null) {
+        		result = ((VivoReceiver)receiver).DESCRIBE(login, passwd, iri, MINE_TYPE);
+        	} else {
+        		result = ((VivoReceiver)receiver).DESCRIBE(login, passwd, iris, MINE_TYPE);
+        	}
+            setCommandResult(result);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return result;    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     /**
      * @return the login
@@ -116,5 +123,13 @@ public class SparqlDescribeCommand implements Command {
                 + (login != null ? "login=" + login + ", " : "") + (iri != null ? "iri=" + iri + ", " : "")
                 + (MINE_TYPE != null ? "MINE_TYPE=" + MINE_TYPE : "") + "]";
     }
+
+	public List<String> getIris() {
+		return iris;
+	}
+
+	public void setIris(List<String> iris) {
+		this.iris = iris;
+	}
 
 }
