@@ -1,6 +1,6 @@
 {
-  "personIRI": "http://localhost:8080/vivo/individual/n730",
-  "organisationIRI": "http://localhost:8080/vivo/individual/n7037",
+  "personIRI": "http://localhost:8080/vivo/individual/n7723",
+  "organisationIRI": "http://localhost:8080/vivo/individual/n7540",
   "organisationLabel": "Université du Québec à Montréal",
   "positionTitleLabel": "Professor",
   "positionTypeIRI": "http://vivoweb.org/ontology/core#FacultyPosition",

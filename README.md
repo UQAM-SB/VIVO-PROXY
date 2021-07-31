@@ -61,6 +61,10 @@ mvn clean package jetty:run
 - [VIVO-PROXY Scenario of 3 actions](https://youtu.be/alOBBHnIx14)
 - [Swagger Model Driven Development Demonstration ](https://youtu.be/jyz0WQuj9UU)
 
+## Try in out! : Use cases of VIVO-PROXY that you can try
+You will find here a VIVO-PROXY usage scenario containing several use cases 
+[Client use cases readme](https://github.com/vivo-community/VIVO-PROXY/tree/issues-3/bundles/ca.uqam.tool.vivo-proxy.client#readme)
+
 
 
 
