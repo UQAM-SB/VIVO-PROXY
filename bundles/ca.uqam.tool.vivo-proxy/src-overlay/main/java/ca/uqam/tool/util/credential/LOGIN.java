@@ -1,8 +1,6 @@
 package ca.uqam.tool.util.credential;
 
 public class LOGIN extends AbstractCredential{
-    private static  String PASSWD = "Vivo1234.";
-    private static  String USER_NAME = "vivo@uqam.ca";
     /**
      * @return the passwd
      */
