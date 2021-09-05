@@ -278,19 +278,20 @@ paths:
                 type: string
           content: {}
       x-codegen-request-body-name: body
-  /vivo:
+  /indv/byLabel:
     get:
       tags:
-      - vivo
-      summary: Get an individual by IRI
-      operationId: getindividualByIRI
+      - Individual
+      summary: Get an individual IRI by label (rdfs:label)
+      operationId: getIndvByLabel
       parameters:
-      - name: IRI
+      - name: Label
         in: query
-        description: Used to obtain information from a VIVO individual by the IRI
+        description: Strict string used to obtain information from a VIVO individual
         required: true
         schema:
           type: string
+          example: "Andrew Bogard"
       responses:
         200:
           description: successful operation
@@ -323,7 +324,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/vivo'
         400:
-          description: Invalid personname supplied
+          description: Invalid label supplied
           content: {}
         401:
           description: Authentication information is missing or invalid
@@ -333,7 +334,67 @@ paths:
                 type: string
           content: {}
         404:
-          description: person not found
+          description: labelvivo not found
+          content: {}
+      security:
+      - basicAuth: []
+  /indv/byIri:
+    get:
+      tags:
+      - Individual
+      summary: Get an individual by IRI
+      operationId: getIndvByIRI
+      parameters:
+      - name: IRI
+        in: query
+        description: Used to obtain information from a VIVO individual by the IRI
+        required: true
+        schema:
+          type: string
+          example: http://localhost:8080/vivo/individual/n5471
+      responses:
+        200:
+          description: successful operation
+          content:
+            text/turtle:
+              schema:
+                type: string
+            text/plain:
+              schema:
+                type: string
+            application/ld+json:
+              schema:
+                type: string
+            text/n3:
+              schema:
+                type: string
+            text/owl-manchester:
+              schema:
+                type: string
+            text/owl-functional:
+              schema:
+                type: string
+            application/rdf+xml:
+              schema:
+                type: string
+            application/owl+xml:
+              schema:
+                type: string
+            application/json:
+              schema:
+                $ref: '#/components/schemas/vivo'
+        400:
+          description: Invalid IRI supplied
+          content: {}
+        401:
+          description: Authentication information is missing or invalid
+          headers:
+            WWW_Authenticate:
+              schema:
+                type: string
+          content: {}
+        404:
+          description: vivo not found
           content: {}
       security:
       - basicAuth: []

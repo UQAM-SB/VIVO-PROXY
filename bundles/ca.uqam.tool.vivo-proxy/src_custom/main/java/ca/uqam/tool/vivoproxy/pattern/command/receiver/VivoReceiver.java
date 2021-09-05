@@ -34,6 +34,38 @@ import ca.uqam.vivo.vocabulary.VIVO;
  *
  */
 public class VivoReceiver extends AbstractReceiver {
+	String SparqlPrefix = "PREFIX  crdc: <http://purl.org/uqam.ca/vocabulary/crdc_ccrd#> \n"+
+			" PREFIX  ocrer: <http://purl.org/net/OCRe/research.owl#> \n"+
+			" PREFIX  p3:   <http://vivoweb.org/ontology/vitroAnnotfr_CA#> \n"+
+			" PREFIX  owl:  <http://www.w3.org/2002/07/owl#> \n"+
+			" PREFIX  scires: <http://vivoweb.org/ontology/scientific-research#> \n"+
+			" PREFIX  xsd:  <http://www.w3.org/2001/XMLSchema#> \n"+
+			" PREFIX  swrlb: <http://www.w3.org/2003/11/swrlb#> \n"+
+			" PREFIX  skos: <http://www.w3.org/2004/02/skos/core#> \n"+
+			" PREFIX  rdfs: <http://www.w3.org/2000/01/rdf-schema#> \n"+
+			" PREFIX  ocresd: <http://purl.org/net/OCRe/study_design.owl#> \n"+
+			" PREFIX  swo:  <http://www.ebi.ac.uk/efo/swo/> \n"+
+			" PREFIX  cito: <http://purl.org/spar/cito/> \n"+
+			" PREFIX  geo:  <http://aims.fao.org/aos/geopolitical.owl#> \n"+
+			" PREFIX  ocresst: <http://purl.org/net/OCRe/statistics.owl#> \n"+
+			" PREFIX  dcterms: <http://purl.org/dc/terms/> \n"+
+			" PREFIX  vivo: <http://vivoweb.org/ontology/core#> \n"+
+			" PREFIX  text: <http://jena.apache.org/text#> \n"+
+			" PREFIX  event: <http://purl.org/NET/c4dm/event.owl#> \n"+
+			" PREFIX  vann: <http://purl.org/vocab/vann/> \n"+
+			" PREFIX  foaf: <http://xmlns.com/foaf/0.1/> \n"+
+			" PREFIX  c4o:  <http://purl.org/spar/c4o/> \n"+
+			" PREFIX  fabio: <http://purl.org/spar/fabio/> \n"+
+			" PREFIX  swrl: <http://www.w3.org/2003/11/swrl#> \n"+
+			" PREFIX  vcard: <http://www.w3.org/2006/vcard/ns#> \n"+
+			" PREFIX  crdc-data: <http://purl.org/uqam.ca/vocabulary/crdc-ccrd/individual#> \n"+
+			" PREFIX  vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#> \n"+
+			" PREFIX  vitro-public: <http://vitro.mannlib.cornell.edu/ns/vitro/public#> \n"+
+			" PREFIX  rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n"+
+			" PREFIX  ocresp: <http://purl.org/net/OCRe/study_protocol.owl#> \n"+
+			" PREFIX  bibo: <http://purl.org/ontology/bibo/> \n"+
+			" PREFIX  obo:  <http://purl.obolibrary.org/obo/> \n"+
+			" PREFIX  ro:   <http://purl.obolibrary.org/obo/ro.owl#> \n";
 	public static final String FOAF_PERSON = "http://xmlns.com/foaf/0.1/Person";
 	public static final String OBO_RO_0000053 = "http://purl.obolibrary.org/obo/RO_0000053";
 	public static final String NEW_INDIVIDUAL_FORM_GENERATOR = "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.VIVONewIndividualFormGenerator";
@@ -212,11 +244,25 @@ public class VivoReceiver extends AbstractReceiver {
              rangeUri=http://vivoweb.org/ontology/core#Position"
 
 		 */
+		
+/*
+		  orgType=http://vivoweb.org/ontology/core#Department
+		  
+		  orgLabel=
+		  orgLabelDisplay=Département de management et technologie (Département)
+		  existingOrg=http://localhost:8080/vivo/individual/n866
+		  positionTitle=Charge
+		  positionType=http://vivoweb.org/ontology/core#PostdocPosition
+		  &startField-year=
+		  &endField-year=
+		  &editKey=36648580
+	*/	  
+		
 		HttpUrl url = HttpUrl.parse(getSiteUrl() +"/edit/process").newBuilder()
 				.addQueryParameter("orgType", body.getVivoOrganisationTypeIRI())
-				.addQueryParameter("orgLabel", body.getOrganisationLabel())
-				.addQueryParameter("orgLabelDisplay", "")
-				.addQueryParameter("existingOrg", ">SUBMITTED VALUE WAS BLANK<")
+				.addQueryParameter("orgLabel", "")
+				.addQueryParameter("orgLabelDisplay", body.getOrganisationLabel())
+				.addQueryParameter("existingOrg", body.getOrganisationIRI())
 				.addQueryParameter("positionTitle", body.getPositionTitleLabel())
 				.addQueryParameter("positionType", body.getPositionTypeIRI())
 				.addQueryParameter("startField-year", body.getStartFieldYear())
@@ -325,7 +371,6 @@ public class VivoReceiver extends AbstractReceiver {
 	 * @throws IOException
 	 */
 	public CommandResult DESCRIBE(String username, String passwd, String IRI, String MIME_Type) throws IOException{
-		MIME_Type = MIME_Type;
 		String bodyValue = 
 				"email="+username+
 				"&password="+passwd+
@@ -445,7 +490,7 @@ public class VivoReceiver extends AbstractReceiver {
 
 	public static void main (String[] argv) throws IOException
 	{
-		
+
 		VivoReceiver vr = new VivoReceiver();
 		ResourceToResource rToLink = new ResourceToResource();
 		rToLink.setObjectIRI("http://purl.org/uqam.ca/vocabulary/expertise#semanticwebee");
@@ -505,5 +550,28 @@ public class VivoReceiver extends AbstractReceiver {
 			personsUriList.add(VivoReceiverHelper.getUriResponse(commandResult.getOkhttpResult()));
 		}
 		return CommandResult.asCommandResult(personsUriList);
+	}
+	public CommandResult DescribeByLabel(String login, String passwd, String label, String MIME_Type) throws IOException {
+		String describeQuery = this.SparqlPrefix + " describe ?s \n"+
+				" where { \n"+
+				" ?s rdfs:label ?label . \n"+
+				" FILTER (LCASE(STR(?label))=LCASE(STR(\""+label+"\"))) \n"+
+				" }";
+		String bodyValue = 
+				"email="+login+
+				"&password="+passwd+
+				"&query="+describeQuery;
+
+		OkHttpClient client = new OkHttpClient();
+		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+		RequestBody body = RequestBody.create(mediaType, bodyValue);
+		Request request = new Request.Builder()
+				.url(getSiteUrl()+"/api/sparqlQuery")
+				.method("POST", body)
+				.addHeader("Accept", MIME_Type)
+				.addHeader("Content-Type", "application/x-www-form-urlencoded")
+				.build();
+		Response response = client.newCall(request).execute();
+		return CommandResult.asCommandResult(response);
 	}
 }

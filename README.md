@@ -20,13 +20,14 @@ please execute the following:
 #### 2) Configure VIVO-LOGIN for VIVO-PROXY by performing the following commands
 
 ```
-cd bundles/ca.uqam.tool.vivoproxy
+cd bundles/ca.uqam.tool.vivo-proxy
 cp src-overlay/main/java/ca/uqam/tool/util/credential/YOUR_LOGIN.java src-overlay/main/java/ca/uqam/tool/util/credential/LOGIN.java
 vi src-overlay/main/java/ca/uqam/tool/util/credential/LOGIN.java`
 
 Replace     
-    USER_NAME = "YOUR-VIVO_LOGIN";
-    PASSWD = "YOUR-VIVO_LOGIN-PASSWD"; 
+    Class name YOUR_LOGIN by LOGIN
+    USER_NAME = "YOUR_VIVO_LOGIN";
+    PASSWD = "YOUR_VIVO_LOGIN_PASSWD"; 
     by your VIVO_root credential (see :
             rootUser.emailAddress = 
             rootUser.passwordChangeRequired = false

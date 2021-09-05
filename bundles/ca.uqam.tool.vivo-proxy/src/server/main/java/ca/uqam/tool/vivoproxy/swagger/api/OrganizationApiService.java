@@ -17,6 +17,6 @@ import java.io.InputStream;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import javax.validation.constraints.*;
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-07-30T09:54:09.106-04:00[America/New_York]")public abstract class OrganizationApiService {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-09-04T10:22:20.491-04:00[America/New_York]")public abstract class OrganizationApiService {
     public abstract Response createOrganization(Organization body,SecurityContext securityContext) throws NotFoundException;
 }

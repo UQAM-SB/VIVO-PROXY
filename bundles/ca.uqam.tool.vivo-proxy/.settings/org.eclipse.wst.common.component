@@ -7,8 +7,8 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/server/main/java"/>
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src-custom/main/java"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src-overlay/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src_overlay/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src_custom/main/java"/>
                 
         <property name="context-root" value="ca.uqam.tool.vivo-proxy"/>
         <property name="java-output-path" value="/ca.uqam.tool.vivo-proxy/target/classes"/>

@@ -6,4 +6,5 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Response;
 
 public class AbstractReceiver extends CommandResult implements Receiver {
+	
 }

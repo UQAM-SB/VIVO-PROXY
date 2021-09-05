@@ -1,6 +1,6 @@
 package ca.uqam.tool.vivoproxy.swagger.api;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-07-30T09:54:09.106-04:00[America/New_York]")public class StringUtil {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-09-04T10:22:20.491-04:00[America/New_York]")public class StringUtil {
   /**
    * Check if the given array contains the given value (with case-insensitive comparison).
    *

@@ -11,6 +11,7 @@ import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddResearchAreaOfCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.CreatePositionForCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.LoginCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.LogoutCommand;
+import ca.uqam.tool.vivoproxy.pattern.command.concrete.SparqlDescribeByLabelCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.SparqlDescribeCommand;
 import ca.uqam.tool.vivoproxy.swagger.model.Concept;
 import ca.uqam.tool.vivoproxy.swagger.model.Person;
@@ -52,6 +53,11 @@ public class CommandFactory {
         SparqlDescribeCommand sparqlDescribeCommand = new SparqlDescribeCommand(login, passwd, iri, MINE_TYPE);
         return sparqlDescribeCommand;
     }
+    public Command createSparqlDescribeByLabelCommand(String login, String passwd, String label, String MINE_TYPE) {
+    	SparqlDescribeByLabelCommand sparqlDescribeByLabelCommand = new SparqlDescribeByLabelCommand(login, passwd, label, MINE_TYPE);
+        return sparqlDescribeByLabelCommand;
+    }
+
     public Command createPositionFor(PositionOfPerson body) {
         CreatePositionForCommand createPositionForCommand = new CreatePositionForCommand(body);
         return createPositionForCommand;
