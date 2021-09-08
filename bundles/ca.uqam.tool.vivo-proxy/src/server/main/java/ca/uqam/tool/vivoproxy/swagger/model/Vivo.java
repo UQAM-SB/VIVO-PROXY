@@ -10,22 +10,19 @@
  * Do not edit the class manually.
  */
 
-
 package ca.uqam.tool.vivoproxy.swagger.model;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
 
 /**
  * Vivo
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2021-07-15T06:02:28.027-04:00")
-public class Vivo   {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-09-07T12:17:12.241-04:00[America/New_York]")public class Vivo   {
   @JsonProperty("iri")
   private String iri = null;
 
@@ -45,7 +42,8 @@ public class Vivo   {
    * @return iri
    **/
   @JsonProperty("iri")
-  @ApiModelProperty(example = "http://localhost:8080/vivo/individual/n6870", value = "")
+  @Schema(example = "http://localhost:8080/vivo/individual/n6870", required = true, description = "")
+  @NotNull
   public String getIri() {
     return iri;
   }
@@ -64,7 +62,7 @@ public class Vivo   {
    * @return label
    **/
   @JsonProperty("label")
-  @ApiModelProperty(example = "a label", value = "")
+  @Schema(example = "a label", description = "")
   public String getLabel() {
     return label;
   }
@@ -83,7 +81,7 @@ public class Vivo   {
    * @return type
    **/
   @JsonProperty("type")
-  @ApiModelProperty(example = "http://vivoweb.org/ontology/core#FacultyMember", value = "")
+  @Schema(example = "http://vivoweb.org/ontology/core#FacultyMember", description = "")
   public String getType() {
     return type;
   }
@@ -136,4 +134,3 @@ public class Vivo   {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

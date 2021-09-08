@@ -10,11 +10,9 @@
  * Do not edit the class manually.
  */
 
-
 package ca.uqam.tool.vivoproxy.swagger.client.handler;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-07-15T06:02:28.267-04:00")
-public class Pair {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2021-07-31T08:37:04.234-04:00[America/New_York]")public class Pair {
     private String name = "";
     private String value = "";
 

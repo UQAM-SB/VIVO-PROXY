@@ -1,0 +1,13 @@
+{
+  "IRI": "http://purl.org/uqam.ca/vocabulary/expertise#semanticweb2",
+  "labels": [
+    {
+      "label": "semantic web2",
+      "language": "en-US"
+    },
+    {
+      "label": "web sémantique2",
+      "language": "fr-CA"
+    }
+  ]
+}

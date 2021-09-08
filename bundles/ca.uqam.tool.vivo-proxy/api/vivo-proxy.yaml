@@ -1,315 +1,733 @@
-  swagger: "2.0"
-  info:
-    description: "Proxy API for VIVO Data Manipulation"
-    version: "1.0.0"
-    title: "VIVO Proxy API"
-    termsOfService: "http://swagger.io/terms/"
-    contact:
-      email: "vivo@uqam.ca"
-      name: "Michel Héon PhD"
-    license:
-      name: "Apache 2.0"
-      url: "http://www.apache.org/licenses/LICENSE2.0.html"
-  host: "localhost:9090"
-  basePath: "/vivoproxy"
-  tags:
-  - name: "person"
-    description: "Operations about a Person in VIVO"
-    externalDocs:
-      description: "Local VIVO Instance"
-      url: "http://localhost:8080/vivo"
-  - name: "vivo"
-    description: "Operations about generic individual in VIVO"
-  - name: "organization"
-    description: "Operations about Organization in VIVO"
-  schemes:
-  - "http"
-  securityDefinitions:
-    basicAuth:
-      type: basic 
-  security:
-    - basicAuth: []
-  paths:
-    /person:
-      post:
-        tags:
-        - "person"
-        summary: "Create a person in VIVO"
-        description: "This can only be done by the logged in person."
-        operationId: "createPerson"
-        produces:
-        - "application/json"
-        - "text/plain"
-        - "application/rdf+xml"
-        - "text/n3"
-        - "text/turtle"
-        - "text/funtional"
-        - "text/manchester"
-        - "application/owl+xml"
-        parameters:
-        - in: "body"
-          name: "body"
-          description: "Created person object"
-          required: true
-          schema:
-            $ref: "#/definitions/person"
-        security:
-        - basicAuth: []
-        responses:
-          default:
-            description: "successful operation"
-          200:
-            description: "OK (successfully authenticated)"
-          "401":
-             $ref: '#/responses/UnauthorizedError'
-      put:
-        tags:
-        - "person"
-        summary: "Create organizational position for"
-        description: ""
-        operationId: "createPositionFor"
-        consumes:
-        - "application/json"
-        - "application/xml"
-        produces:
-        - "application/json"
-        - "text/plain"
-        - "application/rdf+xml"
-        - "text/n3"
-        - "text/turtle"
-        - "text/funtional"
-        - "text/manchester"
-        - "application/owl+xml"
-        parameters:
-        - in: "body"
-          name: "body"
-          description: "Person that need to be in an organization"
-          required: true
-          schema:
-            $ref: "#/definitions/positionOfPerson"
-        responses:
-          "400":
-            description: "Invalid ID supplied"
-          "404":
-            description: "Organisation not found"
-          "405":
-            description: "Validation exception"
-      
-  #  /person/{id}:
-  #    get:
-  #      tags:
-  #      - "person"
-  #      summary: "Get person by ID"
-  #      description: ""
-  #      operationId: "getPersonByID"
-  #      produces:
-  #      - "application/xml"
-  #      - "application/json"
-  #      parameters:
-  #      - name: "id"
-  #        in: "path"
-  #        description: "The name that needs to be fetched. Use person1 for testing. "
-  #        required: true
-  #        type: "string"
-  #      security:
-  #      - basicAuth: []
-  #      responses:
-  #        "200":
-  #          description: "successful operation"
-  #          schema:
-  #            $ref: "#/definitions/person"
-  #        "400":
-  #          description: "Invalid personname supplied"
-  #        "404":
-  #          description: "person not found"
-  #        "401":
-  #           $ref: '#/responses/UnauthorizedError'
-  #  /person/iri:
-  #    get:
-  #      tags:
-  #      - "person"
-  #      summary: "Get person by VIVO IRI"
-  #      description: ""
-  #      operationId: "getPersonByIRI"
-  #      produces:
-  #      - "application/xml"
-  #      - "application/json"
-  #      parameters:
-  #      - name: "iri"
-  #        in: query
-  #        description: "The iri that needs to be fetched. Use person1 for testing. "
-  #        required: true
-  #        type: "string"
-  #      security:
-  #      - basicAuth: []
-  #      responses:
-  #        "200":
-  #          description: "successful operation"
-  #          schema:
-  #            $ref: "#/definitions/person"
-  #        "400":
-  #          description: "Invalid personname supplied"
-  #        "404":
-  #          description: "person not found"
-  #        "401":
-  #           $ref: '#/responses/UnauthorizedError'
-    /vivo:
-      get:
-        tags:
-        - "vivo"
-        summary: "Get an individual by IRI"
-        description: ""
-        operationId: "getindividualByIRI"
-        produces:
-        - "application/json"
-        - "text/plain"
-        - "application/rdf+xml"
-        - "text/n3"
-        - "text/turtle"
-        - "text/funtional"
-        - "text/manchester"
-        - "application/owl+xml"
-        parameters:
-        - name: "IRI"
-          in: "query"
-          description: "Used to obtain information from a VIVO individual by the IRI"
-          required: true
-          type: "string"
-        security:
-        - basicAuth: []
-        responses:
-          "200":
-            description: "successful operation"
+openapi: 3.0.2
+info:
+  title: VIVO Proxy API
+  description: Proxy API for VIVO Data Manipulation
+  termsOfService: http://swagger.io/terms/
+  contact:
+    name: Michel Héon PhD
+    email: vivo@uqam.ca
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE2.0.html
+  version: 1.0.0
+externalDocs:
+  description: Find out more about VIVO
+  url: https://duraspace.org/vivo/
+servers:
+- url: http://localhost:9090/vivoproxy
+security:
+- basicAuth: []
+tags:
+- name: person
+  description: Operations about a Person in VIVO
+  externalDocs:
+    description: Local VIVO Instance
+    url: http://localhost:8080/vivo
+- name: vivo
+  description: Operations about generic individual in VIVO
+- name: organization
+  description: Operations about Organization in VIVO
+paths:
+  /concept:
+    post:
+      tags:
+      - concept
+      summary: Create a concept(skos:Concept) in VIVO
+      description: This can only be done by the logged in person.
+      operationId: createConcept
+      requestBody:
+        description: Created skos concept
+        content:
+          application/json:
             schema:
-              $ref: "#/definitions/vivo"
-          "400":
-            description: "Invalid personname supplied"
-          "404":
-            description: "person not found"
-          "401":
-             $ref: '#/responses/UnauthorizedError'
-    /organization:
-      post:
-        tags:
-        - "organization"
-        summary: "Create an organization in VIVO"
-        description: "This can only be done by the logged in VIVO."
-        operationId: "createOrganization"
-        produces:
-        - "application/json"
-        - "text/plain"
-        - "application/rdf+xml"
-        - "text/n3"
-        - "text/turtle"
-        - "text/funtional"
-        - "text/manchester"
-        - "application/owl+xml"
-        parameters:
-        - in: "body"
-          name: "body"
-          description: "Created organization object"
-          required: true
-          schema:
-            $ref: "#/definitions/organization"
-        security:
-        - basicAuth: []
-        responses:
-          default:
-            description: "successful operation"
-          200:
-            description: "OK (successfully authenticated)"
-          "401":
-             $ref: '#/responses/UnauthorizedError'
-  definitions:
-  
+                $ref: '#/components/schemas/concept'
+            example: {
+                        "IRI": "http://purl.org/uqam.ca/vocabulary/expertise#semanticweb",
+                        "labels": [
+                            {
+                              "label": "semantic web",
+                              "language": "en-US"
+                            },
+                           {
+                            "label": "web sémantique",
+                            "language": "fr-CA"
+                          }
+                        ]
+                      }  
+        required: true
+      responses:
+        200:
+          description: OK (successfully authenticated)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API-Response'
+        401:
+          description: Authentication information is missing or invalid
+          headers:
+            WWW_Authenticate:
+              schema:
+                type: string
+          content: {}
+        405:
+          description: Invalid input
+      security:
+      - basicAuth: []
+      x-codegen-request-body-name: body
+  /document:
+    post:
+      tags:
+      - document
+      summary: Create a document in VIVO
+      description: This can only be done by the logged in person.
+      operationId: createDocument
+      requestBody:
+        description: Created a document
+        content:
+          application/json:
+            schema:
+                $ref: '#/components/schemas/document'
+            example: {
+                    "docTypeIRI": "http://vivoweb.org/ontology/core#ConferencePaper",
+                    "title": "Les écrans, des machines de vision"
+                  }
+        required: true
+      responses:
+        200:
+          description: OK (successfully authenticated)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API-Response'
+        401:
+          description: Authentication information is missing or invalid
+          headers:
+            WWW_Authenticate:
+              schema:
+                type: string
+          content: {}
+        405:
+          description: Invalid input
+      security:
+      - basicAuth: []
+      x-codegen-request-body-name: body
+  /document/addAuthorFor:
+    put:
+      tags:
+      - document
+      summary: Add an organizational position for
+      operationId: documentAddAuthorFor
+      requestBody:
+        description: Author that need to be add to a document
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/authorOfADocument'
+        required: true
+      responses:
+        200:
+          description: OK (successfully authenticated)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API-Response'
+        401:
+          description: Authentication information is missing or invalid
+          headers:
+            WWW_Authenticate:
+              schema:
+                type: string
+          content: {}
+      x-codegen-request-body-name: body
+
+  /person:
+    post:
+      tags:
+      - person
+      summary: Create a person in VIVO
+      description: This can only be done by the logged in person.
+      operationId: createPerson
+      requestBody:
+        description: Created person object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/person'
+        required: true
+      responses:
+        200:
+          description: OK (successfully authenticated)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API-Response'
+        401:
+          description: Authentication information is missing or invalid
+          headers:
+            WWW_Authenticate:
+              schema:
+                type: string
+          content: {}
+        405:
+          description: Invalid input
+      security:
+      - basicAuth: []
+      x-codegen-request-body-name: body
+  /person/createWithList:
+    post:
+      tags:
+      - person
+      summary: Creates list of users with given input array
+      operationId: createUsersWithListInput
+      requestBody:
+        description: List of user object
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/person'
+              example: [
+  {
+    "personType": "http://vivoweb.org/ontology/core#FacultyMember",
+    "firstName": "Peters",
+    "lastName": "Jasper",
+    "middleName": "I"
+  },
+  {
+    "personType": "http://vivoweb.org/ontology/core#EmeritusProfessor",
+    "firstName": "Ben",
+    "lastName": "Jonson",
+  }
+]
+        required: true
+      responses:
+        200:
+          description: OK (successfully authenticated)
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/ld+json:
+              schema:
+                type: string
+            text/n3:
+              schema:
+                type: string
+            text/turtle:
+              schema:
+                type: string
+            text/owl-manchester:
+              schema:
+                type: string
+            text/owl-functional:
+              schema:
+                type: string
+            application/rdf+xml:
+              schema:
+                type: string
+            application/owl+xml:
+              schema:
+                type: string
+        405:
+          description: Validation exception
+          content: {}
+        default:
+          description: successful operation
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/ld+json:
+              schema:
+                type: string
+            text/n3:
+              schema:
+                type: string
+            text/turtle:
+              schema:
+                type: string
+            text/owl-manchester:
+              schema:
+                type: string
+            text/owl-functional:
+              schema:
+                type: string
+            application/rdf+xml:
+              schema:
+                type: string
+            application/owl+xml:
+              schema:
+                type: string
+      x-codegen-request-body-name: body
+  /person/addPositionFor:
+    put:
+      tags:
+      - person
+      summary: Add an organizational position for
+      operationId: personAddOrganisationalPositionTo
+      requestBody:
+        description: Person that need to be in an organization
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/positionOfPerson'
+        required: true
+      responses:
+        200:
+          description: OK (successfully authenticated)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API-Response'
+        401:
+          description: Authentication information is missing or invalid
+          headers:
+            WWW_Authenticate:
+              schema:
+                type: string
+          content: {}
+      x-codegen-request-body-name: body
+  /person/addHasResearchArea:
+    put:
+      tags:
+      - person
+      summary: Create 'has Research Area' for a person
+      operationId: personHasAddResearchArea
+      requestBody:
+        description: Research Area of a person
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/resourceToResource'
+        required: true
+      responses:
+        200:
+          description: OK (successfully authenticated)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API-Response'
+        401:
+          description: Authentication information is missing or invalid
+          headers:
+            WWW_Authenticate:
+              schema:
+                type: string
+          content: {}
+      x-codegen-request-body-name: body
+  /person/addResearchAreaOf:
+    put:
+      tags:
+      - person
+      summary: Create a 'Research Area of' a person
+      operationId: personAddResearchAreaOf
+      requestBody:
+        description: Research Area of a person
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/resourceToResource'
+        required: true
+      responses:
+        200:
+          description: OK (successfully authenticated)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API-Response'
+        401:
+          description: Authentication information is missing or invalid
+          headers:
+            WWW_Authenticate:
+              schema:
+                type: string
+          content: {}
+      x-codegen-request-body-name: body
+  /person/addDocument:
+    put:
+      tags:
+      - person
+      summary: Associate a Document to a Person
+      operationId: personAddDocument
+      requestBody:
+        description: Author of document
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/authorOfADocument'
+        required: true
+      responses:
+        200:
+          description: OK (successfully authenticated)
+          content:
+            text/turtle:
+              schema:
+                type: string
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API-Response'
+        401:
+          description: Authentication information is missing or invalid
+          headers:
+            WWW_Authenticate:
+              schema:
+                type: string
+          content: {}
+      x-codegen-request-body-name: body
+  /indv/byLabel:
+    get:
+      tags:
+      - Individual
+      summary: Get an individual IRI by label (rdfs:label)
+      operationId: getIndvByLabel
+      parameters:
+      - name: Label
+        in: query
+        description: Strict string used to obtain information from a VIVO individual
+        required: true
+        schema:
+          type: string
+          example: "Andrew Bogard"
+      responses:
+        200:
+          description: successful operation
+          content:
+            text/turtle:
+              schema:
+                type: string
+            text/plain:
+              schema:
+                type: string
+            application/ld+json:
+              schema:
+                type: string
+            text/n3:
+              schema:
+                type: string
+            text/owl-manchester:
+              schema:
+                type: string
+            text/owl-functional:
+              schema:
+                type: string
+            application/rdf+xml:
+              schema:
+                type: string
+            application/owl+xml:
+              schema:
+                type: string
+            application/json:
+              schema:
+                $ref: '#/components/schemas/vivo'
+        400:
+          description: Invalid label supplied
+          content: {}
+        401:
+          description: Authentication information is missing or invalid
+          headers:
+            WWW_Authenticate:
+              schema:
+                type: string
+          content: {}
+        404:
+          description: labelvivo not found
+          content: {}
+      security:
+      - basicAuth: []
+  /indv/byIri:
+    get:
+      tags:
+      - Individual
+      summary: Get an individual by IRI
+      operationId: getIndvByIRI
+      parameters:
+      - name: IRI
+        in: query
+        description: Used to obtain information from a VIVO individual by the IRI
+        required: true
+        schema:
+          type: string
+          example: http://localhost:8080/vivo/individual/n5471
+      responses:
+        200:
+          description: successful operation
+          content:
+            text/turtle:
+              schema:
+                type: string
+            text/plain:
+              schema:
+                type: string
+            application/ld+json:
+              schema:
+                type: string
+            text/n3:
+              schema:
+                type: string
+            text/owl-manchester:
+              schema:
+                type: string
+            text/owl-functional:
+              schema:
+                type: string
+            application/rdf+xml:
+              schema:
+                type: string
+            application/owl+xml:
+              schema:
+                type: string
+            application/json:
+              schema:
+                $ref: '#/components/schemas/vivo'
+        400:
+          description: Invalid IRI supplied
+          content: {}
+        401:
+          description: Authentication information is missing or invalid
+          headers:
+            WWW_Authenticate:
+              schema:
+                type: string
+          content: {}
+        404:
+          description: vivo not found
+          content: {}
+      security:
+      - basicAuth: []
+  /organization:
+    post:
+      tags:
+      - organization
+      summary: Create an organization in VIVO
+      description: This can only be done by the logged in VIVO.
+      operationId: createOrganization
+      requestBody:
+        description: Created organization object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/organization'
+        required: true
+      responses:
+        200:
+          description: OK (successfully authenticated)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API-Response'
+        401:
+          description: Authentication information is missing or invalid
+          headers:
+            WWW_Authenticate:
+              schema:
+                type: string
+          content: {}
+      security:
+      - basicAuth: []
+      x-codegen-request-body-name: body
+components:
+  schemas:
     positionOfPerson:
-      type: "object"
+      required:
+        - personIRI
+        - organisationIRI
+        - organisationLabel
+        - positionTitleLabel
+        - positionTypeIRI
+        - vivoOrganisationTypeIRI
+      type: object
       properties:
         personIRI:
-          type: "string"
-          example: "http://localhost:8080/vivo/individual/n774"
+          type: string
+          example: http://localhost:8080/vivo/individual/n774
         organisationIRI:
-          type: "string"
-          example: "http://localhost:8080/vivo/individual/n4762"
+          type: string
+          example: http://localhost:8080/vivo/individual/n4762
         organisationLabel:
-          type: "string"
-          example: "Harvard University"
+          type: string
+          example: Harvard University
         positionTitleLabel:
-          type: "string"
-          example: "Professor"
+          type: string
+          example: Professor
         positionTypeIRI:
-          type: "string"
-          example: "http://vivoweb.org/ontology/core#FacultyPosition"
+          type: string
+          example: http://vivoweb.org/ontology/core#FacultyPosition
         vivoOrganisationTypeIRI:
-          type: "string"
-          example: "http://vivoweb.org/ontology/core#University"
+          type: string
+          example: http://vivoweb.org/ontology/core#University
         startField_year:
-          type: "string"
+          type: string
         endField_year:
-          type: "string"
+          type: string
       xml:
-        name: "personMemberOf"
-    person:
-      type: "object"
+        name: personMemberOf
+    concept:
+      required:
+        - IRI
+        - labels
+      type: object
       properties:
-   #     id:
-   #       type: "string" 
-   #       example: "n6870"
-   #     iri:
-   #       type: "string" 
-   #       example: "http://localhost:8080/vivo/individual/n6870"
-        personType:
-          type: "string"
-          example: "http://vivoweb.org/ontology/core#FacultyMember"
-  #      personName:
-  #        type: "string"
-  #        example: "Peters, Jasper I"
-        firstName:
-          type: "string"
-          example: "Peters"
-        lastName:
-          type: "string"        
-          example: "Jasper"
-        middleName:
-          type: "string"
-          example: "I"
+        IRI:
+          type: string
+          example: http://purl.org/uqam.ca/vocabulary/expertise#semanticweb
+        labels:
+          type: array
+          items:
+            $ref: '#/components/schemas/conceptLabel'
+    document:
+      required:
+        - docTypeIRI
+        - title
+      type: object
+      properties:
+        docTypeIRI:
+          type: string
+          example: http://vivoweb.org/ontology/core#ConferencePaper
+        title:
+          type: string
+          example: Les écrans, des machines de vision
+    conceptLabel:
+      required:
+        - label
+        - language
+      type: object
+      properties:
+        label:
+          type: string
+          example: semantic web
+        language:
+          type: string
+          example: en-US
+          description: Using the 'Language Tags and Locale Identifiers for the World Wide Web' defined at https://www.w3.org/TR/ltli/ for this field
+    authorOfADocument:
+      required:
+        - documentIRI
+        - personIRI
+ #       - personType
+#        - firstName
+#        - lastName
+      type: object
+      properties:
+        documentIRI:
+          nullable: false
+          type: string
+          example: http://localhost:8080/vivo/individual/n7440
+        personIRI:
+          nullable: false
+          type: string
+          example: http://localhost:8080/vivo/individual/n32
+#        personType:
+#          nullable: false
+#          type: string
+#          example: http://vivoweb.org/ontology/core#FacultyMember
+#        firstName:
+#          nullable: false
+#          type: string
+#          example: Peters
+#        lastName:
+#          nullable: false
+#          type: string
+#          example: Jasper
+#        middleName:
+#          nullable: true
+#          type: string
+#          example: I
       xml:
-        name: "person"
+        name: author
+    person:
+      required:
+        - personType
+        - firstName
+        - lastName
+      type: object
+      properties:
+        personType:
+          nullable: false
+          type: string
+          example: http://vivoweb.org/ontology/core#FacultyMember
+        firstName:
+          nullable: false
+          type: string
+          example: Peters
+        lastName:
+          nullable: false
+          type: string
+          example: Jasper
+        middleName:
+          nullable: true
+          type: string
+          example: I
+      xml:
+        name: person
     vivo:
-      type: "object"
+      required:
+        - iri
+      type: object
       properties:
         iri:
-          type: "string" 
-          example: "http://localhost:8080/vivo/individual/n6870"
+          type: string
+          example: http://localhost:8080/vivo/individual/n6870
         label:
-          type: "string"
-          example: "a label"
+          type: string
+          example: a label
         type:
-          type: "string"
-          example: "http://vivoweb.org/ontology/core#FacultyMember"
+          type: string
+          example: http://vivoweb.org/ontology/core#FacultyMember
       xml:
-        name: "vivo"
+        name: vivo
     organization:
-      type: "object"
+      required:
+        - organizationType
+        - name
+      type: object
       properties:
-  #      id:
-  #        type: "string" 
-  #        example: "http://localhost:8080/vivo/individual/n1234"
         organizationType:
-          type: "string"
-          example: "http://vivoweb.org/ontology/core#University"
-        Name:
-          type: "string"
-          example: "Harvard University"
+          type: string
+          example: http://vivoweb.org/ontology/core#University
+        name:
+          type: string
+          example: Harvard University
       xml:
-        name: "person"
+        name: organization
+    API-Response:
+      type: object
+      properties:
+        code:
+          type: integer
+        type:
+          type: string
+        apiMessage:
+          type: string
+        IRI-value:
+          type: string
+          example: http://localhost:8080/vivo/individual/n774
+          description: The subject IRI of the created statement
+        VIVO-Message:
+          type: string
+          example: <H1>200 SPARQL update accepted.</H1>
+          description: The transaction message transmitted by the VIVO server
+    resourceToResource:
+      required:
+        - subject-IRI
+        - object-IRI
+      type: object
+      properties:
+        subject-IRI:
+          type: string
+          example: http://localhost:8080/vivo/individual/n774
+        object-IRI:
+          type: string
+          example: http://purl.org/uqam.ca/vocabulary/expertise#semanticweb
   responses:
     UnauthorizedError:
-      description: "Authentication information is missing or invalid"
+      description: Authentication information is missing or invalid
       headers:
         WWW_Authenticate:
-          type: string
-  externalDocs:
-      description: "Find out more about VIVO"
-      url: "https://duraspace.org/vivo/"
-    
+          schema:
+            type: string
+      content: {}
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic

@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package ca.uqam.tool.vivoproxy.swagger.client.model;
 
 import java.util.Objects;
@@ -20,19 +19,18 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-
 /**
  * Organization
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-07-15T06:02:28.267-04:00")
+
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2021-07-31T08:37:04.234-04:00[America/New_York]")
 public class Organization {
   @SerializedName("organizationType")
   private String organizationType = null;
 
-  @SerializedName("Name")
+  @SerializedName("name")
   private String name = null;
 
   public Organization organizationType(String organizationType) {
@@ -44,7 +42,7 @@ public class Organization {
    * Get organizationType
    * @return organizationType
   **/
-  @ApiModelProperty(example = "http://vivoweb.org/ontology/core#University", value = "")
+  @Schema(example = "http://vivoweb.org/ontology/core#University", required = true, description = "")
   public String getOrganizationType() {
     return organizationType;
   }
@@ -62,7 +60,7 @@ public class Organization {
    * Get name
    * @return name
   **/
-  @ApiModelProperty(example = "Harvard University", value = "")
+  @Schema(example = "Harvard University", required = true, description = "")
   public String getName() {
     return name;
   }
@@ -114,4 +112,3 @@ public class Organization {
   }
 
 }
-

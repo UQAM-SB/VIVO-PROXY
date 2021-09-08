@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package ca.uqam.tool.vivoproxy.swagger.client.model;
 
 import java.util.Objects;
@@ -20,14 +19,13 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
-
 /**
  * PositionOfPerson
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2021-07-15T06:02:28.267-04:00")
+
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2021-07-31T08:37:04.234-04:00[America/New_York]")
 public class PositionOfPerson {
   @SerializedName("personIRI")
   private String personIRI = null;
@@ -62,7 +60,7 @@ public class PositionOfPerson {
    * Get personIRI
    * @return personIRI
   **/
-  @ApiModelProperty(example = "http://localhost:8080/vivo/individual/n774", value = "")
+  @Schema(example = "http://localhost:8080/vivo/individual/n774", required = true, description = "")
   public String getPersonIRI() {
     return personIRI;
   }
@@ -80,7 +78,7 @@ public class PositionOfPerson {
    * Get organisationIRI
    * @return organisationIRI
   **/
-  @ApiModelProperty(example = "http://localhost:8080/vivo/individual/n4762", value = "")
+  @Schema(example = "http://localhost:8080/vivo/individual/n4762", required = true, description = "")
   public String getOrganisationIRI() {
     return organisationIRI;
   }
@@ -98,7 +96,7 @@ public class PositionOfPerson {
    * Get organisationLabel
    * @return organisationLabel
   **/
-  @ApiModelProperty(example = "Harvard University", value = "")
+  @Schema(example = "Harvard University", required = true, description = "")
   public String getOrganisationLabel() {
     return organisationLabel;
   }
@@ -116,7 +114,7 @@ public class PositionOfPerson {
    * Get positionTitleLabel
    * @return positionTitleLabel
   **/
-  @ApiModelProperty(example = "Professor", value = "")
+  @Schema(example = "Professor", required = true, description = "")
   public String getPositionTitleLabel() {
     return positionTitleLabel;
   }
@@ -134,7 +132,7 @@ public class PositionOfPerson {
    * Get positionTypeIRI
    * @return positionTypeIRI
   **/
-  @ApiModelProperty(example = "http://vivoweb.org/ontology/core#FacultyPosition", value = "")
+  @Schema(example = "http://vivoweb.org/ontology/core#FacultyPosition", required = true, description = "")
   public String getPositionTypeIRI() {
     return positionTypeIRI;
   }
@@ -152,7 +150,7 @@ public class PositionOfPerson {
    * Get vivoOrganisationTypeIRI
    * @return vivoOrganisationTypeIRI
   **/
-  @ApiModelProperty(example = "http://vivoweb.org/ontology/core#University", value = "")
+  @Schema(example = "http://vivoweb.org/ontology/core#University", required = true, description = "")
   public String getVivoOrganisationTypeIRI() {
     return vivoOrganisationTypeIRI;
   }
@@ -170,7 +168,7 @@ public class PositionOfPerson {
    * Get startFieldYear
    * @return startFieldYear
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   public String getStartFieldYear() {
     return startFieldYear;
   }
@@ -188,7 +186,7 @@ public class PositionOfPerson {
    * Get endFieldYear
    * @return endFieldYear
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   public String getEndFieldYear() {
     return endFieldYear;
   }
@@ -252,4 +250,3 @@ public class PositionOfPerson {
   }
 
 }
-

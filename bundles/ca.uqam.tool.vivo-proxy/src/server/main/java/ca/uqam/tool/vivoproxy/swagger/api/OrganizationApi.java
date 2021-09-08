@@ -4,9 +4,17 @@ import ca.uqam.tool.vivoproxy.swagger.model.*;
 import ca.uqam.tool.vivoproxy.swagger.api.OrganizationApiService;
 import ca.uqam.tool.vivoproxy.swagger.api.factories.OrganizationApiServiceFactory;
 
-import io.swagger.annotations.ApiParam;
-import io.swagger.jaxrs.*;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
+import ca.uqam.tool.vivoproxy.swagger.model.ModelAPIResponse;
 import ca.uqam.tool.vivoproxy.swagger.model.Organization;
 
 import java.util.Map;
@@ -25,12 +33,11 @@ import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.*;
 import javax.validation.constraints.*;
 
+
 @Path("/organization")
 
 
-@io.swagger.annotations.Api(description = "the organization API")
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2021-07-15T06:02:28.027-04:00")
-public class OrganizationApi  {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-09-07T12:17:12.241-04:00[America/New_York]")public class OrganizationApi  {
    private final OrganizationApiService delegate;
 
    public OrganizationApi(@Context ServletConfig servletContext) {
@@ -56,18 +63,16 @@ public class OrganizationApi  {
 
     @POST
     
-    
-    @Produces({ "application/json", "text/plain", "application/rdf+xml", "text/n3", "text/turtle", "text/funtional", "text/manchester", "application/owl+xml" })
-    @io.swagger.annotations.ApiOperation(value = "Create an organization in VIVO", notes = "This can only be done by the logged in VIVO.", response = Void.class, authorizations = {
-        @io.swagger.annotations.Authorization(value = "basicAuth")
-    }, tags={ "organization", })
-    @io.swagger.annotations.ApiResponses(value = { 
-        @io.swagger.annotations.ApiResponse(code = 200, message = "OK (successfully authenticated)", response = Void.class),
+    @Consumes({ "application/json" })
+    @Produces({ "application/json" })
+    @Operation(summary = "Create an organization in VIVO", description = "This can only be done by the logged in VIVO.", security = {
+        @SecurityRequirement(name = "basicAuth")    }, tags={ "organization" })
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ModelAPIResponse.class))),
         
-        @io.swagger.annotations.ApiResponse(code = 401, message = "Authentication information is missing or invalid", response = Void.class),
-        
-        @io.swagger.annotations.ApiResponse(code = 200, message = "successful operation", response = Void.class) })
-    public Response createOrganization(@ApiParam(value = "Created organization object" ,required=true) Organization body
+        @ApiResponse(responseCode = "401", description = "Authentication information is missing or invalid") })
+    public Response createOrganization(@Parameter(in = ParameterIn.DEFAULT, description = "Created organization object" ,required=true) Organization body
+
 ,@Context SecurityContext securityContext)
     throws NotFoundException {
         return delegate.createOrganization(body,securityContext);

@@ -1,0 +1,10 @@
+{
+  "personIRI": "http://localhost:8080/vivo/individual/n7723",
+  "organisationIRI": "http://localhost:8080/vivo/individual/n7540",
+  "organisationLabel": "Université du Québec à Montréal",
+  "positionTitleLabel": "Professor",
+  "positionTypeIRI": "http://vivoweb.org/ontology/core#FacultyPosition",
+  "vivoOrganisationTypeIRI": "http://vivoweb.org/ontology/core#University",
+  "startField_year": "2017",
+  "endField_year": "2021"
+}
