@@ -74,6 +74,72 @@ paths:
       security:
       - basicAuth: []
       x-codegen-request-body-name: body
+  /document:
+    post:
+      tags:
+      - document
+      summary: Create a document in VIVO
+      description: This can only be done by the logged in person.
+      operationId: createDocument
+      requestBody:
+        description: Created a document
+        content:
+          application/json:
+            schema:
+                $ref: '#/components/schemas/document'
+            example: {
+                    "docTypeIRI": "http://vivoweb.org/ontology/core#ConferencePaper",
+                    "title": "Les écrans, des machines de vision"
+                  }
+        required: true
+      responses:
+        200:
+          description: OK (successfully authenticated)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API-Response'
+        401:
+          description: Authentication information is missing or invalid
+          headers:
+            WWW_Authenticate:
+              schema:
+                type: string
+          content: {}
+        405:
+          description: Invalid input
+      security:
+      - basicAuth: []
+      x-codegen-request-body-name: body
+  /document/addAuthorFor:
+    put:
+      tags:
+      - document
+      summary: Add an organizational position for
+      operationId: documentAddAuthorFor
+      requestBody:
+        description: Author that need to be add to a document
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/authorOfADocument'
+        required: true
+      responses:
+        200:
+          description: OK (successfully authenticated)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API-Response'
+        401:
+          description: Authentication information is missing or invalid
+          headers:
+            WWW_Authenticate:
+              schema:
+                type: string
+          content: {}
+      x-codegen-request-body-name: body
+
   /person:
     post:
       tags:
@@ -267,6 +333,37 @@ paths:
         200:
           description: OK (successfully authenticated)
           content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API-Response'
+        401:
+          description: Authentication information is missing or invalid
+          headers:
+            WWW_Authenticate:
+              schema:
+                type: string
+          content: {}
+      x-codegen-request-body-name: body
+  /person/addDocument:
+    put:
+      tags:
+      - person
+      summary: Associate a Document to a Person
+      operationId: personAddDocument
+      requestBody:
+        description: Author of document
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/authorOfADocument'
+        required: true
+      responses:
+        200:
+          description: OK (successfully authenticated)
+          content:
+            text/turtle:
+              schema:
+                type: string
             application/json:
               schema:
                 $ref: '#/components/schemas/API-Response'
@@ -478,6 +575,18 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/conceptLabel'
+    document:
+      required:
+        - docTypeIRI
+        - title
+      type: object
+      properties:
+        docTypeIRI:
+          type: string
+          example: http://vivoweb.org/ontology/core#ConferencePaper
+        title:
+          type: string
+          example: Les écrans, des machines de vision
     conceptLabel:
       required:
         - label
@@ -491,6 +600,41 @@ components:
           type: string
           example: en-US
           description: Using the 'Language Tags and Locale Identifiers for the World Wide Web' defined at https://www.w3.org/TR/ltli/ for this field
+    authorOfADocument:
+      required:
+        - documentIRI
+        - personIRI
+ #       - personType
+#        - firstName
+#        - lastName
+      type: object
+      properties:
+        documentIRI:
+          nullable: false
+          type: string
+          example: http://localhost:8080/vivo/individual/n7440
+        personIRI:
+          nullable: false
+          type: string
+          example: http://localhost:8080/vivo/individual/n32
+#        personType:
+#          nullable: false
+#          type: string
+#          example: http://vivoweb.org/ontology/core#FacultyMember
+#        firstName:
+#          nullable: false
+#          type: string
+#          example: Peters
+#        lastName:
+#          nullable: false
+#          type: string
+#          example: Jasper
+#        middleName:
+#          nullable: true
+#          type: string
+#          example: I
+      xml:
+        name: author
     person:
       required:
         - personType

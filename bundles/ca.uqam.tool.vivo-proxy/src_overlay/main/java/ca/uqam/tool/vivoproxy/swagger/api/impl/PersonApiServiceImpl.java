@@ -26,6 +26,7 @@ import ca.uqam.tool.vivoproxy.swagger.api.ApiResponseMessage;
 import ca.uqam.tool.vivoproxy.swagger.api.NotFoundException;
 import ca.uqam.tool.vivoproxy.swagger.api.PersonApiService;
 import ca.uqam.tool.vivoproxy.swagger.api.VivoProxyResponseMessage;
+import ca.uqam.tool.vivoproxy.swagger.model.AuthorOfADocument;
 import ca.uqam.tool.vivoproxy.swagger.model.ModelAPIResponse;
 import ca.uqam.tool.vivoproxy.swagger.model.Person;
 import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
@@ -90,17 +91,6 @@ public class PersonApiServiceImpl extends PersonApiService {
 			apiResp.setType(new ApiResponseMessage(ApiResponseMessage.OK,"").getType());
 			Response apiResponse = Response.ok().entity(apiResp).build();
 			return apiResponse;
-//
-//			Command sparqlDescribeCommand = cf.createSparqlDescribeCommand(LOGIN.getUserName(), LOGIN.getPasswd(), newUserIri, SemanticWebMediaType.APPLICATION_RDF_XML.toString());
-//			invoker.flush();
-//			invoker.register(sparqlDescribeCommand);
-//			com.squareup.okhttp.Response sparqlResponse = invoker.execute().getOkhttpResult();
-//			String body = sparqlResponse.body().string();
-//			VivoProxyResponseMessage vivoMessage = new VivoProxyResponseMessage(VivoProxyResponseMessage.OK, body);
-//			Response apiResponse = Response.ok().entity(vivoMessage)
-//					.build();
-//
-//			return apiResponse;
 		} catch (IOException e) {
 			return Response.serverError().entity(new VivoProxyResponseMessage(VivoProxyResponseMessage.ERROR, e.getMessage())).build();
 		}
@@ -250,5 +240,36 @@ public class PersonApiServiceImpl extends PersonApiService {
 			throw new NotFoundException(-1, e.getMessage());
 		}
 	}
+	public Response personAddDocument(AuthorOfADocument author, SecurityContext securityContext)
+			throws NotFoundException {
+		try {
+			CommandFactory cf = CommandFactory.getInstance();
+			VivoReceiver session = new VivoReceiver();
+			CommandInvoker invoker = new CommandInvoker();
+			/*
+			 * Commands creation
+			 */
+			Command loginCommand = cf.createLogin(LOGIN.getUserName(), LOGIN.getPasswd());
+			Command addAuthorOfDocumentCommand = cf.addAuthorOfDocument(author);
+			Command logOutCommand = cf.createLogout();
+			/*
+			 * Commands registration
+			 */
+			invoker.register(loginCommand);
+			invoker.register(addAuthorOfDocumentCommand);
+			invoker.register(logOutCommand);
+			invoker.execute();
+			String sparqlResp = addAuthorOfDocumentCommand.getCommandResult().getOkhttpResult().body().string();
+			ModelAPIResponse apiResp = new ModelAPIResponse();
+			apiResp.setIrIValue(author.getPersonIRI());
+			apiResp.setViVOMessage(sparqlResp);
+			apiResp.setCode(ApiResponseMessage.OK);
+			apiResp.setType(new ApiResponseMessage(ApiResponseMessage.OK,"").getType());
+			Response apiResponse = Response.ok().entity(apiResp).build();
+			return apiResponse;
+
+		} catch (Exception e) {
+			return Response.serverError().entity(new VivoProxyResponseMessage(VivoProxyResponseMessage.ERROR, e.getMessage())).build();
+		}	}
 
 }

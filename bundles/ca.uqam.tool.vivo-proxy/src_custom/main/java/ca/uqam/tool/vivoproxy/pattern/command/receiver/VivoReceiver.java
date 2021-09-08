@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
 
+import org.apache.commons.lang3.NotImplementedException;
 import org.eclipse.rdf4j.model.vocabulary.FOAF;
 
 import com.squareup.okhttp.HttpUrl;
@@ -17,12 +18,15 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
+import ca.uqam.tool.util.credential.LOGIN;
 import ca.uqam.tool.vivoproxy.pattern.command.AbstractReceiver;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
 import ca.uqam.tool.vivoproxy.pattern.command.receiver.util.EditKeyForPosition;
 import ca.uqam.tool.vivoproxy.pattern.command.util.VivoReceiverHelper;
+import ca.uqam.tool.vivoproxy.swagger.model.AuthorOfADocument;
 import ca.uqam.tool.vivoproxy.swagger.model.Concept;
 import ca.uqam.tool.vivoproxy.swagger.model.ConceptLabel;
+import ca.uqam.tool.vivoproxy.swagger.model.Document;
 import ca.uqam.tool.vivoproxy.swagger.model.Person;
 import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
 import ca.uqam.tool.vivoproxy.swagger.model.ResourceToResource;
@@ -78,6 +82,28 @@ public class VivoReceiver extends AbstractReceiver {
 
 
 	private final static Logger LOGGER = Logger.getLogger(VivoReceiver.class.getName());
+
+
+	public static void tst_add_doc_main (String[] argv) throws IOException
+	{
+		String username=LOGIN.getUserName();
+		String password=LOGIN.getPasswd();
+		VivoReceiver vr = new VivoReceiver();
+		Document document = new Document();
+		document.docTypeIRI("http://purl.org/ontology/bibo/Book");
+		document.title("Web sémantique et modélisation V2");
+		vr.login(username, password);
+		CommandResult resu = vr.addDocument(document);
+
+		//		Person person = new Person();
+		//		person.firstName("toto");
+		//		person.lastName("last");
+		//		person.setPersonType("http://vivoweb.org/ontology/core#FacultyMember");
+		//		CommandResult resu = vr.addPerson(person);
+		System.err.println(resu.getOkhttpResult().body().string());
+	}
+
+
 	/**
 	 * @param username
 	 * @param password
@@ -207,6 +233,143 @@ public class VivoReceiver extends AbstractReceiver {
 		return CommandResult.asCommandResult(response);
 	}    
 
+
+	public CommandResult addDocumentToPerson(AuthorOfADocument author) throws IOException {
+		/* 
+		 * Goto individual page
+		 */
+		Response response = VivoReceiverHelper.gotoIndividualPage(getHostName()+"/"+getVivoSiteName(), getHttpClient(), author.getDocumentIRI());
+		/*
+		 * Get the editKey
+		 */
+		EditKeyForPosition editKeyVar = new EditKeyForPosition();
+		editKeyVar.setSubjectUri(author.getPersonIRI()); 
+		editKeyVar.setPredicateUri(VIVO.relatedBy.getURI());
+		editKeyVar.setDomainUri(FOAF.PERSON.stringValue());
+		editKeyVar.setRangeUri(VIVO.Authorship.getURI());
+		editKey = VivoReceiverHelper.getEditKey(getHostName()+"/"+getVivoSiteName(), getHttpClient(),editKeyVar);
+		/*
+		 * Build url and refUrl
+		 */
+		
+		HttpUrl url = HttpUrl.parse(getSiteUrl() +"/edit/process").newBuilder()
+			  .addQueryParameter("title", "")
+			  .addQueryParameter("pubUri", author.getDocumentIRI())
+			  .addQueryParameter("collection", "")
+			  .addQueryParameter("collectionDisplay", "")
+			  .addQueryParameter("collectionUri", "")
+			  .addQueryParameter("book", "")
+			  .addQueryParameter("bookDisplay", "")
+			  .addQueryParameter("bookUri", "")
+			  .addQueryParameter("conference", "")
+			  .addQueryParameter("conferenceDisplay", "")
+			  .addQueryParameter("conferenceUri", "")
+			  .addQueryParameter("event", "")
+			  .addQueryParameter("eventDisplay", "")
+			  .addQueryParameter("eventUri", "")
+			  .addQueryParameter("editor", "")
+			  .addQueryParameter("editorDisplay", "")
+			  .addQueryParameter("editorUri", "")
+			  .addQueryParameter("publisher", "")
+			  .addQueryParameter("publisherDisplay", "")
+			  .addQueryParameter("publisherUri", "")
+			  .addQueryParameter("locale", "")
+			  .addQueryParameter("volume", "")
+			  .addQueryParameter("number", "")
+			  .addQueryParameter("issue", "")
+			  .addQueryParameter("chapterNbr", "")
+			  .addQueryParameter("startPage", "")
+			  .addQueryParameter("endPage", "")
+			  .addQueryParameter("dateTime-year", "")
+			  .addQueryParameter("editKey", editKey)
+			  .build();
+
+		HttpUrl refererUrl = HttpUrl.parse(getSiteUrl() +"/editRequestDispatch").newBuilder()
+				.addQueryParameter("subjectUri", editKeyVar.getSubjectUri())
+				.addQueryParameter("predicateUri", editKeyVar.getPredicateUri())
+				.addQueryParameter("domainUri", editKeyVar.getDomainUri())
+				.addQueryParameter("rangeUri", editKeyVar.getRangeUri())
+				.build();
+		/*
+		 * send Request
+		 */
+		Request request = new Request.Builder()
+				.url(url)
+				.method("GET", null)
+				.addHeader("User-Agent", "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0")
+				.addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+				.addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
+				.addHeader("Connection", "keep-alive")
+				.addHeader("Referer", refererUrl.toString())
+				.addHeader("Upgrade-Insecure-Requests", "1")
+				.build();
+		response = getHttpClient().newCall(request).execute();
+		return CommandResult.asCommandResult(response);       
+	}
+
+
+	public CommandResult addAuhorToDocument(AuthorOfADocument author) throws IOException {
+		throw new NotImplementedException("addAuhorToDocument NOT Implemented"); 
+
+		/* 
+		 * Goto individual page
+		 */
+//		Response response = VivoReceiverHelper.gotoIndividualPage(getHostName()+"/"+getVivoSiteName(), getHttpClient(), author.getDocumentIRI());
+		/*
+		 * Get the editKey
+		 */
+//		EditKeyForPosition editKeyVar = new EditKeyForPosition();
+//		editKeyVar.setSubjectUri(author.getDocumentIRI()); 
+//		editKeyVar.setPredicateUri(VIVO.relatedBy.getURI());
+//		editKeyVar.setDomainUri("http://purl.obolibrary.org/obo/IAO_0000030");
+//		editKeyVar.setRangeUri(VIVO.Authorship.getURI());
+//		editKey = VivoReceiverHelper.getEditKey(getHostName()+"/"+getVivoSiteName(), getHttpClient(),editKeyVar);
+		/*
+		 * Build url and refUrl
+		 */
+//		String lastName = (author.getLastName() != null ? author.getLastName() : "");
+//		String firstName = (author.getFirstName() != null ? author.getFirstName() : "");
+//		String middleName = (author.getMiddleName() != null ? author.getMiddleName() : "");
+//
+//		String label = (author.getFirstName() != null ? author.getFirstName() + " " : "")
+//				+ (author.getMiddleName() != null ? author.getMiddleName() + " " : "")
+//				+ (author.getLastName() != null ? author.getLastName() : "");
+//
+//		HttpUrl url = HttpUrl.parse(getSiteUrl() +"/edit/process").newBuilder()
+//				.addQueryParameter("authorType", author.getPersonType())
+//				.addQueryParameter("lastName",lastName)
+//				.addQueryParameter("firstName", firstName)
+//				.addQueryParameter("middleName", middleName)
+//				.addQueryParameter("personUri", author.getPersonIRI())
+//				.addQueryParameter("orgUri", "")
+//				.addQueryParameter("label",label)
+//				.addQueryParameter("rank", "1")
+//				.addQueryParameter("editKey", editKey)
+//				.addQueryParameter("submit-Create", "Create+Entry")
+//				.build();
+//		HttpUrl refererUrl = HttpUrl.parse(getSiteUrl() +"/editRequestDispatch").newBuilder()
+//				.addQueryParameter("subjectUri", editKeyVar.getSubjectUri())
+//				.addQueryParameter("predicateUri", editKeyVar.getPredicateUri())
+//				.addQueryParameter("domainUri", editKeyVar.getDomainUri())
+//				.addQueryParameter("rangeUri", editKeyVar.getRangeUri())
+//				.build();
+//		/*
+//		 * send Request
+//		 */
+//		Request request = new Request.Builder()
+//				.url(url)
+//				.method("GET", null)
+//				.addHeader("User-Agent", "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0")
+//				.addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+//				.addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
+//				.addHeader("Connection", "keep-alive")
+//				.addHeader("Referer", refererUrl.toString())
+//				.addHeader("Upgrade-Insecure-Requests", "1")
+//				.build();
+//		response = getHttpClient().newCall(request).execute();
+//		return CommandResult.asCommandResult(response);       
+	}
+
 	public CommandResult setPositionOfPerson(PositionOfPerson body) throws IOException{
 		/* 
 		 * Goto individual page
@@ -221,43 +384,7 @@ public class VivoReceiver extends AbstractReceiver {
 		editKeyVar.setDomainUri(FOAF.PERSON.stringValue());
 		editKeyVar.setRangeUri(VIVO.Position.getURI());
 		editKey = VivoReceiverHelper.getEditKey(getHostName()+"/"+getVivoSiteName(), getHttpClient(),editKeyVar);
-		/*
-		 * position edition process
-		 *               
-		 *    example entry for url part
-              http://localhost:8080/vivo/edit/process?
-              orgType=http://vivoweb.org/ontology/core#University&
-              orgLabel=Harvard+University&orgLabelDisplay=&
-              existingOrg=>SUBMITTED+VALUE+WAS+BLANK<&
-              positionTitle=Professor&
-              positionType=http://vivoweb.org/ontology/core#FacultyPosition&
-              startField-year=2017&
-              endField-year=2020&
-              editKey=55076138&
-              submit-Create=Create+Entry
-		 *
-            example entry for Refere Part
-             http://localhost:8080/vivo/editRequestDispatch
-             subjectUri=http://localhost:8080/vivo/individual/n128
-             predicateUri=http://vivoweb.org/ontology/core#relatedBy
-             domainUri=http://xmlns.com/foaf/0.1/Person
-             rangeUri=http://vivoweb.org/ontology/core#Position"
 
-		 */
-		
-/*
-		  orgType=http://vivoweb.org/ontology/core#Department
-		  
-		  orgLabel=
-		  orgLabelDisplay=Département de management et technologie (Département)
-		  existingOrg=http://localhost:8080/vivo/individual/n866
-		  positionTitle=Charge
-		  positionType=http://vivoweb.org/ontology/core#PostdocPosition
-		  &startField-year=
-		  &endField-year=
-		  &editKey=36648580
-	*/	  
-		
 		HttpUrl url = HttpUrl.parse(getSiteUrl() +"/edit/process").newBuilder()
 				.addQueryParameter("orgType", body.getVivoOrganisationTypeIRI())
 				.addQueryParameter("orgLabel", "")
@@ -388,6 +515,38 @@ public class VivoReceiver extends AbstractReceiver {
 		Response response = client.newCall(request).execute();
 		return CommandResult.asCommandResult(response);
 	}
+	public CommandResult addDocument(Document document) throws IOException{
+		Response response = VivoReceiverHelper.gotoAdminPage(getHostName()+"/"+getVivoSiteName(), getHttpClient());
+		LOGGER.info(getHostName()+"/"+getVivoSiteName() + "with return code " + response.code());
+		// Get an editKey, a must to have before adding data to VIVO
+		editKey = VivoReceiverHelper.getEditKey(getHostName()+"/"+getVivoSiteName(), getHttpClient(), document.getDocTypeIRI());
+		String label = (document.getTitle() != null ? document.getTitle()  : "");
+		String bodyValue = "&label="+label+"&editKey="+editKey;
+
+		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+		RequestBody body = RequestBody.create(mediaType, bodyValue);
+		Request request = new Request.Builder()
+				.url(getHostName()+"/"+getVivoSiteName()+"/edit/process")
+				.method("POST", body)
+				.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0")
+				.addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+				.addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
+				.addHeader("Connection", "keep-alive")
+				.addHeader("Referer", 
+						getHostName()+"/"+getVivoSiteName()+
+						"/editRequestDispatch?typeOfNew="+document.getDocTypeIRI()+
+						"&editForm=edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.VIVONewIndividualFormGenerator")
+				.addHeader("Upgrade-Insecure-Requests", "1")
+				.addHeader("Content-Type", "application/x-www-form-urlencoded")
+				.build();
+		LOGGER.info("Sending "+ label );
+		response = getHttpClient().newCall(request).execute();
+
+		//		String responseUri = VivoReceiverHelper.getUriResponse(response.body().string());
+		LOGGER.info("Adding "+ label + " with return code " + response.code());
+		return CommandResult.asCommandResult(response);
+	}
+
 	public CommandResult addConcept(String username, String passwd, Concept concept, String MIME_Type) throws IOException{
 		String iri = concept.getIRI();
 		String updateConceptQuery = ""
@@ -488,17 +647,6 @@ public class VivoReceiver extends AbstractReceiver {
 
 	}
 
-	public static void main (String[] argv) throws IOException
-	{
-
-		VivoReceiver vr = new VivoReceiver();
-		ResourceToResource rToLink = new ResourceToResource();
-		rToLink.setObjectIRI("http://purl.org/uqam.ca/vocabulary/expertise#semanticwebee");
-		rToLink.setSubjectIRI("http://localhost:8080/vivo/individual/n2935");
-
-		CommandResult resu = vr.addResearchAreaOfafPerson("vivo@uqam.ca", "Vivo1234.", rToLink, SemanticWebMediaType.TEXT_TURTLE.toString());
-		System.err.println(resu.getOkhttpResult().body().string());
-	}
 	/**
 	 * @param username
 	 * @param passwd

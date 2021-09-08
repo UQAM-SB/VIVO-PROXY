@@ -2,7 +2,9 @@ package ca.uqam.tool.vivoproxy.pattern.command;
 
 import java.util.List;
 
+import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddAuthorOfDocumentCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddConceptCommand;
+import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddDocumentCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddHasResearchAreaCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddOrganizationCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddPersonCommand;
@@ -13,7 +15,9 @@ import ca.uqam.tool.vivoproxy.pattern.command.concrete.LoginCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.LogoutCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.SparqlDescribeByLabelCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.SparqlDescribeCommand;
+import ca.uqam.tool.vivoproxy.swagger.model.AuthorOfADocument;
 import ca.uqam.tool.vivoproxy.swagger.model.Concept;
+import ca.uqam.tool.vivoproxy.swagger.model.Document;
 import ca.uqam.tool.vivoproxy.swagger.model.Person;
 import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
 import ca.uqam.tool.vivoproxy.swagger.model.ResourceToResource;
@@ -85,5 +89,13 @@ public class CommandFactory {
 	public Command createAddHasResearchAreaCommand(String login, String passwd, ResourceToResource resourcesToLink, String MINE_TYPE) {
 		AddHasResearchAreaCommand command = new AddHasResearchAreaCommand(login, passwd, resourcesToLink, MINE_TYPE);
         return command;
+	}
+	public AddDocumentCommand createAddDocumentCommand(Document document) {
+		AddDocumentCommand addDocumentCmd = new AddDocumentCommand(document);
+		return addDocumentCmd;
+	}
+	public Command addAuthorOfDocument(AuthorOfADocument author) {
+		AddAuthorOfDocumentCommand addDocumentCmd = new AddAuthorOfDocumentCommand(author);
+		return addDocumentCmd;
 	}
 }
