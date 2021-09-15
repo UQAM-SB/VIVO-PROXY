@@ -22,7 +22,7 @@ import javax.validation.Valid;
 /**
  * Vivo
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-09-07T12:17:12.241-04:00[America/New_York]")public class Vivo   {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-09-15T14:20:53.960-04:00[America/New_York]")public class Vivo   {
   @JsonProperty("iri")
   private String iri = null;
 

@@ -18,7 +18,7 @@ import java.io.InputStream;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import javax.validation.constraints.*;
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-09-07T12:17:12.241-04:00[America/New_York]")public abstract class DocumentApiService {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-09-15T14:20:53.960-04:00[America/New_York]")public abstract class DocumentApiService {
     public abstract Response createDocument(Document body,SecurityContext securityContext) throws NotFoundException;
     public abstract Response documentAddAuthorFor(AuthorOfADocument body,SecurityContext securityContext) throws NotFoundException;
 }
