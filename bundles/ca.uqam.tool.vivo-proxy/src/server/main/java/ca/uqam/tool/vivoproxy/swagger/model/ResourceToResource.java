@@ -22,7 +22,7 @@ import javax.validation.Valid;
 /**
  * ResourceToResource
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-07-30T09:54:09.106-04:00[America/New_York]")public class ResourceToResource   {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-09-15T14:20:53.960-04:00[America/New_York]")public class ResourceToResource   {
   @JsonProperty("subject-IRI")
   private String subjectIRI = null;
 

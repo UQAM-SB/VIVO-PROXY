@@ -17,7 +17,7 @@
 <!--                 </includes> -->
             </resource>
             <resource>
-                <directory>src-overlay/main/java</directory>
+                <directory>src_overlay/main/java</directory>
                 <includes>
                     <include>**/*.java</include>
                     <include>**/*.properties</include>
@@ -25,7 +25,7 @@
                 </includes>
             </resource>
         </resources>
-        <!-- <sourceDirectory>src, src-custom, src-overlay</sourceDirectory> -->
+        <!-- <sourceDirectory>src, src_custom, src_overlay</sourceDirectory> -->
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -41,8 +41,8 @@
                             <sources>
                                 <source>src/main/java</source>
                                 <source>src/server/main/java</source>
-                                <source>src-overlay/main/java</source>
-                                <source>src-custom/main/java</source>
+                                <source>src_overlay/main/java</source>
+                                <source>src_custom/main/java</source>
 <!--                                 <source>src/client/main/java</source> -->
                             </sources>
                         </configuration>
@@ -73,7 +73,7 @@
                     <meminitial>1024m</meminitial>
                     <maxmem>2048m</maxmem>
                     <!-- <includes> -->
-                    <!-- <include>src-overlay/main/java/*.java</include> -->
+                    <!-- <include>src_overlay/main/java/*.java</include> -->
                     <!-- </includes> -->
                 </configuration>
                 <!-- <executions> -->
@@ -123,13 +123,13 @@
             <!-- </includes> -->
             <!-- </webResource> -->
             <!-- <webResource> -->
-            <!-- <directory>src-overlay/main/java</directory> -->
+            <!-- <directory>src_overlay/main/java</directory> -->
             <!-- <includes> -->
             <!-- <include>**/*.java</include> -->
             <!-- </includes> -->
             <!-- </webResource> -->
             <!-- <webResource> -->
-            <!-- <directory>src-custom/main/java</directory> -->
+            <!-- <directory>src_custom/main/java</directory> -->
             <!-- <includes> -->
             <!-- <include>**/*.java</include> -->
             <!-- </includes> -->
@@ -582,7 +582,7 @@
 
 
         <skipGen-client>true</skipGen-client>
-        <skipGen>true</skipGen>
+        <skipGen>false</skipGen>
 
 
     </properties>

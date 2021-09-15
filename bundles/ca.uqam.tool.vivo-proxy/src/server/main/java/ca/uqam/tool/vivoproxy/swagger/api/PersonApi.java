@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
+import ca.uqam.tool.vivoproxy.swagger.model.AuthorOfADocument;
 import ca.uqam.tool.vivoproxy.swagger.model.ModelAPIResponse;
 import ca.uqam.tool.vivoproxy.swagger.model.Person;
 import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
@@ -39,7 +40,7 @@ import javax.validation.constraints.*;
 @Path("/person")
 
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-07-30T09:54:09.106-04:00[America/New_York]")public class PersonApi  {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-09-15T14:20:53.960-04:00[America/New_York]")public class PersonApi  {
    private final PersonApiService delegate;
 
    public PersonApi(@Context ServletConfig servletContext) {
@@ -98,6 +99,22 @@ import javax.validation.constraints.*;
 ,@Context SecurityContext securityContext)
     throws NotFoundException {
         return delegate.createUsersWithListInput(body,securityContext);
+    }
+    @PUT
+    @Path("/addDocument")
+    @Consumes({ "application/json" })
+    @Produces({ "text/turtle", "application/json" })
+    @Operation(summary = "Associate a Document to a Person", description = "", security = {
+        @SecurityRequirement(name = "basicAuth")    }, tags={ "person" })
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "text/turtle", schema = @Schema(implementation = String.class))),
+        
+        @ApiResponse(responseCode = "401", description = "Authentication information is missing or invalid") })
+    public Response personAddDocument(@Parameter(in = ParameterIn.DEFAULT, description = "Author of document" ,required=true) AuthorOfADocument body
+
+,@Context SecurityContext securityContext)
+    throws NotFoundException {
+        return delegate.personAddDocument(body,securityContext);
     }
     @PUT
     @Path("/addPositionFor")
