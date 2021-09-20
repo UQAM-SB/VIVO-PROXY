@@ -166,7 +166,7 @@ public class VivoReceiverHelper {
         return getKeyValue(response.body().string());
     }
 
-    private static String getKeyValue(String html) {
+    public static String getKeyValue(String html) {
         String editKey = null;
         //
         // Extracting editKey value from html code returned by the get call. 

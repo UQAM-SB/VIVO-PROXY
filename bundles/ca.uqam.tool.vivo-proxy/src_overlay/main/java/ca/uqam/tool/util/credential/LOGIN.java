@@ -1,7 +1,5 @@
 package ca.uqam.tool.util.credential;
 
-
-
 /*
  * 
 Rename YOU_LOGIN.java to LOGIN.java
