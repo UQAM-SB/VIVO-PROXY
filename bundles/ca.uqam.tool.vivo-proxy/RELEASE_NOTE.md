@@ -1,7 +1,7 @@
 # List of implemented methods for VIVO-PROXY
 ## 2021-09-20
 
-``ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver.addImageToIndividual(Image)`
+`ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver.addImageToIndividual(Image)`
 
 ## before 2021-09-20
 
