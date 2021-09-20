@@ -495,6 +495,35 @@ paths:
           content: {}
       security:
       - basicAuth: []
+  /indv/addImage:
+    put:
+      tags:
+      - Individual
+      summary: Associate an image to an individual
+      operationId: indvAddImage
+      requestBody:
+        description: image associated to an individual
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/image'
+        required: true
+      responses:
+        200:
+          description: OK (successfully authenticated)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API-Response'
+        401:
+          description: Authentication information is missing or invalid
+          headers:
+            WWW_Authenticate:
+              schema:
+                type: string
+          content: {}
+      x-codegen-request-body-name: body
+
   /organization:
     post:
       tags:
@@ -575,6 +604,32 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/conceptLabel'
+    image:
+      required:
+        - individualIRI
+        - imageURL
+        - width
+        - height
+      type: object
+      properties:
+        individualIRI:
+          type: string
+          example: http://localhost:8080/vivo/individual/n7440
+        imageURL:
+          type: string
+          example: /home/user/photo/picture.jpg
+        orig_X:
+          type: integer
+          default: 0
+        orig_Y:
+          type: integer
+          default: 0
+        width:
+          type: integer
+          default: 270
+        height:
+          type: integer
+          default: 270
     document:
       required:
         - docTypeIRI

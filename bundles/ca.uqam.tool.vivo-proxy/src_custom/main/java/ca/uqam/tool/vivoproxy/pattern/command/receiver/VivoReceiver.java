@@ -1,11 +1,13 @@
 package ca.uqam.tool.vivoproxy.pattern.command.receiver;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import org.apache.commons.lang3.NotImplementedException;
@@ -13,6 +15,7 @@ import org.eclipse.rdf4j.model.vocabulary.FOAF;
 
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.MultipartBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
@@ -27,6 +30,7 @@ import ca.uqam.tool.vivoproxy.swagger.model.AuthorOfADocument;
 import ca.uqam.tool.vivoproxy.swagger.model.Concept;
 import ca.uqam.tool.vivoproxy.swagger.model.ConceptLabel;
 import ca.uqam.tool.vivoproxy.swagger.model.Document;
+import ca.uqam.tool.vivoproxy.swagger.model.Image;
 import ca.uqam.tool.vivoproxy.swagger.model.Person;
 import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
 import ca.uqam.tool.vivoproxy.swagger.model.ResourceToResource;
@@ -81,6 +85,9 @@ public class VivoReceiver extends AbstractReceiver {
 	protected String editKey;
 
 
+	/**
+	 * 
+	 */
 	private final static Logger LOGGER = Logger.getLogger(VivoReceiver.class.getName());
 
 
@@ -115,12 +122,21 @@ public class VivoReceiver extends AbstractReceiver {
 		cookieManager = new CookieManager();
 		cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
 		httpClient = new OkHttpClient();
-		httpClient.setCookieHandler(cookieManager);  
+		httpClient.setCookieHandler(cookieManager);
+		httpClient.setConnectTimeout(10, TimeUnit.SECONDS);
+		httpClient.setWriteTimeout(5, TimeUnit.MINUTES);
+		httpClient.setReadTimeout(5, TimeUnit.MINUTES);
 	}
 	public OkHttpClient getHttpClient() {
 		return httpClient;
 	}
 
+	/**
+	 * @param username
+	 * @param password
+	 * @return
+	 * @throws IOException
+	 */
 	public CommandResult login(String username, String password) throws IOException {
 		password = password +"";
 		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
@@ -143,6 +159,10 @@ public class VivoReceiver extends AbstractReceiver {
 		LOGGER.info("Login for " + username +" with return code: "+response.code() + " (" +response.message() +  ") response url ("+ VivoReceiverHelper.getNetworkUri(response)+")");
 		return CommandResult.asCommandResult(response);
 	}
+	/**
+	 * @return
+	 * @throws IOException
+	 */
 	public CommandResult logout() throws IOException{
 
 		String url = getHostName()+"/"+getVivoSiteName() + "/logout";
@@ -161,6 +181,12 @@ public class VivoReceiver extends AbstractReceiver {
 		return CommandResult.asCommandResult(response);
 	}
 
+	/**
+	 * @param organisationName
+	 * @param vivoOrganisationType
+	 * @return
+	 * @throws IOException
+	 */
 	public CommandResult addOrganization(String organisationName, String vivoOrganisationType) throws IOException {
 		Response response = VivoReceiverHelper.gotoAdminPage(getHostName()+"/"+getVivoSiteName(), getHttpClient());
 		editKey = VivoReceiverHelper.getEditKey(getHostName()+"/"+getVivoSiteName(), getHttpClient(), vivoOrganisationType);
@@ -191,9 +217,17 @@ public class VivoReceiver extends AbstractReceiver {
 		//        return CommandResult.asCommandResult(responseUri);
 	}
 
+	/* (non-Javadoc)
+	 * @see ca.uqam.tool.vivoproxy.pattern.command.CommandResult#getSiteUrl()
+	 */
 	protected String getSiteUrl() {
 		return getHostName()+"/"+getVivoSiteName();
 	}
+	/**
+	 * @param person
+	 * @return
+	 * @throws IOException
+	 */
 	public CommandResult addPerson(Person person) throws IOException {
 		Response response = VivoReceiverHelper.gotoAdminPage(getHostName()+"/"+getVivoSiteName(), getHttpClient());
 		LOGGER.info(getHostName()+"/"+getVivoSiteName() + "with return code " + response.code());
@@ -233,7 +267,113 @@ public class VivoReceiver extends AbstractReceiver {
 		return CommandResult.asCommandResult(response);
 	}    
 
+	/**
+	 * Upload image associated to an individual
+	 * @param image
+	 * @return
+	 * @throws IOException
+	 */
+	public CommandResult addImageToIndividual(Image image) throws IOException{
+		/* 
+		 * Goto individual page
+		 */
+		Response response = VivoReceiverHelper.gotoIndividualPage(getHostName()+"/"+getVivoSiteName(), getHttpClient(), image.getIndividualIRI());
+		/*
+		 * get editKey
+		 */
+		System.out.println("getEditKey");
+        HttpUrl url = HttpUrl.parse(getHostName()+"/"+getVivoSiteName() +"/uploadImages").newBuilder()
+                .addQueryParameter("entityUri", image.getIndividualIRI())
+                .addQueryParameter("action", "add")
+                .build();
+        Request request = new Request.Builder()
+                .url(url)
+                .method("GET", null)
+                .addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0")
+                .addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+                .addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
+                .addHeader("Connection", "keep-alive")
+                .addHeader("Referer", image.getIndividualIRI())
+                .addHeader("Upgrade-Insecure-Requests", "1")
+                .build();
+        response =  getHttpClient()
+        		.newCall(request).execute();
 
+        editKey = VivoReceiverHelper.getKeyValue(response.body().string());
+        
+        /*
+         * UploadImage
+         */
+        
+        File file = new File(image.getImageURL());
+        String contentType = file.toURL().openConnection().getContentType();
+        RequestBody fileBody = RequestBody.create(MediaType.parse(contentType), file);
+
+        RequestBody requestBody = new MultipartBuilder()
+                .type(MultipartBuilder.FORM)
+                .addFormDataPart("Content-Disposition","form-data; name=\"datafile\"; filename=\""+file.getName()+"\"")
+                .addFormDataPart("Content-Type",contentType)
+                .addFormDataPart("datafile",file.getName(),fileBody)
+                .build();
+        HttpUrl upLoadUrl = HttpUrl.parse(getHostName()+"/"+getVivoSiteName() +"/uploadImages").newBuilder()
+                .addQueryParameter("entityUri", image.getIndividualIRI())
+                .addQueryParameter("action", "upload")
+                .addQueryParameter("imageUrl", image.getImageURL())
+                .build();
+
+        Request upLoadRequest = new Request.Builder()
+          .url(upLoadUrl)
+          .method("POST", requestBody)
+          .addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+          .addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
+          .addHeader("Content-Type", "image/jpeg")
+          .addHeader("Origin", getHostName())
+          .addHeader("Connection", "keep-alive")
+          .addHeader("Referer", url.toString())
+          .addHeader("Upgrade-Insecure-Requests", "1")
+          .addHeader("Sec-Fetch-Dest", "document")
+          .addHeader("Sec-Fetch-Mode", "navigate")
+          .addHeader("Sec-Fetch-Site", "same-origin")
+          .addHeader("Sec-Fetch-User", "?1")
+          .build();
+        Response upLoadResponse =  getHttpClient().newCall(upLoadRequest).execute();
+        /*
+         * Save image
+         */
+        
+        MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+        RequestBody saveBody = RequestBody.create(mediaType, "x="+image.getOrigX()+"&y="+image.getOrigY()+"&w="+image.getWidth()+"&h="+image.getHeight());
+        
+        HttpUrl saveUrl = HttpUrl.parse(getHostName()+"/"+getVivoSiteName() +"/uploadImages").newBuilder()
+                .addQueryParameter("entityUri", image.getIndividualIRI())
+                .addQueryParameter("action", "save")
+                .build();
+        
+        Request saveRequest = new Request.Builder()
+        		  .url(saveUrl)
+        		  .method("POST", saveBody)
+        		  .addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+        		  .addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
+        		  .addHeader("Content-Type", "application/x-www-form-urlencoded")
+                  .addHeader("Origin", getHostName())
+        		  .addHeader("Connection", "keep-alive")
+        		  .addHeader("Referer", upLoadUrl.toString())
+        		  .addHeader("Upgrade-Insecure-Requests", "1")
+        		  .addHeader("Sec-Fetch-Dest", "document")
+        		  .addHeader("Sec-Fetch-Mode", "navigate")
+        		  .addHeader("Sec-Fetch-Site", "same-origin")
+        		  .addHeader("Sec-Fetch-User", "?1")
+        		  .build();
+        Response saveResponse =  getHttpClient().newCall(saveRequest).execute();
+		return CommandResult.asCommandResult(saveResponse);       
+		
+	}
+	
+	/**
+	 * @param author
+	 * @return
+	 * @throws IOException
+	 */
 	public CommandResult addDocumentToPerson(AuthorOfADocument author) throws IOException {
 		/* 
 		 * Goto individual page
@@ -308,6 +448,11 @@ public class VivoReceiver extends AbstractReceiver {
 	}
 
 
+	/**
+	 * @param author
+	 * @return
+	 * @throws IOException
+	 */
 	public CommandResult addAuhorToDocument(AuthorOfADocument author) throws IOException {
 		throw new NotImplementedException("addAuhorToDocument NOT Implemented"); 
 
@@ -419,31 +564,25 @@ public class VivoReceiver extends AbstractReceiver {
 
 	}
 
+	/**
+	 * @param personUri
+	 * @param organizationUri
+	 * @param organizationLabel
+	 * @param roleLabel
+	 * @param startField_year
+	 * @param endField_year
+	 * @param vivoOrganisationType
+	 * @return
+	 * @throws IOException
+	 */
 	public CommandResult addMemberOf(String personUri, String organizationUri, String organizationLabel, String roleLabel, String startField_year,
 			String endField_year, String vivoOrganisationType) throws IOException {
 		VivoReceiverHelper.gotoIndividualPage(getHostName()+"/"+getVivoSiteName(), getHttpClient(), personUri);
 
 		Response response = VivoReceiverHelper.gotoAdminPage(getHostName()+"/"+getVivoSiteName(), getHttpClient());
 		// Get an editKey, a must to have before adding data to VIVO
-		/* Example
-		 * subjectUri=http://localhost:8080/vivo/individual/n4851
-		 * predicateUri=http://purl.obolibrary.org/obo/RO_0000053
-		 * domainUri=http://xmlns.com/foaf/0.1/Person
-		 * rangeUri=http://vivoweb.org/ontology/core#MemberRole
-		 * */
 		editKey = VivoReceiverHelper.getEditKey(getHostName()+"/"+getVivoSiteName(), getHttpClient(), personUri, OBO_RO_0000053, FOAF_PERSON, vivoOrganisationType);
-		/*
-			"http://192.168.7.23:8080/vivo/edit/process?
-			roleActivityType=http://vivoweb.org/ontology/core#College&
-			activityLabel=
-			&activityLabelDisplay=Collège de Hull
-			&roleToActivityPredicate=
-			&existingRoleActivity=http://localhost:8080/vivo/individual/n868
-			&roleLabel=Professeur
-			&startField-year=2001
-			&endField-year=2021
-			&editKey=50439720
-		 */
+
 		HttpUrl url = HttpUrl.parse(getHostName()+"/"+getVivoSiteName() +"/edit/process").newBuilder()
 				.addQueryParameter("roleActivityType", vivoOrganisationType)
 				.addQueryParameter("activityLabel", null)
@@ -455,13 +594,6 @@ public class VivoReceiver extends AbstractReceiver {
 				.addQueryParameter("endField-year", endField_year)
 				.addQueryParameter("editKey", editKey)
 				.build();
-		/*
-		 * http://192.168.7.23:8080/vivo/editRequestDispatch?
-		 * subjectUri=http://localhost:8080/vivo/individual/n4851
-		 * predicateUri=http://purl.obolibrary.org/obo/RO_0000053s
-		 * domainUri=http://xmlns.com/foaf/0.1/Person
-		 * rangeUri=http://vivoweb.org/ontology/core#MemberRole
-		 */
 		HttpUrl refererUrl = HttpUrl.parse(getHostName()+"/"+getVivoSiteName() +"/editRequestDispatch").newBuilder()
 				.addQueryParameter("subjectUri", personUri)
 				.addQueryParameter("predicateUri", OBO_RO_0000053)
@@ -470,23 +602,17 @@ public class VivoReceiver extends AbstractReceiver {
 				.build();
 
 		Request request = new Request.Builder()
-				/*
-                .url("http://192.168.7.23:8080/vivo/edit/process?roleActivityType=http%3A%2F%2Fvivoweb.org%2Fontology%2Fcore%23College&activityLabel=&activityLabelDisplay=Coll%C3%A8ge+de+Hull&roleToActivityPredicate=&existingRoleActivity=http%3A%2F%2Flocalhost%3A8080%2Fvivo%2Findividual%2Fn868&roleLabel=Professeur&startField-year=2001&endField-year=2021&editKey=50439720")
-				 *
-				 */
 				.url(url)
 				.method("GET", null)
 				.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0")
 				.addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
 				.addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
 				.addHeader("Connection", "keep-alive")
-				//                .addHeader("Referer", "http://192.168.7.23:8080/vivo/editRequestDispatch?subjectUri=http%3A%2F%2Flocalhost%3A8080%2Fvivo%2Findividual%2Fn4851&predicateUri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FRO_0000053&domainUri=http%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2FPerson&rangeUri=http%3A%2F%2Fvivoweb.org%2Fontology%2Fcore%23MemberRole")
 				.addHeader("Referer", refererUrl.toString())
 				.addHeader("Upgrade-Insecure-Requests", "1")
 				.build();
 
-		// TODO Auto-generated method stub
-		return null;
+		return CommandResult.asCommandResult(response);
 	}
 
 	/**
@@ -515,6 +641,11 @@ public class VivoReceiver extends AbstractReceiver {
 		Response response = client.newCall(request).execute();
 		return CommandResult.asCommandResult(response);
 	}
+	/**
+	 * @param document
+	 * @return
+	 * @throws IOException
+	 */
 	public CommandResult addDocument(Document document) throws IOException{
 		Response response = VivoReceiverHelper.gotoAdminPage(getHostName()+"/"+getVivoSiteName(), getHttpClient());
 		LOGGER.info(getHostName()+"/"+getVivoSiteName() + "with return code " + response.code());
@@ -547,6 +678,14 @@ public class VivoReceiver extends AbstractReceiver {
 		return CommandResult.asCommandResult(response);
 	}
 
+	/**
+	 * @param username
+	 * @param passwd
+	 * @param concept
+	 * @param MIME_Type
+	 * @return
+	 * @throws IOException
+	 */
 	public CommandResult addConcept(String username, String passwd, Concept concept, String MIME_Type) throws IOException{
 		String iri = concept.getIRI();
 		String updateConceptQuery = ""
@@ -580,6 +719,14 @@ public class VivoReceiver extends AbstractReceiver {
 		Response response = client.newCall(request).execute();
 		return CommandResult.asCommandResult(response);
 	}
+	/**
+	 * @param username
+	 * @param passwd
+	 * @param resourcesToLink
+	 * @param MIME_Type
+	 * @return
+	 * @throws IOException
+	 */
 	public CommandResult addPersonHasResearchArea(String username, String passwd, ResourceToResource resourcesToLink, String MIME_Type) throws IOException{
 		/*
 		 * Build SPARQL update
@@ -611,6 +758,14 @@ public class VivoReceiver extends AbstractReceiver {
 		return CommandResult.asCommandResult(response);
 
 	}
+	/**
+	 * @param username
+	 * @param passwd
+	 * @param resourcesToLink
+	 * @param MIME_Type
+	 * @return
+	 * @throws IOException
+	 */
 	public CommandResult addResearchAreaOfafPerson(String username, String passwd, ResourceToResource resourcesToLink, String MIME_Type) throws IOException{
 		/*
 		 * Build SPARQL update
@@ -689,6 +844,11 @@ public class VivoReceiver extends AbstractReceiver {
 	public CommandResult DESCRIBE(String username, String passwd, String IRI) throws IOException{
 		return DESCRIBE(username, passwd, IRI, "application/json");
 	}
+	/**
+	 * @param personsList
+	 * @return
+	 * @throws IOException
+	 */
 	public CommandResult addPerson(List<Person> personsList) throws IOException {
 		List<String> personsUriList = new ArrayList<>();
 
@@ -699,6 +859,14 @@ public class VivoReceiver extends AbstractReceiver {
 		}
 		return CommandResult.asCommandResult(personsUriList);
 	}
+	/**
+	 * @param login
+	 * @param passwd
+	 * @param label
+	 * @param MIME_Type
+	 * @return
+	 * @throws IOException
+	 */
 	public CommandResult DescribeByLabel(String login, String passwd, String label, String MIME_Type) throws IOException {
 		String describeQuery = this.SparqlPrefix + " describe ?s \n"+
 				" where { \n"+
