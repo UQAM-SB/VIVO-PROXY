@@ -16,14 +16,15 @@ public class AddPersonCommand extends Command {
 
     public AddPersonCommand(Person person) {
     	super();
-    	this.person = person;
+    	this.setPerson(person);
+        setName(toString());
     }
 
 	@Override
     public CommandResult execute(Receiver vivo) {
         CommandResult result = null;
         try {
-            result = ((VivoReceiver)vivo).addPerson(person);
+            result = ((VivoReceiver)vivo).addPerson(getPerson());
             setCommandResult(result);
             return result;
         } catch (IOException e) {
@@ -34,7 +35,15 @@ public class AddPersonCommand extends Command {
 
 	@Override
 	public String toString() {
-		return "AddPersonCommand [name=" + name + ", person=" + person + "]";
+		return "AddPersonCommand [name=" + name + ", person=" + getPerson() + "]";
+	}
+
+	public Person getPerson() {
+		return person;
+	}
+
+	public void setPerson(Person person) {
+		this.person = person;
 	}
 
 }

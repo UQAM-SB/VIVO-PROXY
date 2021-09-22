@@ -22,7 +22,8 @@ import javax.validation.Valid;
 /**
  * ConceptLabel
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-09-22T03:41:05.438-04:00[America/New_York]")public class ConceptLabel   {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-09-22T03:41:05.438-04:00[America/New_York]")
+public class ConceptLabel   {
   @JsonProperty("label")
   private String label = null;
 

@@ -151,8 +151,8 @@ public class CommandFactory {
 	 * @param MINE_TYPE
 	 * @return
 	 */
-	public Command createAddConceptCommand(String login, String passwd, Concept concept, String MINE_TYPE) {
-		AddConceptCommand command = new AddConceptCommand(login, passwd, concept, MINE_TYPE);
+	public Command createAddConceptCommand(Concept concept) {
+		AddConceptCommand command = new AddConceptCommand(concept);
         return command;
 	}
 	/**

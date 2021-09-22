@@ -14,19 +14,29 @@ prefix vcard: <http://www.w3.org/2006/vcard/ns#>
 
 
 
-select  DISTINCT ?s ?name  ?position_fr ?position_en
+select  DISTINCT ?s ?gname ?fname  ?position_fr ?position_en
 WHERE {
 ?s a  <http://xmlns.com/foaf/0.1/Person> .
-?s rdfs:label ?name .
+?s rdfs:label ?name_l .
+?s obo:ARG_2000028/vcard:hasName/vcard:givenName ?gname_l .
+?s obo:ARG_2000028/vcard:hasName/vcard:familyName ?fname_l .
+BIND (STR(?name_l)  AS ?name) 
+BIND (STR(?gname_l)  AS ?gname) 
+BIND (STR(?fname_l)  AS ?fname) 
+
     OPTIONAL { 
         ?s vivo:relatedBy ?rb .
         ?rb a vivo:Position .   
-        ?rb rdfs:label ?position_fr .
-        FILTER (lang(?position_fr) = 'fr-CA') .  }
+        ?rb rdfs:label ?position_f .
+        FILTER (lang(?position_f) = 'fr-CA') .  
+        BIND (STR(?position_f)  AS ?position_fr) .
+    }
     OPTIONAL { 
         ?s vivo:relatedBy ?rb .
         ?rb a vivo:Position .   
-        ?rb rdfs:label ?position_en .
-        FILTER (lang(?position_en) = 'en-US') . } 
+        ?rb rdfs:label ?position_e .
+        FILTER (lang(?position_e) = 'en-US') . 
+        BIND (STR(?position_e)  AS ?position_en) .
+    } 
 }
 ORDER BY ASC(?s)

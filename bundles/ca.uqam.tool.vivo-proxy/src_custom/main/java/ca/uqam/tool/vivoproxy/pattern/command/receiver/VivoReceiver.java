@@ -700,7 +700,7 @@ public class VivoReceiver extends AbstractReceiver {
 	 * @return
 	 * @throws IOException
 	 */
-	public CommandResult addConcept(String username, String passwd, Concept concept, String MIME_Type) throws IOException{
+	public CommandResult addConcept(Concept concept) throws IOException{
 		String iri = concept.getIRI();
 		String updateConceptQuery = ""
 				+ "INSERT DATA  { GRAPH <> { ";
@@ -717,8 +717,8 @@ public class VivoReceiver extends AbstractReceiver {
 		updateConceptQuery += "<" +iri +">  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://www.w3.org/2004/02/skos/core#Concept> . }}" ;
 
 		String bodyValue = 
-				"email="+username+
-				"&password="+passwd+
+				"email="+LOGIN.getUserName()+
+				"&password="+LOGIN.getPasswd()+ 
 				"&update="+updateConceptQuery;
 		System.out.println(bodyValue);
 		OkHttpClient client = new OkHttpClient();
@@ -727,7 +727,7 @@ public class VivoReceiver extends AbstractReceiver {
 		Request request = new Request.Builder()
 				.url(getSiteUrl()+"/api/sparqlUpdate")
 				.method("POST", body)
-				.addHeader("Accept", MIME_Type)
+				.addHeader("Accept", SemanticWebMediaType.APPLICATION_RDF_XML.toString())
 				.addHeader("Content-Type", "application/x-www-form-urlencoded")
 				.build();
 		Response response = client.newCall(request).execute();

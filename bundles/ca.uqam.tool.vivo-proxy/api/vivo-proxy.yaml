@@ -188,18 +188,18 @@ paths:
               items:
                 $ref: '#/components/schemas/person'
               example: [
-  {
-    "personType": "http://vivoweb.org/ontology/core#FacultyMember",
-    "firstName": "Peters",
-    "lastName": "Jasper",
-    "middleName": "I"
-  },
-  {
-    "personType": "http://vivoweb.org/ontology/core#EmeritusProfessor",
-    "firstName": "Ben",
-    "lastName": "Jonson",
-  }
-]
+                  {
+                    "personType": "http://vivoweb.org/ontology/core#FacultyMember",
+                    "firstName": "Peters",
+                    "lastName": "Jasper",
+                    "middleName": "I"
+                  },
+                  {
+                    "personType": "http://vivoweb.org/ontology/core#EmeritusProfessor",
+                    "firstName": "Ben",
+                    "lastName": "Jonson",
+                  }
+                ]
         required: true
       responses:
         200:
@@ -630,7 +630,7 @@ components:
         labels:
           type: array
           items:
-            $ref: '#/components/schemas/conceptLabel'
+            $ref: '#/components/schemas/linguisticLabel'
     image:
       required:
         - individualIRI
@@ -669,7 +669,7 @@ components:
         title:
           type: string
           example: Les écrans, des machines de vision
-    conceptLabel:
+    linguisticLabel:
       required:
         - label
         - language
@@ -775,15 +775,16 @@ components:
     organization:
       required:
         - organizationType
-        - name
+        - names
       type: object
       properties:
         organizationType:
           type: string
           example: http://vivoweb.org/ontology/core#University
-        name:
-          type: string
-          example: Harvard University
+        names:
+          type: array
+          items:
+            $ref: '#/components/schemas/linguisticLabel'
       xml:
         name: organization
     API-Response:

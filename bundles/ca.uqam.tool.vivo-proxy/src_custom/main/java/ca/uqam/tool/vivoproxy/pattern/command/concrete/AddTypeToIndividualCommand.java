@@ -26,6 +26,7 @@ public class AddTypeToIndividualCommand extends Command {
     public AddTypeToIndividualCommand(IndividualType indvType) {
     	super();
     	this.setIndvType(indvType);
+        setName(toString());
     }
 
 	@Override

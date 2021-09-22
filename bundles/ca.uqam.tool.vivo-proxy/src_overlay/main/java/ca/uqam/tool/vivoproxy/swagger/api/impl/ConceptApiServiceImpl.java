@@ -1,28 +1,21 @@
 package ca.uqam.tool.vivoproxy.swagger.api.impl;
 
+import java.io.IOException;
+
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.SecurityContext;
+
 import ca.uqam.tool.util.credential.LOGIN;
-import ca.uqam.tool.vivoproxy.pattern.command.Command;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandFactory;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandInvoker;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddConceptCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
-import ca.uqam.tool.vivoproxy.swagger.api.*;
-import ca.uqam.tool.vivoproxy.swagger.model.*;
-import ca.uqam.tool.vivoproxy.util.SemanticWebMediaType;
-
-import java.util.Map;
-import java.util.List;
-
-
-
-import java.io.IOException;
-import java.io.InputStream;
-
-import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
-
-import javax.ws.rs.core.Response; 
-import javax.ws.rs.core.SecurityContext;
-import javax.validation.constraints.*;
+import ca.uqam.tool.vivoproxy.swagger.api.ApiResponseMessage;
+import ca.uqam.tool.vivoproxy.swagger.api.ConceptApiService;
+import ca.uqam.tool.vivoproxy.swagger.api.NotFoundException;
+import ca.uqam.tool.vivoproxy.swagger.model.Concept;
+import ca.uqam.tool.vivoproxy.swagger.model.ConceptLabel;
+import ca.uqam.tool.vivoproxy.swagger.model.ModelAPIResponse;
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-07-28T15:50:35.108-04:00[America/New_York]")
 public class ConceptApiServiceImpl extends ConceptApiService {
 	private static final String YOUR_PASSWD = LOGIN.getPasswd(); 
@@ -33,7 +26,7 @@ public class ConceptApiServiceImpl extends ConceptApiService {
 			CommandFactory cf = CommandFactory.getInstance();
 			VivoReceiver session = new VivoReceiver(); 
 			CommandInvoker invoker = new CommandInvoker(); 
-			AddConceptCommand createAddConceptCommand = (AddConceptCommand) cf.createAddConceptCommand(YOUR_LOGIN, YOUR_PASSWD, concept, SemanticWebMediaType.APPLICATION_RDF_XML.toString());
+			AddConceptCommand createAddConceptCommand = (AddConceptCommand) cf.createAddConceptCommand(concept);
 			invoker.register(createAddConceptCommand);
 			invoker.execute();
 			com.squareup.okhttp.Response createAddConceptResponse = createAddConceptCommand.getCommandResult().getOkhttpResult();

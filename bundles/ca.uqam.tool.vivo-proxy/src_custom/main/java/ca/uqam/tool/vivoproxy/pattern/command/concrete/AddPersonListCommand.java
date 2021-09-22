@@ -13,19 +13,20 @@ import ca.uqam.tool.vivoproxy.swagger.model.Person;
 public class AddPersonListCommand extends Command {
 
     private Person person;
-    List<Person> personsList = null;
+    private List<Person> personsList = null;
 
 
     public AddPersonListCommand(List<Person> personsList) {
     	super();
-    	this.personsList = personsList;
+    	setPersonsList(personsList);
+        setName(toString());
     }
 
 	@Override
     public CommandResult execute(Receiver vivo) {
         CommandResult result = null;
         try {
-            result = ((VivoReceiver)vivo).addPerson(personsList);
+            result = ((VivoReceiver)vivo).addPerson(getPersonsList());
             setCommandResult(result);
             return result;
         } catch (IOException e) {
@@ -37,6 +38,14 @@ public class AddPersonListCommand extends Command {
 	@Override
 	public String toString() {
 		return "AddPersonCommand [name=" + name + ", person=" + person + "]";
+	}
+
+	public List<Person> getPersonsList() {
+		return personsList;
+	}
+
+	public void setPersonsList(List<Person> personsList) {
+		this.personsList = personsList;
 	}
 
 }

@@ -17,6 +17,7 @@ public class CreatePositionForCommand extends Command {
     public CreatePositionForCommand(PositionOfPerson body) {
         super();
         setPositionOfPerson(body);
+        setName(toString());
     }
 
     public CommandResult execute(Receiver vivo) {
