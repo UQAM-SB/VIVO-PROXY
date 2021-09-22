@@ -29,3 +29,4 @@ WHERE {
         ?rb rdfs:label ?grant_en  .
         FILTER (lang(?grant_en) = 'en-US') .  }
 }
+ORDER BY ASC(?s)

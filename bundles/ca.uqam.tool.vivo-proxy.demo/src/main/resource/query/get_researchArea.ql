@@ -27,3 +27,4 @@ WHERE {
         ?ra rdfs:label ?researchArea_en .
         FILTER (lang(?researchArea_en) = 'en-US') . } 
 }
+ORDER BY ASC(?s)

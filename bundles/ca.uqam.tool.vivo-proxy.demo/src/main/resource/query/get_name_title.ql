@@ -14,7 +14,7 @@ prefix vcard: <http://www.w3.org/2006/vcard/ns#>
 
 
 
-select  DISTINCT ?s ?name  ?gname ?fname ?vtitle_fr ?vtitle_en ?type
+select  DISTINCT ?s ?type ?name  ?gname ?fname ?vtitle_fr ?vtitle_en 
 
 WHERE {
 ?s a  <http://xmlns.com/foaf/0.1/Person> .
@@ -37,3 +37,4 @@ OPTIONAL {
     BIND (STR(?vtitle_e)  AS ?vtitle_en) .
     }
 }
+ORDER BY ASC(?s)

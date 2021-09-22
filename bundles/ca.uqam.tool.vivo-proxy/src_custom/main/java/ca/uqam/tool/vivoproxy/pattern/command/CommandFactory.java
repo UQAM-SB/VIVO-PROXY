@@ -11,6 +11,7 @@ import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddOrganizationCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddPersonCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddPersonListCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddResearchAreaOfCommand;
+import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddTypeToIndividualCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.CreatePositionForCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.LoginCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.LogoutCommand;
@@ -20,20 +21,22 @@ import ca.uqam.tool.vivoproxy.swagger.model.AuthorOfADocument;
 import ca.uqam.tool.vivoproxy.swagger.model.Concept;
 import ca.uqam.tool.vivoproxy.swagger.model.Document;
 import ca.uqam.tool.vivoproxy.swagger.model.Image;
+import ca.uqam.tool.vivoproxy.swagger.model.IndividualType;
 import ca.uqam.tool.vivoproxy.swagger.model.Person;
 import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
 import ca.uqam.tool.vivoproxy.swagger.model.ResourceToResource;
 
+/**
+ * @author Michel Héon; Université du Québec à Montréal
+ * @filename CommandFactory.java
+ * @date 22 sept. 2021
+ */
 public class CommandFactory {
     /*
      * CommandReceiver has Singleton
      */
     private CommandFactory() {}
-//  public Command createAddMemberOf(String personUri, String organizationUri, String roleLabel, String startField_year, String endField_year, String vivoOrganisationType) {
-//  AddMemberOfCommand addOrganizationCommand = new AddMemberOfCommand( personUri,  organizationUri,  roleLabel,  startField_year,  endField_year,  vivoOrganisationType);
-//  register(addOrganizationCommand);
-//  return addOrganizationCommand;
-//}
+
     private static class CommandFactoryHolder {
         static final CommandFactory SINGLE_INSTANCE = new CommandFactory();
     }
@@ -120,6 +123,15 @@ public class CommandFactory {
 	public Command createAddPerson(List<Person> personsList) {
 		AddPersonListCommand addPersonCmd = new AddPersonListCommand(personsList);
 		return addPersonCmd;
+	}
+	
+	/**
+	 * @param indvType
+	 * @return
+	 */
+	public Command createAddTypeToIndividual(IndividualType indvType) {
+		AddTypeToIndividualCommand addTypeToIndividualCommand = new AddTypeToIndividualCommand(indvType);
+		return addTypeToIndividualCommand;
 	}
 	/**
 	 * @param login
