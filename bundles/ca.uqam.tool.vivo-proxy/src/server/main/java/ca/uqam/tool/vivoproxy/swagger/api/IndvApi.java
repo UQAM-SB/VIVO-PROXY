@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 import ca.uqam.tool.vivoproxy.swagger.model.Image;
+import ca.uqam.tool.vivoproxy.swagger.model.IndividualType;
 import ca.uqam.tool.vivoproxy.swagger.model.ModelAPIResponse;
 
 import java.util.Map;
@@ -37,7 +38,7 @@ import javax.validation.constraints.*;
 @Path("/indv")
 
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-09-20T09:04:16.317-04:00[America/New_York]")public class IndvApi  {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-09-22T03:41:05.438-04:00[America/New_York]")public class IndvApi  {
    private final IndvApiService delegate;
 
    public IndvApi(@Context ServletConfig servletContext) {
@@ -114,5 +115,21 @@ import javax.validation.constraints.*;
 ,@Context SecurityContext securityContext)
     throws NotFoundException {
         return delegate.indvAddImage(body,securityContext);
+    }
+    @PUT
+    @Path("/addType")
+    @Consumes({ "application/json" })
+    @Produces({ "application/json" })
+    @Operation(summary = "Associate a type to an individual", description = "", security = {
+        @SecurityRequirement(name = "basicAuth")    }, tags={ "Individual" })
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ModelAPIResponse.class))),
+        
+        @ApiResponse(responseCode = "401", description = "Authentication information is missing or invalid") })
+    public Response indvAddType(@Parameter(in = ParameterIn.DEFAULT, description = "Adding type associated to an existing individual" ,required=true) IndividualType body
+
+,@Context SecurityContext securityContext)
+    throws NotFoundException {
+        return delegate.indvAddType(body,securityContext);
     }
 }

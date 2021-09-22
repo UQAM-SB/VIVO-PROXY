@@ -17,6 +17,6 @@ import java.io.InputStream;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import javax.validation.constraints.*;
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-09-20T09:04:16.317-04:00[America/New_York]")public abstract class ConceptApiService {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-09-22T03:41:05.438-04:00[America/New_York]")public abstract class ConceptApiService {
     public abstract Response createConcept(Concept body,SecurityContext securityContext) throws NotFoundException;
 }

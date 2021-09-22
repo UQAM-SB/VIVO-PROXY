@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import org.apache.commons.lang3.NotImplementedException;
+import org.apache.jena.vocabulary.RDF;
 import org.eclipse.rdf4j.model.vocabulary.FOAF;
 
 import com.squareup.okhttp.HttpUrl;
@@ -31,6 +32,7 @@ import ca.uqam.tool.vivoproxy.swagger.model.Concept;
 import ca.uqam.tool.vivoproxy.swagger.model.ConceptLabel;
 import ca.uqam.tool.vivoproxy.swagger.model.Document;
 import ca.uqam.tool.vivoproxy.swagger.model.Image;
+import ca.uqam.tool.vivoproxy.swagger.model.IndividualType;
 import ca.uqam.tool.vivoproxy.swagger.model.Person;
 import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
 import ca.uqam.tool.vivoproxy.swagger.model.ResourceToResource;
@@ -89,26 +91,6 @@ public class VivoReceiver extends AbstractReceiver {
 	 * 
 	 */
 	private final static Logger LOGGER = Logger.getLogger(VivoReceiver.class.getName());
-
-
-	public static void tst_add_doc_main (String[] argv) throws IOException
-	{
-		String username=LOGIN.getUserName();
-		String password=LOGIN.getPasswd();
-		VivoReceiver vr = new VivoReceiver();
-		Document document = new Document();
-		document.docTypeIRI("http://purl.org/ontology/bibo/Book");
-		document.title("Web sémantique et modélisation V2");
-		vr.login(username, password);
-		CommandResult resu = vr.addDocument(document);
-
-		//		Person person = new Person();
-		//		person.firstName("toto");
-		//		person.lastName("last");
-		//		person.setPersonType("http://vivoweb.org/ontology/core#FacultyMember");
-		//		CommandResult resu = vr.addPerson(person);
-		System.err.println(resu.getOkhttpResult().body().string());
-	}
 
 
 	/**
@@ -678,6 +660,38 @@ public class VivoReceiver extends AbstractReceiver {
 		return CommandResult.asCommandResult(response);
 	}
 
+	/**
+	 * @param indvType
+	 * @return
+	 * @throws IOException 
+	 */
+	public CommandResult addType(IndividualType indvType) throws IOException{
+		String subjIrI = "<" +indvType.getIndividualIRI() +"> ";
+		String predIRI = "<" +RDF.type.getURI() +"> ";
+		String objIrI = "<" +indvType.getVivoTypeIRI() +"> ";
+		String updateConceptQuery = ""
+				+ "INSERT DATA  { GRAPH <> { "
+				+ subjIrI 
+				+ predIRI
+				+ objIrI +" . } }";
+		String bodyValue = 
+				"email="+LOGIN.getUserName()+
+				"&password="+LOGIN.getPasswd()+ 
+				"&update="+updateConceptQuery;
+		System.out.println(bodyValue);
+		OkHttpClient client = new OkHttpClient();
+		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+		RequestBody body = RequestBody.create(mediaType, bodyValue);
+		Request request = new Request.Builder()
+				.url(getSiteUrl()+"/api/sparqlUpdate")
+				.method("POST", body)
+				.addHeader("Accept", SemanticWebMediaType.APPLICATION_RDF_XML.toString())
+				.addHeader("Content-Type", "application/x-www-form-urlencoded")
+				.build();
+		Response response = client.newCall(request).execute();
+		return CommandResult.asCommandResult(response);
+		
+	}
 	/**
 	 * @param username
 	 * @param passwd

@@ -19,9 +19,12 @@ You can then view the swagger listing here:
 Swagger / OpenAPI v2: http://localhost:9090/vivoproxy/swagger.json
 Swagger / OpenAPI v3: http://localhost:9090/vivoproxy/openapi.json
 ```
-
 Note that if you have configured the `host` to be something other than localhost, the calls through
 swagger-ui will be directed to that host and not localhost!
+
+## VIVO-Proxy methods for this release
+
+You can see from the web [vivo-proxy.yaml](https://editor.swagger.io/?url=https://raw.githubusercontent.com/vivo-community/VIVO-PROXY/main/bundles/ca.uqam.tool.vivo-proxy/api/vivo-proxy.yaml)
 
 ## Some references
 [OpenApi-generator](https://openapi-generator.tech/)

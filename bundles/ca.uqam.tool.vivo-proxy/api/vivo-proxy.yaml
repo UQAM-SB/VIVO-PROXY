@@ -523,7 +523,34 @@ paths:
                 type: string
           content: {}
       x-codegen-request-body-name: body
-
+  /indv/addType:
+    put:
+      tags:
+      - Individual
+      summary: Associate a type to an individual
+      operationId: indvAddType
+      requestBody:
+        description: Adding type associated to an existing individual
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/individualType'
+        required: true
+      responses:
+        200:
+          description: OK (successfully authenticated)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API-Response'
+        401:
+          description: Authentication information is missing or invalid
+          headers:
+            WWW_Authenticate:
+              schema:
+                type: string
+          content: {}
+      x-codegen-request-body-name: body
   /organization:
     post:
       tags:
@@ -715,6 +742,20 @@ components:
           example: I
       xml:
         name: person
+    individualType:
+      required:
+        - vivoTypeIRI
+        - individualIRI
+      type: object
+      properties:
+        individualIRI:
+          type: string
+          example: http://localhost:8080/vivo/individual/n6870
+        vivoTypeIRI:
+          type: string
+          example: http://vivoweb.org/ontology/core#FacultyMember
+      xml:
+        name: individualType
     vivo:
       required:
         - iri

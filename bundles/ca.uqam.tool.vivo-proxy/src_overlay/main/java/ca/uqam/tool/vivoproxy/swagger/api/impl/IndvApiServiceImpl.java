@@ -33,7 +33,7 @@ import javax.validation.constraints.*;
  *
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-09-03T18:27:56.556-04:00[America/New_York]")
-public class IndvApiServiceImpl extends IndvApiService {
+public class IndvApiServiceImpl extends IndvApiService { 
 	private final static Logger LOGGER = Logger.getLogger(IndvApiServiceImpl.class.getName());
 
 	/* (non-Javadoc)
@@ -122,5 +122,10 @@ public class IndvApiServiceImpl extends IndvApiService {
 		}
 
 	}
+    @Override
+    public Response indvAddType(IndividualType body, SecurityContext securityContext) throws NotFoundException {
+        // do some magic!
+        return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
+    }
 
 }

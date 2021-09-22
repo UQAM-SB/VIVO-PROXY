@@ -2,6 +2,9 @@
 VIVO-PROXY is a RESTful api and SDK client that allows data to be ingested into VIVO from applications using JSON data models
 
 **Important note:** ***This work is in progress!***
+### VIVO-Proxy methods for this release
+
+You can see from the web [vivo-proxy.yaml](https://editor.swagger.io/?url=https://raw.githubusercontent.com/vivo-community/VIVO-PROXY/main/bundles/ca.uqam.tool.vivo-proxy/api/vivo-proxy.yaml)
 
 ## Installation
 
@@ -45,7 +48,8 @@ mvn clean package jetty:run
 
 ##### You can then view the swagger listing here:
 
-`http://localhost:9090/vivo-proxy.yaml`
+`http://localhost:9090/vivo-proxy.yaml` on localHost
+
 
 ##### and swagger console here:
 

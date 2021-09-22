@@ -1,29 +1,25 @@
 package ca.uqam.tool.vivoproxy.swagger.api.impl;
 
+import java.io.IOException;
+import java.util.logging.Logger;
+
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.SecurityContext;
+
 import ca.uqam.tool.util.credential.LOGIN;
 import ca.uqam.tool.vivoproxy.pattern.command.Command;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandFactory;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandInvoker;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
-import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddConceptCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddDocumentCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
 import ca.uqam.tool.vivoproxy.pattern.command.util.VivoReceiverHelper;
-import ca.uqam.tool.vivoproxy.swagger.api.*;
-import ca.uqam.tool.vivoproxy.swagger.model.*;
-import ca.uqam.tool.vivoproxy.util.SemanticWebMediaType;
-
-import java.util.Map;
-import java.util.logging.Logger;
-import java.util.List;
-import java.io.IOException;
-import java.io.InputStream;
-
-import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
-
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.SecurityContext;
-import javax.validation.constraints.*;
+import ca.uqam.tool.vivoproxy.swagger.api.ApiResponseMessage;
+import ca.uqam.tool.vivoproxy.swagger.api.DocumentApiService;
+import ca.uqam.tool.vivoproxy.swagger.api.NotFoundException;
+import ca.uqam.tool.vivoproxy.swagger.model.AuthorOfADocument;
+import ca.uqam.tool.vivoproxy.swagger.model.Document;
+import ca.uqam.tool.vivoproxy.swagger.model.ModelAPIResponse;
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-09-05T10:56:47.302-04:00[America/New_York]")
 public class DocumentApiServiceImpl extends DocumentApiService {
 	private static final String YOUR_PASSWD = LOGIN.getPasswd(); 
