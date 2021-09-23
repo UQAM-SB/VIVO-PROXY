@@ -61,7 +61,18 @@ public class VivoReceiverHelper {
 			" PREFIX  obo:  <http://purl.obolibrary.org/obo/> \n"+
 			" PREFIX  ro:   <http://purl.obolibrary.org/obo/ro.owl#> \n";
 
-    public static Response gotoAdminPage(String siteUrl, OkHttpClient httpClient) throws IOException {
+	public static Response changeLinguisticContext(String siteUrl, OkHttpClient httpClient, String linguisticTag) throws IOException {
+				Request request = new Request.Builder()
+				  .url(siteUrl +"/selectLocale?selection="+linguisticTag.replace("-","_"))
+				  .method("GET", null)
+				  .addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+				  .addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
+				  .addHeader("Connection", "keep-alive")
+				  .build();
+				Response response = httpClient.newCall(request).execute();
+		        return response;
+	}
+	public static Response gotoAdminPage(String siteUrl, OkHttpClient httpClient) throws IOException {
         Request request = new Request.Builder()
                 .url(siteUrl +"/siteAdmin")
                 .method("GET", null)

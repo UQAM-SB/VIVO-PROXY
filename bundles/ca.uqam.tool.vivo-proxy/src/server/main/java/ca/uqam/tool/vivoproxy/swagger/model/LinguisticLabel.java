@@ -20,17 +20,16 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 
 /**
- * ConceptLabel
+ * LinguisticLabel
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-09-22T03:41:05.438-04:00[America/New_York]")
-public class ConceptLabel   {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-09-23T15:01:20.517-04:00[America/New_York]")public class LinguisticLabel   {
   @JsonProperty("label")
   private String label = null;
 
   @JsonProperty("language")
-  private String language = null;
+  private String language = "en-US";
 
-  public ConceptLabel label(String label) {
+  public LinguisticLabel label(String label) {
     this.label = label;
     return this;
   }
@@ -50,7 +49,7 @@ public class ConceptLabel   {
     this.label = label;
   }
 
-  public ConceptLabel language(String language) {
+  public LinguisticLabel language(String language) {
     this.language = language;
     return this;
   }
@@ -60,7 +59,7 @@ public class ConceptLabel   {
    * @return language
    **/
   @JsonProperty("language")
-  @Schema(example = "en-US", required = true, description = "Using the 'Language Tags and Locale Identifiers for the World Wide Web' defined at https://www.w3.org/TR/ltli/ for this field")
+  @Schema(example = "fr-CA", required = true, description = "Using the 'Language Tags and Locale Identifiers for the World Wide Web' defined at https://www.w3.org/TR/ltli/ for this field")
   @NotNull
   public String getLanguage() {
     return language;
@@ -79,9 +78,9 @@ public class ConceptLabel   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ConceptLabel conceptLabel = (ConceptLabel) o;
-    return Objects.equals(this.label, conceptLabel.label) &&
-        Objects.equals(this.language, conceptLabel.language);
+    LinguisticLabel linguisticLabel = (LinguisticLabel) o;
+    return Objects.equals(this.label, linguisticLabel.label) &&
+        Objects.equals(this.language, linguisticLabel.language);
   }
 
   @Override
@@ -93,7 +92,7 @@ public class ConceptLabel   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ConceptLabel {\n");
+    sb.append("class LinguisticLabel {\n");
     
     sb.append("    label: ").append(toIndentedString(label)).append("\n");
     sb.append("    language: ").append(toIndentedString(language)).append("\n");

@@ -6,18 +6,16 @@ import ca.uqam.tool.vivoproxy.pattern.command.Command;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
 import ca.uqam.tool.vivoproxy.pattern.command.Receiver;
 import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
+import ca.uqam.tool.vivoproxy.swagger.model.Organization;
 
 
 public class AddOrganizationCommand extends Command {
 
-    private String organisationName;
-    private String vivoOrganisationType; 
-    private VivoReceiver vivo;
+    private Organization organization;
 
-    public AddOrganizationCommand(String organisationName, String vivoOrganisationType) {
+    public AddOrganizationCommand(Organization organization) {
         super();
-        this.setOrganisationName(organisationName);
-        this.setVivoOrganisationType(vivoOrganisationType);
+        this.setOrganization(organization);
         setName(toString());
     }
 
@@ -25,7 +23,7 @@ public class AddOrganizationCommand extends Command {
     public CommandResult execute(Receiver vivo) {
         CommandResult result = null;
         try {
-            result = ((VivoReceiver)vivo).addOrganization(getOrganisationName(), getVivoOrganisationType());
+            result = ((VivoReceiver)vivo).addOrganization(organization);
             setCommandResult(result);
             return result;
         } catch (IOException e) {
@@ -34,38 +32,17 @@ public class AddOrganizationCommand extends Command {
         return null;
     }
 
-    public String getName() {
-        return name;
-    }
+	public Organization getOrganization() {
+		return organization;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setOrganization(Organization organization) {
+		this.organization = organization;
+	}
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        return "AddOrganizationCommand ["
-                + (getOrganisationName() != null ? "organisationName=" + getOrganisationName() + ", " : "")
-                + (getVivoOrganisationType() != null ? "vivoOrganisationType=" + getVivoOrganisationType() : "") + "]";
-    }
-
-    public String getOrganisationName() {
-        return organisationName;
-    }
-
-    public void setOrganisationName(String organisationName) {
-        this.organisationName = organisationName;
-    }
-
-    public String getVivoOrganisationType() {
-        return vivoOrganisationType;
-    }
-
-    public void setVivoOrganisationType(String vivoOrganisationType) {
-        this.vivoOrganisationType = vivoOrganisationType;
-    }
+	@Override
+	public String toString() {
+		return "AddOrganizationCommand [organization=" + organization + "]";
+	}
 
 }

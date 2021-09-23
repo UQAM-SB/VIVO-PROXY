@@ -13,7 +13,7 @@
 package ca.uqam.tool.vivoproxy.swagger.model;
 
 import java.util.Objects;
-import ca.uqam.tool.vivoproxy.swagger.model.ConceptLabel;
+import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -25,12 +25,12 @@ import javax.validation.Valid;
 /**
  * Concept
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-09-22T03:41:05.438-04:00[America/New_York]")public class Concept   {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-09-23T15:01:20.517-04:00[America/New_York]")public class Concept   {
   @JsonProperty("IRI")
   private String IRI = null;
 
   @JsonProperty("labels")
-  private List<ConceptLabel> labels = new ArrayList<ConceptLabel>();
+  private List<LinguisticLabel> labels = new ArrayList<LinguisticLabel>();
 
   public Concept IRI(String IRI) {
     this.IRI = IRI;
@@ -52,12 +52,12 @@ import javax.validation.Valid;
     this.IRI = IRI;
   }
 
-  public Concept labels(List<ConceptLabel> labels) {
+  public Concept labels(List<LinguisticLabel> labels) {
     this.labels = labels;
     return this;
   }
 
-  public Concept addLabelsItem(ConceptLabel labelsItem) {
+  public Concept addLabelsItem(LinguisticLabel labelsItem) {
     this.labels.add(labelsItem);
     return this;
   }
@@ -70,11 +70,11 @@ import javax.validation.Valid;
   @Schema(required = true, description = "")
   @NotNull
   @Valid
-  public List<ConceptLabel> getLabels() {
+  public List<LinguisticLabel> getLabels() {
     return labels;
   }
 
-  public void setLabels(List<ConceptLabel> labels) {
+  public void setLabels(List<LinguisticLabel> labels) {
     this.labels = labels;
   }
 

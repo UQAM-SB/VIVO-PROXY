@@ -46,7 +46,7 @@ public class OrganizationApiServiceImpl extends OrganizationApiService {
 			VivoReceiver session = new VivoReceiver();
 			CommandInvoker invoker = new CommandInvoker();  
 			Command loginCommand = cf.createLogin(YOUR_LOGIN, YOUR_PASSWD);
-			Command addOrganisationCommand = cf.createOrganization(organization.getName(), organization.getOrganizationType());
+			Command addOrganisationCommand = cf.createOrganization(organization);
 			Command logoutCommand = cf.createLogout();
 			invoker.register(loginCommand);
 			invoker.register(addOrganisationCommand);
@@ -87,7 +87,9 @@ public class OrganizationApiServiceImpl extends OrganizationApiService {
      */
     public static void main(String[]  args) throws IOException, OWLOntologyCreationException, OWLOntologyStorageException, NotFoundException {
         Organization organ = new Organization();
-        organ.setName("Test Organization");
+        LinguisticLabel label = new LinguisticLabel();
+        label.setLabel("Test Organization");
+        label.language("en-US");
         organ.setOrganizationType("http://vivoweb.org/ontology/core#University");
         OrganizationApiService service = new OrganizationApiServiceImpl();
         Response response = service.createOrganization(organ, null);

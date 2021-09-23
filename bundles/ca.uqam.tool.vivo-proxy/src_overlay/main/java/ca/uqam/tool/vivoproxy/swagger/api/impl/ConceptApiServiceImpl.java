@@ -14,7 +14,7 @@ import ca.uqam.tool.vivoproxy.swagger.api.ApiResponseMessage;
 import ca.uqam.tool.vivoproxy.swagger.api.ConceptApiService;
 import ca.uqam.tool.vivoproxy.swagger.api.NotFoundException;
 import ca.uqam.tool.vivoproxy.swagger.model.Concept;
-import ca.uqam.tool.vivoproxy.swagger.model.ConceptLabel;
+import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
 import ca.uqam.tool.vivoproxy.swagger.model.ModelAPIResponse;
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-07-28T15:50:35.108-04:00[America/New_York]")
 public class ConceptApiServiceImpl extends ConceptApiService {
@@ -44,15 +44,15 @@ public class ConceptApiServiceImpl extends ConceptApiService {
     }
     
     public static void main(String[]  args) throws NotFoundException{
-    	Concept concept = new Concept();
-    	concept.setIRI("http://purl.org/uqam.ca/vocabulary/expertise#pompom3");
-    	ConceptLabel cl = new ConceptLabel();
-    	cl.label("toto3");
+    	LinguisticLabel cl = new LinguisticLabel();
+    	cl.label("toto");
     	cl.language("fr-CA");
-    	concept.addLabelsItem(cl);
-    	ConceptLabel cl2 = new ConceptLabel();
-    	cl2.label("tota3");
+    	LinguisticLabel cl2 = new LinguisticLabel();
+    	cl2.label("foo-bar");
     	cl2.language("en-US");
+    	Concept concept = new Concept();
+    	concept.setIRI("http://purl.org/uqam.ca/vocabulary/expertise#pompom");
+    	concept.addLabelsItem(cl);
     	concept.addLabelsItem(cl2);
     	ConceptApiServiceImpl service = new ConceptApiServiceImpl();
     	Response response = service.createConcept(concept, null);

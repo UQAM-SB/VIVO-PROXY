@@ -551,6 +551,70 @@ paths:
                 type: string
           content: {}
       x-codegen-request-body-name: body
+  /indv/addStatement:
+    put:
+      tags:
+      - Individual
+      summary: Adding statement
+      operationId: indvAddStatement
+      requestBody:
+        description: Adding a triple to the graph
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/statement'
+        required: true
+      responses:
+        200:
+          description: OK (successfully authenticated)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API-Response'
+        401:
+          description: Authentication information is missing or invalid
+          headers:
+            WWW_Authenticate:
+              schema:
+                type: string
+          content: {}
+      x-codegen-request-body-name: body
+  /indv/addLabel:
+    put:
+      tags:
+      - Individual
+      summary: Add a label to an individual
+      operationId: indvAddLabel
+      requestBody:
+        description: Linguistic labels to add
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/linguisticLabel'
+      parameters:
+        - name: IRI
+          in: query
+          description: The IRI of the individual from which a label is added
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: OK (successfully authenticated)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API-Response'
+        401:
+          description: Authentication information is missing or invalid
+          headers:
+            WWW_Authenticate:
+              schema:
+                type: string
+          content: {}
+      x-codegen-request-body-name: body
   /organization:
     post:
       tags:
@@ -564,6 +628,15 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/organization'
+            example: {
+              "organizationType": "http://vivoweb.org/ontology/core#University",
+              "names": [
+                {
+                  "label": "Université du Québec à Montréal",
+                  "language": "fr-CA"
+                }
+              ]
+            }
         required: true
       responses:
         200:
@@ -680,7 +753,8 @@ components:
           example: semantic web
         language:
           type: string
-          example: en-US
+          example: fr-CA
+          default: en-US
           description: Using the 'Language Tags and Locale Identifiers for the World Wide Web' defined at https://www.w3.org/TR/ltli/ for this field
     authorOfADocument:
       required:
@@ -756,6 +830,25 @@ components:
           example: http://vivoweb.org/ontology/core#FacultyMember
       xml:
         name: individualType
+    statement:
+      required:
+        - subject
+        - predicate
+        - object
+      type: object
+      properties:
+        subject:
+          type: string
+          example: http://localhost:8080/vivo/individual/n6870
+        predicate:
+          type: string
+          example: http://www.w3.org/1999/02/22-rdf-syntax-ns#type
+        object:
+          type: string
+          example: http://vivoweb.org/ontology/core#FacultyMember
+      xml:
+        name: individualType
+
     vivo:
       required:
         - iri

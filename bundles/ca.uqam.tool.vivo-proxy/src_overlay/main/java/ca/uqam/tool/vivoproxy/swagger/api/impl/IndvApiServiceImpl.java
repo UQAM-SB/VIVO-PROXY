@@ -7,6 +7,8 @@ import ca.uqam.tool.vivoproxy.pattern.command.CommandInvoker;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddDocumentCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddImageToIndividualCommand;
+import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddLabelsToIndividualCommand;
+import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddStatementCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddTypeToIndividualCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
 import ca.uqam.tool.vivoproxy.pattern.command.util.VivoReceiverHelper;
@@ -165,5 +167,87 @@ public class IndvApiServiceImpl extends IndvApiService {
 		}
 
 	}
+	@Override
+	public Response indvAddLabel(String IRI, List<LinguisticLabel> labels, SecurityContext securityContext)
+			throws NotFoundException {
+		try {
+			CommandFactory cf = CommandFactory.getInstance();
+			VivoReceiver session = new VivoReceiver();
+			CommandInvoker invoker = new CommandInvoker();
+			/*
+			 * Create commands
+			 */
+			Command loginCommand = cf.createLogin(LOGIN.getUserName(), LOGIN.getPasswd());
+			AddLabelsToIndividualCommand addLabelsToIndividualCommand = (AddLabelsToIndividualCommand) cf.createAddLabelsToIndividual(IRI, labels);
+			Command logOutCommand = cf.createLogout();
+
+			/*
+			 * Register commands
+			 */
+			invoker.register(loginCommand);
+			invoker.register(addLabelsToIndividualCommand);
+			invoker.register(logOutCommand);
+
+			/*
+			 * Execute commands
+			 */
+			CommandResult result =invoker.execute();
+			/*
+			 * Retreive and manage response
+			 */
+			com.squareup.okhttp.Response response = addLabelsToIndividualCommand.getCommandResult().getOkhttpResult();
+			String newrIri = VivoReceiverHelper.getUriResponse(response.body().string());
+			LOGGER.info("Adding label for individual at "+ newrIri+" with return code " + response.code());
+			ModelAPIResponse apiResp = new ModelAPIResponse();
+			apiResp.setIrIValue(newrIri);
+			apiResp.setViVOMessage(" return code: " +response.code()+ " "  +response.message());
+			apiResp.setCode(ApiResponseMessage.OK);
+			apiResp.setType(new ApiResponseMessage(ApiResponseMessage.OK,"").getType());
+			Response apiResponse = Response.ok().entity(apiResp).build();
+			return apiResponse;
+		} catch (IOException e) {
+			throw new NotFoundException(-1, e.getMessage());
+		}
+	}
+	@Override
+	public Response indvAddStatement(Statement statement, SecurityContext securityContext) throws NotFoundException {
+		try {
+			CommandFactory cf = CommandFactory.getInstance();
+			VivoReceiver session = new VivoReceiver();
+			CommandInvoker invoker = new CommandInvoker();
+			/*
+			 * Create commands
+			 */
+			Command loginCommand = cf.createLogin(LOGIN.getUserName(), LOGIN.getPasswd());
+			AddStatementCommand addLabelsToIndividualCommand = (AddStatementCommand) cf.createAddStatementToIndividual(statement);
+			Command logOutCommand = cf.createLogout();
+
+			/*
+			 * Register commands
+			 */
+			invoker.register(loginCommand);
+			invoker.register(addLabelsToIndividualCommand);
+			invoker.register(logOutCommand);
+
+			/*
+			 * Execute commands
+			 */
+			CommandResult result =invoker.execute();
+			/*
+			 * Retreive and manage response
+			 */
+			com.squareup.okhttp.Response response = addLabelsToIndividualCommand.getCommandResult().getOkhttpResult();
+			String newrIri = VivoReceiverHelper.getUriResponse(response.body().string());
+			LOGGER.info("Adding a statement for individual at "+ newrIri+" with return code " + response.code());
+			ModelAPIResponse apiResp = new ModelAPIResponse();
+			apiResp.setIrIValue(newrIri);
+			apiResp.setViVOMessage(" return code: " +response.code()+ " "  +response.message());
+			apiResp.setCode(ApiResponseMessage.OK);
+			apiResp.setType(new ApiResponseMessage(ApiResponseMessage.OK,"").getType());
+			Response apiResponse = Response.ok().entity(apiResp).build();
+			return apiResponse;
+		} catch (IOException e) {
+			throw new NotFoundException(-1, e.getMessage());
+		}	}
 
 }

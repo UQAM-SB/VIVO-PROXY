@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 
 import org.apache.commons.lang3.NotImplementedException;
 import org.apache.jena.vocabulary.RDF;
+import org.apache.jena.vocabulary.RDFS;
 import org.eclipse.rdf4j.model.vocabulary.FOAF;
 
 import com.squareup.okhttp.HttpUrl;
@@ -29,19 +30,27 @@ import ca.uqam.tool.vivoproxy.pattern.command.receiver.util.EditKeyForPosition;
 import ca.uqam.tool.vivoproxy.pattern.command.util.VivoReceiverHelper;
 import ca.uqam.tool.vivoproxy.swagger.model.AuthorOfADocument;
 import ca.uqam.tool.vivoproxy.swagger.model.Concept;
-import ca.uqam.tool.vivoproxy.swagger.model.ConceptLabel;
+
 import ca.uqam.tool.vivoproxy.swagger.model.Document;
 import ca.uqam.tool.vivoproxy.swagger.model.Image;
 import ca.uqam.tool.vivoproxy.swagger.model.IndividualType;
+import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
+import ca.uqam.tool.vivoproxy.swagger.model.Organization;
 import ca.uqam.tool.vivoproxy.swagger.model.Person;
 import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
 import ca.uqam.tool.vivoproxy.swagger.model.ResourceToResource;
+import ca.uqam.tool.vivoproxy.swagger.model.Statement;
 import ca.uqam.tool.vivoproxy.util.SemanticWebMediaType;
 import ca.uqam.vivo.vocabulary.VIVO;
 
 /**
  * @author Michel Héon
  *
+ */
+/**
+ * @author Michel Héon; Université du Québec à Montréal
+ * @filename VivoReceiver.java
+ * @date 23 sept. 2021
  */
 public class VivoReceiver extends AbstractReceiver {
 	String SparqlPrefix = "PREFIX  crdc: <http://purl.org/uqam.ca/vocabulary/crdc_ccrd#> \n"+
@@ -169,34 +178,51 @@ public class VivoReceiver extends AbstractReceiver {
 	 * @return
 	 * @throws IOException
 	 */
-	public CommandResult addOrganization(String organisationName, String vivoOrganisationType) throws IOException {
-		Response response = VivoReceiverHelper.gotoAdminPage(getHostName()+"/"+getVivoSiteName(), getHttpClient());
-		editKey = VivoReceiverHelper.getEditKey(getHostName()+"/"+getVivoSiteName(), getHttpClient(), vivoOrganisationType);
-		HttpUrl url = HttpUrl.parse(getSiteUrl() +"/edit/process").newBuilder()
-				.addQueryParameter("label", organisationName)
-				.addQueryParameter("editKey", editKey)
-				.build();
-		HttpUrl referedUrl = HttpUrl.parse(getSiteUrl() +"/editRequestDispatch").newBuilder()
-				.addQueryParameter("editForm", NEW_INDIVIDUAL_FORM_GENERATOR)
-				.addQueryParameter("typeOfNew", vivoOrganisationType)
-				.build();
+	public CommandResult addOrganization(Organization organization) throws IOException {
+		List<LinguisticLabel> names = organization.getNames();
+		int nameCtr = 0;
+		String orgIRI = null;
+		CommandResult returnVal = null;
+		for (Iterator iterator = names.iterator(); iterator.hasNext();) {
+			nameCtr++;
+			LinguisticLabel name = (LinguisticLabel) iterator.next();
+			if (nameCtr==1){
+				VivoReceiverHelper.changeLinguisticContext(getHostName()+"/"+getVivoSiteName(), getHttpClient(), name.getLanguage());
+				Response response = VivoReceiverHelper.gotoAdminPage(getHostName()+"/"+getVivoSiteName(), getHttpClient());
+				editKey = VivoReceiverHelper.getEditKey(getHostName()+"/"+getVivoSiteName(), getHttpClient(), organization.getOrganizationType());
+				HttpUrl url = HttpUrl.parse(getSiteUrl() +"/edit/process").newBuilder()
+						.addQueryParameter("label", name.getLabel())
+						.addQueryParameter("editKey", editKey)
+						.build();
+				HttpUrl referedUrl = HttpUrl.parse(getSiteUrl() +"/editRequestDispatch").newBuilder()
+						.addQueryParameter("editForm", NEW_INDIVIDUAL_FORM_GENERATOR)
+						.addQueryParameter("typeOfNew", organization.getOrganizationType())
+						.build();
 
-		Request request = new Request.Builder()
-				//                .url("http://192.168.7.23:8080/vivo/edit/process?label=Coll%C3%A8ge+de+Hull&editKey=44278894")
-				.url(url)
-				.method("GET", null)
-				.addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
-				.addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
-				.addHeader("Connection", "keep-alive")
-				.addHeader("Referer", referedUrl.toString())
-				.addHeader("Upgrade-Insecure-Requests", "1")
-				.build();
-		LOGGER.info("Sending "+ organisationName );
-		Response orgResp = getHttpClient().newCall(request).execute();
-		//		String responseUri = VivoReceiverHelper.getUriResponse(orgResp.body().string());
-		//		LOGGER.info("Adding "+ organisationName + "at uri "+ responseUri+" with return code " + response.code());
-		return CommandResult.asCommandResult(orgResp);
-		//        return CommandResult.asCommandResult(responseUri);
+				Request request = new Request.Builder()
+						//                .url("http://192.168.7.23:8080/vivo/edit/process?label=Coll%C3%A8ge+de+Hull&editKey=44278894")
+						.url(url)
+						.method("GET", null)
+						.addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+						.addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
+						.addHeader("Connection", "keep-alive")
+						.addHeader("Referer", referedUrl.toString())
+						.addHeader("Upgrade-Insecure-Requests", "1")
+						.build();
+				LOGGER.info("Sending "+ name.getLabel() );
+				Response orgResp = getHttpClient().newCall(request).execute();
+				if (names.size() < 2 ){
+					return CommandResult.asCommandResult(orgResp);
+				} else {
+					orgIRI = VivoReceiverHelper.getUriResponse(orgResp);
+				}
+			} else {
+				List<LinguisticLabel> labels=new ArrayList<LinguisticLabel>();
+				labels.add(name);
+				returnVal = addLabels(orgIRI, labels);
+			}
+		}
+		return returnVal;
 	}
 
 	/* (non-Javadoc)
@@ -264,93 +290,93 @@ public class VivoReceiver extends AbstractReceiver {
 		 * get editKey
 		 */
 		System.out.println("getEditKey");
-        HttpUrl url = HttpUrl.parse(getHostName()+"/"+getVivoSiteName() +"/uploadImages").newBuilder()
-                .addQueryParameter("entityUri", image.getIndividualIRI())
-                .addQueryParameter("action", "add")
-                .build();
-        Request request = new Request.Builder()
-                .url(url)
-                .method("GET", null)
-                .addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0")
-                .addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
-                .addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
-                .addHeader("Connection", "keep-alive")
-                .addHeader("Referer", image.getIndividualIRI())
-                .addHeader("Upgrade-Insecure-Requests", "1")
-                .build();
-        response =  getHttpClient()
-        		.newCall(request).execute();
+		HttpUrl url = HttpUrl.parse(getHostName()+"/"+getVivoSiteName() +"/uploadImages").newBuilder()
+				.addQueryParameter("entityUri", image.getIndividualIRI())
+				.addQueryParameter("action", "add")
+				.build();
+		Request request = new Request.Builder()
+				.url(url)
+				.method("GET", null)
+				.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0")
+				.addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+				.addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
+				.addHeader("Connection", "keep-alive")
+				.addHeader("Referer", image.getIndividualIRI())
+				.addHeader("Upgrade-Insecure-Requests", "1")
+				.build();
+		response =  getHttpClient()
+				.newCall(request).execute();
 
-        editKey = VivoReceiverHelper.getKeyValue(response.body().string());
-        
-        /*
-         * UploadImage
-         */
-        
-        File file = new File(image.getImageURL());
-        String contentType = file.toURL().openConnection().getContentType();
-        RequestBody fileBody = RequestBody.create(MediaType.parse(contentType), file);
+		editKey = VivoReceiverHelper.getKeyValue(response.body().string());
 
-        RequestBody requestBody = new MultipartBuilder()
-                .type(MultipartBuilder.FORM)
-                .addFormDataPart("Content-Disposition","form-data; name=\"datafile\"; filename=\""+file.getName()+"\"")
-                .addFormDataPart("Content-Type",contentType)
-                .addFormDataPart("datafile",file.getName(),fileBody)
-                .build();
-        HttpUrl upLoadUrl = HttpUrl.parse(getHostName()+"/"+getVivoSiteName() +"/uploadImages").newBuilder()
-                .addQueryParameter("entityUri", image.getIndividualIRI())
-                .addQueryParameter("action", "upload")
-                .addQueryParameter("imageUrl", image.getImageURL())
-                .build();
+		/*
+		 * UploadImage
+		 */
 
-        Request upLoadRequest = new Request.Builder()
-          .url(upLoadUrl)
-          .method("POST", requestBody)
-          .addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
-          .addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
-          .addHeader("Content-Type", "image/jpeg")
-          .addHeader("Origin", getHostName())
-          .addHeader("Connection", "keep-alive")
-          .addHeader("Referer", url.toString())
-          .addHeader("Upgrade-Insecure-Requests", "1")
-          .addHeader("Sec-Fetch-Dest", "document")
-          .addHeader("Sec-Fetch-Mode", "navigate")
-          .addHeader("Sec-Fetch-Site", "same-origin")
-          .addHeader("Sec-Fetch-User", "?1")
-          .build();
-        Response upLoadResponse =  getHttpClient().newCall(upLoadRequest).execute();
-        /*
-         * Save image
-         */
-        
-        MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
-        RequestBody saveBody = RequestBody.create(mediaType, "x="+image.getOrigX()+"&y="+image.getOrigY()+"&w="+image.getWidth()+"&h="+image.getHeight());
-        
-        HttpUrl saveUrl = HttpUrl.parse(getHostName()+"/"+getVivoSiteName() +"/uploadImages").newBuilder()
-                .addQueryParameter("entityUri", image.getIndividualIRI())
-                .addQueryParameter("action", "save")
-                .build();
-        
-        Request saveRequest = new Request.Builder()
-        		  .url(saveUrl)
-        		  .method("POST", saveBody)
-        		  .addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
-        		  .addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
-        		  .addHeader("Content-Type", "application/x-www-form-urlencoded")
-                  .addHeader("Origin", getHostName())
-        		  .addHeader("Connection", "keep-alive")
-        		  .addHeader("Referer", upLoadUrl.toString())
-        		  .addHeader("Upgrade-Insecure-Requests", "1")
-        		  .addHeader("Sec-Fetch-Dest", "document")
-        		  .addHeader("Sec-Fetch-Mode", "navigate")
-        		  .addHeader("Sec-Fetch-Site", "same-origin")
-        		  .addHeader("Sec-Fetch-User", "?1")
-        		  .build();
-        Response saveResponse =  getHttpClient().newCall(saveRequest).execute();
+		File file = new File(image.getImageURL());
+		String contentType = file.toURL().openConnection().getContentType();
+		RequestBody fileBody = RequestBody.create(MediaType.parse(contentType), file);
+
+		RequestBody requestBody = new MultipartBuilder()
+				.type(MultipartBuilder.FORM)
+				.addFormDataPart("Content-Disposition","form-data; name=\"datafile\"; filename=\""+file.getName()+"\"")
+				.addFormDataPart("Content-Type",contentType)
+				.addFormDataPart("datafile",file.getName(),fileBody)
+				.build();
+		HttpUrl upLoadUrl = HttpUrl.parse(getHostName()+"/"+getVivoSiteName() +"/uploadImages").newBuilder()
+				.addQueryParameter("entityUri", image.getIndividualIRI())
+				.addQueryParameter("action", "upload")
+				.addQueryParameter("imageUrl", image.getImageURL())
+				.build();
+
+		Request upLoadRequest = new Request.Builder()
+				.url(upLoadUrl)
+				.method("POST", requestBody)
+				.addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+				.addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
+				.addHeader("Content-Type", "image/jpeg")
+				.addHeader("Origin", getHostName())
+				.addHeader("Connection", "keep-alive")
+				.addHeader("Referer", url.toString())
+				.addHeader("Upgrade-Insecure-Requests", "1")
+				.addHeader("Sec-Fetch-Dest", "document")
+				.addHeader("Sec-Fetch-Mode", "navigate")
+				.addHeader("Sec-Fetch-Site", "same-origin")
+				.addHeader("Sec-Fetch-User", "?1")
+				.build();
+		Response upLoadResponse =  getHttpClient().newCall(upLoadRequest).execute();
+		/*
+		 * Save image
+		 */
+
+		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+		RequestBody saveBody = RequestBody.create(mediaType, "x="+image.getOrigX()+"&y="+image.getOrigY()+"&w="+image.getWidth()+"&h="+image.getHeight());
+
+		HttpUrl saveUrl = HttpUrl.parse(getHostName()+"/"+getVivoSiteName() +"/uploadImages").newBuilder()
+				.addQueryParameter("entityUri", image.getIndividualIRI())
+				.addQueryParameter("action", "save")
+				.build();
+
+		Request saveRequest = new Request.Builder()
+				.url(saveUrl)
+				.method("POST", saveBody)
+				.addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+				.addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
+				.addHeader("Content-Type", "application/x-www-form-urlencoded")
+				.addHeader("Origin", getHostName())
+				.addHeader("Connection", "keep-alive")
+				.addHeader("Referer", upLoadUrl.toString())
+				.addHeader("Upgrade-Insecure-Requests", "1")
+				.addHeader("Sec-Fetch-Dest", "document")
+				.addHeader("Sec-Fetch-Mode", "navigate")
+				.addHeader("Sec-Fetch-Site", "same-origin")
+				.addHeader("Sec-Fetch-User", "?1")
+				.build();
+		Response saveResponse =  getHttpClient().newCall(saveRequest).execute();
 		return CommandResult.asCommandResult(saveResponse);       
-		
+
 	}
-	
+
 	/**
 	 * @param author
 	 * @return
@@ -373,38 +399,38 @@ public class VivoReceiver extends AbstractReceiver {
 		/*
 		 * Build url and refUrl
 		 */
-		
+
 		HttpUrl url = HttpUrl.parse(getSiteUrl() +"/edit/process").newBuilder()
-			  .addQueryParameter("title", "")
-			  .addQueryParameter("pubUri", author.getDocumentIRI())
-			  .addQueryParameter("collection", "")
-			  .addQueryParameter("collectionDisplay", "")
-			  .addQueryParameter("collectionUri", "")
-			  .addQueryParameter("book", "")
-			  .addQueryParameter("bookDisplay", "")
-			  .addQueryParameter("bookUri", "")
-			  .addQueryParameter("conference", "")
-			  .addQueryParameter("conferenceDisplay", "")
-			  .addQueryParameter("conferenceUri", "")
-			  .addQueryParameter("event", "")
-			  .addQueryParameter("eventDisplay", "")
-			  .addQueryParameter("eventUri", "")
-			  .addQueryParameter("editor", "")
-			  .addQueryParameter("editorDisplay", "")
-			  .addQueryParameter("editorUri", "")
-			  .addQueryParameter("publisher", "")
-			  .addQueryParameter("publisherDisplay", "")
-			  .addQueryParameter("publisherUri", "")
-			  .addQueryParameter("locale", "")
-			  .addQueryParameter("volume", "")
-			  .addQueryParameter("number", "")
-			  .addQueryParameter("issue", "")
-			  .addQueryParameter("chapterNbr", "")
-			  .addQueryParameter("startPage", "")
-			  .addQueryParameter("endPage", "")
-			  .addQueryParameter("dateTime-year", "")
-			  .addQueryParameter("editKey", editKey)
-			  .build();
+				.addQueryParameter("title", "")
+				.addQueryParameter("pubUri", author.getDocumentIRI())
+				.addQueryParameter("collection", "")
+				.addQueryParameter("collectionDisplay", "")
+				.addQueryParameter("collectionUri", "")
+				.addQueryParameter("book", "")
+				.addQueryParameter("bookDisplay", "")
+				.addQueryParameter("bookUri", "")
+				.addQueryParameter("conference", "")
+				.addQueryParameter("conferenceDisplay", "")
+				.addQueryParameter("conferenceUri", "")
+				.addQueryParameter("event", "")
+				.addQueryParameter("eventDisplay", "")
+				.addQueryParameter("eventUri", "")
+				.addQueryParameter("editor", "")
+				.addQueryParameter("editorDisplay", "")
+				.addQueryParameter("editorUri", "")
+				.addQueryParameter("publisher", "")
+				.addQueryParameter("publisherDisplay", "")
+				.addQueryParameter("publisherUri", "")
+				.addQueryParameter("locale", "")
+				.addQueryParameter("volume", "")
+				.addQueryParameter("number", "")
+				.addQueryParameter("issue", "")
+				.addQueryParameter("chapterNbr", "")
+				.addQueryParameter("startPage", "")
+				.addQueryParameter("endPage", "")
+				.addQueryParameter("dateTime-year", "")
+				.addQueryParameter("editKey", editKey)
+				.build();
 
 		HttpUrl refererUrl = HttpUrl.parse(getSiteUrl() +"/editRequestDispatch").newBuilder()
 				.addQueryParameter("subjectUri", editKeyVar.getSubjectUri())
@@ -441,60 +467,60 @@ public class VivoReceiver extends AbstractReceiver {
 		/* 
 		 * Goto individual page
 		 */
-//		Response response = VivoReceiverHelper.gotoIndividualPage(getHostName()+"/"+getVivoSiteName(), getHttpClient(), author.getDocumentIRI());
+		//		Response response = VivoReceiverHelper.gotoIndividualPage(getHostName()+"/"+getVivoSiteName(), getHttpClient(), author.getDocumentIRI());
 		/*
 		 * Get the editKey
 		 */
-//		EditKeyForPosition editKeyVar = new EditKeyForPosition();
-//		editKeyVar.setSubjectUri(author.getDocumentIRI()); 
-//		editKeyVar.setPredicateUri(VIVO.relatedBy.getURI());
-//		editKeyVar.setDomainUri("http://purl.obolibrary.org/obo/IAO_0000030");
-//		editKeyVar.setRangeUri(VIVO.Authorship.getURI());
-//		editKey = VivoReceiverHelper.getEditKey(getHostName()+"/"+getVivoSiteName(), getHttpClient(),editKeyVar);
+		//		EditKeyForPosition editKeyVar = new EditKeyForPosition();
+		//		editKeyVar.setSubjectUri(author.getDocumentIRI()); 
+		//		editKeyVar.setPredicateUri(VIVO.relatedBy.getURI());
+		//		editKeyVar.setDomainUri("http://purl.obolibrary.org/obo/IAO_0000030");
+		//		editKeyVar.setRangeUri(VIVO.Authorship.getURI());
+		//		editKey = VivoReceiverHelper.getEditKey(getHostName()+"/"+getVivoSiteName(), getHttpClient(),editKeyVar);
 		/*
 		 * Build url and refUrl
 		 */
-//		String lastName = (author.getLastName() != null ? author.getLastName() : "");
-//		String firstName = (author.getFirstName() != null ? author.getFirstName() : "");
-//		String middleName = (author.getMiddleName() != null ? author.getMiddleName() : "");
-//
-//		String label = (author.getFirstName() != null ? author.getFirstName() + " " : "")
-//				+ (author.getMiddleName() != null ? author.getMiddleName() + " " : "")
-//				+ (author.getLastName() != null ? author.getLastName() : "");
-//
-//		HttpUrl url = HttpUrl.parse(getSiteUrl() +"/edit/process").newBuilder()
-//				.addQueryParameter("authorType", author.getPersonType())
-//				.addQueryParameter("lastName",lastName)
-//				.addQueryParameter("firstName", firstName)
-//				.addQueryParameter("middleName", middleName)
-//				.addQueryParameter("personUri", author.getPersonIRI())
-//				.addQueryParameter("orgUri", "")
-//				.addQueryParameter("label",label)
-//				.addQueryParameter("rank", "1")
-//				.addQueryParameter("editKey", editKey)
-//				.addQueryParameter("submit-Create", "Create+Entry")
-//				.build();
-//		HttpUrl refererUrl = HttpUrl.parse(getSiteUrl() +"/editRequestDispatch").newBuilder()
-//				.addQueryParameter("subjectUri", editKeyVar.getSubjectUri())
-//				.addQueryParameter("predicateUri", editKeyVar.getPredicateUri())
-//				.addQueryParameter("domainUri", editKeyVar.getDomainUri())
-//				.addQueryParameter("rangeUri", editKeyVar.getRangeUri())
-//				.build();
-//		/*
-//		 * send Request
-//		 */
-//		Request request = new Request.Builder()
-//				.url(url)
-//				.method("GET", null)
-//				.addHeader("User-Agent", "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0")
-//				.addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
-//				.addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
-//				.addHeader("Connection", "keep-alive")
-//				.addHeader("Referer", refererUrl.toString())
-//				.addHeader("Upgrade-Insecure-Requests", "1")
-//				.build();
-//		response = getHttpClient().newCall(request).execute();
-//		return CommandResult.asCommandResult(response);       
+		//		String lastName = (author.getLastName() != null ? author.getLastName() : "");
+		//		String firstName = (author.getFirstName() != null ? author.getFirstName() : "");
+		//		String middleName = (author.getMiddleName() != null ? author.getMiddleName() : "");
+		//
+		//		String label = (author.getFirstName() != null ? author.getFirstName() + " " : "")
+		//				+ (author.getMiddleName() != null ? author.getMiddleName() + " " : "")
+		//				+ (author.getLastName() != null ? author.getLastName() : "");
+		//
+		//		HttpUrl url = HttpUrl.parse(getSiteUrl() +"/edit/process").newBuilder()
+		//				.addQueryParameter("authorType", author.getPersonType())
+		//				.addQueryParameter("lastName",lastName)
+		//				.addQueryParameter("firstName", firstName)
+		//				.addQueryParameter("middleName", middleName)
+		//				.addQueryParameter("personUri", author.getPersonIRI())
+		//				.addQueryParameter("orgUri", "")
+		//				.addQueryParameter("label",label)
+		//				.addQueryParameter("rank", "1")
+		//				.addQueryParameter("editKey", editKey)
+		//				.addQueryParameter("submit-Create", "Create+Entry")
+		//				.build();
+		//		HttpUrl refererUrl = HttpUrl.parse(getSiteUrl() +"/editRequestDispatch").newBuilder()
+		//				.addQueryParameter("subjectUri", editKeyVar.getSubjectUri())
+		//				.addQueryParameter("predicateUri", editKeyVar.getPredicateUri())
+		//				.addQueryParameter("domainUri", editKeyVar.getDomainUri())
+		//				.addQueryParameter("rangeUri", editKeyVar.getRangeUri())
+		//				.build();
+		//		/*
+		//		 * send Request
+		//		 */
+		//		Request request = new Request.Builder()
+		//				.url(url)
+		//				.method("GET", null)
+		//				.addHeader("User-Agent", "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0")
+		//				.addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+		//				.addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
+		//				.addHeader("Connection", "keep-alive")
+		//				.addHeader("Referer", refererUrl.toString())
+		//				.addHeader("Upgrade-Insecure-Requests", "1")
+		//				.build();
+		//		response = getHttpClient().newCall(request).execute();
+		//		return CommandResult.asCommandResult(response);       
 	}
 
 	public CommandResult setPositionOfPerson(PositionOfPerson body) throws IOException{
@@ -661,6 +687,74 @@ public class VivoReceiver extends AbstractReceiver {
 	}
 
 	/**
+	 * @param IRI
+	 * @param labels
+	 * @return
+	 * @throws IOException
+	 */
+	public CommandResult addaStatement(Statement statement) throws IOException{
+		String updateConceptQuery = ""
+				+ "INSERT DATA  { GRAPH <> { " 
+				+ "\n <" +statement.getSubject() +"> "
+				+ "<" +statement.getPredicate() +"> "
+				+ "<" +statement.getObject() +"> "
+				+ " . \n } }";
+		String bodyValue = 
+				"email="+LOGIN.getUserName()+
+				"&password="+LOGIN.getPasswd()+ 
+				"&update="+updateConceptQuery;
+		System.out.println(bodyValue);
+		OkHttpClient client = new OkHttpClient();
+		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+		RequestBody body = RequestBody.create(mediaType, bodyValue);
+		Request request = new Request.Builder()
+				.url(getSiteUrl()+"/api/sparqlUpdate")
+				.method("POST", body)
+				.addHeader("Accept", SemanticWebMediaType.APPLICATION_RDF_XML.toString())
+				.addHeader("Content-Type", "application/x-www-form-urlencoded")
+				.build();
+		Response response = client.newCall(request).execute();
+		return CommandResult.asCommandResult(response);
+	}
+	
+	/**
+	 * @param IRI
+	 * @param labels
+	 * @return
+	 * @throws IOException
+	 */
+	public CommandResult addLabels(String IRI, List<LinguisticLabel> labels) throws IOException{
+		String updateConceptQuery = ""
+				+ "INSERT DATA  { GRAPH <> { " ;
+		String subjIrI = "\n <" +IRI +"> ";
+		String predIRI = "<" +RDFS.label.getURI() +"> ";
+		for (Iterator iterator = labels.iterator(); iterator.hasNext();) {
+			LinguisticLabel label = (LinguisticLabel) iterator.next();
+			String objLiteral = "\""+label.getLabel()+"\""+"@"+label.getLanguage() ;
+			updateConceptQuery +=  subjIrI 
+					+ predIRI
+					+ objLiteral + " ." ;
+		}
+		updateConceptQuery += " \n } }";
+		String bodyValue = 
+				"email="+LOGIN.getUserName()+
+				"&password="+LOGIN.getPasswd()+ 
+				"&update="+updateConceptQuery;
+		System.out.println(bodyValue);
+		OkHttpClient client = new OkHttpClient();
+		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+		RequestBody body = RequestBody.create(mediaType, bodyValue);
+		Request request = new Request.Builder()
+				.url(getSiteUrl()+"/api/sparqlUpdate")
+				.method("POST", body)
+				.addHeader("Accept", SemanticWebMediaType.APPLICATION_RDF_XML.toString())
+				.addHeader("Content-Type", "application/x-www-form-urlencoded")
+				.build();
+		Response response = client.newCall(request).execute();
+		return CommandResult.asCommandResult(response);
+
+	}
+	/**
 	 * @param indvType
 	 * @return
 	 * @throws IOException 
@@ -690,7 +784,7 @@ public class VivoReceiver extends AbstractReceiver {
 				.build();
 		Response response = client.newCall(request).execute();
 		return CommandResult.asCommandResult(response);
-		
+
 	}
 	/**
 	 * @param username
@@ -704,9 +798,9 @@ public class VivoReceiver extends AbstractReceiver {
 		String iri = concept.getIRI();
 		String updateConceptQuery = ""
 				+ "INSERT DATA  { GRAPH <> { ";
-		List<ConceptLabel> labels = concept.getLabels();
+		List<LinguisticLabel> labels = concept.getLabels();
 		for (Iterator iterator = labels.iterator(); iterator.hasNext();) {
-			ConceptLabel conceptLabel = (ConceptLabel) iterator.next();
+			LinguisticLabel conceptLabel = (LinguisticLabel) iterator.next();
 			String subject = "<" +iri +"> ";
 			String predicate = "<http://www.w3.org/2000/01/rdf-schema#label> ";
 			String object = "\"" +conceptLabel.getLabel() +"\"@"+conceptLabel.getLanguage() + " . ";

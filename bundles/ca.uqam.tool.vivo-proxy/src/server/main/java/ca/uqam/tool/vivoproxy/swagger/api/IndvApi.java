@@ -16,7 +16,9 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 import ca.uqam.tool.vivoproxy.swagger.model.Image;
 import ca.uqam.tool.vivoproxy.swagger.model.IndividualType;
+import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
 import ca.uqam.tool.vivoproxy.swagger.model.ModelAPIResponse;
+import ca.uqam.tool.vivoproxy.swagger.model.Statement;
 
 import java.util.Map;
 import java.util.List;
@@ -38,7 +40,7 @@ import javax.validation.constraints.*;
 @Path("/indv")
 
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-09-22T03:41:05.438-04:00[America/New_York]")public class IndvApi  {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-09-23T15:01:20.517-04:00[America/New_York]")public class IndvApi  {
    private final IndvApiService delegate;
 
    public IndvApi(@Context ServletConfig servletContext) {
@@ -115,6 +117,39 @@ import javax.validation.constraints.*;
 ,@Context SecurityContext securityContext)
     throws NotFoundException {
         return delegate.indvAddImage(body,securityContext);
+    }
+    @PUT
+    @Path("/addLabel")
+    @Consumes({ "application/json" })
+    @Produces({ "application/json" })
+    @Operation(summary = "Add a label to an individual", description = "", security = {
+        @SecurityRequirement(name = "basicAuth")    }, tags={ "Individual" })
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ModelAPIResponse.class))),
+        
+        @ApiResponse(responseCode = "401", description = "Authentication information is missing or invalid") })
+    public Response indvAddLabel(@Parameter(in = ParameterIn.QUERY, description = "The IRI of the individual from which a label is added",required=true) @QueryParam("IRI") String IRI
+,@Parameter(in = ParameterIn.DEFAULT, description = "Linguistic labels to add" ) List<LinguisticLabel> body
+
+,@Context SecurityContext securityContext)
+    throws NotFoundException {
+        return delegate.indvAddLabel(IRI,body,securityContext);
+    }
+    @PUT
+    @Path("/addStatement")
+    @Consumes({ "application/json" })
+    @Produces({ "application/json" })
+    @Operation(summary = "Adding statement", description = "", security = {
+        @SecurityRequirement(name = "basicAuth")    }, tags={ "Individual" })
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ModelAPIResponse.class))),
+        
+        @ApiResponse(responseCode = "401", description = "Authentication information is missing or invalid") })
+    public Response indvAddStatement(@Parameter(in = ParameterIn.DEFAULT, description = "Adding a triple to the graph" ,required=true) Statement body
+
+,@Context SecurityContext securityContext)
+    throws NotFoundException {
+        return delegate.indvAddStatement(body,securityContext);
     }
     @PUT
     @Path("/addType")
