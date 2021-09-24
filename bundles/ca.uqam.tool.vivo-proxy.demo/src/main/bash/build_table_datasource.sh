@@ -12,6 +12,7 @@
 ###################################################################
 
 echo build sample.ttl
+# Merge and infer data to new knowledge graph
 # riot --output=TTL --rdfs=$DEMO_RESOURCE/vivo.nt  $SAMPLE_DATA/i18n/sample-data-i18n.ttl  $SAMPLE_DATA/i18n/sample-data-i18n-fr_CA.ttl $DEMO_RESOURCE/vivo.nt  2>/dev/null > $DEMO_RESOURCE/sample.ttl 
 
 # echo build name_title.tsv
