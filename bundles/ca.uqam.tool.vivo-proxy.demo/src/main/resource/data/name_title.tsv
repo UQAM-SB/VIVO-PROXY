@@ -10,8 +10,6 @@
 <http://localhost:8080/vivo_i18n/individual/n6870>	<http://vivoweb.org/ontology/core#FacultyMember>	"Peters, Jasper I"	"Jasper"	"Peters"	"Professeur et vice-doyen"	"Professor and Associate Dean"
 <http://localhost:8080/vivo_i18n/individual/n6870>	<http://xmlns.com/foaf/0.1/Person>	"Peters, Jasper I"	"Jasper"	"Peters"	"Professeur et vice-doyen"	"Professor and Associate Dean"
 <http://localhost:8080/vivo_i18n/individual/n725>	<http://vivoweb.org/ontology/core#EmeritusFaculty>	"Pierce, Franklin J"	"Franklin"	"Pierce"	"Professeur Emérite"	"Professor Emeritus"
-<http://localhost:8080/vivo_i18n/individual/n725>	<http://vivoweb.org/ontology/core#EmeritusLibrarian>	"Pierce, Franklin J"	"Franklin"	"Pierce"	"Professeur Emérite"	"Professor Emeritus"
-<http://localhost:8080/vivo_i18n/individual/n725>	<http://vivoweb.org/ontology/core#Librarian>	"Pierce, Franklin J"	"Franklin"	"Pierce"	"Professeur Emérite"	"Professor Emeritus"
 <http://localhost:8080/vivo_i18n/individual/n725>	<http://xmlns.com/foaf/0.1/Person>	"Pierce, Franklin J"	"Franklin"	"Pierce"	"Professeur Emérite"	"Professor Emeritus"
 <http://localhost:8080/vivo_i18n/individual/n733>	<http://vivoweb.org/ontology/core#FacultyMember>	"Bogart, Andrew"	"Andrew"	"Bogart"	"Assistant professeur"	"Associate Professor"
 <http://localhost:8080/vivo_i18n/individual/n733>	<http://xmlns.com/foaf/0.1/Person>	"Bogart, Andrew"	"Andrew"	"Bogart"	"Assistant professeur"	"Associate Professor"

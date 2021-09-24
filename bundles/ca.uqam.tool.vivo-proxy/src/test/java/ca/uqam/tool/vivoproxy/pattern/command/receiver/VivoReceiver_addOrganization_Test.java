@@ -5,6 +5,7 @@ import java.io.IOException;
 import ca.uqam.tool.util.credential.LOGIN;
 import ca.uqam.tool.vivoproxy.pattern.command.AbstractReceiver;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
+import ca.uqam.tool.vivoproxy.pattern.command.util.VivoReceiverHelper;
 import ca.uqam.tool.vivoproxy.swagger.model.AuthorOfADocument;
 import ca.uqam.tool.vivoproxy.swagger.model.Concept;
 import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
@@ -36,6 +37,8 @@ public class VivoReceiver_addOrganization_Test extends AbstractReceiver {
 		org.addNamesItem(cLabelEnCA);
 		org.setOrganizationType("http://vivoweb.org/ontology/core#Publisher");
 		CommandResult resu = vr.addOrganization(org);
-		System.err.println(resu.getOkhttpResult().body().string());
+		System.err.println(resu.getResult());
+		System.err.println(VivoReceiverHelper.getUriResponse(resu.getResult().toString()));
+
 	}
 }

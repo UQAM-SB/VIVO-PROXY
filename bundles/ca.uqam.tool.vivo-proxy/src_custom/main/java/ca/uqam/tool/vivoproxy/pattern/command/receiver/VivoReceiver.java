@@ -183,6 +183,8 @@ public class VivoReceiver extends AbstractReceiver {
 		int nameCtr = 0;
 		String orgIRI = null;
 		CommandResult returnVal = null;
+		Response orgResp=null;;
+		String resultString = null;
 		for (Iterator iterator = names.iterator(); iterator.hasNext();) {
 			nameCtr++;
 			LinguisticLabel name = (LinguisticLabel) iterator.next();
@@ -210,11 +212,12 @@ public class VivoReceiver extends AbstractReceiver {
 						.addHeader("Upgrade-Insecure-Requests", "1")
 						.build();
 				LOGGER.info("Sending "+ name.getLabel() );
-				Response orgResp = getHttpClient().newCall(request).execute();
+				orgResp = getHttpClient().newCall(request).execute();
+				resultString = orgResp.body().string();
 				if (names.size() < 2 ){
-					return CommandResult.asCommandResult(orgResp);
+					return CommandResult.asCommandResult(resultString);
 				} else {
-					orgIRI = VivoReceiverHelper.getUriResponse(orgResp);
+					orgIRI = VivoReceiverHelper.getUriResponse(resultString);
 				}
 			} else {
 				List<LinguisticLabel> labels=new ArrayList<LinguisticLabel>();
@@ -222,7 +225,7 @@ public class VivoReceiver extends AbstractReceiver {
 				returnVal = addLabels(orgIRI, labels);
 			}
 		}
-		return returnVal;
+		return CommandResult.asCommandResult(resultString);
 	}
 
 	/* (non-Javadoc)
@@ -740,7 +743,6 @@ public class VivoReceiver extends AbstractReceiver {
 				"email="+LOGIN.getUserName()+
 				"&password="+LOGIN.getPasswd()+ 
 				"&update="+updateConceptQuery;
-		System.out.println(bodyValue);
 		OkHttpClient client = new OkHttpClient();
 		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
 		RequestBody body = RequestBody.create(mediaType, bodyValue);

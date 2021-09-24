@@ -629,14 +629,18 @@ paths:
             schema:
               $ref: '#/components/schemas/organization'
             example: {
-              "organizationType": "http://vivoweb.org/ontology/core#University",
-              "names": [
-                {
-                  "label": "Université du Québec à Montréal",
-                  "language": "fr-CA"
-                }
-              ]
-            }
+                      "organizationType": "http://vivoweb.org/ontology/core#University",
+                      "names": [
+                        {
+                          "label": "Université du Québec à Montréal",
+                          "language": "fr-CA"
+                        },
+                        {
+                          "label": "University Of Québec in Montreal",
+                          "language": "en-US"
+                        }
+                      ]
+                    }
         required: true
       responses:
         200:

@@ -57,7 +57,7 @@ EOF
           -H 'Content-Type: application/json' \
           -d @$PARAM_JSON | json2txt.sh | grep IRI-value | cut -f 2- -d ':'| tr -d '"' | tr -d " ")
         rm $PARAM_JSON
-        echo "    ... adding person ($NAME) ($USER_IRI) done!"
+        echo "    ... CREATING person ($NAME) ($USER_IRI) done!"
 #        popul_image
 }
 add_type_to_person () {
@@ -74,7 +74,7 @@ EOF
           -H 'Content-Type: application/json' \
           -d @$TYPE_JSON > /dev/null 
         rm $TYPE_JSON
-        echo "    ... adding person type ($TYPE) to ($NAME) at ($USER_IRI) is done!"
+        echo "    ... ADDING person type ($TYPE) to ($NAME) at ($USER_IRI) is done!"
    
 }
 #cat $DEMO_RESOURCE/data/name_title.tsv |  sed 1,1d | tr -d '"' | dos2unix | grep . | while read line ; do

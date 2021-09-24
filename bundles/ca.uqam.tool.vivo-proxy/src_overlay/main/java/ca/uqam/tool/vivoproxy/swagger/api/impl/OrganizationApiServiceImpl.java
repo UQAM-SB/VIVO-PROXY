@@ -52,12 +52,13 @@ public class OrganizationApiServiceImpl extends OrganizationApiService {
 			invoker.register(addOrganisationCommand);
 			invoker.register(logoutCommand);
 			CommandResult result = invoker.execute();
-			com.squareup.okhttp.Response response = addOrganisationCommand.getCommandResult().getOkhttpResult();
-			String newUserIri = VivoReceiverHelper.getUriResponse(response.body().string());
+//			com.squareup.okhttp.Response response = addOrganisationCommand.getCommandResult().getOkhttpResult();
+			String newUserIri = VivoReceiverHelper.getUriResponse(addOrganisationCommand.getCommandResult().getResult().toString());
 		
 			ModelAPIResponse apiResp = new ModelAPIResponse();
 			apiResp.setIrIValue(newUserIri);
-			apiResp.setViVOMessage(" return code: " +response.code()+ " "  +response.message());
+//			apiResp.setViVOMessage(" return code: " +response.code()+ " "  +response.message());
+			apiResp.setViVOMessage("Ok ");
 			apiResp.setCode(ApiResponseMessage.OK);
 			apiResp.setType(new ApiResponseMessage(ApiResponseMessage.OK,"").getType());
 			Response apiResponse = Response.ok().entity(apiResp).build();

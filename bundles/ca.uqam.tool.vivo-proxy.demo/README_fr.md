@@ -1,7 +1,21 @@
 # Résumé
 Ce répertoire contient les programmes nécessaires à l'évaluation des capacités de VIVO-Proxy. C'est à partir des données i18n extraites du repo `https://github.com/vivo-project/sample-data` que les applications de cette démo sont utilisé pour populer une instance locale de VIVO à partir de VIVO-PROXY
 
-# Structure du bunble démo
+# Utilisation
+
+## Pré requis
+
+- Java 1.8
+- Maven
+- Linux
+- Bash
+- Jena 3.17.0
+- Image Magik
+- curl
+- VIVO 1.12.0
+
+## Structure du bundles démo
+
 ```
 .
 ├── bin
@@ -38,3 +52,23 @@ Ce répertoire contient les programmes nécessaires à l'évaluation des capacit
             ├── sample.ttl
             └── vivo.nt
 ```
+## Structure des API de VIVO-Proxy
+ [voir vivo-proxy.yaml à partir du web](https://editor.swagger.io/?url=https://raw.githubusercontent.com/vivo-community/VIVO-PROXY/main/bundles/ca.uqam.tool.vivo-proxy/api/vivo-proxy.yaml) 
+
+## Évaluation rapide
+
+### 1) Configurer VIVO-Proxy
+
+### 2) Démarrer VIVO
+
+### 3) Démarrer VIVO-Proxy
+
+### 4) Créer une personne avec Curl via VIVO-PROXY
+
+## Utiliser VIVO-Proxy démo pour un traitement en lot de données
+
+### 1) Configuration
+
+`cd ./src/main/bash`
+
+`source env.sh`
