@@ -9,7 +9,7 @@
 # Copyright     : Université du Québec à Montréal (c) 2021
 # Email         : heon.michel@uqam.ca
 ###################################################################
-NBR_FILE=$(find $SRC_DEPT_NAME -name "*.xml" | wc -l)
+NBR_RECORDS=$(find $SRC_DEPT_NAME -name "*.xml" | wc -l)
 
 
 popul_image () {
@@ -17,7 +17,7 @@ popul_image () {
         imSize=$(identify $HOME_PHOTOS/$KEY.jpg | cut -f 3 -d ' ')
         imWith=$(echo $imSize | cut -f 1 -d 'x')
         imHeight=$(echo $imSize | cut -f 2 -d 'x')
-        echo "    ... processing photo ($LOOP_CTR/$NBR_FILE) $NAME $USER_IRI $KEY  ($imSize) ($imWith,$imHeight)"
+        echo "    ... processing photo ($LOOP_CTR/$NBR_RECORDS) $NAME $USER_IRI $KEY  ($imSize) ($imWith,$imHeight)"
         IMG_JSON=$(mktemp --suffix=.json)
         cat << EOF > $IMG_JSON 
         {
@@ -34,9 +34,9 @@ EOF
           -H 'accept: application/json' \
           -H 'Content-Type: application/json' \
           -d @$IMG_JSON > /dev/null ; rm $IMG_JSON &
-        echo "    ... processing photo ($LOOP_CTR/$NBR_FILE) $NAME $USER_IRI $KEY  Done !"
+        echo "    ... processing photo ($LOOP_CTR/$NBR_RECORDS) $NAME $USER_IRI $KEY  Done !"
     else 
-        echo "    ... NO photo ($LOOP_CTR/$NBR_FILE) $NAME $USER_IRI $KEY"
+        echo "    ... NO photo ($LOOP_CTR/$NBR_RECORDS) $NAME $USER_IRI $KEY"
     fi
 }
 create_person () {
@@ -77,28 +77,30 @@ EOF
         echo "    ... ADDING person type ($TYPE) to ($NAME) at ($USER_IRI) is done!"
    
 }
-#cat $DEMO_RESOURCE/data/name_title.tsv |  sed 1,1d | tr -d '"' | dos2unix | grep . | while read line ; do
 KEY_PR="VOID"
-NBR_FILE=$(cat $DEMO_RESOURCE/data/name_title.tsv |  sed 1,1d  | wc -l) 
-cat $DEMO_RESOURCE/data/name_title.tsv |  sed 1,1d | while IFS=$'\t' read -r -a line_array ; do
+TSV_FILENAME=$DEMO_RESOURCE/data/name_title.tsv
+NBR_RECORDS=$(cat $TSV_FILENAME |  sed 1,1d  | wc -l) 
+cat $TSV_FILENAME |  sed 1,1d | while IFS=$'\t' read -r -a line_array ; do
     ((LOOP_CTR=LOOP_CTR+1))
-#    (
-        ID=${line_array[0]}
-        KEY=$(echo $ID | tr -d '>' | tr -d '<' | xargs basename )
-        TYPE=$(echo ${line_array[1]} | tr -d '>' | tr -d '<')
-        FN=$(echo ${line_array[3]} | tr -d '"' | upper_first_letter.sh)
-        LN=$(echo ${line_array[4]} | tr -d '"' | upper_first_letter.sh)
-        NAME="$FN $LN"
-        
-        if [[ "$KEY_PR" != "$KEY" ]]
-        then
-          create_person
-          popul_image
-        else
-          add_type_to_person    
-        fi
-        echo "Processing: ($LOOP_CTR/$NBR_FILE) $KEY $ID $TYPE $NAME"
-        KEY_PR=$KEY
+    #
+    # extract attributes for each record
+    #
+    ID=${line_array[0]}
+    KEY=$(echo $ID | tr -d '>' | tr -d '<' | xargs basename )
+    TYPE=$(echo ${line_array[1]} | tr -d '>' | tr -d '<')
+    FN=$(echo ${line_array[3]} | tr -d '"' | upper_first_letter.sh)
+    LN=$(echo ${line_array[4]} | tr -d '"' | upper_first_letter.sh)
+    NAME="$FN $LN"
+    
+    if [[ "$KEY_PR" != "$KEY" ]]
+    then
+      create_person
+      popul_image
+    else
+      add_type_to_person    
+    fi
+    echo "Processing: ($LOOP_CTR/$NBR_RECORDS) $KEY $ID $TYPE $NAME"
+    KEY_PR=$KEY
 done
 wait
 echo Done popul_vivo_person.sh

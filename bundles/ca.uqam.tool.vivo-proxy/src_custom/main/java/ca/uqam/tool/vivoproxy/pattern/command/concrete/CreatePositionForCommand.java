@@ -22,7 +22,7 @@ public class CreatePositionForCommand extends Command {
 
     public CommandResult execute(Receiver vivo) {
         try {
-            result = ((VivoReceiver)vivo).setPositionOfPerson(positionOfPerson);
+            result = ((VivoReceiver)vivo).addPositionOfPerson(positionOfPerson);
             this.setCommandResult(result);
             return  result;
         } catch (IOException e) {

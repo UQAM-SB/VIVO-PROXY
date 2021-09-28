@@ -19,17 +19,20 @@ echo build name_title.tsv
 sparql --data=../resource/sample.ttl --query=$DEMO_RESOURCE/query/get_name_title.ql --results=TSV 2>/dev/null  > $DEMO_RESOURCE/data/name_title.tsv
 echo build organization.tsv
 sparql --data=../resource/sample.ttl --query=$DEMO_RESOURCE/query/get_organization.ql --results=text 2>/dev/null  > $DEMO_RESOURCE/data/organization.tsv
-
-popul_vivo_person.sh
-popul_vivo_organization.sh
-wait
-echo " build_table_datasource.sh DONE!"
-
-#echo build position.tsv
-#sparql --data=../resource/sample.ttl --query=$DEMO_RESOURCE/query/get_position.ql --results=TSV 2>/dev/null  > $DEMO_RESOURCE/data/position.tsv 
+echo build position.tsv
+sparql --data=../resource/sample.ttl --query=$DEMO_RESOURCE/query/get_position.ql --results=text 2>/dev/null  > $DEMO_RESOURCE/data/position.tsv 
 #echo build grant.tsv
 #sparql --data=../resource/sample.ttl --query=$DEMO_RESOURCE/query/get_grant.ql --results=TSV 2>/dev/null  > $DEMO_RESOURCE/data/grant.tsv 
 #echo build research.tsv
 #sparql --data=../resource/sample.ttl --query=$DEMO_RESOURCE/query/get_researchArea.ql --results=TSV 2>/dev/null  > $DEMO_RESOURCE/data/research.tsv 
  
 
+
+echo popul_vivo_person.sh
+popul_vivo_person.sh
+echo popul_vivo_organization.sh
+popul_vivo_organization.sh
+echo popul_position_for.sh
+popul_position_for.sh
+wait
+echo " build_table_datasource.sh DONE!"

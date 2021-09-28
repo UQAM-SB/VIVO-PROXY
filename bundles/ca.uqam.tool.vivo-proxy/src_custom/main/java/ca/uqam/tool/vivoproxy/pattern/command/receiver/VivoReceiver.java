@@ -11,6 +11,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import org.apache.commons.lang3.NotImplementedException;
+import org.apache.jena.query.Query;
+import org.apache.jena.query.QuerySolution;
+import org.apache.jena.query.ResultSet;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
 import org.eclipse.rdf4j.model.vocabulary.FOAF;
@@ -41,6 +44,7 @@ import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
 import ca.uqam.tool.vivoproxy.swagger.model.ResourceToResource;
 import ca.uqam.tool.vivoproxy.swagger.model.Statement;
 import ca.uqam.tool.vivoproxy.util.SemanticWebMediaType;
+import ca.uqam.tool.vivoproxy.util.SparqlHelper;
 import ca.uqam.vivo.vocabulary.VIVO;
 
 /**
@@ -53,38 +57,6 @@ import ca.uqam.vivo.vocabulary.VIVO;
  * @date 23 sept. 2021
  */
 public class VivoReceiver extends AbstractReceiver {
-	String SparqlPrefix = "PREFIX  crdc: <http://purl.org/uqam.ca/vocabulary/crdc_ccrd#> \n"+
-			" PREFIX  ocrer: <http://purl.org/net/OCRe/research.owl#> \n"+
-			" PREFIX  p3:   <http://vivoweb.org/ontology/vitroAnnotfr_CA#> \n"+
-			" PREFIX  owl:  <http://www.w3.org/2002/07/owl#> \n"+
-			" PREFIX  scires: <http://vivoweb.org/ontology/scientific-research#> \n"+
-			" PREFIX  xsd:  <http://www.w3.org/2001/XMLSchema#> \n"+
-			" PREFIX  swrlb: <http://www.w3.org/2003/11/swrlb#> \n"+
-			" PREFIX  skos: <http://www.w3.org/2004/02/skos/core#> \n"+
-			" PREFIX  rdfs: <http://www.w3.org/2000/01/rdf-schema#> \n"+
-			" PREFIX  ocresd: <http://purl.org/net/OCRe/study_design.owl#> \n"+
-			" PREFIX  swo:  <http://www.ebi.ac.uk/efo/swo/> \n"+
-			" PREFIX  cito: <http://purl.org/spar/cito/> \n"+
-			" PREFIX  geo:  <http://aims.fao.org/aos/geopolitical.owl#> \n"+
-			" PREFIX  ocresst: <http://purl.org/net/OCRe/statistics.owl#> \n"+
-			" PREFIX  dcterms: <http://purl.org/dc/terms/> \n"+
-			" PREFIX  vivo: <http://vivoweb.org/ontology/core#> \n"+
-			" PREFIX  text: <http://jena.apache.org/text#> \n"+
-			" PREFIX  event: <http://purl.org/NET/c4dm/event.owl#> \n"+
-			" PREFIX  vann: <http://purl.org/vocab/vann/> \n"+
-			" PREFIX  foaf: <http://xmlns.com/foaf/0.1/> \n"+
-			" PREFIX  c4o:  <http://purl.org/spar/c4o/> \n"+
-			" PREFIX  fabio: <http://purl.org/spar/fabio/> \n"+
-			" PREFIX  swrl: <http://www.w3.org/2003/11/swrl#> \n"+
-			" PREFIX  vcard: <http://www.w3.org/2006/vcard/ns#> \n"+
-			" PREFIX  crdc-data: <http://purl.org/uqam.ca/vocabulary/crdc-ccrd/individual#> \n"+
-			" PREFIX  vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#> \n"+
-			" PREFIX  vitro-public: <http://vitro.mannlib.cornell.edu/ns/vitro/public#> \n"+
-			" PREFIX  rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n"+
-			" PREFIX  ocresp: <http://purl.org/net/OCRe/study_protocol.owl#> \n"+
-			" PREFIX  bibo: <http://purl.org/ontology/bibo/> \n"+
-			" PREFIX  obo:  <http://purl.obolibrary.org/obo/> \n"+
-			" PREFIX  ro:   <http://purl.obolibrary.org/obo/ro.owl#> \n";
 	public static final String FOAF_PERSON = "http://xmlns.com/foaf/0.1/Person";
 	public static final String OBO_RO_0000053 = "http://purl.obolibrary.org/obo/RO_0000053";
 	public static final String NEW_INDIVIDUAL_FORM_GENERATOR = "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.VIVONewIndividualFormGenerator";
@@ -172,61 +144,6 @@ public class VivoReceiver extends AbstractReceiver {
 		return CommandResult.asCommandResult(response);
 	}
 
-	/**
-	 * @param organisationName
-	 * @param vivoOrganisationType
-	 * @return
-	 * @throws IOException
-	 */
-	public CommandResult addOrganization(Organization organization) throws IOException {
-		List<LinguisticLabel> names = organization.getNames();
-		int nameCtr = 0;
-		String orgIRI = null;
-		CommandResult returnVal = null;
-		Response orgResp=null;;
-		String resultString = null;
-		for (Iterator iterator = names.iterator(); iterator.hasNext();) {
-			nameCtr++;
-			LinguisticLabel name = (LinguisticLabel) iterator.next();
-			if (nameCtr==1){
-				VivoReceiverHelper.changeLinguisticContext(getHostName()+"/"+getVivoSiteName(), getHttpClient(), name.getLanguage());
-				Response response = VivoReceiverHelper.gotoAdminPage(getHostName()+"/"+getVivoSiteName(), getHttpClient());
-				editKey = VivoReceiverHelper.getEditKey(getHostName()+"/"+getVivoSiteName(), getHttpClient(), organization.getOrganizationType());
-				HttpUrl url = HttpUrl.parse(getSiteUrl() +"/edit/process").newBuilder()
-						.addQueryParameter("label", name.getLabel())
-						.addQueryParameter("editKey", editKey)
-						.build();
-				HttpUrl referedUrl = HttpUrl.parse(getSiteUrl() +"/editRequestDispatch").newBuilder()
-						.addQueryParameter("editForm", NEW_INDIVIDUAL_FORM_GENERATOR)
-						.addQueryParameter("typeOfNew", organization.getOrganizationType())
-						.build();
-
-				Request request = new Request.Builder()
-						//                .url("http://192.168.7.23:8080/vivo/edit/process?label=Coll%C3%A8ge+de+Hull&editKey=44278894")
-						.url(url)
-						.method("GET", null)
-						.addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
-						.addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
-						.addHeader("Connection", "keep-alive")
-						.addHeader("Referer", referedUrl.toString())
-						.addHeader("Upgrade-Insecure-Requests", "1")
-						.build();
-				LOGGER.info("Sending "+ name.getLabel() );
-				orgResp = getHttpClient().newCall(request).execute();
-				resultString = orgResp.body().string();
-				if (names.size() < 2 ){
-					return CommandResult.asCommandResult(resultString);
-				} else {
-					orgIRI = VivoReceiverHelper.getUriResponse(resultString);
-				}
-			} else {
-				List<LinguisticLabel> labels=new ArrayList<LinguisticLabel>();
-				labels.add(name);
-				returnVal = addLabels(orgIRI, labels);
-			}
-		}
-		return CommandResult.asCommandResult(resultString);
-	}
 
 	/* (non-Javadoc)
 	 * @see ca.uqam.tool.vivoproxy.pattern.command.CommandResult#getSiteUrl()
@@ -525,53 +442,187 @@ public class VivoReceiver extends AbstractReceiver {
 		//		response = getHttpClient().newCall(request).execute();
 		//		return CommandResult.asCommandResult(response);       
 	}
-
-	public CommandResult setPositionOfPerson(PositionOfPerson body) throws IOException{
-		/* 
-		 * Goto individual page
+	/**
+	 * @param organisationName
+	 * @param vivoOrganisationType
+	 * @return
+	 * @throws IOException
+	 */
+	public CommandResult addOrganization(Organization organization) throws IOException {
+		List<LinguisticLabel> names = organization.getNames();
+		int nameCtr = 0;
+		String orgIRI = null;
+		CommandResult returnVal = null;
+		Response orgResp=null;;
+		String resultString = null;
+		/**
+		 * Iterate for each langiages
 		 */
-		Response response = VivoReceiverHelper.gotoIndividualPage(getHostName()+"/"+getVivoSiteName(), getHttpClient(), body.getPersonIRI());
-		/*
-		 * Get the Edit Key for this operation
+		for (Iterator iterator = names.iterator(); iterator.hasNext();) {
+			nameCtr++;
+			LinguisticLabel name = (LinguisticLabel) iterator.next();
+			if (nameCtr==1){
+				/**
+				 * Set Vivo to appropriate linguistic context
+				 */
+				VivoReceiverHelper.changeLinguisticContext(getHostName()+"/"+getVivoSiteName(), getHttpClient(), name.getLanguage());
+				/*
+				 * Get editKey
+				 */
+				Response response = VivoReceiverHelper.gotoAdminPage(getHostName()+"/"+getVivoSiteName(), getHttpClient());
+				editKey = VivoReceiverHelper.getEditKey(getHostName()+"/"+getVivoSiteName(), getHttpClient(), organization.getOrganizationType());
+				HttpUrl url = HttpUrl.parse(getSiteUrl() +"/edit/process").newBuilder()
+						.addQueryParameter("label", name.getLabel())
+						.addQueryParameter("editKey", editKey)
+						.build();
+				/*
+				 * Create an Organization
+				 */
+				HttpUrl referedUrl = HttpUrl.parse(getSiteUrl() +"/editRequestDispatch").newBuilder()
+						.addQueryParameter("editForm", NEW_INDIVIDUAL_FORM_GENERATOR)
+						.addQueryParameter("typeOfNew", organization.getOrganizationType())
+						.build();
+
+				Request request = new Request.Builder()
+						//                .url("http://192.168.7.23:8080/vivo/edit/process?label=Coll%C3%A8ge+de+Hull&editKey=44278894")
+						.url(url)
+						.method("GET", null)
+						.addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+						.addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
+						.addHeader("Connection", "keep-alive")
+						.addHeader("Referer", referedUrl.toString())
+						.addHeader("Upgrade-Insecure-Requests", "1")
+						.build();
+				LOGGER.info("Sending "+ name.getLabel() );
+				orgResp = getHttpClient().newCall(request).execute();
+				resultString = orgResp.body().string();
+				if (names.size() < 2 ){
+					/*
+					 * Case if only one language are defined
+					 * Get result and exit
+					 */
+					return CommandResult.asCommandResult(resultString);
+				} else {
+					/*
+					 * in case of more than one language
+					 */
+					orgIRI = VivoReceiverHelper.getUriResponse(resultString);
+				}
+			} else {
+				/*
+				 * For other language do addLabels
+				 */
+				List<LinguisticLabel> labels=new ArrayList<LinguisticLabel>();
+				labels.add(name);
+				returnVal = addLabels(orgIRI, labels);
+			}
+		}
+		return CommandResult.asCommandResult(resultString);
+	}
+
+	public CommandResult addPositionOfPerson(PositionOfPerson position) throws IOException
+	{
+		List<LinguisticLabel> posTitleList = position.getPositionTitleLabel();
+		int posCtr = 0;
+		String orgIRI = null;
+		CommandResult returnVal = null;
+		Response orgResp=null;;
+		String resultString = null;
+		LinguisticLabel firstTitle = null;
+		/**
+		 * Iterate for each languages
 		 */
-		EditKeyForPosition editKeyVar = new EditKeyForPosition();
-		editKeyVar.setSubjectUri(body.getPersonIRI()); 
-		editKeyVar.setPredicateUri(VIVO.relatedBy.getURI());
-		editKeyVar.setDomainUri(FOAF.PERSON.stringValue());
-		editKeyVar.setRangeUri(VIVO.Position.getURI());
-		editKey = VivoReceiverHelper.getEditKey(getHostName()+"/"+getVivoSiteName(), getHttpClient(),editKeyVar);
+		for (Iterator iterator = posTitleList.iterator(); iterator.hasNext();) {
+			posCtr++;
+			LinguisticLabel posTitle = (LinguisticLabel) iterator.next();
+			if (posCtr==1){
+				/**
+				 * Set Vivo to appropriate linguistic context
+				 */
+				VivoReceiverHelper.changeLinguisticContext(getHostName()+"/"+getVivoSiteName(), getHttpClient(), posTitle.getLanguage());
+				/*
+				 * Get editKey
+				 */
 
-		HttpUrl url = HttpUrl.parse(getSiteUrl() +"/edit/process").newBuilder()
-				.addQueryParameter("orgType", body.getVivoOrganisationTypeIRI())
-				.addQueryParameter("orgLabel", "")
-				.addQueryParameter("orgLabelDisplay", body.getOrganisationLabel())
-				.addQueryParameter("existingOrg", body.getOrganisationIRI())
-				.addQueryParameter("positionTitle", body.getPositionTitleLabel())
-				.addQueryParameter("positionType", body.getPositionTypeIRI())
-				.addQueryParameter("startField-year", body.getStartFieldYear())
-				.addQueryParameter("endField-year", body.getEndFieldYear())
-				.addQueryParameter("editKey", editKey)
-				.addQueryParameter("submit-Create", "Create+Entry")
-				.build();
-		HttpUrl refererUrl = HttpUrl.parse(getSiteUrl() +"/editRequestDispatch").newBuilder()
-				.addQueryParameter("subjectUri", editKeyVar.getSubjectUri())
-				.addQueryParameter("predicateUri", editKeyVar.getPredicateUri())
-				.addQueryParameter("domainUri", editKeyVar.getDomainUri())
-				.addQueryParameter("rangeUri", editKeyVar.getRangeUri())
-				.build();
+				/* 
+				 * Goto individual page
+				 */
+				Response response = VivoReceiverHelper.gotoIndividualPage(getHostName()+"/"+getVivoSiteName(), getHttpClient(), position.getPersonIRI());
+				/*
+				 * Get the Edit Key for this operation
+				 */
+				EditKeyForPosition editKeyVar = new EditKeyForPosition();
+				editKeyVar.setSubjectUri(position.getPersonIRI()); 
+				editKeyVar.setPredicateUri(VIVO.relatedBy.getURI());
+				editKeyVar.setDomainUri(FOAF.PERSON.stringValue());
+				editKeyVar.setRangeUri(VIVO.Position.getURI()); 
+				editKey = VivoReceiverHelper.getEditKey(getHostName()+"/"+getVivoSiteName(), getHttpClient(),editKeyVar);
 
-		Request request = new Request.Builder()
-				.url(url.toString())
-				.method("GET", null)
-				.addHeader("User-Agent", "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0")
-				.addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
-				.addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
-				.addHeader("Connection", "keep-alive")
-				.addHeader("Referer", refererUrl.toString())
-				.addHeader("Upgrade-Insecure-Requests", "1")
-				.build();
-		response = getHttpClient().newCall(request).execute();
-		return CommandResult.asCommandResult(response);       
+				HttpUrl url = HttpUrl.parse(getSiteUrl() +"/edit/process").newBuilder()
+						.addQueryParameter("orgType", FOAF.ORGANIZATION.stringValue())
+						//				.addQueryParameter("orgLabel", "")
+						//				.addQueryParameter("orgLabelDisplay", "Fondation nationale des sciences")
+						.addQueryParameter("existingOrg", position.getOrganisationIRI())
+						.addQueryParameter("positionTitle", posTitle.getLabel())
+						.addQueryParameter("positionType", position.getPositionTypeIRI())
+						.addQueryParameter("startField-year", position.getStartFieldYear())
+						.addQueryParameter("endField-year", position.getEndFieldYear())
+						.addQueryParameter("editKey", editKey)
+						.addQueryParameter("submit-Create", "Create+Entry")
+						.build();
+				HttpUrl refererUrl = HttpUrl.parse(getSiteUrl() +"/editRequestDispatch").newBuilder()
+						.addQueryParameter("subjectUri", editKeyVar.getSubjectUri())
+						.addQueryParameter("predicateUri", editKeyVar.getPredicateUri())
+						.addQueryParameter("domainUri", editKeyVar.getDomainUri())
+						.addQueryParameter("rangeUri", editKeyVar.getRangeUri())
+						.build();
+
+				Request request = new Request.Builder()
+						.url(url.toString())
+						.method("GET", null)
+						.addHeader("User-Agent", "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0")
+						.addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+						.addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
+						.addHeader("Connection", "keep-alive")
+						.addHeader("Referer", refererUrl.toString())
+						.addHeader("Upgrade-Insecure-Requests", "1")
+						.build();
+				orgResp = getHttpClient().newCall(request).execute();
+				/*
+				 * Find IRI for Position
+				 */
+				String getPosIRIQuery = SparqlHelper.SparqlPrefix +
+						  "SELECT ?posIRI \n"
+						+ "WHERE { \n"
+						+ " 	<"+position.getPersonIRI()+"> vivo:relatedBy ?posIRI . \n"
+						+ " 	?posIRI a <"+position.getPositionTypeIRI()+"> ;  \n"
+						+ " 			rdfs:label ?label . \n"
+						+ " 	filter(regex(str(?label), \""+posTitle.getLabel() + "\" )) . \n"
+						+ " } ";
+				List<QuerySolution> solResult = SparqlHelper.sendSelectQuery(getSiteUrl(), getPosIRIQuery);
+				try {
+					orgIRI = solResult.get(0).get("posIRI").asResource().getURI();
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+//				for (Iterator iterator2 = solResult.iterator(); iterator2.hasNext();) {
+//					QuerySolution querySolution = (QuerySolution) iterator2.next();
+//					System.out.println(querySolution.toString());
+//				}
+
+				if (posTitleList.size() < 2 ){
+					return CommandResult.asCommandResult(orgIRI);
+				} 
+			} else {
+				/*
+				 * For other language do addLabels
+				 */
+				List<LinguisticLabel> labels=new ArrayList<LinguisticLabel>();
+				labels.add(posTitle);
+				returnVal = addLabels(orgIRI, labels);
+			}
+		}
+		return CommandResult.asCommandResult(orgIRI);
 
 	}
 
@@ -719,7 +770,7 @@ public class VivoReceiver extends AbstractReceiver {
 		Response response = client.newCall(request).execute();
 		return CommandResult.asCommandResult(response);
 	}
-	
+
 	/**
 	 * @param IRI
 	 * @param labels
@@ -978,7 +1029,7 @@ public class VivoReceiver extends AbstractReceiver {
 	 * @throws IOException
 	 */
 	public CommandResult DescribeByLabel(String login, String passwd, String label, String MIME_Type) throws IOException {
-		String describeQuery = this.SparqlPrefix + " describe ?s \n"+
+		String describeQuery = SparqlHelper.SparqlPrefix + " describe ?s \n"+
 				" where { \n"+
 				" ?s rdfs:label ?label . \n"+
 				" FILTER (LCASE(STR(?label))=LCASE(STR(\""+label+"\"))) \n"+

@@ -101,9 +101,9 @@ public class CommandTest {
 		pop.setOrganisationIRI("http://localhost:8080/vivo/individual/n7843");
 		pop.setVivoOrganisationTypeIRI(VIVO.University.getURI());
 		pop.setPersonIRI("http://localhost:8080/vivo/individual/n492");
-		pop.setPositionTitleLabel("Professeur");
+//		pop.setPositionTitleLabel("Professeur");
 		pop.setPositionTypeIRI(VIVO.FacultyPosition.getURI());
-		pop.setOrganisationLabel(U_Title);
+//		pop.setOrganisationLabel(U_Title);
 		invoker.register(cf.createPositionFor(pop ));
 		invoker.register(cf.createLogout());
 		invoker.execute();

@@ -13,16 +13,19 @@
 package ca.uqam.tool.vivoproxy.swagger.model;
 
 import java.util.Objects;
+import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.util.ArrayList;
+import java.util.List;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
 
 /**
  * PositionOfPerson
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-09-23T15:01:20.517-04:00[America/New_York]")public class PositionOfPerson   {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-09-26T07:33:17.171-04:00[America/New_York]")public class PositionOfPerson   {
   @JsonProperty("personIRI")
   private String personIRI = null;
 
@@ -30,10 +33,10 @@ import javax.validation.Valid;
   private String organisationIRI = null;
 
   @JsonProperty("organisationLabel")
-  private String organisationLabel = null;
+  private List<LinguisticLabel> organisationLabel = new ArrayList<LinguisticLabel>();
 
   @JsonProperty("positionTitleLabel")
-  private String positionTitleLabel = null;
+  private List<LinguisticLabel> positionTitleLabel = new ArrayList<LinguisticLabel>();
 
   @JsonProperty("positionTypeIRI")
   private String positionTypeIRI = null;
@@ -87,8 +90,13 @@ import javax.validation.Valid;
     this.organisationIRI = organisationIRI;
   }
 
-  public PositionOfPerson organisationLabel(String organisationLabel) {
+  public PositionOfPerson organisationLabel(List<LinguisticLabel> organisationLabel) {
     this.organisationLabel = organisationLabel;
+    return this;
+  }
+
+  public PositionOfPerson addOrganisationLabelItem(LinguisticLabel organisationLabelItem) {
+    this.organisationLabel.add(organisationLabelItem);
     return this;
   }
 
@@ -97,18 +105,24 @@ import javax.validation.Valid;
    * @return organisationLabel
    **/
   @JsonProperty("organisationLabel")
-  @Schema(example = "Harvard University", required = true, description = "")
+  @Schema(example = "[{\"label\":\"Université Harvard\",\"language\":\"fr-CA\"},{\"label\":\"Harvard University\",\"language\":\"en-US\"}]", required = true, description = "")
   @NotNull
-  public String getOrganisationLabel() {
+  @Valid
+  public List<LinguisticLabel> getOrganisationLabel() {
     return organisationLabel;
   }
 
-  public void setOrganisationLabel(String organisationLabel) {
+  public void setOrganisationLabel(List<LinguisticLabel> organisationLabel) {
     this.organisationLabel = organisationLabel;
   }
 
-  public PositionOfPerson positionTitleLabel(String positionTitleLabel) {
+  public PositionOfPerson positionTitleLabel(List<LinguisticLabel> positionTitleLabel) {
     this.positionTitleLabel = positionTitleLabel;
+    return this;
+  }
+
+  public PositionOfPerson addPositionTitleLabelItem(LinguisticLabel positionTitleLabelItem) {
+    this.positionTitleLabel.add(positionTitleLabelItem);
     return this;
   }
 
@@ -117,13 +131,14 @@ import javax.validation.Valid;
    * @return positionTitleLabel
    **/
   @JsonProperty("positionTitleLabel")
-  @Schema(example = "Professor", required = true, description = "")
+  @Schema(example = "[{\"label\":\"Professeur\",\"language\":\"fr-CA\"},{\"label\":\"Professor\",\"language\":\"en-US\"}]", required = true, description = "")
   @NotNull
-  public String getPositionTitleLabel() {
+  @Valid
+  public List<LinguisticLabel> getPositionTitleLabel() {
     return positionTitleLabel;
   }
 
-  public void setPositionTitleLabel(String positionTitleLabel) {
+  public void setPositionTitleLabel(List<LinguisticLabel> positionTitleLabel) {
     this.positionTitleLabel = positionTitleLabel;
   }
 

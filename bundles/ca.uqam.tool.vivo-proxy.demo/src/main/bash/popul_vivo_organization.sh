@@ -10,7 +10,7 @@
 # Copyright     : Université du Québec à Montréal (c) 2021
 # Email         : heon.michel@uqam.ca
 ###################################################################
-NBR_FILE=$(find $SRC_DEPT_NAME -name "*.xml" | wc -l)
+NBR_RECORDS=$(find $SRC_DEPT_NAME -name "*.xml" | wc -l)
 create_organization () {
         PARAM_JSON=$(mktemp --suffix=.json)
         cat << EOF > $PARAM_JSON
@@ -58,8 +58,9 @@ EOF
 }
 
 KEY_PR="VOID"
-NBR_FILE=$(cat $DEMO_RESOURCE/data/organization.tsv |  sed 1,1d  | wc -l) 
-cat $DEMO_RESOURCE/data/organization.tsv | sed 1,3d | head -n -1 | while IFS=$'|' read -r -a line_array ; do
+TSV_FILENAME=$DEMO_RESOURCE/data/organization.tsv
+NBR_RECORDS=$(cat $TSV_FILENAME | sed 1,3d | head -n -1  | wc -l) 
+cat $TSV_FILENAME | sed 1,3d | head -n -1 | while IFS=$'|' read -r -a line_array ; do
     ((LOOP_CTR=LOOP_CTR+1))
     ID=${line_array[1]}
     KEY=$(echo $ID | tr -d '>' | tr -d '<' | xargs basename )
@@ -74,7 +75,7 @@ cat $DEMO_RESOURCE/data/organization.tsv | sed 1,3d | head -n -1 | while IFS=$'|
     else # updating type information for previous organization   
           add_type  
     fi
-    echo "Processing: ($LOOP_CTR/$NBR_FILE) KEY=$KEY ID=$ID TYPE=$TYPE ($NAME_FR) ($NAME_EN)"
+    echo "Processing: ($LOOP_CTR/$NBR_RECORDS) KEY=$KEY ID=$ID TYPE=$TYPE ($NAME_FR) ($NAME_EN)"
     KEY_PR=$KEY
 done
 wait

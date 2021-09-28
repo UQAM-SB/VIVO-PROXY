@@ -174,10 +174,13 @@ public class PersonApiServiceImpl extends PersonApiService {
 			invoker.register(createPositionForCmd);
 			invoker.register(logOutCommand);
 			invoker.execute();
-			String sparqlResp = createPositionForCmd.getCommandResult().getOkhttpResult().body().string();
+//			String sparqlResp = createPositionForCmd.getCommandResult().getOkhttpResult().body().string();
+//			String newUserIri = VivoReceiverHelper.getUriResponse(addOrganisationCommand.getCommandResult().getResult().toString());
+
+			String newUserIri = createPositionForCmd.getCommandResult().getResult().toString();
 			ModelAPIResponse apiResp = new ModelAPIResponse();
-			apiResp.setIrIValue(posOfPers.getPersonIRI());
-			apiResp.setViVOMessage(sparqlResp);
+			apiResp.setIrIValue(newUserIri);
+			apiResp.setViVOMessage("for person " + posOfPers.getPersonIRI());
 			apiResp.setCode(ApiResponseMessage.OK);
 			apiResp.setType(new ApiResponseMessage(ApiResponseMessage.OK,"").getType());
 			Response apiResponse = Response.ok().entity(apiResp).build();

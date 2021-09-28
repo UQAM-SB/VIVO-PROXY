@@ -665,10 +665,9 @@ components:
       required:
         - personIRI
         - organisationIRI
-        - organisationLabel
         - positionTitleLabel
         - positionTypeIRI
-        - vivoOrganisationTypeIRI
+#        - vivoOrganisationTypeIRI
       type: object
       properties:
         personIRI:
@@ -677,18 +676,27 @@ components:
         organisationIRI:
           type: string
           example: http://localhost:8080/vivo/individual/n4762
-        organisationLabel:
-          type: string
-          example: Harvard University
         positionTitleLabel:
-          type: string
-          example: Professor
+          items:
+            $ref: '#/components/schemas/linguisticLabel'
+          example: [
+                    {
+                      "label": "Professeur",
+                      "language": "fr-CA"
+                    },
+                    {
+                      "label": "Professor",
+                      "language": "en-US"
+                    }
+                  ]
         positionTypeIRI:
           type: string
-          example: http://vivoweb.org/ontology/core#FacultyPosition
-        vivoOrganisationTypeIRI:
-          type: string
-          example: http://vivoweb.org/ontology/core#University
+          example: http://vivoweb.org/ontology/core#Position
+          default: http://vivoweb.org/ontology/core#Position
+#        vivoOrganisationTypeIRI:
+#          type: string
+#          example: http://xmlns.com/foaf/0.1/Organization
+#          default: http://xmlns.com/foaf/0.1/Organization
         startField_year:
           type: string
         endField_year:
