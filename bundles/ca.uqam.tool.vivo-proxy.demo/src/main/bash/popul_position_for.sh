@@ -12,7 +12,7 @@ source $BASH_HOME/env.sh
 # Copyright     : Université du Québec à Montréal (c) 2021
 # Email         : heon.michel@uqam.ca
 ###################################################################
-TSV_FILENAME=$DEMO_RESOURCE/data/position.tsv
+DATA_FILENAME=$DEMO_RESOURCE/data/position.txt
 create_position () {
     echo "    PERS_IRI=($PERS_IRI) ORG_IRI=($ORG_IRI)"
     DATA_JSON=$(mktemp --suffix=.json)
@@ -65,8 +65,8 @@ EOF
 
 KEY_PR="VOID"
 ORG_PR="VOID"
-NBR_RECORDS=$(cat $TSV_FILENAME | sed 1,3d | head -n -1 | wc -l) 
-cat $TSV_FILENAME | sed 1,3d | head -n -1 | while IFS=$'|' read -r -a line_array ; do
+NBR_RECORDS=$(cat $DATA_FILENAME | sed 1,3d | head -n -1 | wc -l) 
+cat $DATA_FILENAME | sed 1,3d | head -n -1 | while IFS=$'|' read -r -a line_array ; do
     ((LOOP_CTR=LOOP_CTR+1))
     #
     # extract attributes for each record

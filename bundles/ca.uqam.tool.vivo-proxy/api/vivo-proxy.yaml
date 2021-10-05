@@ -9,7 +9,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE2.0.html
-  version: 1.0.0
+  version: 1.0.0 - 2021-10-05
 externalDocs:
   description: Find out more about VIVO
   url: https://duraspace.org/vivo/
@@ -28,7 +28,7 @@ tags:
 - name: organization
   description: Operations about Organization in VIVO
 paths:
-  /concept:
+  /concept/withIRI:
     post:
       tags:
       - concept
@@ -43,6 +43,51 @@ paths:
                 $ref: '#/components/schemas/concept'
             example: {
                         "IRI": "http://purl.org/uqam.ca/vocabulary/expertise#semanticweb",
+                        "labels": [
+                            {
+                              "label": "semantic web",
+                              "language": "en-US"
+                            },
+                           {
+                            "label": "web sémantique",
+                            "language": "fr-CA"
+                          }
+                        ]
+                      }  
+        required: true
+      responses:
+        200:
+          description: OK (successfully authenticated)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API-Response'
+        401:
+          description: Authentication information is missing or invalid
+          headers:
+            WWW_Authenticate:
+              schema:
+                type: string
+          content: {}
+        405:
+          description: Invalid input
+      security:
+      - basicAuth: []
+      x-codegen-request-body-name: body
+  /concept/createIRI:
+    post:
+      tags:
+      - concept
+      summary: Create a concept(skos:Concept) in VIVO with created IRI
+      description: This can only be done by the logged in person.
+      operationId: createConceptWithNewIRI
+      requestBody:
+        description: Created skos concept
+        content:
+          application/json:
+            schema:
+                $ref: '#/components/schemas/linguisticLabel'
+            example: {
                         "labels": [
                             {
                               "label": "semantic web",

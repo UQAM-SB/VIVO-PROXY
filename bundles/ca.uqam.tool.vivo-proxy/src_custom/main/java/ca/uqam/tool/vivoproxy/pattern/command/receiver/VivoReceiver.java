@@ -449,6 +449,49 @@ public class VivoReceiver extends AbstractReceiver {
 	 * @throws IOException
 	 */
 	public CommandResult addOrganization(Organization organization) throws IOException {
+		String orgType = organization.getOrganizationType();
+		String updateConceptQuery = SparqlHelper.SparqlPrefix 
+				+ "INSERT { GRAPH <> { \n"
+				+ "?orgIRI a foaf:Agent , foaf:Organization ,  obo:BFO_0000004 , obo:BFO_0000001 , obo:BFO_0000002 , owl:Thing, <"+ orgType +"> . \n";
+		
+		List<LinguisticLabel> labels = organization.getNames();
+		for (Iterator iterator = labels.iterator(); iterator.hasNext();) {
+			LinguisticLabel aLabel = (LinguisticLabel) iterator.next();
+			String subject = "?orgIRI ";
+			String predicate = "<http://www.w3.org/2000/01/rdf-schema#label> ";
+			String object = "\"" +aLabel.getLabel() +"\"@"+aLabel.getLanguage() + " . \n";
+			updateConceptQuery+= subject;
+			updateConceptQuery+= predicate;
+			updateConceptQuery+= object;
+		}		
+		updateConceptQuery += "} } WHERE \n{ <http://localhost:8080/vivo/individual/n> sfnc:hasNewIRI ?orgIRI } " ;
+
+		String bodyValue = 
+				"email="+LOGIN.getUserName()+
+				"&password="+LOGIN.getPasswd()+ 
+				"&update="+updateConceptQuery;
+		System.out.println(bodyValue);
+		OkHttpClient client = new OkHttpClient();
+		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+		RequestBody body = RequestBody.create(mediaType, bodyValue);
+		Request request = new Request.Builder()
+				.url(getSiteUrl()+"/api/sparqlUpdate")
+				.method("POST", body)
+				.addHeader("Accept", SemanticWebMediaType.APPLICATION_RDF_XML.toString())
+				.addHeader("Content-Type", "application/x-www-form-urlencoded")
+				.build();
+		Response response = client.newCall(request).execute();
+		return CommandResult.asCommandResult(response);
+
+		
+	}
+	/**
+	 * @deprecated
+	 * @param organization
+	 * @return
+	 * @throws IOException
+	 */
+	public CommandResult addOrganization_(Organization organization) throws IOException {
 		List<LinguisticLabel> names = organization.getNames();
 		int nameCtr = 0;
 		String orgIRI = null;
@@ -521,6 +564,102 @@ public class VivoReceiver extends AbstractReceiver {
 	}
 
 	public CommandResult addPositionOfPerson(PositionOfPerson position) throws IOException
+	{
+		String posType = position.getPositionTypeIRI();
+		int posCtr = 0;
+		CommandResult returnVal = null;
+		Response orgResp=null;;
+		String resultString = null;
+		LinguisticLabel firstTitle = null;
+		
+		String updateConceptQuery = SparqlHelper.SparqlPrefix 
+				+ "INSERT { GRAPH <> { \n"
+				+ "   ?newIRI a <"+ posType +"> , owl:Thing , vivo:Position, vivo:Relationship , obo:BFO_0000020 , obo:BFO_0000001 , obo:BFO_0000002  . \n"
+				+ "   ?newIRI vitro:mostSpecificType  <"+ posType +"> . \n";
+
+		List<LinguisticLabel> labels = position.getPositionTitleLabel();
+		for (Iterator iterator = labels.iterator(); iterator.hasNext();) {
+			LinguisticLabel aLabel = (LinguisticLabel) iterator.next();
+			String subject = "    ?newIRI ";
+			String predicate = "<http://www.w3.org/2000/01/rdf-schema#label> ";
+			String object = "\"" +aLabel.getLabel() +"\"@"+aLabel.getLanguage() + " . \n";
+			updateConceptQuery+= subject;
+			updateConceptQuery+= predicate;
+			updateConceptQuery+= object;
+		}		
+		String persIRI = position.getPersonIRI();
+		updateConceptQuery+= "<"+ persIRI +"> vivo:relatedBy  ?newIRI . \n";
+		updateConceptQuery+= " ?newIRI vivo:relates  <"+ persIRI +">  . \n";
+		String orgIRI = position.getOrganisationIRI();
+		updateConceptQuery+= " ?newIRI vivo:relates  <"+ orgIRI +">  . \n";
+		
+		String startYear = position.getStartFieldYear();
+		String endYear = position.getEndFieldYear();
+		if (startYear!=null && !startYear.isEmpty() || (endYear!=null && !endYear.isEmpty()) ) {
+			updateConceptQuery+= " ?newIRI vivo:dateTimeInterval  ?dateTimeIntervalIRI  . \n";
+			updateConceptQuery+= " ?dateTimeIntervalIRI  a  owl:Thing , obo:BFO_0000038 , obo:BFO_0000001 , obo:BFO_0000008 , obo:BFO_0000003 , vivo:DateTimeInterval  . \n" ;
+			updateConceptQuery+= " ?dateTimeIntervalIRI vitro:mostSpecificType  vivo:DateTimeInterval . \n" ;
+		}
+		if (startYear!=null && !startYear.isEmpty()) {
+			updateConceptQuery+= " ?dateTimeIntervalIRI vivo:start  ?startYearIRI  . \n";
+			updateConceptQuery+= " ?startYearIRI  a  owl:Thing , obo:BFO_0000148 , obo:BFO_0000001 , obo:BFO_0000008 , obo:BFO_0000003 , vivo:DateTimeValue  . \n" ;
+			updateConceptQuery+= " ?startYearIRI vitro:mostSpecificType  vivo:DateTimeValue . \n" ;
+			updateConceptQuery+= " ?startYearIRI vivo:dateTimePrecision  vivo:yearPrecision . \n" ;
+			updateConceptQuery+= " ?startYearIRI vivo:dateTime \"" +startYear +"\"^^xsd:dateTime . \n" ;
+		}
+		if (endYear!=null && !endYear.isEmpty()) {
+			updateConceptQuery+= " ?dateTimeIntervalIRI vivo:end  ?endYearIRI  . \n";
+			updateConceptQuery+= " ?endYearIRI  a  owl:Thing , obo:BFO_0000148 , obo:BFO_0000001 , obo:BFO_0000008 , obo:BFO_0000003 , vivo:DateTimeValue  . \n" ;
+			updateConceptQuery+= " ?endYearIRI vitro:mostSpecificType  vivo:DateTimeValue . \n" ;
+			updateConceptQuery+= " ?endYearIRI vivo:dateTimePrecision  vivo:yearPrecision . \n" ;
+			updateConceptQuery+= " ?endYearIRI vivo:dateTime \"" +endYear +"\"^^xsd:dateTime . \n" ;
+		}
+
+		/*
+		 * Build Where Clause
+		 */
+		updateConceptQuery += "} } WHERE { \n"
+				+ "    <http://localhost:8080/vivo/individual/n> sfnc:hasNewIRI ?newIRI . \n";
+		if (startYear!=null && !startYear.isEmpty() || (endYear!=null && !endYear.isEmpty()) ) {
+			updateConceptQuery += "    <http://localhost:8080/vivo/individual/n> sfnc:hasNewIRI ?dateTimeIntervalIRI . \n";
+		}
+		if (startYear!=null && !startYear.isEmpty()) {
+			updateConceptQuery += "    <http://localhost:8080/vivo/individual/n> sfnc:hasNewIRI ?startYearIRI . \n";
+		}
+		if (endYear!=null && !endYear.isEmpty()) {
+			updateConceptQuery += "    <http://localhost:8080/vivo/individual/n> sfnc:hasNewIRI ?endYearIRI . \n";
+		}
+
+		updateConceptQuery += "} " ;
+		String bodyValue = 
+				"email="+LOGIN.getUserName()+
+				"&password="+LOGIN.getPasswd()+ 
+				"&update="+updateConceptQuery;
+		System.out.println(updateConceptQuery);
+//		if (true ) return null;
+		OkHttpClient client = new OkHttpClient();
+		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+		RequestBody body = RequestBody.create(mediaType, bodyValue);
+		Request request = new Request.Builder()
+				.url(getSiteUrl()+"/api/sparqlUpdate")
+				.method("POST", body)
+				.addHeader("Accept", SemanticWebMediaType.APPLICATION_RDF_XML.toString())
+				.addHeader("Content-Type", "application/x-www-form-urlencoded")
+				.build();
+		Response response = client.newCall(request).execute();
+		return CommandResult.asCommandResult(response);
+
+		
+		
+		
+	}
+	/**
+	 * @deprecated
+	 * @param position
+	 * @return
+	 * @throws IOException
+	 */
+	public CommandResult addPositionOfPerson_(PositionOfPerson position) throws IOException
 	{
 		List<LinguisticLabel> posTitleList = position.getPositionTitleLabel();
 		int posCtr = 0;

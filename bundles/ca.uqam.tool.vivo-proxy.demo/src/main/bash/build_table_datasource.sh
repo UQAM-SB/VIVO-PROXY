@@ -18,9 +18,12 @@ riot --output=TTL --rdfs=$DEMO_RESOURCE/vivo.nt  $SAMPLE_DATA/i18n/sample-data-i
 echo build name_title.tsv
 sparql --data=../resource/sample.ttl --query=$DEMO_RESOURCE/query/get_name_title.ql --results=TSV 2>/dev/null  > $DEMO_RESOURCE/data/name_title.tsv
 echo build organization.tsv
-sparql --data=../resource/sample.ttl --query=$DEMO_RESOURCE/query/get_organization.ql --results=text 2>/dev/null  > $DEMO_RESOURCE/data/organization.tsv
+sparql --data=../resource/sample.ttl --query=$DEMO_RESOURCE/query/get_organization.ql --results=text 2>/dev/null  > $DEMO_RESOURCE/data/organization.txt
 echo build position.tsv
-sparql --data=../resource/sample.ttl --query=$DEMO_RESOURCE/query/get_position.ql --results=text 2>/dev/null  > $DEMO_RESOURCE/data/position.tsv 
+sparql --data=../resource/sample.ttl --query=$DEMO_RESOURCE/query/get_position.ql --results=text 2>/dev/null  > $DEMO_RESOURCE/data/position.txt 
+echo build concept.tsv
+sparql --data=../resource/sample.ttl --query=$DEMO_RESOURCE/query/get_concept.ql --results=text 2>/dev/null  > $DEMO_RESOURCE/data/concept.txt 
+
 #echo build grant.tsv
 #sparql --data=../resource/sample.ttl --query=$DEMO_RESOURCE/query/get_grant.ql --results=TSV 2>/dev/null  > $DEMO_RESOURCE/data/grant.tsv 
 #echo build research.tsv

@@ -25,24 +25,18 @@ import javax.validation.Valid;
 /**
  * PositionOfPerson
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-09-26T07:33:17.171-04:00[America/New_York]")public class PositionOfPerson   {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-09-29T04:39:30.411-04:00[America/New_York]")public class PositionOfPerson   {
   @JsonProperty("personIRI")
   private String personIRI = null;
 
   @JsonProperty("organisationIRI")
   private String organisationIRI = null;
 
-  @JsonProperty("organisationLabel")
-  private List<LinguisticLabel> organisationLabel = new ArrayList<LinguisticLabel>();
-
   @JsonProperty("positionTitleLabel")
   private List<LinguisticLabel> positionTitleLabel = new ArrayList<LinguisticLabel>();
 
   @JsonProperty("positionTypeIRI")
-  private String positionTypeIRI = null;
-
-  @JsonProperty("vivoOrganisationTypeIRI")
-  private String vivoOrganisationTypeIRI = null;
+  private String positionTypeIRI = "http://vivoweb.org/ontology/core#Position";
 
   @JsonProperty("startField_year")
   private String startFieldYear = null;
@@ -90,32 +84,6 @@ import javax.validation.Valid;
     this.organisationIRI = organisationIRI;
   }
 
-  public PositionOfPerson organisationLabel(List<LinguisticLabel> organisationLabel) {
-    this.organisationLabel = organisationLabel;
-    return this;
-  }
-
-  public PositionOfPerson addOrganisationLabelItem(LinguisticLabel organisationLabelItem) {
-    this.organisationLabel.add(organisationLabelItem);
-    return this;
-  }
-
-  /**
-   * Get organisationLabel
-   * @return organisationLabel
-   **/
-  @JsonProperty("organisationLabel")
-  @Schema(example = "[{\"label\":\"Université Harvard\",\"language\":\"fr-CA\"},{\"label\":\"Harvard University\",\"language\":\"en-US\"}]", required = true, description = "")
-  @NotNull
-  @Valid
-  public List<LinguisticLabel> getOrganisationLabel() {
-    return organisationLabel;
-  }
-
-  public void setOrganisationLabel(List<LinguisticLabel> organisationLabel) {
-    this.organisationLabel = organisationLabel;
-  }
-
   public PositionOfPerson positionTitleLabel(List<LinguisticLabel> positionTitleLabel) {
     this.positionTitleLabel = positionTitleLabel;
     return this;
@@ -152,7 +120,7 @@ import javax.validation.Valid;
    * @return positionTypeIRI
    **/
   @JsonProperty("positionTypeIRI")
-  @Schema(example = "http://vivoweb.org/ontology/core#FacultyPosition", required = true, description = "")
+  @Schema(example = "http://vivoweb.org/ontology/core#Position", required = true, description = "")
   @NotNull
   public String getPositionTypeIRI() {
     return positionTypeIRI;
@@ -160,26 +128,6 @@ import javax.validation.Valid;
 
   public void setPositionTypeIRI(String positionTypeIRI) {
     this.positionTypeIRI = positionTypeIRI;
-  }
-
-  public PositionOfPerson vivoOrganisationTypeIRI(String vivoOrganisationTypeIRI) {
-    this.vivoOrganisationTypeIRI = vivoOrganisationTypeIRI;
-    return this;
-  }
-
-  /**
-   * Get vivoOrganisationTypeIRI
-   * @return vivoOrganisationTypeIRI
-   **/
-  @JsonProperty("vivoOrganisationTypeIRI")
-  @Schema(example = "http://vivoweb.org/ontology/core#University", required = true, description = "")
-  @NotNull
-  public String getVivoOrganisationTypeIRI() {
-    return vivoOrganisationTypeIRI;
-  }
-
-  public void setVivoOrganisationTypeIRI(String vivoOrganisationTypeIRI) {
-    this.vivoOrganisationTypeIRI = vivoOrganisationTypeIRI;
   }
 
   public PositionOfPerson startFieldYear(String startFieldYear) {
@@ -232,17 +180,15 @@ import javax.validation.Valid;
     PositionOfPerson positionOfPerson = (PositionOfPerson) o;
     return Objects.equals(this.personIRI, positionOfPerson.personIRI) &&
         Objects.equals(this.organisationIRI, positionOfPerson.organisationIRI) &&
-        Objects.equals(this.organisationLabel, positionOfPerson.organisationLabel) &&
         Objects.equals(this.positionTitleLabel, positionOfPerson.positionTitleLabel) &&
         Objects.equals(this.positionTypeIRI, positionOfPerson.positionTypeIRI) &&
-        Objects.equals(this.vivoOrganisationTypeIRI, positionOfPerson.vivoOrganisationTypeIRI) &&
         Objects.equals(this.startFieldYear, positionOfPerson.startFieldYear) &&
         Objects.equals(this.endFieldYear, positionOfPerson.endFieldYear);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(personIRI, organisationIRI, organisationLabel, positionTitleLabel, positionTypeIRI, vivoOrganisationTypeIRI, startFieldYear, endFieldYear);
+    return Objects.hash(personIRI, organisationIRI, positionTitleLabel, positionTypeIRI, startFieldYear, endFieldYear);
   }
 
 
@@ -253,10 +199,8 @@ import javax.validation.Valid;
     
     sb.append("    personIRI: ").append(toIndentedString(personIRI)).append("\n");
     sb.append("    organisationIRI: ").append(toIndentedString(organisationIRI)).append("\n");
-    sb.append("    organisationLabel: ").append(toIndentedString(organisationLabel)).append("\n");
     sb.append("    positionTitleLabel: ").append(toIndentedString(positionTitleLabel)).append("\n");
     sb.append("    positionTypeIRI: ").append(toIndentedString(positionTypeIRI)).append("\n");
-    sb.append("    vivoOrganisationTypeIRI: ").append(toIndentedString(vivoOrganisationTypeIRI)).append("\n");
     sb.append("    startFieldYear: ").append(toIndentedString(startFieldYear)).append("\n");
     sb.append("    endFieldYear: ").append(toIndentedString(endFieldYear)).append("\n");
     sb.append("}");

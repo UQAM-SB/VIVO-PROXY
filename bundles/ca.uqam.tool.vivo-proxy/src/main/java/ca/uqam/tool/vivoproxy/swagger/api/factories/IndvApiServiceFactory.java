@@ -3,7 +3,7 @@ package ca.uqam.tool.vivoproxy.swagger.api.factories;
 import ca.uqam.tool.vivoproxy.swagger.api.IndvApiService;
 import ca.uqam.tool.vivoproxy.swagger.api.impl.IndvApiServiceImpl;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-09-26T07:33:17.171-04:00[America/New_York]")public class IndvApiServiceFactory {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-09-29T04:39:30.411-04:00[America/New_York]")public class IndvApiServiceFactory {
     private final static IndvApiService service = new IndvApiServiceImpl();
 
     public static IndvApiService getIndvApi() {

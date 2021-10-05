@@ -31,7 +31,7 @@ public class AddTypeToIndividualCommand extends Command {
 
 	@Override
     public CommandResult execute(Receiver vivo) {
-        CommandResult result = null;
+        CommandResult result = null; 
         try {
            result = ((VivoReceiver)vivo).addType(getIndvType());
             setCommandResult(result);

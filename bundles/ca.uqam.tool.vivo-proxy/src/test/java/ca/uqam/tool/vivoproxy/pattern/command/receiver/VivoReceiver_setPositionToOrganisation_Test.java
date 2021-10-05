@@ -28,10 +28,9 @@ public class VivoReceiver_setPositionToOrganisation_Test extends AbstractReceive
 		VivoReceiver vr = new VivoReceiver();
 		vr.login(username, password);
 		PositionOfPerson pos = new PositionOfPerson();
-		pos.setPersonIRI("http://localhost:8080/vivo/individual/n962");
-		pos.setPositionTypeIRI(VIVO.Position.getURI());
-		pos.setOrganisationIRI("http://localhost:8080/vivo/individual/n4508");
-		pos.setVivoOrganisationTypeIRI(FOAF.ORGANIZATION.stringValue());
+		pos.setPersonIRI("http://localhost:8080/vivo/individual/n1002");
+		pos.setPositionTypeIRI(VIVO.NonAcademicPosition.getURI());
+		pos.setOrganisationIRI("http://localhost:8080/vivo/individual/n816");
 		LinguisticLabel cLabelFr = new LinguisticLabel();
 		cLabelFr.setLabel("Directeur");
 		cLabelFr.setLanguage("fr-CA");
@@ -41,6 +40,8 @@ public class VivoReceiver_setPositionToOrganisation_Test extends AbstractReceive
 		LinguisticLabel cLabelENCA = new LinguisticLabel();
 		cLabelENCA.setLabel("Canadian Director");
 		cLabelENCA.setLanguage("en-CA");
+		pos.setEndFieldYear("2021-01-01T00:00:00");
+		pos.setStartFieldYear("2020-01-01T00:00:00");
 		pos.addPositionTitleLabelItem(cLabelFr);
 		pos.addPositionTitleLabelItem(cLabelEN);
 		pos.addPositionTitleLabelItem(cLabelENCA);

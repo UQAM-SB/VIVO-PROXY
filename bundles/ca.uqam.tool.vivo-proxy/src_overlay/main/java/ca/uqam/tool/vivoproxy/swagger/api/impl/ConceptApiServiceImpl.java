@@ -59,4 +59,9 @@ public class ConceptApiServiceImpl extends ConceptApiService {
         System.out.println(response);
         System.out.println("Done!");
     }
+    public Response createConceptWithNewIRI(LinguisticLabel body, SecurityContext securityContext) throws NotFoundException {
+        // do some magic!
+        return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
+    }
+
 }

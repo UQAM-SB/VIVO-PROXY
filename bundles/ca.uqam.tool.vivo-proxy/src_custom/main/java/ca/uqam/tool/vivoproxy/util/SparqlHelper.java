@@ -47,7 +47,8 @@ public class SparqlHelper {
 			" PREFIX  ocresp: <http://purl.org/net/OCRe/study_protocol.owl#> \n"+
 			" PREFIX  bibo: <http://purl.org/ontology/bibo/> \n"+
 			" PREFIX  obo:  <http://purl.obolibrary.org/obo/> \n"+
-			" PREFIX  ro:   <http://purl.obolibrary.org/obo/ro.owl#> \n";
+			" PREFIX  ro:   <http://purl.obolibrary.org/obo/ro.owl#> \n" +
+			" PREFIX  sfnc: <http://vivoweb.org/sparql/function#> \n";
 	
 	public static final String FOAF_PERSON = "http://xmlns.com/foaf/0.1/Person";
 	public static final String OBO_RO_0000053 = "http://purl.obolibrary.org/obo/RO_0000053";

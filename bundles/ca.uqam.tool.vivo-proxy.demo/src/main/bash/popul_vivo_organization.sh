@@ -58,9 +58,9 @@ EOF
 }
 
 KEY_PR="VOID"
-TSV_FILENAME=$DEMO_RESOURCE/data/organization.tsv
-NBR_RECORDS=$(cat $TSV_FILENAME | sed 1,3d | head -n -1  | wc -l) 
-cat $TSV_FILENAME | sed 1,3d | head -n -1 | while IFS=$'|' read -r -a line_array ; do
+DATA_FILENAME=$DEMO_RESOURCE/data/organization.txt
+NBR_RECORDS=$(cat $DATA_FILENAME | sed 1,3d | head -n -1  | wc -l) 
+cat $DATA_FILENAME | sed 1,3d | head -n -1 | while IFS=$'|' read -r -a line_array ; do
     ((LOOP_CTR=LOOP_CTR+1))
     ID=${line_array[1]}
     KEY=$(echo $ID | tr -d '>' | tr -d '<' | xargs basename )

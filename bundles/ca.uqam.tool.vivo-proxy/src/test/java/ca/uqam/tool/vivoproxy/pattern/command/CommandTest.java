@@ -99,7 +99,7 @@ public class CommandTest {
 		String U_Title = "Université du Québec à Montréal";
 		PositionOfPerson pop = new PositionOfPerson();;
 		pop.setOrganisationIRI("http://localhost:8080/vivo/individual/n7843");
-		pop.setVivoOrganisationTypeIRI(VIVO.University.getURI());
+//		pop.setVivoOrganisationTypeIRI(VIVO.University.getURI());
 		pop.setPersonIRI("http://localhost:8080/vivo/individual/n492");
 //		pop.setPositionTitleLabel("Professeur");
 		pop.setPositionTypeIRI(VIVO.FacultyPosition.getURI());

@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 import ca.uqam.tool.vivoproxy.swagger.model.Concept;
+import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
 import ca.uqam.tool.vivoproxy.swagger.model.ModelAPIResponse;
 
 import java.util.Map;
@@ -37,7 +38,7 @@ import javax.validation.constraints.*;
 @Path("/concept")
 
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-09-26T07:33:17.171-04:00[America/New_York]")public class ConceptApi  {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-09-29T04:39:30.411-04:00[America/New_York]")public class ConceptApi  {
    private final ConceptApiService delegate;
 
    public ConceptApi(@Context ServletConfig servletContext) {
@@ -62,7 +63,7 @@ import javax.validation.constraints.*;
    }
 
     @POST
-    
+    @Path("/withIRI")
     @Consumes({ "application/json" })
     @Produces({ "application/json" })
     @Operation(summary = "Create a concept(skos:Concept) in VIVO", description = "This can only be done by the logged in person.", security = {
@@ -78,5 +79,23 @@ import javax.validation.constraints.*;
 ,@Context SecurityContext securityContext)
     throws NotFoundException {
         return delegate.createConcept(body,securityContext);
+    }
+    @POST
+    @Path("/createIRI")
+    @Consumes({ "application/json" })
+    @Produces({ "application/json" })
+    @Operation(summary = "Create a concept(skos:Concept) in VIVO with created IRI", description = "This can only be done by the logged in person.", security = {
+        @SecurityRequirement(name = "basicAuth")    }, tags={ "concept" })
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ModelAPIResponse.class))),
+        
+        @ApiResponse(responseCode = "401", description = "Authentication information is missing or invalid"),
+        
+        @ApiResponse(responseCode = "405", description = "Invalid input") })
+    public Response createConceptWithNewIRI(@Parameter(in = ParameterIn.DEFAULT, description = "Created skos concept" ,required=true) LinguisticLabel body
+
+,@Context SecurityContext securityContext)
+    throws NotFoundException {
+        return delegate.createConceptWithNewIRI(body,securityContext);
     }
 }
