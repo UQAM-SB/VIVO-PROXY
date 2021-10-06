@@ -35,7 +35,7 @@ EOF
               'http://localhost:9090/vivoproxy/organization' \
               -H 'accept: application/json' \
               -H 'Content-Type: application/json' \
-              -d @$PARAM_JSON | json2txt.sh | grep IRI-value | cut -f 2- -d ':'| tr -d '"' | tr -d " ")
+              -d @$PARAM_JSON | json2txt.sh | grep IRI-value | cut -f 2- -d ':' | tr -d '"' | cut -f 1 -d ';' | tr -d " ")
         rm $PARAM_JSON
         echo "    ... CREATING organisation ($TYPE) OR ($NAME_FR)/($NAME_EN) AT ($ORG_IRI) done!"
 #        popul_image

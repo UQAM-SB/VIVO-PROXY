@@ -85,7 +85,7 @@ import javax.validation.constraints.*;
     @POST
     @Path("/createWithList")
     @Consumes({ "application/json" })
-    @Produces({ "text/plain", "application/ld+json", "text/n3", "text/turtle", "text/owl-manchester", "text/owl-functional", "application/rdf+xml", "application/owl+xml" })
+    @Produces({ "text/plain", "application/ld+json", "application/ld+json","text/n3", "text/turtle", "text/owl-manchester", "text/owl-functional", "application/rdf+xml", "application/owl+xml" })
     @Operation(summary = "Creates list of users with given input array", description = "", security = {
         @SecurityRequirement(name = "basicAuth")    }, tags={ "person" })
     @ApiResponses(value = { 

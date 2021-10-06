@@ -450,27 +450,26 @@ public class VivoReceiver extends AbstractReceiver {
 	 */
 	public CommandResult addOrganization(Organization organization) throws IOException {
 		String orgType = organization.getOrganizationType();
-		String updateConceptQuery = SparqlHelper.SparqlPrefix 
+		String updateQuery = SparqlHelper.SparqlPrefix 
 				+ "INSERT { GRAPH <> { \n"
 				+ "?orgIRI a foaf:Agent , foaf:Organization ,  obo:BFO_0000004 , obo:BFO_0000001 , obo:BFO_0000002 , owl:Thing, <"+ orgType +"> . \n";
 		
 		List<LinguisticLabel> labels = organization.getNames();
+		String queryCore = "";
 		for (Iterator iterator = labels.iterator(); iterator.hasNext();) {
 			LinguisticLabel aLabel = (LinguisticLabel) iterator.next();
 			String subject = "?orgIRI ";
 			String predicate = "<http://www.w3.org/2000/01/rdf-schema#label> ";
 			String object = "\"" +aLabel.getLabel() +"\"@"+aLabel.getLanguage() + " . \n";
-			updateConceptQuery+= subject;
-			updateConceptQuery+= predicate;
-			updateConceptQuery+= object;
+			queryCore+= subject;
+			queryCore+= predicate;
+			queryCore+= object;
 		}		
-		updateConceptQuery += "} } WHERE \n{ <http://localhost:8080/vivo/individual/n> sfnc:hasNewIRI ?orgIRI } " ;
-
+		updateQuery += queryCore + "} } WHERE \n{ <http://localhost:8080/vivo/individual/n> sfnc:hasNewIRI ?orgIRI . 	} " ;
 		String bodyValue = 
 				"email="+LOGIN.getUserName()+
 				"&password="+LOGIN.getPasswd()+ 
-				"&update="+updateConceptQuery;
-		System.out.println(bodyValue);
+				"&update="+updateQuery;
 		OkHttpClient client = new OkHttpClient();
 		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
 		RequestBody body = RequestBody.create(mediaType, bodyValue);
@@ -481,9 +480,31 @@ public class VivoReceiver extends AbstractReceiver {
 				.addHeader("Content-Type", "application/x-www-form-urlencoded")
 				.build();
 		Response response = client.newCall(request).execute();
-		return CommandResult.asCommandResult(response);
-
 		
+		/*
+		 * Retreive information
+		 */
+		String describeQuery = SparqlHelper.SparqlPrefix + " describe ?orgIRI \n"+
+				" where { \n"
+				+ queryCore
+				+ " }";
+		bodyValue = 
+				"email="+LOGIN.getUserName()+
+				"&password="+LOGIN.getPasswd()+ 
+				"&query="+describeQuery;
+
+		LOGGER.fine(describeQuery);
+		client = new OkHttpClient();
+		mediaType = MediaType.parse("application/x-www-form-urlencoded");
+		body = RequestBody.create(mediaType, bodyValue);
+		request = new Request.Builder()
+				.url(getSiteUrl()+"/api/sparqlQuery")
+				.method("POST", body)
+				.addHeader("Accept", SemanticWebMediaType.TEXT_PLAIN.toString())
+				.addHeader("Content-Type", "application/x-www-form-urlencoded")
+				.build();
+		response = client.newCall(request).execute();
+		return CommandResult.asCommandResult(response);
 	}
 	/**
 	 * @deprecated
