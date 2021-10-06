@@ -7,6 +7,7 @@ import java.net.CookiePolicy;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
@@ -151,12 +152,86 @@ public class VivoReceiver extends AbstractReceiver {
 	protected String getSiteUrl() {
 		return getHostName()+"/"+getVivoSiteName();
 	}
+	public CommandResult addPerson(Person person) throws IOException {
+		String aType = person.getPersonType();
+		String uuid = UUID.randomUUID().toString();
+		String updateQuery = SparqlHelper.SparqlPrefix 
+				+ "INSERT { GRAPH <> { \n" ;
+		String queryCore =
+				" ?persIRI a <"+ aType +"> , owl:Thing , obo:BFO_0000004 , obo:BFO_0000001 , foaf:Agent , obo:BFO_0000002 , foaf:Person . \n" 
+						+ " ?persIRI  vitro:mostSpecificType  <"+ aType +"> . \n"
+						+ " ?persIRI  vitro:uuid  \""+ uuid +"\" . \n"
+						+ " ?persIRI obo:ARG_2000028  ?vcardIndv . \n";
+		/*
+		 * Adding rdfs:label "name" for each language
+		 */
+		List<LinguisticLabel> fName = person.getFirstName();
+		List<LinguisticLabel> lName = person.getLastName();
+		for (Iterator iterator = fName.iterator(); iterator.hasNext();) {
+			LinguisticLabel fNameLabel = (LinguisticLabel) iterator.next();
+			for (Iterator iterator2 = lName.iterator(); iterator2.hasNext();) {
+				LinguisticLabel lNameLabel = (LinguisticLabel) iterator2.next();
+				if (fNameLabel.getLanguage().equals(lNameLabel.getLanguage())){
+					String name = fNameLabel.getLabel() + " "+ lNameLabel.getLabel();
+					queryCore += " ?persIRI rdfs:label \"" + name +"\"@" + fNameLabel.getLanguage() + " . \n";
+				}
+			}
+		}
+		/*
+		 * Build vcard:Individual part
+		 */
+		queryCore += " ?vcardIndv a vcard:Kind , obo:BFO_0000031 , owl:Thing , obo:IAO_0000030 , obo:BFO_0000002 , obo:ARG_2000379 , obo:BFO_0000001 , vcard:Individual . \n " ;
+		queryCore += " 	?vcardIndv obo:ARG_2000029 ?vivoIndv . \n " ; 
+		queryCore += " 	?vcardIndv vcard:hasName ?vcardHasName . \n " ; 
+		//		queryCore += " 	?vcardIndv vcard:hasTitle ?vcardHasTitle . \n " ; 
+		queryCore += " 	?vcardIndv vitro:mostSpecificType  vcard:Individual . \n " ; 
+		/*
+		 * Build vcard:Individual part vcard:hasName
+		 */
+		queryCore += " ?vcardHasName a owl:Thing , vcard:Identification , vcard:Addressing , vcard:Explanatory , vcard:Communication , vcard:Name . \n " ; 
+		for (Iterator iterator = fName.iterator(); iterator.hasNext();) {
+			LinguisticLabel fNameLabel = (LinguisticLabel) iterator.next();
+			queryCore += " 	?vcardHasName vcard:givenName \"" + fNameLabel.getLabel() +"\"@" + fNameLabel.getLanguage() + " . \n";
+		}
+
+		for (Iterator iterator2 = lName.iterator(); iterator2.hasNext();) {
+			LinguisticLabel lNameLabel = (LinguisticLabel) iterator2.next();
+			queryCore += " 	?vcardHasName vcard:familyName \"" + lNameLabel.getLabel() +"\"@" + lNameLabel.getLanguage() + " . \n";  
+		}
+
+		updateQuery += queryCore + "} } WHERE { \n";
+		updateQuery += " <http://localhost:8080/vivo/individual/n> sfnc:hasNewIRI ?vivoIndv  ; \n"; 
+		updateQuery += "	sfnc:hasNewIRI ?vcardIndv ; \n" ;
+		updateQuery += " 	sfnc:hasNewIRI ?vcardHasName ; \n" ;
+		updateQuery += "	sfnc:hasNewIRI ?persIRI . \n";
+		updateQuery += " } " ;
+		System.out.println(updateQuery);
+//		System.exit(0);
+		String bodyValue = 
+				"email="+LOGIN.getUserName()+
+				"&password="+LOGIN.getPasswd()+ 
+				"&update="+updateQuery;
+		OkHttpClient client = new OkHttpClient();
+		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+		RequestBody body = RequestBody.create(mediaType, bodyValue);
+		Request request = new Request.Builder()
+				.url(getSiteUrl()+"/api/sparqlUpdate")
+				.method("POST", body)
+				.addHeader("Accept", SemanticWebMediaType.APPLICATION_RDF_XML.toString())
+				.addHeader("Content-Type", "application/x-www-form-urlencoded")
+				.build();
+		Response response = client.newCall(request).execute();
+
+		return DescribeByUUID(uuid.toString());
+
+	}
 	/**
+	 * @deprecated
 	 * @param person
 	 * @return
 	 * @throws IOException
 	 */
-	public CommandResult addPerson(Person person) throws IOException {
+	public CommandResult addPerson_(Person person) throws IOException {
 		Response response = VivoReceiverHelper.gotoAdminPage(getHostName()+"/"+getVivoSiteName(), getHttpClient());
 		LOGGER.info(getHostName()+"/"+getVivoSiteName() + "with return code " + response.code());
 		// Get an editKey, a must to have before adding data to VIVO
@@ -164,10 +239,10 @@ public class VivoReceiver extends AbstractReceiver {
 		//
 		// Adding to VIVO
 		String label = (person.getFirstName() != null ? person.getFirstName() + "+" : "")
-				+ (person.getMiddleName() != null ? person.getMiddleName() + "+" : "")
+				//				+ (person.getMiddleName() != null ? person.getMiddleName() + "+" : "")
 				+ (person.getLastName() != null ? person.getLastName() : "");
 		String bodyValue = (person.getFirstName() != null ? "firstName=" + person.getFirstName() : "")
-				+ (person.getMiddleName() != null ? "&middleName=" + person.getMiddleName() : "")
+				//				+ (person.getMiddleName() != null ? "&middleName=" + person.getMiddleName() : "")
 				+ (person.getLastName()  != null ? "&lastName=" + person.getLastName()  : "")
 				+"&label="+label+"&editKey="+editKey;
 
@@ -449,11 +524,12 @@ public class VivoReceiver extends AbstractReceiver {
 	 * @throws IOException
 	 */
 	public CommandResult addOrganization(Organization organization) throws IOException {
+		String uuid = UUID.randomUUID().toString();
 		String orgType = organization.getOrganizationType();
 		String updateQuery = SparqlHelper.SparqlPrefix 
 				+ "INSERT { GRAPH <> { \n"
-				+ "?orgIRI a foaf:Agent , foaf:Organization ,  obo:BFO_0000004 , obo:BFO_0000001 , obo:BFO_0000002 , owl:Thing, <"+ orgType +"> . \n";
-		
+				+ "?orgIRI a foaf:Agent , foaf:Organization ,  obo:BFO_0000004 , obo:BFO_0000001 , obo:BFO_0000002 , owl:Thing, <"+ orgType +"> . \n"
+				+ "?orgIRI  vitro:uuid  \""+ uuid +"\" . \n" ;
 		List<LinguisticLabel> labels = organization.getNames();
 		String queryCore = "";
 		for (Iterator iterator = labels.iterator(); iterator.hasNext();) {
@@ -480,31 +556,33 @@ public class VivoReceiver extends AbstractReceiver {
 				.addHeader("Content-Type", "application/x-www-form-urlencoded")
 				.build();
 		Response response = client.newCall(request).execute();
-		
+		return DescribeByUUID(uuid.toString());
+
+
 		/*
 		 * Retreive information
 		 */
-		String describeQuery = SparqlHelper.SparqlPrefix + " describe ?orgIRI \n"+
-				" where { \n"
-				+ queryCore
-				+ " }";
-		bodyValue = 
-				"email="+LOGIN.getUserName()+
-				"&password="+LOGIN.getPasswd()+ 
-				"&query="+describeQuery;
-
-		LOGGER.fine(describeQuery);
-		client = new OkHttpClient();
-		mediaType = MediaType.parse("application/x-www-form-urlencoded");
-		body = RequestBody.create(mediaType, bodyValue);
-		request = new Request.Builder()
-				.url(getSiteUrl()+"/api/sparqlQuery")
-				.method("POST", body)
-				.addHeader("Accept", SemanticWebMediaType.TEXT_PLAIN.toString())
-				.addHeader("Content-Type", "application/x-www-form-urlencoded")
-				.build();
-		response = client.newCall(request).execute();
-		return CommandResult.asCommandResult(response);
+//		String describeQuery = SparqlHelper.SparqlPrefix + " describe ?orgIRI \n"+
+//				" where { \n"
+//				+ queryCore
+//				+ " }";
+//		bodyValue = 
+//				"email="+LOGIN.getUserName()+
+//				"&password="+LOGIN.getPasswd()+ 
+//				"&query="+describeQuery;
+//
+//		LOGGER.fine(describeQuery);
+//		client = new OkHttpClient();
+//		mediaType = MediaType.parse("application/x-www-form-urlencoded");
+//		body = RequestBody.create(mediaType, bodyValue);
+//		request = new Request.Builder()
+//				.url(getSiteUrl()+"/api/sparqlQuery")
+//				.method("POST", body)
+//				.addHeader("Accept", SemanticWebMediaType.TEXT_PLAIN.toString())
+//				.addHeader("Content-Type", "application/x-www-form-urlencoded")
+//				.build();
+//		response = client.newCall(request).execute();
+//		return CommandResult.asCommandResult(response);
 	}
 	/**
 	 * @deprecated
@@ -592,7 +670,7 @@ public class VivoReceiver extends AbstractReceiver {
 		Response orgResp=null;;
 		String resultString = null;
 		LinguisticLabel firstTitle = null;
-		
+
 		String updateConceptQuery = SparqlHelper.SparqlPrefix 
 				+ "INSERT { GRAPH <> { \n"
 				+ "   ?newIRI a <"+ posType +"> , owl:Thing , vivo:Position, vivo:Relationship , obo:BFO_0000020 , obo:BFO_0000001 , obo:BFO_0000002  . \n"
@@ -613,7 +691,7 @@ public class VivoReceiver extends AbstractReceiver {
 		updateConceptQuery+= " ?newIRI vivo:relates  <"+ persIRI +">  . \n";
 		String orgIRI = position.getOrganisationIRI();
 		updateConceptQuery+= " ?newIRI vivo:relates  <"+ orgIRI +">  . \n";
-		
+
 		String startYear = position.getStartFieldYear();
 		String endYear = position.getEndFieldYear();
 		if (startYear!=null && !startYear.isEmpty() || (endYear!=null && !endYear.isEmpty()) ) {
@@ -657,7 +735,7 @@ public class VivoReceiver extends AbstractReceiver {
 				"&password="+LOGIN.getPasswd()+ 
 				"&update="+updateConceptQuery;
 		System.out.println(updateConceptQuery);
-//		if (true ) return null;
+		//		if (true ) return null;
 		OkHttpClient client = new OkHttpClient();
 		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
 		RequestBody body = RequestBody.create(mediaType, bodyValue);
@@ -670,9 +748,9 @@ public class VivoReceiver extends AbstractReceiver {
 		Response response = client.newCall(request).execute();
 		return CommandResult.asCommandResult(response);
 
-		
-		
-		
+
+
+
 	}
 	/**
 	 * @deprecated
@@ -752,7 +830,7 @@ public class VivoReceiver extends AbstractReceiver {
 				 * Find IRI for Position
 				 */
 				String getPosIRIQuery = SparqlHelper.SparqlPrefix +
-						  "SELECT ?posIRI \n"
+						"SELECT ?posIRI \n"
 						+ "WHERE { \n"
 						+ " 	<"+position.getPersonIRI()+"> vivo:relatedBy ?posIRI . \n"
 						+ " 	?posIRI a <"+position.getPositionTypeIRI()+"> ;  \n"
@@ -765,10 +843,10 @@ public class VivoReceiver extends AbstractReceiver {
 				} catch (Exception e) {
 					// TODO: handle exception
 				}
-//				for (Iterator iterator2 = solResult.iterator(); iterator2.hasNext();) {
-//					QuerySolution querySolution = (QuerySolution) iterator2.next();
-//					System.out.println(querySolution.toString());
-//				}
+				//				for (Iterator iterator2 = solResult.iterator(); iterator2.hasNext();) {
+				//					QuerySolution querySolution = (QuerySolution) iterator2.next();
+				//					System.out.println(querySolution.toString());
+				//				}
 
 				if (posTitleList.size() < 2 ){
 					return CommandResult.asCommandResult(orgIRI);
@@ -1179,6 +1257,35 @@ public class VivoReceiver extends AbstractReceiver {
 			personsUriList.add(VivoReceiverHelper.getUriResponse(commandResult.getOkhttpResult()));
 		}
 		return CommandResult.asCommandResult(personsUriList);
+	}
+	/**
+	 * Describe the IRI with specific vitro:uuid $uuid
+	 * @param uuid
+	 * @return
+	 * @throws IOException
+	 */
+	public CommandResult DescribeByUUID(String uuid) throws IOException {
+		String describeQuery = SparqlHelper.SparqlPrefix + 
+				" DESCRIBE ?indv \n"+
+				" WHERE { \n"+
+				" ?indv vitro:uuid \""+uuid+"\" . \n"+
+				" }";
+		String bodyValue = 
+				"email="+LOGIN.getUserName()+
+				"&password="+LOGIN.getPasswd()+ 
+				"&query="+describeQuery;
+
+		OkHttpClient client = new OkHttpClient();
+		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+		RequestBody body = RequestBody.create(mediaType, bodyValue);
+		Request request = new Request.Builder()
+				.url(getSiteUrl()+"/api/sparqlQuery")
+				.method("POST", body)
+				.addHeader("Accept", SemanticWebMediaType.TEXT_PLAIN.toString())
+				.addHeader("Content-Type", "application/x-www-form-urlencoded")
+				.build();
+		Response response = client.newCall(request).execute();
+		return CommandResult.asCommandResult(response);
 	}
 	/**
 	 * @param login

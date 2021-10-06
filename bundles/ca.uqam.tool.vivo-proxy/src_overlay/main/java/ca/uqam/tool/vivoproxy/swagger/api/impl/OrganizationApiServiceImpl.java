@@ -19,6 +19,7 @@ import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
 import ca.uqam.tool.vivoproxy.pattern.command.util.VivoReceiverHelper;
 import ca.uqam.tool.vivoproxy.util.SemanticWebMediaType;
 import ca.uqam.tool.vivoproxy.swagger.api.*;
+import ca.uqam.tool.vivoproxy.swagger.api.impl.util.ApiServiceImplHelper;
 import ca.uqam.tool.vivoproxy.swagger.model.*;
 
 import java.util.Map;
@@ -52,41 +53,24 @@ public class OrganizationApiServiceImpl extends OrganizationApiService {
 			invoker.register(addOrganisationCommand);
 			invoker.register(logoutCommand);
 			CommandResult result = invoker.execute();
-			com.squareup.okhttp.Response response = addOrganisationCommand.getCommandResult().getOkhttpResult();
-			String model = response.body().string();
-			System.out.println(model);
-			String newUserIris = VivoReceiverHelper.getUriResponseFromModel(model);
-		
-			ModelAPIResponse apiResp = new ModelAPIResponse();
-			apiResp.setIrIValue(newUserIris);
-			apiResp.setViVOMessage(" return code: " +response.code()+ " "  +response.message());
-			apiResp.setApiMessage("\n" + model);
-			apiResp.setCode(ApiResponseMessage.OK);
-			apiResp.setType(new ApiResponseMessage(ApiResponseMessage.OK,"").getType());
-			Response apiResponse = Response.ok().entity(apiResp).build();
-			return apiResponse;
+			return ApiServiceImplHelper.buildMessage((Command)addOrganisationCommand);
+
+//			com.squareup.okhttp.Response response = addOrganisationCommand.getCommandResult().getOkhttpResult();
+//			String model = response.body().string();
+//			System.out.println(model);
+//			String newUserIris = VivoReceiverHelper.getUriResponseFromModel(model);
+//		
+//			ModelAPIResponse apiResp = new ModelAPIResponse();
+//			apiResp.setIrIValue(newUserIris);
+//			apiResp.setViVOMessage(" return code: " +response.code()+ " "  +response.message());
+//			apiResp.setApiMessage("\n" + model);
+//			apiResp.setCode(ApiResponseMessage.OK);
+//			apiResp.setType(new ApiResponseMessage(ApiResponseMessage.OK,"").getType());
+//			Response apiResponse = Response.ok().entity(apiResp).build();
+//			return apiResponse;
 		} catch (IOException e) {
 			throw new NotFoundException(-1, e.getMessage());
 		}  
 	}
-    /**
-     * @param args
-     * @throws IOException
-     * @throws OWLOntologyCreationException
-     * @throws OWLOntologyStorageException
-     * @throws NotFoundException 
-     */
-    public static void main(String[]  args) throws IOException, OWLOntologyCreationException, OWLOntologyStorageException, NotFoundException {
-        Organization organ = new Organization();
-        LinguisticLabel label = new LinguisticLabel();
-        label.setLabel("Test Organization 2");
-        label.language("en-US");
-        organ.setOrganizationType("http://vivoweb.org/ontology/core#University");
-        organ.addNamesItem(label);
-        OrganizationApiService service = new OrganizationApiServiceImpl();
-        Response response = service.createOrganization(organ, null);
-        System.out.println(response);
-        System.out.println(response.getEntity().toString());
-        System.out.println("Done!");
-    }
+ 
 }

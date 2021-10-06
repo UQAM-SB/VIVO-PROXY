@@ -24,7 +24,9 @@ import ca.uqam.tool.vivoproxy.swagger.api.ApiResponseMessage;
 import ca.uqam.tool.vivoproxy.swagger.api.NotFoundException;
 import ca.uqam.tool.vivoproxy.swagger.api.PersonApiService;
 import ca.uqam.tool.vivoproxy.swagger.api.VivoProxyResponseMessage;
+import ca.uqam.tool.vivoproxy.swagger.api.impl.util.ApiServiceImplHelper;
 import ca.uqam.tool.vivoproxy.swagger.model.AuthorOfADocument;
+import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
 import ca.uqam.tool.vivoproxy.swagger.model.ModelAPIResponse;
 import ca.uqam.tool.vivoproxy.swagger.model.Person;
 import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
@@ -39,21 +41,6 @@ public class PersonApiServiceImpl extends PersonApiService {
 	private static final String VIVO_PASSWD = LOGIN.getPasswd(); 
 	private static final String VIVO_LOGIN = LOGIN.getUserName();
 	private final static Logger LOGGER = Logger.getLogger(PersonApiServiceImpl.class.getName());
-	/*
-	 * Script for testing
-	 */
-	public static void main(String[]  args) throws IOException, OWLOntologyCreationException, OWLOntologyStorageException, NotFoundException {
-		if (true ){
-
-			Person person = new Person();
-			person.setFirstName("Michel11");  
-			person.setLastName("Héon"); 
-			PersonApiService service = new PersonApiServiceImpl();
-			//			Response response = service.createPerson(person, null);
-			//			System.out.println(response.getEntity());
-		}
-		System.out.println("Done!");
-	}
 	/* (non-Javadoc)
 	 * @see ca.uqam.tool.vivoproxy.swagger.api.PersonApiService#createPerson(ca.uqam.tool.vivoproxy.swagger.model.Person, javax.ws.rs.core.SecurityContext)
 	 */
@@ -79,16 +66,18 @@ public class PersonApiServiceImpl extends PersonApiService {
 			 * Execute commands
 			 */
 			CommandResult result =invoker.execute();
-			com.squareup.okhttp.Response response = addPersonCommand.getCommandResult().getOkhttpResult();
-			String newUserIri = VivoReceiverHelper.getUriResponse(response.body().string());
-			LOGGER.info("Creating user at uri "+ newUserIri+" with return code " + response.code());
-			ModelAPIResponse apiResp = new ModelAPIResponse();
-			apiResp.setIrIValue(newUserIri);
-			apiResp.setViVOMessage(" return code: " +response.code()+ " "  +response.message());
-			apiResp.setCode(ApiResponseMessage.OK);
-			apiResp.setType(new ApiResponseMessage(ApiResponseMessage.OK,"").getType());
-			Response apiResponse = Response.ok().entity(apiResp).build();
-			return apiResponse;
+			return ApiServiceImplHelper.buildMessage((Command)addPersonCommand);
+
+//			com.squareup.okhttp.Response response = addPersonCommand.getCommandResult().getOkhttpResult();
+//			String newUserIri = VivoReceiverHelper.getUriResponse(response.body().string());
+//			LOGGER.info("Creating user at uri "+ newUserIri+" with return code " + response.code());
+//			ModelAPIResponse apiResp = new ModelAPIResponse();
+//			apiResp.setIrIValue(newUserIri);
+//			apiResp.setViVOMessage(" return code: " +response.code()+ " "  +response.message());
+//			apiResp.setCode(ApiResponseMessage.OK);
+//			apiResp.setType(new ApiResponseMessage(ApiResponseMessage.OK,"").getType());
+//			Response apiResponse = Response.ok().entity(apiResp).build();
+//			return apiResponse;
 		} catch (IOException e) {
 			return Response.serverError().entity(new VivoProxyResponseMessage(VivoProxyResponseMessage.ERROR, e.getMessage())).build();
 		}
@@ -150,9 +139,12 @@ public class PersonApiServiceImpl extends PersonApiService {
 			SecurityContext securityContext) throws NotFoundException {
 		Person person = new Person();
 		person.setPersonType(personType);
-		person.setFirstName(firstName);
-		person.setLastName(lastName);
-		person.setMiddleName(middleName);
+		LinguisticLabel fn = new LinguisticLabel();
+		fn.setLabel(firstName);
+		LinguisticLabel ln = new LinguisticLabel();
+		ln.setLabel(lastName);
+		person.addFirstNameItem(fn);
+		person.addLastNameItem(ln);
 		return this.createPerson(person, securityContext);
 	}
 	public Response personAddOrganisationalPositionTo(PositionOfPerson posOfPers, SecurityContext securityContext)
@@ -174,8 +166,8 @@ public class PersonApiServiceImpl extends PersonApiService {
 			invoker.register(createPositionForCmd);
 			invoker.register(logOutCommand);
 			invoker.execute();
-//			String sparqlResp = createPositionForCmd.getCommandResult().getOkhttpResult().body().string();
-//			String newUserIri = VivoReceiverHelper.getUriResponse(addOrganisationCommand.getCommandResult().getResult().toString());
+			//			String sparqlResp = createPositionForCmd.getCommandResult().getOkhttpResult().body().string();
+			//			String newUserIri = VivoReceiverHelper.getUriResponse(addOrganisationCommand.getCommandResult().getResult().toString());
 
 			String newUserIri = createPositionForCmd.getCommandResult().getResult().toString();
 			ModelAPIResponse apiResp = new ModelAPIResponse();
@@ -228,7 +220,7 @@ public class PersonApiServiceImpl extends PersonApiService {
 			invoker.register(addHasResearchAreaCommand);
 			invoker.execute();
 			com.squareup.okhttp.Response createAddConceptResponse = addHasResearchAreaCommand.getCommandResult().getOkhttpResult();
-			
+
 			String sparqlResp = createAddConceptResponse.body().string();
 			ModelAPIResponse apiResp = new ModelAPIResponse();
 			apiResp.setIrIValue(resourceToLink.getSubjectIRI());
@@ -272,5 +264,41 @@ public class PersonApiServiceImpl extends PersonApiService {
 		} catch (Exception e) {
 			return Response.serverError().entity(new VivoProxyResponseMessage(VivoProxyResponseMessage.ERROR, e.getMessage())).build();
 		}	}
+	/*
+	 * Script for testing
+	 */
+	public static void main(String[]  args) throws IOException, OWLOntologyCreationException, OWLOntologyStorageException, NotFoundException {
+		if (true ){
+
+			Person person = new Person();
+			LinguisticLabel lNam = new LinguisticLabel();
+			LinguisticLabel lNam_fr = new LinguisticLabel();
+			LinguisticLabel fNam_fr = new LinguisticLabel();
+			LinguisticLabel fNam = new LinguisticLabel();
+			String ln = "Héon 4";
+			String fn = "Michel";
+			
+			lNam.setLabel(ln);
+			lNam.setLanguage("en-US");
+			lNam_fr.setLabel(ln);
+			lNam_fr.setLanguage("fr-CA");
+			fNam.setLabel(fn);
+			fNam.setLanguage("en-US");
+			fNam_fr.setLabel(fn);
+			fNam_fr.setLanguage("fr-CA");
+
+			person.addFirstNameItem(fNam);  
+			person.addLastNameItem(lNam);
+			person.addFirstNameItem(fNam_fr);  
+			person.addLastNameItem(lNam_fr);
+			person.setPersonType("http://vivoweb.org/ontology/core#Postdoc");
+			PersonApiService service = new PersonApiServiceImpl();
+			Response response = service.createPerson(person, null);
+	        System.out.println(response);
+	        System.out.println(response.getEntity().toString());
+	        System.out.println("Done!");
+		}
+		System.out.println("Done!");
+	}
 
 }

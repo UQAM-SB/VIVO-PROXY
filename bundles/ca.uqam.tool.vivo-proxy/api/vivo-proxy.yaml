@@ -860,17 +860,32 @@ components:
           type: string
           example: http://vivoweb.org/ontology/core#FacultyMember
         firstName:
-          nullable: false
-          type: string
-          example: Peters
+          items:
+            $ref: '#/components/schemas/linguisticLabel'
+          example: [
+                    {
+                      "label": "Peter",
+                      "language": "fr-CA"
+                    },
+                    {
+                      "label": "Peter",
+                      "language": "en-US"
+                    }
+                  ]
         lastName:
           nullable: false
-          type: string
-          example: Jasper
-        middleName:
-          nullable: true
-          type: string
-          example: I
+          items:
+            $ref: '#/components/schemas/linguisticLabel'
+          example: [
+                    {
+                      "label": "Jasper",
+                      "language": "fr-CA"
+                    },
+                    {
+                      "label": "Jasper",
+                      "language": "en-US"
+                    }
+                  ]
       xml:
         name: person
     individualType:

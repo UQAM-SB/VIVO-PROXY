@@ -18,7 +18,7 @@ update=PREFIX  crdc: <http://purl.org/uqam.ca/vocabulary/crdc_ccrd#>
  PREFIX  event: <http://purl.org/NET/c4dm/event.owl#> 
  PREFIX  vann: <http://purl.org/vocab/vann/> 
  PREFIX  foaf: <http://xmlns.com/foaf/0.1/> 
- PREFIX  c4o:  <http://purl.org/spar/c4o/>  
+ PREFIX  c4o:  <http://purl.org/spar/c4o/> 
  PREFIX  fabio: <http://purl.org/spar/fabio/> 
  PREFIX  swrl: <http://www.w3.org/2003/11/swrl#> 
  PREFIX  vcard: <http://www.w3.org/2006/vcard/ns#> 
@@ -32,10 +32,23 @@ update=PREFIX  crdc: <http://purl.org/uqam.ca/vocabulary/crdc_ccrd#>
  PREFIX  ro:   <http://purl.obolibrary.org/obo/ro.owl#> 
  PREFIX  sfnc: <http://vivoweb.org/sparql/function#> 
 INSERT { GRAPH <> { 
-?orgIRI a foaf:Agent , foaf:Organization ,  obo:BFO_0000004 , obo:BFO_0000001 , obo:BFO_0000002 , owl:Thing, <http://vivoweb.org/ontology/core#Publisher> . 
-?orgIRI <http://www.w3.org/2000/01/rdf-schema#label> "University of California Press"@en-US . 
-?orgIRI <http://www.w3.org/2000/01/rdf-schema#label> "Presses de l'Université de Californie"@fr-CA . 
-?orgIRI <http://www.w3.org/2000/01/rdf-schema#label> "University of California Press (en_CA)"@en-CA . 
-} } WHERE 
-{ <http://localhost:8080/vivo/individual/n> sfnc:hasNewIRI ?orgIRI . 
-org.apache.jena.sparql.function.FunctionBase.sprintf("%s", "all")} 
+ ?persIRI  a <http://vivoweb.org/ontology/core#Postdoc> , owl:Thing , obo:BFO_0000004 , obo:BFO_0000001 , foaf:Agent , obo:BFO_0000002 , foaf:Person . 
+ ?persIRI  vitro:mostSpecificType  <http://vivoweb.org/ontology/core#Postdoc> . 
+ ?persIRI obo:ARG_2000028  ?vcardIndv . 
+ ?persIRI rdfs:label "Michel Héon"@en-US . 
+ ?persIRI rdfs:label "Michel Héon"@fr-CA . 
+ ?vcardIndv a vcard:Kind , obo:BFO_0000031 , owl:Thing , obo:IAO_0000030 , obo:BFO_0000002 , obo:ARG_2000379 , obo:BFO_0000001 , vcard:Individual . 
+    ?vcardIndv obo:ARG_2000029 ?vivoIndv . 
+    ?vcardIndv vcard:hasName ?vcardHasName . 
+    ?vcardIndv vitro:mostSpecificType  vcard:Individual . 
+  ?vcardHasName a owl:Thing , vcard:Identification , vcard:Addressing , vcard:Explanatory , vcard:Communication , vcard:Name . 
+    ?vcardHasName vcard:givenName "Michel"@en-US . 
+    ?vcardHasName vcard:givenName "Michel"@fr-CA . 
+    ?vcardHasName vcard:familyName "Héon"@en-US . 
+    ?vcardHasName vcard:familyName "Héon"@fr-CA . 
+} } WHERE { 
+ <http://localhost:8080/vivo/individual/n> sfnc:hasNewIRI ?vivoIndv  ; 
+    sfnc:hasNewIRI ?vcardIndv ; 
+    sfnc:hasNewIRI ?vcardHasName ; 
+    sfnc:hasNewIRI ?persIRI . 
+ } 

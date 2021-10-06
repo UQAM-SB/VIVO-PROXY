@@ -12,18 +12,27 @@ import ca.uqam.tool.vivoproxy.swagger.model.AuthorOfADocument;
 import ca.uqam.tool.vivoproxy.swagger.model.Concept;
 import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
 import ca.uqam.tool.vivoproxy.swagger.model.Organization;
+import ca.uqam.tool.vivoproxy.swagger.model.Person;
 
 /**
- * @author Michel Héon
- *
+ * @author Michel Héon; Université du Québec à Montréal
+ * @filename VivoReceiver_addPerson_Test.java
+ * @date 6 oct. 2021
  */
-public class VivoReceiver_addOrganization_Test extends AbstractReceiver {
-	public static void main (String[] argv) throws IOException
-	{
-		String username=LOGIN.getUserName();
-		String password=LOGIN.getPasswd();
+public class VivoReceiver_addPerson_Test extends AbstractReceiver {
+	public static void main(String[] argv) throws IOException {
+		String username = LOGIN.getUserName();
+		String password = LOGIN.getPasswd();
 		VivoReceiver vr = new VivoReceiver();
 		vr.login(username, password);
+		Person pers = new Person();
+		LinguisticLabel fn = new LinguisticLabel();
+		fn.setLabel("First Name");
+		LinguisticLabel ln = new LinguisticLabel();
+		ln.setLabel("Last Name");
+		pers.addFirstNameItem(fn);
+		pers.addLastNameItem(ln);
+		pers.setPersonType("http://vivoweb.org/ontology/core#FacultyMember");
 		Organization org = new Organization();
 		LinguisticLabel cLabelFr = new LinguisticLabel();
 		LinguisticLabel cLabelEn = new LinguisticLabel();

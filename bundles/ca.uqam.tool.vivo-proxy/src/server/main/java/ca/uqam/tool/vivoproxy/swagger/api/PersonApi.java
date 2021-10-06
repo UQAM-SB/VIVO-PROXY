@@ -40,7 +40,7 @@ import javax.validation.constraints.*;
 @Path("/person")
 
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-09-29T04:39:30.411-04:00[America/New_York]")public class PersonApi  {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-10-06T07:21:56.290-04:00[America/New_York]")public class PersonApi  {
    private final PersonApiService delegate;
 
    public PersonApi(@Context ServletConfig servletContext) {
@@ -85,7 +85,7 @@ import javax.validation.constraints.*;
     @POST
     @Path("/createWithList")
     @Consumes({ "application/json" })
-    @Produces({ "text/plain", "application/ld+json", "application/ld+json","text/n3", "text/turtle", "text/owl-manchester", "text/owl-functional", "application/rdf+xml", "application/owl+xml" })
+    @Produces({ "text/plain", "application/ld+json", "text/n3", "text/turtle", "text/owl-manchester", "text/owl-functional", "application/rdf+xml", "application/owl+xml" })
     @Operation(summary = "Creates list of users with given input array", description = "", security = {
         @SecurityRequirement(name = "basicAuth")    }, tags={ "person" })
     @ApiResponses(value = { 
