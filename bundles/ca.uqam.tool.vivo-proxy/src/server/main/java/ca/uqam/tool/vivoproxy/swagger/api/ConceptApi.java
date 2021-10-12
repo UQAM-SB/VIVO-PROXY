@@ -15,7 +15,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 import ca.uqam.tool.vivoproxy.swagger.model.Concept;
-import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
 import ca.uqam.tool.vivoproxy.swagger.model.ModelAPIResponse;
 
 import java.util.Map;
@@ -38,7 +37,7 @@ import javax.validation.constraints.*;
 @Path("/concept")
 
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-10-06T07:21:56.290-04:00[America/New_York]")public class ConceptApi  {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-10-07T14:58:04.779-04:00[America/New_York]")public class ConceptApi  {
    private final ConceptApiService delegate;
 
    public ConceptApi(@Context ServletConfig servletContext) {
@@ -92,7 +91,7 @@ import javax.validation.constraints.*;
         @ApiResponse(responseCode = "401", description = "Authentication information is missing or invalid"),
         
         @ApiResponse(responseCode = "405", description = "Invalid input") })
-    public Response createConceptWithNewIRI(@Parameter(in = ParameterIn.DEFAULT, description = "Created skos concept" ,required=true) LinguisticLabel body
+    public Response createConceptWithNewIRI(@Parameter(in = ParameterIn.DEFAULT, description = "Created skos concept" ,required=true) Concept body
 
 ,@Context SecurityContext securityContext)
     throws NotFoundException {

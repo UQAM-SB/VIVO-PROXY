@@ -14,17 +14,25 @@ prefix vcard: <http://www.w3.org/2006/vcard/ns#>
 
 
 
-select  DISTINCT ?s ?name ?researchArea_fr ?researchArea_en
+select  DISTINCT ?s ?gname ?fname ?researchArea_fr ?researchArea_en
 WHERE {
 ?s a  <http://xmlns.com/foaf/0.1/Person> .
-?s rdfs:label ?name .
+?s rdfs:label ?name_l .
+?s obo:ARG_2000028/vcard:hasName/vcard:givenName ?gname_l .
+?s obo:ARG_2000028/vcard:hasName/vcard:familyName ?fname_l .
+BIND (STR(?name_l)  AS ?name) 
+BIND (STR(?gname_l)  AS ?gname) 
+BIND (STR(?fname_l)  AS ?fname) 
    OPTIONAL { 
         ?s vivo:hasResearchArea ?ra.    
-        ?ra rdfs:label ?researchArea_fr .
-        FILTER (lang(?researchArea_fr) = 'fr-CA') .  }
+        ?ra rdfs:label ?researchArea_f .
+        FILTER (lang(?researchArea_f) = 'fr-CA') .  }
+        BIND (STR(?researchArea_f)  AS ?researchArea_fr) .
     OPTIONAL { 
         ?s vivo:hasResearchArea ?ra.    
-        ?ra rdfs:label ?researchArea_en .
-        FILTER (lang(?researchArea_en) = 'en-US') . } 
+        ?ra rdfs:label ?researchArea_e .
+        FILTER (lang(?researchArea_e) = 'en-US') . } 
+        BIND (STR(?researchArea_e)  AS ?researchArea_en) .
+    filter (bound(?researchArea_fr) || bound(?researchArea_en))  
 }
 ORDER BY ASC(?s)

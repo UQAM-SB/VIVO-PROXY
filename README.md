@@ -10,7 +10,7 @@ You can see from the web [vivo-proxy.yaml](https://editor.swagger.io/?url=https:
 
 ### Prerequisites
 
-- VIVO 1.12.0 Instance installed and running
+- VIVO 1.12.0 Instance installed and running (for VIVO repo get from https://github.com/UQAM-SB/VIVO/tree/VIVO-2008 including **isNewIRI** SPARQL Function)
 - Java JDK-11
 - Maven 3.6.3
 

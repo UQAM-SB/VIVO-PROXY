@@ -9,7 +9,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE2.0.html
-  version: 1.0.0 - 2021-10-05
+  version: 1.0.0 - 2021-10-07
 externalDocs:
   description: Find out more about VIVO
   url: https://duraspace.org/vivo/
@@ -86,7 +86,7 @@ paths:
         content:
           application/json:
             schema:
-                $ref: '#/components/schemas/linguisticLabel'
+                $ref: '#/components/schemas/concept'
             example: {
                         "labels": [
                             {
@@ -750,13 +750,13 @@ components:
         name: personMemberOf
     concept:
       required:
-        - IRI
         - labels
       type: object
       properties:
         IRI:
           type: string
           example: http://purl.org/uqam.ca/vocabulary/expertise#semanticweb
+          description: Leave it blank to automatically generate a new IRI
         labels:
           type: array
           items:

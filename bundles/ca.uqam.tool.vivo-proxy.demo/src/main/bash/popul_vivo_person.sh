@@ -9,9 +9,11 @@
 # Copyright     : Université du Québec à Montréal (c) 2021
 # Email         : heon.michel@uqam.ca
 ###################################################################
+PLUGIN_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && cd ../../../ ; pwd )"
+BASH_HOME="$( cd  $PLUGIN_HOME/src/main/bash ; pwd )"
+source $BASH_HOME/env.sh
+
 NBR_RECORDS=$(find $SRC_DEPT_NAME -name "*.xml" | wc -l)
-
-
 popul_image () {
     if test -f "$HOME_PHOTOS/$KEY.jpg"; then
         imSize=$(identify $HOME_PHOTOS/$KEY.jpg | cut -f 3 -d ' ')
@@ -44,8 +46,26 @@ create_person () {
         cat << EOF > $PARAM_JSON
             {
              "personType": "$TYPE",
-             "firstName": "$FN",
-             "lastName": "$LN"
+               "firstName": [
+                {
+                  "label": "$FN",
+                  "language": "fr-CA"
+                },
+                {
+                  "label": "$FN",
+                  "language": "en-US"
+                }
+              ],
+              "lastName": [
+                {
+                  "label": "$LN",
+                  "language": "fr-CA"
+                },
+                {
+                  "label": "$LN",
+                  "language": "en-US"
+                }
+              ]
             }
 EOF
         #

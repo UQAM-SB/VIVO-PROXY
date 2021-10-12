@@ -33,7 +33,7 @@
 /src/main/java/ca/uqam/tool/vivoproxy/swagger/api/impl/VivoApiServiceImpl.java
 /src/main/java/ca/uqam/tool/vivoproxy/swagger/api/impl/ByLabelApiServiceImpl.java
 /src/main/java/ca/uqam/tool/vivoproxy/swagger/api/impl/IndvApiServiceImpl.java
-#/src/main/java/ca/uqam/tool/vivoproxy/swagger/api/impl/ConceptApiServiceImpl.java
+/src/main/java/ca/uqam/tool/vivoproxy/swagger/api/impl/ConceptApiServiceImpl.java
 /src/main/java/ca/uqam/tool/vivoproxy/swagger/api/impl/DocumentApiServiceImpl.java
 
 #

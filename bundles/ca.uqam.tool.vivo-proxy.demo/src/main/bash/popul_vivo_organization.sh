@@ -10,6 +10,10 @@
 # Copyright     : Université du Québec à Montréal (c) 2021
 # Email         : heon.michel@uqam.ca
 ###################################################################
+PLUGIN_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && cd ../../../ ; pwd )"
+BASH_HOME="$( cd  $PLUGIN_HOME/src/main/bash ; pwd )"
+source $BASH_HOME/env.sh
+
 NBR_RECORDS=$(find $SRC_DEPT_NAME -name "*.xml" | wc -l)
 create_organization () {
         PARAM_JSON=$(mktemp --suffix=.json)
@@ -79,6 +83,6 @@ cat $DATA_FILENAME | sed 1,3d | head -n -1 | while IFS=$'|' read -r -a line_arra
     KEY_PR=$KEY
 done
 wait
-echo Done popul_vivo_person.sh
+echo Done popul_vivo_organization.sh
 exit
 

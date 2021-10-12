@@ -205,7 +205,7 @@ public class VivoReceiver extends AbstractReceiver {
 		updateQuery += " 	sfnc:hasNewIRI ?vcardHasName ; \n" ;
 		updateQuery += "	sfnc:hasNewIRI ?persIRI . \n";
 		updateQuery += " } " ;
-		System.out.println(updateQuery);
+//		System.out.println(updateQuery);
 //		System.exit(0);
 		String bodyValue = 
 				"email="+LOGIN.getUserName()+
@@ -734,7 +734,7 @@ public class VivoReceiver extends AbstractReceiver {
 				"email="+LOGIN.getUserName()+
 				"&password="+LOGIN.getPasswd()+ 
 				"&update="+updateConceptQuery;
-		System.out.println(updateConceptQuery);
+//		System.out.println(updateConceptQuery);
 		//		if (true ) return null;
 		OkHttpClient client = new OkHttpClient();
 		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
@@ -995,7 +995,7 @@ public class VivoReceiver extends AbstractReceiver {
 				"email="+LOGIN.getUserName()+
 				"&password="+LOGIN.getPasswd()+ 
 				"&update="+updateConceptQuery;
-		System.out.println(bodyValue);
+//		System.out.println(bodyValue);
 		OkHttpClient client = new OkHttpClient();
 		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
 		RequestBody body = RequestBody.create(mediaType, bodyValue);
@@ -1063,7 +1063,7 @@ public class VivoReceiver extends AbstractReceiver {
 				"email="+LOGIN.getUserName()+
 				"&password="+LOGIN.getPasswd()+ 
 				"&update="+updateConceptQuery;
-		System.out.println(bodyValue);
+	//	System.out.println(bodyValue);
 		OkHttpClient client = new OkHttpClient();
 		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
 		RequestBody body = RequestBody.create(mediaType, bodyValue);
@@ -1087,25 +1087,33 @@ public class VivoReceiver extends AbstractReceiver {
 	 */
 	public CommandResult addConcept(Concept concept) throws IOException{
 		String iri = concept.getIRI();
-		String updateConceptQuery = ""
-				+ "INSERT DATA  { GRAPH <> { ";
+		String uuid = UUID.randomUUID().toString();
+		String updateConceptQuery = SparqlHelper.SparqlPrefix 
+				+ "INSERT { GRAPH <> { \n";
 		List<LinguisticLabel> labels = concept.getLabels();
 		for (Iterator iterator = labels.iterator(); iterator.hasNext();) {
 			LinguisticLabel conceptLabel = (LinguisticLabel) iterator.next();
-			String subject = "<" +iri +"> ";
+			String subject = "?conceptIRI ";
 			String predicate = "<http://www.w3.org/2000/01/rdf-schema#label> ";
-			String object = "\"" +conceptLabel.getLabel() +"\"@"+conceptLabel.getLanguage() + " . ";
+			String object = "\"" +conceptLabel.getLabel() +"\"@"+conceptLabel.getLanguage() + " . \n";
 			updateConceptQuery+= subject;
 			updateConceptQuery+= predicate;
 			updateConceptQuery+= object;
 		}		
-		updateConceptQuery += "<" +iri +">  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://www.w3.org/2004/02/skos/core#Concept> . }}" ;
+		updateConceptQuery += "?conceptIRI  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://www.w3.org/2004/02/skos/core#Concept> . \n" ;
+		updateConceptQuery += "?conceptIRI  vitro:uuid  \""+ uuid +"\" . \n";
+
+		if (concept.getIRI()==null || concept.getIRI().isEmpty()){
+			updateConceptQuery +=  "} } WHERE \n{ <http://localhost:8080/vivo/individual/n> sfnc:hasNewIRI ?conceptIRI . } \n" ;
+		} else {
+			updateConceptQuery +=  "} } WHERE \n{ BIND (IRI(\""+iri+"\") AS ?conceptIRI) . } \n" ;		
+		}
+		System.out.println(updateConceptQuery);
 
 		String bodyValue = 
 				"email="+LOGIN.getUserName()+
 				"&password="+LOGIN.getPasswd()+ 
 				"&update="+updateConceptQuery;
-		System.out.println(bodyValue);
 		OkHttpClient client = new OkHttpClient();
 		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
 		RequestBody body = RequestBody.create(mediaType, bodyValue);
@@ -1116,7 +1124,10 @@ public class VivoReceiver extends AbstractReceiver {
 				.addHeader("Content-Type", "application/x-www-form-urlencoded")
 				.build();
 		Response response = client.newCall(request).execute();
-		return CommandResult.asCommandResult(response);
+		System.out.println(response.body().string());
+//		return CommandResult.asCommandResult(response);
+		return DescribeByUUID(uuid.toString());
+
 	}
 	/**
 	 * @param username
