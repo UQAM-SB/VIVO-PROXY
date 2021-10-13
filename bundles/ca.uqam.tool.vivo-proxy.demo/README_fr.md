@@ -16,6 +16,10 @@ ___
 - VIVO 1.12.0
 
 ## Structure du bundles démo
+> L'arborescence ci-dessous présente la répartition des différents composants nécessaires à l'exécution de la démo de VIVO-PROXY.
+Le répertoire `bash` contiens un ensemble de scripts utilisés dans la démo. 
+Le répertoire `java` est actuellement vide, mais il pourra contenir éventuellement du code nécessaire à la démo
+Les répertoires `resources/data`, `resources/images`, `resources/query` contiennent respectivement: les tableaux produits par le script `build_table_datasource.sh`, les images utilisées pour chaque personne et les requêtes d'extraction des données provenant du [sample-data du projet VIVO sur github](https://github.com/vivo-project/sample-data) servant à produire `sample.ttl`
 
 ```
 .
@@ -59,28 +63,24 @@ ___
             ├── sample.ttl
             └── vivo.nt
 ```
-## Structure des API de VIVO-Proxy
+## Signature des API de VIVO-Proxy
  [voir vivo-proxy.yaml à partir du web](https://editor.swagger.io/?url=https://raw.githubusercontent.com/vivo-community/VIVO-PROXY/main/bundles/ca.uqam.tool.vivo-proxy/api/vivo-proxy.yaml) 
 
 ___
 # Évaluation rapide
-Cette étape consiste à faire une évaluation rapide du fonctionnement de VIVO-PROXY par la réalisation des étapes nécessaires pour créer une personne dans VIVO
+> Cette section consiste à présenter les étapes nécessaires pour faire une évaluation rapide du fonctionnement de VIVO-PROXY. 
+L'évaluation rapide consiste à créer une personne dans VIVO par la soumission d'une commande ***curl*** dont les données concernant la personne sont encapsulées dans une structure ***json***
 
 ## 1) Configurer VIVO-Proxy
 ```
 cd $PROXY_HOME/bundles/ca.uqam.tool.vivo-proxy
 ./script/start_vivo_proxy.sh
 ```
-
-Accèder aux api dans le furteur à `http://localhost:9090/`
-
-## 2) Installe et Démarrer VIVO
-
-[Installing VIVO](https://wiki.lyrasis.org/display/VIVODOC112x/Installing+VIVO)
-
+> Accèder aux api de VIVO-PROXY depuis l'adresse  `http://localhost:9090/` dans un fureteur web
+## 2) Installer et Démarrer VIVO
+> allez à : [Lyrasis-DOC Installing VIVO](https://wiki.lyrasis.org/display/VIVODOC112x/Installing+VIVO)
 ## 3) Créer une personne avec Curl via VIVO-PROXY
-> Envoyez cette commande dans un script Bash
-
+> Envoyez cette commande dans un script ***bash***
 ```
 curl -X 'POST' \
   'http://localhost:9090/vivoproxy/person' \
@@ -111,9 +111,8 @@ curl -X 'POST' \
 }'
 ```
 ___
-# Utiliser VIVO-Proxy démo pour un traitement en lot de données
-Cette démonstration consiste à réaliser une population en lot de VIVO à par l'exécution d'un ensemble de scripts pré-programmés
-
+# Utiliser VIVO-Proxy démo pour un traitement en lot des données
+> Cette démonstration consiste à réaliser le chargement en lot des données dans VIVO à par l'exécution d'un ensemble de scripts pré-programmés
 Le flux ETL d'exécution est segmenté selon les étapes suivantes:
 ```
 [sample.ttl] --> générer les tables de données --> pour chaque table; exécuter le script de population --> [VIVO-PROXY] --> [VIVO] 
@@ -123,14 +122,12 @@ Le détail du flux est représenté ici:
  
 ![](demo-workflow.jpg)
 
-- La première étape consiste à créer la fichier sample.ttl à partir des graphes de connaissances issus de [Vivo Project Sample Data](https://github.com/vivo-project/sample-data). Dans le processus ETL, le fichier sample.ttl représente la source de données d'origine d'où sont extraites les données.
-
-- La deuxième étape consiste à transformer les données de sample.ttl sous une forme tabulaire représentant la structure de données des formulaires de VIVO. Par exemple: people, organization, concepts, etc.
-
-- La troisième étape consiste à transformer les données de la forme tabulaire en format JSON prêt à être soumis à VIVO-PROXY pour emmagasinage dans VIVO
+- La première étape consiste à créer la fichier `sample.ttl` à partir des graphes de connaissances issus de [Vivo Project Sample Data](https://github.com/vivo-project/sample-data). Dans le processus ETL, le fichier `sample.ttl` représente la source de données d'origine d'où sont extraites les données.
+- La deuxième étape consiste à transformer les données de `sample.ttl` sous une forme tabulaire représentant la structure de données des formulaires de VIVO. Par exemple: people, organization, concepts, etc.
+- La troisième étape consiste à transformer les données de la forme tabulaire en format ***json*** prêt à être soumis à VIVO-PROXY pour emmagasinage dans VIVO
 
 ## Exécution
-> Notes: assurez vous que VIVO et VIVO-PROXY soit démarré
+> Notes: assurez-vous que VIVO et VIVO-PROXY soient démarrés
 
 ```
 # 1- Créer le fichier sample.ttl
@@ -192,10 +189,10 @@ Processing: (1/6) (Patricia Roberts) (Electracy) (Electracy)
 Processing: (2/6) (Patricia Roberts) (Political discourse) (Discours politique) ...
 
 ```
-
 ## Résultat partiel
 
-Illustration du résultat par une saisie d'écran de VIVO
+> Le tableau ci-dessous présente une illustration du résultat par une saisie d'écran de VIVO
+On  y constate que le nom, la photo, le domaine d'expertise ainsi que le titre d'une des personnes de `sample.ttl` sont adéquatement présentés pour le Français et l'Anglais
 
 | Patricia Roberts (Français)  | Patricia Roberts (Anglais) |
 |------------------------------|:--------------------------:|
@@ -203,6 +200,7 @@ Illustration du résultat par une saisie d'écran de VIVO
 
 ___
 # Conclusion
-
+> Cette page avait pour but de présenter la démonstration de l'utilisation de VIVO-PROXY afin de produire une alimentation en LOT des données dans VIVO. 
+Après avoir présenté les pré requis nécessaires à son exécution, la démonstration s'est poursuivi par une évaluation rapide des capacités de VIVO-PROXY, pour ensuite se poursuivre par une évaluation plus étendue et profonde des apis qui componsent VIVO-PROXY
 
 
