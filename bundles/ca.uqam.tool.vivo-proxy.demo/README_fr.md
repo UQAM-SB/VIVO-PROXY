@@ -1,5 +1,5 @@
 # Résumé
-> Ce répertoire contient les programmes nécessaires à l'évaluation des capacités de VIVO-Proxy. C'est à partir des données i18n extraites du repo `https://github.com/vivo-project/sample-data` que les applications de cette démo sont utilisé pour populer une instance locale de VIVO à partir de VIVO-PROXY
+> Ce répertoire contient les programmes nécessaires à l'évaluation des capacités de VIVO-Proxy. C'est à partir des données i18n extraites du repo [https://github.com/vivo-project/sample-data](https://github.com/vivo-project/sample-data) que les applications de cette démo sont utilisé pour populer une instance locale de VIVO à partir de VIVO-PROXY
 
 ___
 # Utilisation
@@ -13,9 +13,9 @@ ___
 - Jena 3.17.0 
 - ImageMagik
 - curl
-- VIVO 1.12.0 incluant le [Pull-Request 250](https://github.com/vivo-project/VIVO/pull/250/)
+- VIVO 1.12.0 incluant le [Pull-Request 250](https://github.com/vivo-project/VIVO/pull/250/) ou [https://github.com/UQAM-SB/VIVO/tree/VIVO-2008](https://github.com/UQAM-SB/VIVO/tree/VIVO-2008)
 
-## Structure du bundles démo
+## Structure du paquetage démo
 > L'arborescence ci-dessous présente la répartition des différents composants nécessaires à l'exécution de la démo de VIVO-PROXY.
 Le répertoire `bash` contiens un ensemble de scripts utilisés dans la démo. 
 Le répertoire `java` est actuellement vide, mais il pourra contenir éventuellement du code nécessaire à la démo
@@ -76,7 +76,7 @@ L'évaluation rapide consiste à créer une personne dans VIVO par la soumission
 cd $PROXY_HOME/bundles/ca.uqam.tool.vivo-proxy
 ./script/start_vivo_proxy.sh
 ```
-> Accèder aux api de VIVO-PROXY depuis l'adresse  `http://localhost:9090/` dans un fureteur web
+> Accèder aux api de VIVO-PROXY depuis l'adresse [http://localhost:9090/](http://localhost:9090/) dans un fureteur web
 ## 2) Installer et Démarrer VIVO
 > allez à : [Lyrasis-DOC Installing VIVO](https://wiki.lyrasis.org/display/VIVODOC112x/Installing+VIVO)
 ## 3) Créer une personne avec Curl via VIVO-PROXY

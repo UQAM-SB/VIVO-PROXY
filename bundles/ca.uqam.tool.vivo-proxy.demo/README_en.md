@@ -1,5 +1,5 @@
 # Summary
-> This directory contains the programs needed to evaluate the capabilities of VIVO-Proxy. It is from the i18n data extracted from the repo `https://github.com/vivo-project/sample-data` that the applications in this demo are used to populate a local VIVO instance from VIVO-PROXY
+> This directory contains the programs needed to evaluate the capabilities of VIVO-Proxy. It is from the i18n data extracted from the repo [https://github.com/vivo-project/sample-data](https://github.com/vivo-project/sample-data) that the applications in this demo are used to populate a local VIVO instance from VIVO-PROXY
 ___
 # Usage
 
@@ -12,7 +12,7 @@ ___
 - Jena 3.17.0 
 - ImageMagik
 - curl
-- VIVO 1.12.0 including [Pull-Request 250](https://github.com/vivo-project/VIVO/pull/250/)
+- VIVO 1.12.0 including [Pull-Request 250](https://github.com/vivo-project/VIVO/pull/250/) or [https://github.com/UQAM-SB/VIVO/tree/VIVO-2008](https://github.com/UQAM-SB/VIVO/tree/VIVO-2008)
 
 ## Structure of the demo bundles
 > The following tree structure shows the distribution of the different components needed to run the VIVO-PROXY demo.
@@ -75,7 +75,7 @@ The quick assessment consists of creating a person in VIVO by submitting a ***cu
 cd $PROXY_HOME/bundles/ca.uqam.tool.vivo-proxy
 ./script/start_vivo_proxy.sh
 ```
-> Access the VIVO-PROXY api from the address `http://localhost:9090/` in a web browser
+> Access the VIVO-PROXY api from the address [http://localhost:9090/](http://localhost:9090/) in a web browser
 ## 2) Install and start VIVO
 > go to : [Lyrasis-DOC Installing VIVO](https://wiki.lyrasis.org/display/VIVODOC112x/Installing+VIVO)
 ## 3) Create a person with Curl via VIVO-PROXY
