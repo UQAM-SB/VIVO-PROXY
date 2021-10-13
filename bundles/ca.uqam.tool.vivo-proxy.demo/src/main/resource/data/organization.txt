@@ -1,0 +1,37 @@
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| s                                                  | type                                                    | name_fr                                     | name_en                              |
+=====================================================================================================================================================================================================
+| <http://localhost:8080/vivo_i18n/individual/n1927> | <http://vivoweb.org/ontology/core#AcademicDepartment>   | "Physique"                                  | "Physics"                            |
+| <http://localhost:8080/vivo_i18n/individual/n1927> | <http://vivoweb.org/ontology/core#Department>           | "Physique"                                  | "Physics"                            |
+| <http://localhost:8080/vivo_i18n/individual/n1927> | <http://xmlns.com/foaf/0.1/Organization>                | "Physique"                                  | "Physics"                            |
+| <http://localhost:8080/vivo_i18n/individual/n2837> | <http://vivoweb.org/ontology/core#AcademicDepartment>   | "Histoire"                                  | "History"                            |
+| <http://localhost:8080/vivo_i18n/individual/n2837> | <http://vivoweb.org/ontology/core#Department>           | "Histoire"                                  | "History"                            |
+| <http://localhost:8080/vivo_i18n/individual/n2837> | <http://xmlns.com/foaf/0.1/Organization>                | "Histoire"                                  | "History"                            |
+| <http://localhost:8080/vivo_i18n/individual/n3787> | <http://vivoweb.org/ontology/core#FundingOrganization>  | "Fondation nationale des sciences"          | "National Science Foundation"        |
+| <http://localhost:8080/vivo_i18n/individual/n3787> | <http://vivoweb.org/ontology/core#GovernmentAgency>     | "Fondation nationale des sciences"          | "National Science Foundation"        |
+| <http://localhost:8080/vivo_i18n/individual/n3787> | <http://vivoweb.org/ontology/core#ResearchOrganization> | "Fondation nationale des sciences"          | "National Science Foundation"        |
+| <http://localhost:8080/vivo_i18n/individual/n3787> | <http://xmlns.com/foaf/0.1/Organization>                | "Fondation nationale des sciences"          | "National Science Foundation"        |
+| <http://localhost:8080/vivo_i18n/individual/n3910> | <http://vivoweb.org/ontology/core#College>              | "Collège des arts et des sciences humaines" | "College of Arts and Humanities"     |
+| <http://localhost:8080/vivo_i18n/individual/n3910> | <http://xmlns.com/foaf/0.1/Organization>                | "Collège des arts et des sciences humaines" | "College of Arts and Humanities"     |
+| <http://localhost:8080/vivo_i18n/individual/n4085> | <http://vivoweb.org/ontology/core#AcademicDepartment>   | "Anglais"                                   | "English"                            |
+| <http://localhost:8080/vivo_i18n/individual/n4085> | <http://vivoweb.org/ontology/core#Department>           | "Anglais"                                   | "English"                            |
+| <http://localhost:8080/vivo_i18n/individual/n4085> | <http://xmlns.com/foaf/0.1/Organization>                | "Anglais"                                   | "English"                            |
+| <http://localhost:8080/vivo_i18n/individual/n4109> | <http://vivoweb.org/ontology/core#AcademicDepartment>   | "Musique"                                   | "Music"                              |
+| <http://localhost:8080/vivo_i18n/individual/n4109> | <http://vivoweb.org/ontology/core#Department>           | "Musique"                                   | "Music"                              |
+| <http://localhost:8080/vivo_i18n/individual/n4109> | <http://xmlns.com/foaf/0.1/Organization>                | "Musique"                                   | "Music"                              |
+| <http://localhost:8080/vivo_i18n/individual/n469>  | <http://vivoweb.org/ontology/core#College>              | "Collège des Sciences"                      | "College of Science"                 |
+| <http://localhost:8080/vivo_i18n/individual/n469>  | <http://xmlns.com/foaf/0.1/Organization>                | "Collège des Sciences"                      | "College of Science"                 |
+| <http://localhost:8080/vivo_i18n/individual/n4762> | <http://vivoweb.org/ontology/core#University>           | "Université Harvard"                        | "Harvard University"                 |
+| <http://localhost:8080/vivo_i18n/individual/n4762> | <http://xmlns.com/foaf/0.1/Organization>                | "Université Harvard"                        | "Harvard University"                 |
+| <http://localhost:8080/vivo_i18n/individual/n489>  | <http://vivoweb.org/ontology/core#University>           | "Institut de technologie de Californie"     | "California Institute of Technology" |
+| <http://localhost:8080/vivo_i18n/individual/n489>  | <http://xmlns.com/foaf/0.1/Organization>                | "Institut de technologie de Californie"     | "California Institute of Technology" |
+| <http://localhost:8080/vivo_i18n/individual/n6356> | <http://vivoweb.org/ontology/core#Publisher>            |                                             | "John Wiley"                         |
+| <http://localhost:8080/vivo_i18n/individual/n6356> | <http://xmlns.com/foaf/0.1/Organization>                |                                             | "John Wiley"                         |
+| <http://localhost:8080/vivo_i18n/individual/n6795> | <http://vivoweb.org/ontology/core#Publisher>            | "Presses de l'Université de Californie"     | "University of California Press"     |
+| <http://localhost:8080/vivo_i18n/individual/n6795> | <http://xmlns.com/foaf/0.1/Organization>                | "Presses de l'Université de Californie"     | "University of California Press"     |
+| <http://localhost:8080/vivo_i18n/individual/n6810> | <http://vivoweb.org/ontology/core#University>           | "Exemple d'Université"                      | "Sample University"                  |
+| <http://localhost:8080/vivo_i18n/individual/n6810> | <http://xmlns.com/foaf/0.1/Organization>                | "Exemple d'Université"                      | "Sample University"                  |
+| <http://localhost:8080/vivo_i18n/individual/n7257> | <http://vivoweb.org/ontology/core#AcademicDepartment>   | "Chimie"                                    | "Chemistry"                          |
+| <http://localhost:8080/vivo_i18n/individual/n7257> | <http://vivoweb.org/ontology/core#Department>           | "Chimie"                                    | "Chemistry"                          |
+| <http://localhost:8080/vivo_i18n/individual/n7257> | <http://xmlns.com/foaf/0.1/Organization>                | "Chimie"                                    | "Chemistry"                          |
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

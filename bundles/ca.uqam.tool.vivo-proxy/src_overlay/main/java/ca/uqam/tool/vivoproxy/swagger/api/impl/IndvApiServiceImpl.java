@@ -7,6 +7,9 @@ import ca.uqam.tool.vivoproxy.pattern.command.CommandInvoker;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddDocumentCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddImageToIndividualCommand;
+import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddLabelsToIndividualCommand;
+import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddStatementCommand;
+import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddTypeToIndividualCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
 import ca.uqam.tool.vivoproxy.pattern.command.util.VivoReceiverHelper;
 import ca.uqam.tool.vivoproxy.swagger.api.*;
@@ -33,7 +36,7 @@ import javax.validation.constraints.*;
  *
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-09-03T18:27:56.556-04:00[America/New_York]")
-public class IndvApiServiceImpl extends IndvApiService {
+public class IndvApiServiceImpl extends IndvApiService { 
 	private final static Logger LOGGER = Logger.getLogger(IndvApiServiceImpl.class.getName());
 
 	/* (non-Javadoc)
@@ -56,10 +59,10 @@ public class IndvApiServiceImpl extends IndvApiService {
 					.entity(new VivoProxyResponseMessage(VivoProxyResponseMessage.ERROR, e.getMessage())).build();
 		}    
 	}
-    /* (non-Javadoc)
-     * @see ca.uqam.tool.vivoproxy.swagger.api.IndvApiService#getIndvByIRI(java.lang.String, javax.ws.rs.core.SecurityContext)
-     */
-    public Response getIndvByIRI( @NotNull String IRI, SecurityContext securityContext) throws NotFoundException {
+	/* (non-Javadoc)
+	 * @see ca.uqam.tool.vivoproxy.swagger.api.IndvApiService#getIndvByIRI(java.lang.String, javax.ws.rs.core.SecurityContext)
+	 */
+	public Response getIndvByIRI( @NotNull String IRI, SecurityContext securityContext) throws NotFoundException {
 		try {
 			CommandFactory cf = CommandFactory.getInstance();
 			VivoReceiver session = new VivoReceiver();
@@ -77,12 +80,12 @@ public class IndvApiServiceImpl extends IndvApiService {
 		}
 	}
 
-    /* (non-Javadoc)
-     * @see ca.uqam.tool.vivoproxy.swagger.api.IndvApiService#indvAddImage(ca.uqam.tool.vivoproxy.swagger.model.Image, javax.ws.rs.core.SecurityContext)
-     */
-    public Response indvAddImage(Image body, SecurityContext securityContext) throws NotFoundException {
+	/* (non-Javadoc)
+	 * @see ca.uqam.tool.vivoproxy.swagger.api.IndvApiService#indvAddImage(ca.uqam.tool.vivoproxy.swagger.model.Image, javax.ws.rs.core.SecurityContext)
+	 */
+	public Response indvAddImage(Image body, SecurityContext securityContext) throws NotFoundException {
 		try {
-			
+
 			CommandFactory cf = CommandFactory.getInstance();
 			VivoReceiver session = new VivoReceiver();
 			CommandInvoker invoker = new CommandInvoker();
@@ -122,5 +125,129 @@ public class IndvApiServiceImpl extends IndvApiService {
 		}
 
 	}
+	@Override
+	public Response indvAddType(IndividualType body, SecurityContext securityContext) throws NotFoundException {
+		try {
+			CommandFactory cf = CommandFactory.getInstance();
+			VivoReceiver session = new VivoReceiver();
+			CommandInvoker invoker = new CommandInvoker();
+			/*
+			 * Create commands
+			 */
+			Command loginCommand = cf.createLogin(LOGIN.getUserName(), LOGIN.getPasswd());
+			AddTypeToIndividualCommand addTypeToIndividualCommand = (AddTypeToIndividualCommand) cf.createAddTypeToIndividual(body);
+			Command logOutCommand = cf.createLogout();
+
+			/*
+			 * Register commands
+			 */
+			invoker.register(loginCommand);
+			invoker.register(addTypeToIndividualCommand);
+			invoker.register(logOutCommand);
+
+			/*
+			 * Execute commands
+			 */
+			CommandResult result =invoker.execute();
+			/*
+			 * Retreive and manage response
+			 */
+			com.squareup.okhttp.Response response = addTypeToIndividualCommand.getCommandResult().getOkhttpResult();
+			String newrIri = VivoReceiverHelper.getUriResponse(response.body().string());
+			LOGGER.info("Adding type for individual at "+ newrIri+" with return code " + response.code());
+			ModelAPIResponse apiResp = new ModelAPIResponse();
+			apiResp.setIrIValue(newrIri);
+			apiResp.setViVOMessage(" return code: " +response.code()+ " "  +response.message());
+			apiResp.setCode(ApiResponseMessage.OK);
+			apiResp.setType(new ApiResponseMessage(ApiResponseMessage.OK,"").getType());
+			Response apiResponse = Response.ok().entity(apiResp).build();
+			return apiResponse;
+		} catch (IOException e) {
+			throw new NotFoundException(-1, e.getMessage());
+		}
+
+	}
+	@Override
+	public Response indvAddLabel(String IRI, List<LinguisticLabel> labels, SecurityContext securityContext)
+			throws NotFoundException {
+		try {
+			CommandFactory cf = CommandFactory.getInstance();
+			VivoReceiver session = new VivoReceiver();
+			CommandInvoker invoker = new CommandInvoker();
+			/*
+			 * Create commands
+			 */
+			Command loginCommand = cf.createLogin(LOGIN.getUserName(), LOGIN.getPasswd());
+			AddLabelsToIndividualCommand addLabelsToIndividualCommand = (AddLabelsToIndividualCommand) cf.createAddLabelsToIndividual(IRI, labels);
+			Command logOutCommand = cf.createLogout();
+
+			/*
+			 * Register commands
+			 */
+			invoker.register(loginCommand);
+			invoker.register(addLabelsToIndividualCommand);
+			invoker.register(logOutCommand);
+
+			/*
+			 * Execute commands
+			 */
+			CommandResult result =invoker.execute();
+			/*
+			 * Retreive and manage response
+			 */
+			com.squareup.okhttp.Response response = addLabelsToIndividualCommand.getCommandResult().getOkhttpResult();
+			String newrIri = VivoReceiverHelper.getUriResponse(response.body().string());
+			LOGGER.info("Adding label for individual at "+ newrIri+" with return code " + response.code());
+			ModelAPIResponse apiResp = new ModelAPIResponse();
+			apiResp.setIrIValue(newrIri);
+			apiResp.setViVOMessage(" return code: " +response.code()+ " "  +response.message());
+			apiResp.setCode(ApiResponseMessage.OK);
+			apiResp.setType(new ApiResponseMessage(ApiResponseMessage.OK,"").getType());
+			Response apiResponse = Response.ok().entity(apiResp).build();
+			return apiResponse;
+		} catch (IOException e) {
+			throw new NotFoundException(-1, e.getMessage());
+		}
+	}
+	@Override
+	public Response indvAddStatement(Statement statement, SecurityContext securityContext) throws NotFoundException {
+		try {
+			CommandFactory cf = CommandFactory.getInstance();
+			VivoReceiver session = new VivoReceiver();
+			CommandInvoker invoker = new CommandInvoker();
+			/*
+			 * Create commands
+			 */
+			Command loginCommand = cf.createLogin(LOGIN.getUserName(), LOGIN.getPasswd());
+			AddStatementCommand addLabelsToIndividualCommand = (AddStatementCommand) cf.createAddStatementToIndividual(statement);
+			Command logOutCommand = cf.createLogout();
+
+			/*
+			 * Register commands
+			 */
+			invoker.register(loginCommand);
+			invoker.register(addLabelsToIndividualCommand);
+			invoker.register(logOutCommand);
+
+			/*
+			 * Execute commands
+			 */
+			CommandResult result =invoker.execute();
+			/*
+			 * Retreive and manage response
+			 */
+			com.squareup.okhttp.Response response = addLabelsToIndividualCommand.getCommandResult().getOkhttpResult();
+			String newrIri = VivoReceiverHelper.getUriResponse(response.body().string());
+			LOGGER.info("Adding a statement for individual at "+ newrIri+" with return code " + response.code());
+			ModelAPIResponse apiResp = new ModelAPIResponse();
+			apiResp.setIrIValue(newrIri);
+			apiResp.setViVOMessage(" return code: " +response.code()+ " "  +response.message());
+			apiResp.setCode(ApiResponseMessage.OK);
+			apiResp.setType(new ApiResponseMessage(ApiResponseMessage.OK,"").getType());
+			Response apiResponse = Response.ok().entity(apiResp).build();
+			return apiResponse;
+		} catch (IOException e) {
+			throw new NotFoundException(-1, e.getMessage());
+		}	}
 
 }

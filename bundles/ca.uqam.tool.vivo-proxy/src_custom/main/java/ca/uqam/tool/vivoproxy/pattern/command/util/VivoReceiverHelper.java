@@ -1,10 +1,18 @@
 package ca.uqam.tool.vivoproxy.pattern.command.util;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Logger;
 
+import org.apache.jena.ontology.OntModel;
+import org.apache.jena.ontology.OntModelSpec;
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.riot.Lang;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -61,7 +69,18 @@ public class VivoReceiverHelper {
 			" PREFIX  obo:  <http://purl.obolibrary.org/obo/> \n"+
 			" PREFIX  ro:   <http://purl.obolibrary.org/obo/ro.owl#> \n";
 
-    public static Response gotoAdminPage(String siteUrl, OkHttpClient httpClient) throws IOException {
+	public static Response changeLinguisticContext(String siteUrl, OkHttpClient httpClient, String linguisticTag) throws IOException {
+				Request request = new Request.Builder()
+				  .url(siteUrl +"/selectLocale?selection="+linguisticTag.replace("-","_"))
+				  .method("GET", null)
+				  .addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+				  .addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
+				  .addHeader("Connection", "keep-alive")
+				  .build();
+				Response response = httpClient.newCall(request).execute();
+		        return response;
+	}
+	public static Response gotoAdminPage(String siteUrl, OkHttpClient httpClient) throws IOException {
         Request request = new Request.Builder()
                 .url(siteUrl +"/siteAdmin")
                 .method("GET", null)
@@ -202,5 +221,17 @@ public class VivoReceiverHelper {
 	}
 	public static String getUriResponse(Response result) throws IOException {
 		return getUriResponse(result.body().string());
+	}
+	public static String getUriResponseFromModel(String model) {
+		String retValue = "" ;
+		OntModel ontModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
+		ontModel.read(new ByteArrayInputStream(model.getBytes()), null, Lang.NT.getName());
+		List<Resource> subjects = ontModel.listSubjects().toList();
+		for (Iterator iterator = subjects.iterator(); iterator.hasNext();) {
+			Resource resource = (Resource) iterator.next();
+			if ( !retValue.isEmpty() ) retValue += " ; ";
+			retValue += resource.getURI();
+		}
+		return retValue;
 	}
 }

@@ -37,7 +37,7 @@ import javax.validation.constraints.*;
 @Path("/concept")
 
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-09-20T09:04:16.317-04:00[America/New_York]")public class ConceptApi  {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-10-07T14:58:04.779-04:00[America/New_York]")public class ConceptApi  {
    private final ConceptApiService delegate;
 
    public ConceptApi(@Context ServletConfig servletContext) {
@@ -62,7 +62,7 @@ import javax.validation.constraints.*;
    }
 
     @POST
-    
+    @Path("/withIRI")
     @Consumes({ "application/json" })
     @Produces({ "application/json" })
     @Operation(summary = "Create a concept(skos:Concept) in VIVO", description = "This can only be done by the logged in person.", security = {
@@ -78,5 +78,23 @@ import javax.validation.constraints.*;
 ,@Context SecurityContext securityContext)
     throws NotFoundException {
         return delegate.createConcept(body,securityContext);
+    }
+    @POST
+    @Path("/createIRI")
+    @Consumes({ "application/json" })
+    @Produces({ "application/json" })
+    @Operation(summary = "Create a concept(skos:Concept) in VIVO with created IRI", description = "This can only be done by the logged in person.", security = {
+        @SecurityRequirement(name = "basicAuth")    }, tags={ "concept" })
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ModelAPIResponse.class))),
+        
+        @ApiResponse(responseCode = "401", description = "Authentication information is missing or invalid"),
+        
+        @ApiResponse(responseCode = "405", description = "Invalid input") })
+    public Response createConceptWithNewIRI(@Parameter(in = ParameterIn.DEFAULT, description = "Created skos concept" ,required=true) Concept body
+
+,@Context SecurityContext securityContext)
+    throws NotFoundException {
+        return delegate.createConceptWithNewIRI(body,securityContext);
     }
 }

@@ -15,7 +15,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 import ca.uqam.tool.vivoproxy.swagger.model.Image;
+import ca.uqam.tool.vivoproxy.swagger.model.IndividualType;
+import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
 import ca.uqam.tool.vivoproxy.swagger.model.ModelAPIResponse;
+import ca.uqam.tool.vivoproxy.swagger.model.Statement;
 
 import java.util.Map;
 import java.util.List;
@@ -37,7 +40,7 @@ import javax.validation.constraints.*;
 @Path("/indv")
 
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-09-20T09:04:16.317-04:00[America/New_York]")public class IndvApi  {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-10-07T14:58:04.779-04:00[America/New_York]")public class IndvApi  {
    private final IndvApiService delegate;
 
    public IndvApi(@Context ServletConfig servletContext) {
@@ -114,5 +117,54 @@ import javax.validation.constraints.*;
 ,@Context SecurityContext securityContext)
     throws NotFoundException {
         return delegate.indvAddImage(body,securityContext);
+    }
+    @PUT
+    @Path("/addLabel")
+    @Consumes({ "application/json" })
+    @Produces({ "application/json" })
+    @Operation(summary = "Add a label to an individual", description = "", security = {
+        @SecurityRequirement(name = "basicAuth")    }, tags={ "Individual" })
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ModelAPIResponse.class))),
+        
+        @ApiResponse(responseCode = "401", description = "Authentication information is missing or invalid") })
+    public Response indvAddLabel(@Parameter(in = ParameterIn.QUERY, description = "The IRI of the individual from which a label is added",required=true) @QueryParam("IRI") String IRI
+,@Parameter(in = ParameterIn.DEFAULT, description = "Linguistic labels to add" ) List<LinguisticLabel> body
+
+,@Context SecurityContext securityContext)
+    throws NotFoundException {
+        return delegate.indvAddLabel(IRI,body,securityContext);
+    }
+    @PUT
+    @Path("/addStatement")
+    @Consumes({ "application/json" })
+    @Produces({ "application/json" })
+    @Operation(summary = "Adding statement", description = "", security = {
+        @SecurityRequirement(name = "basicAuth")    }, tags={ "Individual" })
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ModelAPIResponse.class))),
+        
+        @ApiResponse(responseCode = "401", description = "Authentication information is missing or invalid") })
+    public Response indvAddStatement(@Parameter(in = ParameterIn.DEFAULT, description = "Adding a triple to the graph" ,required=true) Statement body
+
+,@Context SecurityContext securityContext)
+    throws NotFoundException {
+        return delegate.indvAddStatement(body,securityContext);
+    }
+    @PUT
+    @Path("/addType")
+    @Consumes({ "application/json" })
+    @Produces({ "application/json" })
+    @Operation(summary = "Associate a type to an individual", description = "", security = {
+        @SecurityRequirement(name = "basicAuth")    }, tags={ "Individual" })
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ModelAPIResponse.class))),
+        
+        @ApiResponse(responseCode = "401", description = "Authentication information is missing or invalid") })
+    public Response indvAddType(@Parameter(in = ParameterIn.DEFAULT, description = "Adding type associated to an existing individual" ,required=true) IndividualType body
+
+,@Context SecurityContext securityContext)
+    throws NotFoundException {
+        return delegate.indvAddType(body,securityContext);
     }
 }

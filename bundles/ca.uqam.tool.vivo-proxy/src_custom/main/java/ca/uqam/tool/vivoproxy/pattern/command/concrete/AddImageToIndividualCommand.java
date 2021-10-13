@@ -17,6 +17,7 @@ public class AddImageToIndividualCommand extends Command {
     public AddImageToIndividualCommand(Image image) {
         super();
         setImage(image);
+        setName(toString());
     }
 
     public CommandResult execute(Receiver vivo) {

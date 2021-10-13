@@ -14,6 +14,7 @@ import org.junit.Test;
 import com.squareup.okhttp.Response;
 
 import ca.uqam.tool.vivoproxy.pattern.command.util.VivoReceiverHelper;
+import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
 import ca.uqam.tool.vivoproxy.swagger.model.Person;
 import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
 import ca.uqam.vivo.vocabulary.VIVO;
@@ -43,9 +44,12 @@ public class CommandTest {
 		List<Person> personsList = new ArrayList<>();
 		for (int i = 0; i < 3; i++) {
 			Person person = new Person();
-			person.setFirstName("firstName b "+i);
-			person.setMiddleName("middleName "+i);
-			person.setLastName("lastName "+i);
+			LinguisticLabel fn = new LinguisticLabel();
+			fn.setLabel("firstName b "+i);
+			LinguisticLabel ln = new LinguisticLabel();
+			ln.setLabel("lastName "+i);
+			person.addFirstNameItem(fn);
+			person.addLastNameItem(ln);
 			person.setPersonType(VIVO.EmeritusProfessor.toString());
 			personsList.add(person);
 		}
@@ -61,10 +65,13 @@ public class CommandTest {
 		Person person = new Person();
 		String firstName = "Pierre";
 		String lastName = "Jacques";
-		String middleName = "Jean";
-		person.setFirstName(firstName);
-		person.setMiddleName(middleName);
-		person.setLastName(lastName);
+		LinguisticLabel fn = new LinguisticLabel();
+		fn.setLabel(firstName);
+		LinguisticLabel ln = new LinguisticLabel();
+		ln.setLabel(lastName);
+		person.addFirstNameItem(fn);
+		person.addLastNameItem(ln);
+		
 		person.setPersonType(VIVO.FacultyMember.toString());
 		CommandFactory cf = CommandFactory.getInstance(); 
 		CommandInvoker invoker = new CommandInvoker();
@@ -99,11 +106,11 @@ public class CommandTest {
 		String U_Title = "Université du Québec à Montréal";
 		PositionOfPerson pop = new PositionOfPerson();;
 		pop.setOrganisationIRI("http://localhost:8080/vivo/individual/n7843");
-		pop.setVivoOrganisationTypeIRI(VIVO.University.getURI());
+//		pop.setVivoOrganisationTypeIRI(VIVO.University.getURI());
 		pop.setPersonIRI("http://localhost:8080/vivo/individual/n492");
-		pop.setPositionTitleLabel("Professeur");
+//		pop.setPositionTitleLabel("Professeur");
 		pop.setPositionTypeIRI(VIVO.FacultyPosition.getURI());
-		pop.setOrganisationLabel(U_Title);
+//		pop.setOrganisationLabel(U_Title);
 		invoker.register(cf.createPositionFor(pop ));
 		invoker.register(cf.createLogout());
 		invoker.execute();

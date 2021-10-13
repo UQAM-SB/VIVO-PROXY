@@ -25,33 +25,33 @@ public class Main {
      * @throws IOException 
      */
     public static void main(String[] args) throws IOException {
-        Person person = new Person();
-        String username = LOGIN.getUserName();
-        String password = LOGIN.getPasswd();
-        String firstName = "Pierre1";
-        String lastName = "Jacques2";
-        String middleName = "Jean2";
-        String organisationName = "Collège du vieux Montréal";
-        person.setFirstName(firstName);
-        person.setMiddleName(middleName);
-        person.setLastName(lastName);
-        person.setPersonType(VIVO.FacultyMember.toString());
-        CommandFactory cf = CommandFactory.getInstance(); 
-        CommandInvoker invoker = new CommandInvoker();
-        Command loginCommand = cf.createLogin(username, password);
-        Command addPersonCommand = cf.createAddPerson(person);
-        invoker.register(loginCommand);
-        String U_Title = "Université du Québec à Montréal";
+//        Person person = new Person();
+//        String username = LOGIN.getUserName();
+//        String password = LOGIN.getPasswd();
+//        String firstName = "Pierre1";
+//        String lastName = "Jacques2";
+//        String middleName = "Jean2";
+//        String organisationName = "Collège du vieux Montréal";
+//        person.setFirstName(firstName);
+//        person.setMiddleName(middleName);
+//        person.setLastName(lastName);
+//        person.setPersonType(VIVO.FacultyMember.toString());
+//        CommandFactory cf = CommandFactory.getInstance(); 
+//        CommandInvoker invoker = new CommandInvoker();
+//        Command loginCommand = cf.createLogin(username, password);
+//        Command addPersonCommand = cf.createAddPerson(person);
+//        invoker.register(loginCommand);
+//        String U_Title = "Université du Québec à Montréal";
 //        invoker.register(cf.createAddPerson(firstName, "1", lastName, VIVO.GraduateStudent.getURI()));
  //       invoker.register(cf.createOrganization("Université du Québec à Montréal", VIVO.University.getURI()));
         PositionOfPerson pop = new PositionOfPerson();;
         pop.setOrganisationIRI("http://localhost:8080/vivo/individual/n7843");
-        pop.setVivoOrganisationTypeIRI(VIVO.University.getURI());
+  //      pop.setVivoOrganisationTypeIRI(VIVO.University.getURI());
         pop.setPersonIRI("http://localhost:8080/vivo/individual/n492");
-        pop.setPositionTitleLabel("Professeur");
-        pop.setPositionTypeIRI(VIVO.FacultyPosition.getURI());
-        pop.setOrganisationLabel(U_Title);
-		invoker.register(cf.createPositionFor(pop ));
+ //       pop.setPositionTitleLabel("Professeur");
+   //     pop.setPositionTypeIRI(VIVO.FacultyPosition.getURI());
+   //     pop.setOrganisationLabel(U_Title);
+//		invoker.register(cf.createPositionFor(pop ));
         		
         
 //        invoker.register(cf.createAddPerson(firstName, "2", lastName, VIVO.EmeritusProfessor.getURI()));
@@ -67,8 +67,8 @@ public class Main {
 //        invoker.register(cf.createAddPerson(firstName, "12", lastName, VIVO.GraduateStudent.getURI()));
 //        invoker.register(cf.createAddPerson(firstName, "13", lastName, VIVO.GraduateStudent.getURI()));
 //        invoker.register(cf.createAddPerson(firstName, "14", lastName, VIVO.GraduateStudent.getURI()));
-        invoker.register(cf.createLogout());
-        invoker.execute();
+ //      invoker.register(cf.createLogout());
+   //     invoker.execute();
 
 //        CommandSession vivoSession = new CommandSession();
 //        invoker.setSession(vivoSession);

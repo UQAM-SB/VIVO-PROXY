@@ -7,10 +7,16 @@ import java.net.CookiePolicy;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import org.apache.commons.lang3.NotImplementedException;
+import org.apache.jena.query.Query;
+import org.apache.jena.query.QuerySolution;
+import org.apache.jena.query.ResultSet;
+import org.apache.jena.vocabulary.RDF;
+import org.apache.jena.vocabulary.RDFS;
 import org.eclipse.rdf4j.model.vocabulary.FOAF;
 
 import com.squareup.okhttp.HttpUrl;
@@ -28,52 +34,30 @@ import ca.uqam.tool.vivoproxy.pattern.command.receiver.util.EditKeyForPosition;
 import ca.uqam.tool.vivoproxy.pattern.command.util.VivoReceiverHelper;
 import ca.uqam.tool.vivoproxy.swagger.model.AuthorOfADocument;
 import ca.uqam.tool.vivoproxy.swagger.model.Concept;
-import ca.uqam.tool.vivoproxy.swagger.model.ConceptLabel;
+
 import ca.uqam.tool.vivoproxy.swagger.model.Document;
 import ca.uqam.tool.vivoproxy.swagger.model.Image;
+import ca.uqam.tool.vivoproxy.swagger.model.IndividualType;
+import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
+import ca.uqam.tool.vivoproxy.swagger.model.Organization;
 import ca.uqam.tool.vivoproxy.swagger.model.Person;
 import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
 import ca.uqam.tool.vivoproxy.swagger.model.ResourceToResource;
+import ca.uqam.tool.vivoproxy.swagger.model.Statement;
 import ca.uqam.tool.vivoproxy.util.SemanticWebMediaType;
+import ca.uqam.tool.vivoproxy.util.SparqlHelper;
 import ca.uqam.vivo.vocabulary.VIVO;
 
 /**
  * @author Michel Héon
  *
  */
+/**
+ * @author Michel Héon; Université du Québec à Montréal
+ * @filename VivoReceiver.java
+ * @date 23 sept. 2021
+ */
 public class VivoReceiver extends AbstractReceiver {
-	String SparqlPrefix = "PREFIX  crdc: <http://purl.org/uqam.ca/vocabulary/crdc_ccrd#> \n"+
-			" PREFIX  ocrer: <http://purl.org/net/OCRe/research.owl#> \n"+
-			" PREFIX  p3:   <http://vivoweb.org/ontology/vitroAnnotfr_CA#> \n"+
-			" PREFIX  owl:  <http://www.w3.org/2002/07/owl#> \n"+
-			" PREFIX  scires: <http://vivoweb.org/ontology/scientific-research#> \n"+
-			" PREFIX  xsd:  <http://www.w3.org/2001/XMLSchema#> \n"+
-			" PREFIX  swrlb: <http://www.w3.org/2003/11/swrlb#> \n"+
-			" PREFIX  skos: <http://www.w3.org/2004/02/skos/core#> \n"+
-			" PREFIX  rdfs: <http://www.w3.org/2000/01/rdf-schema#> \n"+
-			" PREFIX  ocresd: <http://purl.org/net/OCRe/study_design.owl#> \n"+
-			" PREFIX  swo:  <http://www.ebi.ac.uk/efo/swo/> \n"+
-			" PREFIX  cito: <http://purl.org/spar/cito/> \n"+
-			" PREFIX  geo:  <http://aims.fao.org/aos/geopolitical.owl#> \n"+
-			" PREFIX  ocresst: <http://purl.org/net/OCRe/statistics.owl#> \n"+
-			" PREFIX  dcterms: <http://purl.org/dc/terms/> \n"+
-			" PREFIX  vivo: <http://vivoweb.org/ontology/core#> \n"+
-			" PREFIX  text: <http://jena.apache.org/text#> \n"+
-			" PREFIX  event: <http://purl.org/NET/c4dm/event.owl#> \n"+
-			" PREFIX  vann: <http://purl.org/vocab/vann/> \n"+
-			" PREFIX  foaf: <http://xmlns.com/foaf/0.1/> \n"+
-			" PREFIX  c4o:  <http://purl.org/spar/c4o/> \n"+
-			" PREFIX  fabio: <http://purl.org/spar/fabio/> \n"+
-			" PREFIX  swrl: <http://www.w3.org/2003/11/swrl#> \n"+
-			" PREFIX  vcard: <http://www.w3.org/2006/vcard/ns#> \n"+
-			" PREFIX  crdc-data: <http://purl.org/uqam.ca/vocabulary/crdc-ccrd/individual#> \n"+
-			" PREFIX  vitro: <http://vitro.mannlib.cornell.edu/ns/vitro/0.7#> \n"+
-			" PREFIX  vitro-public: <http://vitro.mannlib.cornell.edu/ns/vitro/public#> \n"+
-			" PREFIX  rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n"+
-			" PREFIX  ocresp: <http://purl.org/net/OCRe/study_protocol.owl#> \n"+
-			" PREFIX  bibo: <http://purl.org/ontology/bibo/> \n"+
-			" PREFIX  obo:  <http://purl.obolibrary.org/obo/> \n"+
-			" PREFIX  ro:   <http://purl.obolibrary.org/obo/ro.owl#> \n";
 	public static final String FOAF_PERSON = "http://xmlns.com/foaf/0.1/Person";
 	public static final String OBO_RO_0000053 = "http://purl.obolibrary.org/obo/RO_0000053";
 	public static final String NEW_INDIVIDUAL_FORM_GENERATOR = "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.VIVONewIndividualFormGenerator";
@@ -89,26 +73,6 @@ public class VivoReceiver extends AbstractReceiver {
 	 * 
 	 */
 	private final static Logger LOGGER = Logger.getLogger(VivoReceiver.class.getName());
-
-
-	public static void tst_add_doc_main (String[] argv) throws IOException
-	{
-		String username=LOGIN.getUserName();
-		String password=LOGIN.getPasswd();
-		VivoReceiver vr = new VivoReceiver();
-		Document document = new Document();
-		document.docTypeIRI("http://purl.org/ontology/bibo/Book");
-		document.title("Web sémantique et modélisation V2");
-		vr.login(username, password);
-		CommandResult resu = vr.addDocument(document);
-
-		//		Person person = new Person();
-		//		person.firstName("toto");
-		//		person.lastName("last");
-		//		person.setPersonType("http://vivoweb.org/ontology/core#FacultyMember");
-		//		CommandResult resu = vr.addPerson(person);
-		System.err.println(resu.getOkhttpResult().body().string());
-	}
 
 
 	/**
@@ -181,41 +145,6 @@ public class VivoReceiver extends AbstractReceiver {
 		return CommandResult.asCommandResult(response);
 	}
 
-	/**
-	 * @param organisationName
-	 * @param vivoOrganisationType
-	 * @return
-	 * @throws IOException
-	 */
-	public CommandResult addOrganization(String organisationName, String vivoOrganisationType) throws IOException {
-		Response response = VivoReceiverHelper.gotoAdminPage(getHostName()+"/"+getVivoSiteName(), getHttpClient());
-		editKey = VivoReceiverHelper.getEditKey(getHostName()+"/"+getVivoSiteName(), getHttpClient(), vivoOrganisationType);
-		HttpUrl url = HttpUrl.parse(getSiteUrl() +"/edit/process").newBuilder()
-				.addQueryParameter("label", organisationName)
-				.addQueryParameter("editKey", editKey)
-				.build();
-		HttpUrl referedUrl = HttpUrl.parse(getSiteUrl() +"/editRequestDispatch").newBuilder()
-				.addQueryParameter("editForm", NEW_INDIVIDUAL_FORM_GENERATOR)
-				.addQueryParameter("typeOfNew", vivoOrganisationType)
-				.build();
-
-		Request request = new Request.Builder()
-				//                .url("http://192.168.7.23:8080/vivo/edit/process?label=Coll%C3%A8ge+de+Hull&editKey=44278894")
-				.url(url)
-				.method("GET", null)
-				.addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
-				.addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
-				.addHeader("Connection", "keep-alive")
-				.addHeader("Referer", referedUrl.toString())
-				.addHeader("Upgrade-Insecure-Requests", "1")
-				.build();
-		LOGGER.info("Sending "+ organisationName );
-		Response orgResp = getHttpClient().newCall(request).execute();
-		//		String responseUri = VivoReceiverHelper.getUriResponse(orgResp.body().string());
-		//		LOGGER.info("Adding "+ organisationName + "at uri "+ responseUri+" with return code " + response.code());
-		return CommandResult.asCommandResult(orgResp);
-		//        return CommandResult.asCommandResult(responseUri);
-	}
 
 	/* (non-Javadoc)
 	 * @see ca.uqam.tool.vivoproxy.pattern.command.CommandResult#getSiteUrl()
@@ -223,12 +152,86 @@ public class VivoReceiver extends AbstractReceiver {
 	protected String getSiteUrl() {
 		return getHostName()+"/"+getVivoSiteName();
 	}
+	public CommandResult addPerson(Person person) throws IOException {
+		String aType = person.getPersonType();
+		String uuid = UUID.randomUUID().toString();
+		String updateQuery = SparqlHelper.SparqlPrefix 
+				+ "INSERT { GRAPH <> { \n" ;
+		String queryCore =
+				" ?persIRI a <"+ aType +"> , owl:Thing , obo:BFO_0000004 , obo:BFO_0000001 , foaf:Agent , obo:BFO_0000002 , foaf:Person . \n" 
+						+ " ?persIRI  vitro:mostSpecificType  <"+ aType +"> . \n"
+						+ " ?persIRI  vitro:uuid  \""+ uuid +"\" . \n"
+						+ " ?persIRI obo:ARG_2000028  ?vcardIndv . \n";
+		/*
+		 * Adding rdfs:label "name" for each language
+		 */
+		List<LinguisticLabel> fName = person.getFirstName();
+		List<LinguisticLabel> lName = person.getLastName();
+		for (Iterator iterator = fName.iterator(); iterator.hasNext();) {
+			LinguisticLabel fNameLabel = (LinguisticLabel) iterator.next();
+			for (Iterator iterator2 = lName.iterator(); iterator2.hasNext();) {
+				LinguisticLabel lNameLabel = (LinguisticLabel) iterator2.next();
+				if (fNameLabel.getLanguage().equals(lNameLabel.getLanguage())){
+					String name = fNameLabel.getLabel() + " "+ lNameLabel.getLabel();
+					queryCore += " ?persIRI rdfs:label \"" + name +"\"@" + fNameLabel.getLanguage() + " . \n";
+				}
+			}
+		}
+		/*
+		 * Build vcard:Individual part
+		 */
+		queryCore += " ?vcardIndv a vcard:Kind , obo:BFO_0000031 , owl:Thing , obo:IAO_0000030 , obo:BFO_0000002 , obo:ARG_2000379 , obo:BFO_0000001 , vcard:Individual . \n " ;
+		queryCore += " 	?vcardIndv obo:ARG_2000029 ?vivoIndv . \n " ; 
+		queryCore += " 	?vcardIndv vcard:hasName ?vcardHasName . \n " ; 
+		//		queryCore += " 	?vcardIndv vcard:hasTitle ?vcardHasTitle . \n " ; 
+		queryCore += " 	?vcardIndv vitro:mostSpecificType  vcard:Individual . \n " ; 
+		/*
+		 * Build vcard:Individual part vcard:hasName
+		 */
+		queryCore += " ?vcardHasName a owl:Thing , vcard:Identification , vcard:Addressing , vcard:Explanatory , vcard:Communication , vcard:Name . \n " ; 
+		for (Iterator iterator = fName.iterator(); iterator.hasNext();) {
+			LinguisticLabel fNameLabel = (LinguisticLabel) iterator.next();
+			queryCore += " 	?vcardHasName vcard:givenName \"" + fNameLabel.getLabel() +"\"@" + fNameLabel.getLanguage() + " . \n";
+		}
+
+		for (Iterator iterator2 = lName.iterator(); iterator2.hasNext();) {
+			LinguisticLabel lNameLabel = (LinguisticLabel) iterator2.next();
+			queryCore += " 	?vcardHasName vcard:familyName \"" + lNameLabel.getLabel() +"\"@" + lNameLabel.getLanguage() + " . \n";  
+		}
+
+		updateQuery += queryCore + "} } WHERE { \n";
+		updateQuery += " <http://localhost:8080/vivo/individual/n> sfnc:hasNewIRI ?vivoIndv  ; \n"; 
+		updateQuery += "	sfnc:hasNewIRI ?vcardIndv ; \n" ;
+		updateQuery += " 	sfnc:hasNewIRI ?vcardHasName ; \n" ;
+		updateQuery += "	sfnc:hasNewIRI ?persIRI . \n";
+		updateQuery += " } " ;
+//		System.out.println(updateQuery);
+//		System.exit(0);
+		String bodyValue = 
+				"email="+LOGIN.getUserName()+
+				"&password="+LOGIN.getPasswd()+ 
+				"&update="+updateQuery;
+		OkHttpClient client = new OkHttpClient();
+		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+		RequestBody body = RequestBody.create(mediaType, bodyValue);
+		Request request = new Request.Builder()
+				.url(getSiteUrl()+"/api/sparqlUpdate")
+				.method("POST", body)
+				.addHeader("Accept", SemanticWebMediaType.APPLICATION_RDF_XML.toString())
+				.addHeader("Content-Type", "application/x-www-form-urlencoded")
+				.build();
+		Response response = client.newCall(request).execute();
+
+		return DescribeByUUID(uuid.toString());
+
+	}
 	/**
+	 * @deprecated
 	 * @param person
 	 * @return
 	 * @throws IOException
 	 */
-	public CommandResult addPerson(Person person) throws IOException {
+	public CommandResult addPerson_(Person person) throws IOException {
 		Response response = VivoReceiverHelper.gotoAdminPage(getHostName()+"/"+getVivoSiteName(), getHttpClient());
 		LOGGER.info(getHostName()+"/"+getVivoSiteName() + "with return code " + response.code());
 		// Get an editKey, a must to have before adding data to VIVO
@@ -236,10 +239,10 @@ public class VivoReceiver extends AbstractReceiver {
 		//
 		// Adding to VIVO
 		String label = (person.getFirstName() != null ? person.getFirstName() + "+" : "")
-				+ (person.getMiddleName() != null ? person.getMiddleName() + "+" : "")
+				//				+ (person.getMiddleName() != null ? person.getMiddleName() + "+" : "")
 				+ (person.getLastName() != null ? person.getLastName() : "");
 		String bodyValue = (person.getFirstName() != null ? "firstName=" + person.getFirstName() : "")
-				+ (person.getMiddleName() != null ? "&middleName=" + person.getMiddleName() : "")
+				//				+ (person.getMiddleName() != null ? "&middleName=" + person.getMiddleName() : "")
 				+ (person.getLastName()  != null ? "&lastName=" + person.getLastName()  : "")
 				+"&label="+label+"&editKey="+editKey;
 
@@ -282,93 +285,93 @@ public class VivoReceiver extends AbstractReceiver {
 		 * get editKey
 		 */
 		System.out.println("getEditKey");
-        HttpUrl url = HttpUrl.parse(getHostName()+"/"+getVivoSiteName() +"/uploadImages").newBuilder()
-                .addQueryParameter("entityUri", image.getIndividualIRI())
-                .addQueryParameter("action", "add")
-                .build();
-        Request request = new Request.Builder()
-                .url(url)
-                .method("GET", null)
-                .addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0")
-                .addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
-                .addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
-                .addHeader("Connection", "keep-alive")
-                .addHeader("Referer", image.getIndividualIRI())
-                .addHeader("Upgrade-Insecure-Requests", "1")
-                .build();
-        response =  getHttpClient()
-        		.newCall(request).execute();
+		HttpUrl url = HttpUrl.parse(getHostName()+"/"+getVivoSiteName() +"/uploadImages").newBuilder()
+				.addQueryParameter("entityUri", image.getIndividualIRI())
+				.addQueryParameter("action", "add")
+				.build();
+		Request request = new Request.Builder()
+				.url(url)
+				.method("GET", null)
+				.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0")
+				.addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+				.addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
+				.addHeader("Connection", "keep-alive")
+				.addHeader("Referer", image.getIndividualIRI())
+				.addHeader("Upgrade-Insecure-Requests", "1")
+				.build();
+		response =  getHttpClient()
+				.newCall(request).execute();
 
-        editKey = VivoReceiverHelper.getKeyValue(response.body().string());
-        
-        /*
-         * UploadImage
-         */
-        
-        File file = new File(image.getImageURL());
-        String contentType = file.toURL().openConnection().getContentType();
-        RequestBody fileBody = RequestBody.create(MediaType.parse(contentType), file);
+		editKey = VivoReceiverHelper.getKeyValue(response.body().string());
 
-        RequestBody requestBody = new MultipartBuilder()
-                .type(MultipartBuilder.FORM)
-                .addFormDataPart("Content-Disposition","form-data; name=\"datafile\"; filename=\""+file.getName()+"\"")
-                .addFormDataPart("Content-Type",contentType)
-                .addFormDataPart("datafile",file.getName(),fileBody)
-                .build();
-        HttpUrl upLoadUrl = HttpUrl.parse(getHostName()+"/"+getVivoSiteName() +"/uploadImages").newBuilder()
-                .addQueryParameter("entityUri", image.getIndividualIRI())
-                .addQueryParameter("action", "upload")
-                .addQueryParameter("imageUrl", image.getImageURL())
-                .build();
+		/*
+		 * UploadImage
+		 */
 
-        Request upLoadRequest = new Request.Builder()
-          .url(upLoadUrl)
-          .method("POST", requestBody)
-          .addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
-          .addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
-          .addHeader("Content-Type", "image/jpeg")
-          .addHeader("Origin", getHostName())
-          .addHeader("Connection", "keep-alive")
-          .addHeader("Referer", url.toString())
-          .addHeader("Upgrade-Insecure-Requests", "1")
-          .addHeader("Sec-Fetch-Dest", "document")
-          .addHeader("Sec-Fetch-Mode", "navigate")
-          .addHeader("Sec-Fetch-Site", "same-origin")
-          .addHeader("Sec-Fetch-User", "?1")
-          .build();
-        Response upLoadResponse =  getHttpClient().newCall(upLoadRequest).execute();
-        /*
-         * Save image
-         */
-        
-        MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
-        RequestBody saveBody = RequestBody.create(mediaType, "x="+image.getOrigX()+"&y="+image.getOrigY()+"&w="+image.getWidth()+"&h="+image.getHeight());
-        
-        HttpUrl saveUrl = HttpUrl.parse(getHostName()+"/"+getVivoSiteName() +"/uploadImages").newBuilder()
-                .addQueryParameter("entityUri", image.getIndividualIRI())
-                .addQueryParameter("action", "save")
-                .build();
-        
-        Request saveRequest = new Request.Builder()
-        		  .url(saveUrl)
-        		  .method("POST", saveBody)
-        		  .addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
-        		  .addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
-        		  .addHeader("Content-Type", "application/x-www-form-urlencoded")
-                  .addHeader("Origin", getHostName())
-        		  .addHeader("Connection", "keep-alive")
-        		  .addHeader("Referer", upLoadUrl.toString())
-        		  .addHeader("Upgrade-Insecure-Requests", "1")
-        		  .addHeader("Sec-Fetch-Dest", "document")
-        		  .addHeader("Sec-Fetch-Mode", "navigate")
-        		  .addHeader("Sec-Fetch-Site", "same-origin")
-        		  .addHeader("Sec-Fetch-User", "?1")
-        		  .build();
-        Response saveResponse =  getHttpClient().newCall(saveRequest).execute();
+		File file = new File(image.getImageURL());
+		String contentType = file.toURL().openConnection().getContentType();
+		RequestBody fileBody = RequestBody.create(MediaType.parse(contentType), file);
+
+		RequestBody requestBody = new MultipartBuilder()
+				.type(MultipartBuilder.FORM)
+				.addFormDataPart("Content-Disposition","form-data; name=\"datafile\"; filename=\""+file.getName()+"\"")
+				.addFormDataPart("Content-Type",contentType)
+				.addFormDataPart("datafile",file.getName(),fileBody)
+				.build();
+		HttpUrl upLoadUrl = HttpUrl.parse(getHostName()+"/"+getVivoSiteName() +"/uploadImages").newBuilder()
+				.addQueryParameter("entityUri", image.getIndividualIRI())
+				.addQueryParameter("action", "upload")
+				.addQueryParameter("imageUrl", image.getImageURL())
+				.build();
+
+		Request upLoadRequest = new Request.Builder()
+				.url(upLoadUrl)
+				.method("POST", requestBody)
+				.addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+				.addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
+				.addHeader("Content-Type", "image/jpeg")
+				.addHeader("Origin", getHostName())
+				.addHeader("Connection", "keep-alive")
+				.addHeader("Referer", url.toString())
+				.addHeader("Upgrade-Insecure-Requests", "1")
+				.addHeader("Sec-Fetch-Dest", "document")
+				.addHeader("Sec-Fetch-Mode", "navigate")
+				.addHeader("Sec-Fetch-Site", "same-origin")
+				.addHeader("Sec-Fetch-User", "?1")
+				.build();
+		Response upLoadResponse =  getHttpClient().newCall(upLoadRequest).execute();
+		/*
+		 * Save image
+		 */
+
+		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+		RequestBody saveBody = RequestBody.create(mediaType, "x="+image.getOrigX()+"&y="+image.getOrigY()+"&w="+image.getWidth()+"&h="+image.getHeight());
+
+		HttpUrl saveUrl = HttpUrl.parse(getHostName()+"/"+getVivoSiteName() +"/uploadImages").newBuilder()
+				.addQueryParameter("entityUri", image.getIndividualIRI())
+				.addQueryParameter("action", "save")
+				.build();
+
+		Request saveRequest = new Request.Builder()
+				.url(saveUrl)
+				.method("POST", saveBody)
+				.addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+				.addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
+				.addHeader("Content-Type", "application/x-www-form-urlencoded")
+				.addHeader("Origin", getHostName())
+				.addHeader("Connection", "keep-alive")
+				.addHeader("Referer", upLoadUrl.toString())
+				.addHeader("Upgrade-Insecure-Requests", "1")
+				.addHeader("Sec-Fetch-Dest", "document")
+				.addHeader("Sec-Fetch-Mode", "navigate")
+				.addHeader("Sec-Fetch-Site", "same-origin")
+				.addHeader("Sec-Fetch-User", "?1")
+				.build();
+		Response saveResponse =  getHttpClient().newCall(saveRequest).execute();
 		return CommandResult.asCommandResult(saveResponse);       
-		
+
 	}
-	
+
 	/**
 	 * @param author
 	 * @return
@@ -391,38 +394,38 @@ public class VivoReceiver extends AbstractReceiver {
 		/*
 		 * Build url and refUrl
 		 */
-		
+
 		HttpUrl url = HttpUrl.parse(getSiteUrl() +"/edit/process").newBuilder()
-			  .addQueryParameter("title", "")
-			  .addQueryParameter("pubUri", author.getDocumentIRI())
-			  .addQueryParameter("collection", "")
-			  .addQueryParameter("collectionDisplay", "")
-			  .addQueryParameter("collectionUri", "")
-			  .addQueryParameter("book", "")
-			  .addQueryParameter("bookDisplay", "")
-			  .addQueryParameter("bookUri", "")
-			  .addQueryParameter("conference", "")
-			  .addQueryParameter("conferenceDisplay", "")
-			  .addQueryParameter("conferenceUri", "")
-			  .addQueryParameter("event", "")
-			  .addQueryParameter("eventDisplay", "")
-			  .addQueryParameter("eventUri", "")
-			  .addQueryParameter("editor", "")
-			  .addQueryParameter("editorDisplay", "")
-			  .addQueryParameter("editorUri", "")
-			  .addQueryParameter("publisher", "")
-			  .addQueryParameter("publisherDisplay", "")
-			  .addQueryParameter("publisherUri", "")
-			  .addQueryParameter("locale", "")
-			  .addQueryParameter("volume", "")
-			  .addQueryParameter("number", "")
-			  .addQueryParameter("issue", "")
-			  .addQueryParameter("chapterNbr", "")
-			  .addQueryParameter("startPage", "")
-			  .addQueryParameter("endPage", "")
-			  .addQueryParameter("dateTime-year", "")
-			  .addQueryParameter("editKey", editKey)
-			  .build();
+				.addQueryParameter("title", "")
+				.addQueryParameter("pubUri", author.getDocumentIRI())
+				.addQueryParameter("collection", "")
+				.addQueryParameter("collectionDisplay", "")
+				.addQueryParameter("collectionUri", "")
+				.addQueryParameter("book", "")
+				.addQueryParameter("bookDisplay", "")
+				.addQueryParameter("bookUri", "")
+				.addQueryParameter("conference", "")
+				.addQueryParameter("conferenceDisplay", "")
+				.addQueryParameter("conferenceUri", "")
+				.addQueryParameter("event", "")
+				.addQueryParameter("eventDisplay", "")
+				.addQueryParameter("eventUri", "")
+				.addQueryParameter("editor", "")
+				.addQueryParameter("editorDisplay", "")
+				.addQueryParameter("editorUri", "")
+				.addQueryParameter("publisher", "")
+				.addQueryParameter("publisherDisplay", "")
+				.addQueryParameter("publisherUri", "")
+				.addQueryParameter("locale", "")
+				.addQueryParameter("volume", "")
+				.addQueryParameter("number", "")
+				.addQueryParameter("issue", "")
+				.addQueryParameter("chapterNbr", "")
+				.addQueryParameter("startPage", "")
+				.addQueryParameter("endPage", "")
+				.addQueryParameter("dateTime-year", "")
+				.addQueryParameter("editKey", editKey)
+				.build();
 
 		HttpUrl refererUrl = HttpUrl.parse(getSiteUrl() +"/editRequestDispatch").newBuilder()
 				.addQueryParameter("subjectUri", editKeyVar.getSubjectUri())
@@ -459,108 +462,405 @@ public class VivoReceiver extends AbstractReceiver {
 		/* 
 		 * Goto individual page
 		 */
-//		Response response = VivoReceiverHelper.gotoIndividualPage(getHostName()+"/"+getVivoSiteName(), getHttpClient(), author.getDocumentIRI());
+		//		Response response = VivoReceiverHelper.gotoIndividualPage(getHostName()+"/"+getVivoSiteName(), getHttpClient(), author.getDocumentIRI());
 		/*
 		 * Get the editKey
 		 */
-//		EditKeyForPosition editKeyVar = new EditKeyForPosition();
-//		editKeyVar.setSubjectUri(author.getDocumentIRI()); 
-//		editKeyVar.setPredicateUri(VIVO.relatedBy.getURI());
-//		editKeyVar.setDomainUri("http://purl.obolibrary.org/obo/IAO_0000030");
-//		editKeyVar.setRangeUri(VIVO.Authorship.getURI());
-//		editKey = VivoReceiverHelper.getEditKey(getHostName()+"/"+getVivoSiteName(), getHttpClient(),editKeyVar);
+		//		EditKeyForPosition editKeyVar = new EditKeyForPosition();
+		//		editKeyVar.setSubjectUri(author.getDocumentIRI()); 
+		//		editKeyVar.setPredicateUri(VIVO.relatedBy.getURI());
+		//		editKeyVar.setDomainUri("http://purl.obolibrary.org/obo/IAO_0000030");
+		//		editKeyVar.setRangeUri(VIVO.Authorship.getURI());
+		//		editKey = VivoReceiverHelper.getEditKey(getHostName()+"/"+getVivoSiteName(), getHttpClient(),editKeyVar);
 		/*
 		 * Build url and refUrl
 		 */
-//		String lastName = (author.getLastName() != null ? author.getLastName() : "");
-//		String firstName = (author.getFirstName() != null ? author.getFirstName() : "");
-//		String middleName = (author.getMiddleName() != null ? author.getMiddleName() : "");
+		//		String lastName = (author.getLastName() != null ? author.getLastName() : "");
+		//		String firstName = (author.getFirstName() != null ? author.getFirstName() : "");
+		//		String middleName = (author.getMiddleName() != null ? author.getMiddleName() : "");
+		//
+		//		String label = (author.getFirstName() != null ? author.getFirstName() + " " : "")
+		//				+ (author.getMiddleName() != null ? author.getMiddleName() + " " : "")
+		//				+ (author.getLastName() != null ? author.getLastName() : "");
+		//
+		//		HttpUrl url = HttpUrl.parse(getSiteUrl() +"/edit/process").newBuilder()
+		//				.addQueryParameter("authorType", author.getPersonType())
+		//				.addQueryParameter("lastName",lastName)
+		//				.addQueryParameter("firstName", firstName)
+		//				.addQueryParameter("middleName", middleName)
+		//				.addQueryParameter("personUri", author.getPersonIRI())
+		//				.addQueryParameter("orgUri", "")
+		//				.addQueryParameter("label",label)
+		//				.addQueryParameter("rank", "1")
+		//				.addQueryParameter("editKey", editKey)
+		//				.addQueryParameter("submit-Create", "Create+Entry")
+		//				.build();
+		//		HttpUrl refererUrl = HttpUrl.parse(getSiteUrl() +"/editRequestDispatch").newBuilder()
+		//				.addQueryParameter("subjectUri", editKeyVar.getSubjectUri())
+		//				.addQueryParameter("predicateUri", editKeyVar.getPredicateUri())
+		//				.addQueryParameter("domainUri", editKeyVar.getDomainUri())
+		//				.addQueryParameter("rangeUri", editKeyVar.getRangeUri())
+		//				.build();
+		//		/*
+		//		 * send Request
+		//		 */
+		//		Request request = new Request.Builder()
+		//				.url(url)
+		//				.method("GET", null)
+		//				.addHeader("User-Agent", "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0")
+		//				.addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+		//				.addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
+		//				.addHeader("Connection", "keep-alive")
+		//				.addHeader("Referer", refererUrl.toString())
+		//				.addHeader("Upgrade-Insecure-Requests", "1")
+		//				.build();
+		//		response = getHttpClient().newCall(request).execute();
+		//		return CommandResult.asCommandResult(response);       
+	}
+	/**
+	 * @param organisationName
+	 * @param vivoOrganisationType
+	 * @return
+	 * @throws IOException
+	 */
+	public CommandResult addOrganization(Organization organization) throws IOException {
+		String uuid = UUID.randomUUID().toString();
+		String orgType = organization.getOrganizationType();
+		String updateQuery = SparqlHelper.SparqlPrefix 
+				+ "INSERT { GRAPH <> { \n"
+				+ "?orgIRI a foaf:Agent , foaf:Organization ,  obo:BFO_0000004 , obo:BFO_0000001 , obo:BFO_0000002 , owl:Thing, <"+ orgType +"> . \n"
+				+ "?orgIRI  vitro:uuid  \""+ uuid +"\" . \n" ;
+		List<LinguisticLabel> labels = organization.getNames();
+		String queryCore = "";
+		for (Iterator iterator = labels.iterator(); iterator.hasNext();) {
+			LinguisticLabel aLabel = (LinguisticLabel) iterator.next();
+			String subject = "?orgIRI ";
+			String predicate = "<http://www.w3.org/2000/01/rdf-schema#label> ";
+			String object = "\"" +aLabel.getLabel() +"\"@"+aLabel.getLanguage() + " . \n";
+			queryCore+= subject;
+			queryCore+= predicate;
+			queryCore+= object;
+		}		
+		updateQuery += queryCore + "} } WHERE \n{ <http://localhost:8080/vivo/individual/n> sfnc:hasNewIRI ?orgIRI . 	} " ;
+		String bodyValue = 
+				"email="+LOGIN.getUserName()+
+				"&password="+LOGIN.getPasswd()+ 
+				"&update="+updateQuery;
+		OkHttpClient client = new OkHttpClient();
+		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+		RequestBody body = RequestBody.create(mediaType, bodyValue);
+		Request request = new Request.Builder()
+				.url(getSiteUrl()+"/api/sparqlUpdate")
+				.method("POST", body)
+				.addHeader("Accept", SemanticWebMediaType.APPLICATION_RDF_XML.toString())
+				.addHeader("Content-Type", "application/x-www-form-urlencoded")
+				.build();
+		Response response = client.newCall(request).execute();
+		return DescribeByUUID(uuid.toString());
+
+
+		/*
+		 * Retreive information
+		 */
+//		String describeQuery = SparqlHelper.SparqlPrefix + " describe ?orgIRI \n"+
+//				" where { \n"
+//				+ queryCore
+//				+ " }";
+//		bodyValue = 
+//				"email="+LOGIN.getUserName()+
+//				"&password="+LOGIN.getPasswd()+ 
+//				"&query="+describeQuery;
 //
-//		String label = (author.getFirstName() != null ? author.getFirstName() + " " : "")
-//				+ (author.getMiddleName() != null ? author.getMiddleName() + " " : "")
-//				+ (author.getLastName() != null ? author.getLastName() : "");
-//
-//		HttpUrl url = HttpUrl.parse(getSiteUrl() +"/edit/process").newBuilder()
-//				.addQueryParameter("authorType", author.getPersonType())
-//				.addQueryParameter("lastName",lastName)
-//				.addQueryParameter("firstName", firstName)
-//				.addQueryParameter("middleName", middleName)
-//				.addQueryParameter("personUri", author.getPersonIRI())
-//				.addQueryParameter("orgUri", "")
-//				.addQueryParameter("label",label)
-//				.addQueryParameter("rank", "1")
-//				.addQueryParameter("editKey", editKey)
-//				.addQueryParameter("submit-Create", "Create+Entry")
+//		LOGGER.fine(describeQuery);
+//		client = new OkHttpClient();
+//		mediaType = MediaType.parse("application/x-www-form-urlencoded");
+//		body = RequestBody.create(mediaType, bodyValue);
+//		request = new Request.Builder()
+//				.url(getSiteUrl()+"/api/sparqlQuery")
+//				.method("POST", body)
+//				.addHeader("Accept", SemanticWebMediaType.TEXT_PLAIN.toString())
+//				.addHeader("Content-Type", "application/x-www-form-urlencoded")
 //				.build();
-//		HttpUrl refererUrl = HttpUrl.parse(getSiteUrl() +"/editRequestDispatch").newBuilder()
-//				.addQueryParameter("subjectUri", editKeyVar.getSubjectUri())
-//				.addQueryParameter("predicateUri", editKeyVar.getPredicateUri())
-//				.addQueryParameter("domainUri", editKeyVar.getDomainUri())
-//				.addQueryParameter("rangeUri", editKeyVar.getRangeUri())
-//				.build();
-//		/*
-//		 * send Request
-//		 */
-//		Request request = new Request.Builder()
-//				.url(url)
-//				.method("GET", null)
-//				.addHeader("User-Agent", "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0")
-//				.addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
-//				.addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
-//				.addHeader("Connection", "keep-alive")
-//				.addHeader("Referer", refererUrl.toString())
-//				.addHeader("Upgrade-Insecure-Requests", "1")
-//				.build();
-//		response = getHttpClient().newCall(request).execute();
-//		return CommandResult.asCommandResult(response);       
+//		response = client.newCall(request).execute();
+//		return CommandResult.asCommandResult(response);
+	}
+	/**
+	 * @deprecated
+	 * @param organization
+	 * @return
+	 * @throws IOException
+	 */
+	public CommandResult addOrganization_(Organization organization) throws IOException {
+		List<LinguisticLabel> names = organization.getNames();
+		int nameCtr = 0;
+		String orgIRI = null;
+		CommandResult returnVal = null;
+		Response orgResp=null;;
+		String resultString = null;
+		/**
+		 * Iterate for each langiages
+		 */
+		for (Iterator iterator = names.iterator(); iterator.hasNext();) {
+			nameCtr++;
+			LinguisticLabel name = (LinguisticLabel) iterator.next();
+			if (nameCtr==1){
+				/**
+				 * Set Vivo to appropriate linguistic context
+				 */
+				VivoReceiverHelper.changeLinguisticContext(getHostName()+"/"+getVivoSiteName(), getHttpClient(), name.getLanguage());
+				/*
+				 * Get editKey
+				 */
+				Response response = VivoReceiverHelper.gotoAdminPage(getHostName()+"/"+getVivoSiteName(), getHttpClient());
+				editKey = VivoReceiverHelper.getEditKey(getHostName()+"/"+getVivoSiteName(), getHttpClient(), organization.getOrganizationType());
+				HttpUrl url = HttpUrl.parse(getSiteUrl() +"/edit/process").newBuilder()
+						.addQueryParameter("label", name.getLabel())
+						.addQueryParameter("editKey", editKey)
+						.build();
+				/*
+				 * Create an Organization
+				 */
+				HttpUrl referedUrl = HttpUrl.parse(getSiteUrl() +"/editRequestDispatch").newBuilder()
+						.addQueryParameter("editForm", NEW_INDIVIDUAL_FORM_GENERATOR)
+						.addQueryParameter("typeOfNew", organization.getOrganizationType())
+						.build();
+
+				Request request = new Request.Builder()
+						//                .url("http://192.168.7.23:8080/vivo/edit/process?label=Coll%C3%A8ge+de+Hull&editKey=44278894")
+						.url(url)
+						.method("GET", null)
+						.addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+						.addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
+						.addHeader("Connection", "keep-alive")
+						.addHeader("Referer", referedUrl.toString())
+						.addHeader("Upgrade-Insecure-Requests", "1")
+						.build();
+				LOGGER.info("Sending "+ name.getLabel() );
+				orgResp = getHttpClient().newCall(request).execute();
+				resultString = orgResp.body().string();
+				if (names.size() < 2 ){
+					/*
+					 * Case if only one language are defined
+					 * Get result and exit
+					 */
+					return CommandResult.asCommandResult(resultString);
+				} else {
+					/*
+					 * in case of more than one language
+					 */
+					orgIRI = VivoReceiverHelper.getUriResponse(resultString);
+				}
+			} else {
+				/*
+				 * For other language do addLabels
+				 */
+				List<LinguisticLabel> labels=new ArrayList<LinguisticLabel>();
+				labels.add(name);
+				returnVal = addLabels(orgIRI, labels);
+			}
+		}
+		return CommandResult.asCommandResult(resultString);
 	}
 
-	public CommandResult setPositionOfPerson(PositionOfPerson body) throws IOException{
-		/* 
-		 * Goto individual page
-		 */
-		Response response = VivoReceiverHelper.gotoIndividualPage(getHostName()+"/"+getVivoSiteName(), getHttpClient(), body.getPersonIRI());
+	public CommandResult addPositionOfPerson(PositionOfPerson position) throws IOException
+	{
+		String posType = position.getPositionTypeIRI();
+		int posCtr = 0;
+		CommandResult returnVal = null;
+		Response orgResp=null;;
+		String resultString = null;
+		LinguisticLabel firstTitle = null;
+
+		String updateConceptQuery = SparqlHelper.SparqlPrefix 
+				+ "INSERT { GRAPH <> { \n"
+				+ "   ?newIRI a <"+ posType +"> , owl:Thing , vivo:Position, vivo:Relationship , obo:BFO_0000020 , obo:BFO_0000001 , obo:BFO_0000002  . \n"
+				+ "   ?newIRI vitro:mostSpecificType  <"+ posType +"> . \n";
+
+		List<LinguisticLabel> labels = position.getPositionTitleLabel();
+		for (Iterator iterator = labels.iterator(); iterator.hasNext();) {
+			LinguisticLabel aLabel = (LinguisticLabel) iterator.next();
+			String subject = "    ?newIRI ";
+			String predicate = "<http://www.w3.org/2000/01/rdf-schema#label> ";
+			String object = "\"" +aLabel.getLabel() +"\"@"+aLabel.getLanguage() + " . \n";
+			updateConceptQuery+= subject;
+			updateConceptQuery+= predicate;
+			updateConceptQuery+= object;
+		}		
+		String persIRI = position.getPersonIRI();
+		updateConceptQuery+= "<"+ persIRI +"> vivo:relatedBy  ?newIRI . \n";
+		updateConceptQuery+= " ?newIRI vivo:relates  <"+ persIRI +">  . \n";
+		String orgIRI = position.getOrganisationIRI();
+		updateConceptQuery+= " ?newIRI vivo:relates  <"+ orgIRI +">  . \n";
+
+		String startYear = position.getStartFieldYear();
+		String endYear = position.getEndFieldYear();
+		if (startYear!=null && !startYear.isEmpty() || (endYear!=null && !endYear.isEmpty()) ) {
+			updateConceptQuery+= " ?newIRI vivo:dateTimeInterval  ?dateTimeIntervalIRI  . \n";
+			updateConceptQuery+= " ?dateTimeIntervalIRI  a  owl:Thing , obo:BFO_0000038 , obo:BFO_0000001 , obo:BFO_0000008 , obo:BFO_0000003 , vivo:DateTimeInterval  . \n" ;
+			updateConceptQuery+= " ?dateTimeIntervalIRI vitro:mostSpecificType  vivo:DateTimeInterval . \n" ;
+		}
+		if (startYear!=null && !startYear.isEmpty()) {
+			updateConceptQuery+= " ?dateTimeIntervalIRI vivo:start  ?startYearIRI  . \n";
+			updateConceptQuery+= " ?startYearIRI  a  owl:Thing , obo:BFO_0000148 , obo:BFO_0000001 , obo:BFO_0000008 , obo:BFO_0000003 , vivo:DateTimeValue  . \n" ;
+			updateConceptQuery+= " ?startYearIRI vitro:mostSpecificType  vivo:DateTimeValue . \n" ;
+			updateConceptQuery+= " ?startYearIRI vivo:dateTimePrecision  vivo:yearPrecision . \n" ;
+			updateConceptQuery+= " ?startYearIRI vivo:dateTime \"" +startYear +"\"^^xsd:dateTime . \n" ;
+		}
+		if (endYear!=null && !endYear.isEmpty()) {
+			updateConceptQuery+= " ?dateTimeIntervalIRI vivo:end  ?endYearIRI  . \n";
+			updateConceptQuery+= " ?endYearIRI  a  owl:Thing , obo:BFO_0000148 , obo:BFO_0000001 , obo:BFO_0000008 , obo:BFO_0000003 , vivo:DateTimeValue  . \n" ;
+			updateConceptQuery+= " ?endYearIRI vitro:mostSpecificType  vivo:DateTimeValue . \n" ;
+			updateConceptQuery+= " ?endYearIRI vivo:dateTimePrecision  vivo:yearPrecision . \n" ;
+			updateConceptQuery+= " ?endYearIRI vivo:dateTime \"" +endYear +"\"^^xsd:dateTime . \n" ;
+		}
+
 		/*
-		 * Get the Edit Key for this operation
+		 * Build Where Clause
 		 */
-		EditKeyForPosition editKeyVar = new EditKeyForPosition();
-		editKeyVar.setSubjectUri(body.getPersonIRI()); 
-		editKeyVar.setPredicateUri(VIVO.relatedBy.getURI());
-		editKeyVar.setDomainUri(FOAF.PERSON.stringValue());
-		editKeyVar.setRangeUri(VIVO.Position.getURI());
-		editKey = VivoReceiverHelper.getEditKey(getHostName()+"/"+getVivoSiteName(), getHttpClient(),editKeyVar);
+		updateConceptQuery += "} } WHERE { \n"
+				+ "    <http://localhost:8080/vivo/individual/n> sfnc:hasNewIRI ?newIRI . \n";
+		if (startYear!=null && !startYear.isEmpty() || (endYear!=null && !endYear.isEmpty()) ) {
+			updateConceptQuery += "    <http://localhost:8080/vivo/individual/n> sfnc:hasNewIRI ?dateTimeIntervalIRI . \n";
+		}
+		if (startYear!=null && !startYear.isEmpty()) {
+			updateConceptQuery += "    <http://localhost:8080/vivo/individual/n> sfnc:hasNewIRI ?startYearIRI . \n";
+		}
+		if (endYear!=null && !endYear.isEmpty()) {
+			updateConceptQuery += "    <http://localhost:8080/vivo/individual/n> sfnc:hasNewIRI ?endYearIRI . \n";
+		}
 
-		HttpUrl url = HttpUrl.parse(getSiteUrl() +"/edit/process").newBuilder()
-				.addQueryParameter("orgType", body.getVivoOrganisationTypeIRI())
-				.addQueryParameter("orgLabel", "")
-				.addQueryParameter("orgLabelDisplay", body.getOrganisationLabel())
-				.addQueryParameter("existingOrg", body.getOrganisationIRI())
-				.addQueryParameter("positionTitle", body.getPositionTitleLabel())
-				.addQueryParameter("positionType", body.getPositionTypeIRI())
-				.addQueryParameter("startField-year", body.getStartFieldYear())
-				.addQueryParameter("endField-year", body.getEndFieldYear())
-				.addQueryParameter("editKey", editKey)
-				.addQueryParameter("submit-Create", "Create+Entry")
-				.build();
-		HttpUrl refererUrl = HttpUrl.parse(getSiteUrl() +"/editRequestDispatch").newBuilder()
-				.addQueryParameter("subjectUri", editKeyVar.getSubjectUri())
-				.addQueryParameter("predicateUri", editKeyVar.getPredicateUri())
-				.addQueryParameter("domainUri", editKeyVar.getDomainUri())
-				.addQueryParameter("rangeUri", editKeyVar.getRangeUri())
-				.build();
-
+		updateConceptQuery += "} " ;
+		String bodyValue = 
+				"email="+LOGIN.getUserName()+
+				"&password="+LOGIN.getPasswd()+ 
+				"&update="+updateConceptQuery;
+//		System.out.println(updateConceptQuery);
+		//		if (true ) return null;
+		OkHttpClient client = new OkHttpClient();
+		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+		RequestBody body = RequestBody.create(mediaType, bodyValue);
 		Request request = new Request.Builder()
-				.url(url.toString())
-				.method("GET", null)
-				.addHeader("User-Agent", "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0")
-				.addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
-				.addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
-				.addHeader("Connection", "keep-alive")
-				.addHeader("Referer", refererUrl.toString())
-				.addHeader("Upgrade-Insecure-Requests", "1")
+				.url(getSiteUrl()+"/api/sparqlUpdate")
+				.method("POST", body)
+				.addHeader("Accept", SemanticWebMediaType.APPLICATION_RDF_XML.toString())
+				.addHeader("Content-Type", "application/x-www-form-urlencoded")
 				.build();
-		response = getHttpClient().newCall(request).execute();
-		return CommandResult.asCommandResult(response);       
+		Response response = client.newCall(request).execute();
+		return CommandResult.asCommandResult(response);
+
+
+
+
+	}
+	/**
+	 * @deprecated
+	 * @param position
+	 * @return
+	 * @throws IOException
+	 */
+	public CommandResult addPositionOfPerson_(PositionOfPerson position) throws IOException
+	{
+		List<LinguisticLabel> posTitleList = position.getPositionTitleLabel();
+		int posCtr = 0;
+		String orgIRI = null;
+		CommandResult returnVal = null;
+		Response orgResp=null;;
+		String resultString = null;
+		LinguisticLabel firstTitle = null;
+		/**
+		 * Iterate for each languages
+		 */
+		for (Iterator iterator = posTitleList.iterator(); iterator.hasNext();) {
+			posCtr++;
+			LinguisticLabel posTitle = (LinguisticLabel) iterator.next();
+			if (posCtr==1){
+				/**
+				 * Set Vivo to appropriate linguistic context
+				 */
+				VivoReceiverHelper.changeLinguisticContext(getHostName()+"/"+getVivoSiteName(), getHttpClient(), posTitle.getLanguage());
+				/*
+				 * Get editKey
+				 */
+
+				/* 
+				 * Goto individual page
+				 */
+				Response response = VivoReceiverHelper.gotoIndividualPage(getHostName()+"/"+getVivoSiteName(), getHttpClient(), position.getPersonIRI());
+				/*
+				 * Get the Edit Key for this operation
+				 */
+				EditKeyForPosition editKeyVar = new EditKeyForPosition();
+				editKeyVar.setSubjectUri(position.getPersonIRI()); 
+				editKeyVar.setPredicateUri(VIVO.relatedBy.getURI());
+				editKeyVar.setDomainUri(FOAF.PERSON.stringValue());
+				editKeyVar.setRangeUri(VIVO.Position.getURI()); 
+				editKey = VivoReceiverHelper.getEditKey(getHostName()+"/"+getVivoSiteName(), getHttpClient(),editKeyVar);
+
+				HttpUrl url = HttpUrl.parse(getSiteUrl() +"/edit/process").newBuilder()
+						.addQueryParameter("orgType", FOAF.ORGANIZATION.stringValue())
+						//				.addQueryParameter("orgLabel", "")
+						//				.addQueryParameter("orgLabelDisplay", "Fondation nationale des sciences")
+						.addQueryParameter("existingOrg", position.getOrganisationIRI())
+						.addQueryParameter("positionTitle", posTitle.getLabel())
+						.addQueryParameter("positionType", position.getPositionTypeIRI())
+						.addQueryParameter("startField-year", position.getStartFieldYear())
+						.addQueryParameter("endField-year", position.getEndFieldYear())
+						.addQueryParameter("editKey", editKey)
+						.addQueryParameter("submit-Create", "Create+Entry")
+						.build();
+				HttpUrl refererUrl = HttpUrl.parse(getSiteUrl() +"/editRequestDispatch").newBuilder()
+						.addQueryParameter("subjectUri", editKeyVar.getSubjectUri())
+						.addQueryParameter("predicateUri", editKeyVar.getPredicateUri())
+						.addQueryParameter("domainUri", editKeyVar.getDomainUri())
+						.addQueryParameter("rangeUri", editKeyVar.getRangeUri())
+						.build();
+
+				Request request = new Request.Builder()
+						.url(url.toString())
+						.method("GET", null)
+						.addHeader("User-Agent", "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0")
+						.addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+						.addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
+						.addHeader("Connection", "keep-alive")
+						.addHeader("Referer", refererUrl.toString())
+						.addHeader("Upgrade-Insecure-Requests", "1")
+						.build();
+				orgResp = getHttpClient().newCall(request).execute();
+				/*
+				 * Find IRI for Position
+				 */
+				String getPosIRIQuery = SparqlHelper.SparqlPrefix +
+						"SELECT ?posIRI \n"
+						+ "WHERE { \n"
+						+ " 	<"+position.getPersonIRI()+"> vivo:relatedBy ?posIRI . \n"
+						+ " 	?posIRI a <"+position.getPositionTypeIRI()+"> ;  \n"
+						+ " 			rdfs:label ?label . \n"
+						+ " 	filter(regex(str(?label), \""+posTitle.getLabel() + "\" )) . \n"
+						+ " } ";
+				List<QuerySolution> solResult = SparqlHelper.sendSelectQuery(getSiteUrl(), getPosIRIQuery);
+				try {
+					orgIRI = solResult.get(0).get("posIRI").asResource().getURI();
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+				//				for (Iterator iterator2 = solResult.iterator(); iterator2.hasNext();) {
+				//					QuerySolution querySolution = (QuerySolution) iterator2.next();
+				//					System.out.println(querySolution.toString());
+				//				}
+
+				if (posTitleList.size() < 2 ){
+					return CommandResult.asCommandResult(orgIRI);
+				} 
+			} else {
+				/*
+				 * For other language do addLabels
+				 */
+				List<LinguisticLabel> labels=new ArrayList<LinguisticLabel>();
+				labels.add(posTitle);
+				returnVal = addLabels(orgIRI, labels);
+			}
+		}
+		return CommandResult.asCommandResult(orgIRI);
 
 	}
 
@@ -679,6 +979,105 @@ public class VivoReceiver extends AbstractReceiver {
 	}
 
 	/**
+	 * @param IRI
+	 * @param labels
+	 * @return
+	 * @throws IOException
+	 */
+	public CommandResult addaStatement(Statement statement) throws IOException{
+		String updateConceptQuery = ""
+				+ "INSERT DATA  { GRAPH <> { " 
+				+ "\n <" +statement.getSubject() +"> "
+				+ "<" +statement.getPredicate() +"> "
+				+ "<" +statement.getObject() +"> "
+				+ " . \n } }";
+		String bodyValue = 
+				"email="+LOGIN.getUserName()+
+				"&password="+LOGIN.getPasswd()+ 
+				"&update="+updateConceptQuery;
+//		System.out.println(bodyValue);
+		OkHttpClient client = new OkHttpClient();
+		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+		RequestBody body = RequestBody.create(mediaType, bodyValue);
+		Request request = new Request.Builder()
+				.url(getSiteUrl()+"/api/sparqlUpdate")
+				.method("POST", body)
+				.addHeader("Accept", SemanticWebMediaType.APPLICATION_RDF_XML.toString())
+				.addHeader("Content-Type", "application/x-www-form-urlencoded")
+				.build();
+		Response response = client.newCall(request).execute();
+		return CommandResult.asCommandResult(response);
+	}
+
+	/**
+	 * @param IRI
+	 * @param labels
+	 * @return
+	 * @throws IOException
+	 */
+	public CommandResult addLabels(String IRI, List<LinguisticLabel> labels) throws IOException{
+		String updateConceptQuery = ""
+				+ "INSERT DATA  { GRAPH <> { " ;
+		String subjIrI = "\n <" +IRI +"> ";
+		String predIRI = "<" +RDFS.label.getURI() +"> ";
+		for (Iterator iterator = labels.iterator(); iterator.hasNext();) {
+			LinguisticLabel label = (LinguisticLabel) iterator.next();
+			String objLiteral = "\""+label.getLabel()+"\""+"@"+label.getLanguage() ;
+			updateConceptQuery +=  subjIrI 
+					+ predIRI
+					+ objLiteral + " ." ;
+		}
+		updateConceptQuery += " \n } }";
+		String bodyValue = 
+				"email="+LOGIN.getUserName()+
+				"&password="+LOGIN.getPasswd()+ 
+				"&update="+updateConceptQuery;
+		OkHttpClient client = new OkHttpClient();
+		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+		RequestBody body = RequestBody.create(mediaType, bodyValue);
+		Request request = new Request.Builder()
+				.url(getSiteUrl()+"/api/sparqlUpdate")
+				.method("POST", body)
+				.addHeader("Accept", SemanticWebMediaType.APPLICATION_RDF_XML.toString())
+				.addHeader("Content-Type", "application/x-www-form-urlencoded")
+				.build();
+		Response response = client.newCall(request).execute();
+		return CommandResult.asCommandResult(response);
+
+	}
+	/**
+	 * @param indvType
+	 * @return
+	 * @throws IOException 
+	 */
+	public CommandResult addType(IndividualType indvType) throws IOException{
+		String subjIrI = "<" +indvType.getIndividualIRI() +"> ";
+		String predIRI = "<" +RDF.type.getURI() +"> ";
+		String objIrI = "<" +indvType.getVivoTypeIRI() +"> ";
+		String updateConceptQuery = ""
+				+ "INSERT DATA  { GRAPH <> { "
+				+ subjIrI 
+				+ predIRI
+				+ objIrI +" . } }";
+		String bodyValue = 
+				"email="+LOGIN.getUserName()+
+				"&password="+LOGIN.getPasswd()+ 
+				"&update="+updateConceptQuery;
+	//	System.out.println(bodyValue);
+		OkHttpClient client = new OkHttpClient();
+		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+		RequestBody body = RequestBody.create(mediaType, bodyValue);
+		Request request = new Request.Builder()
+				.url(getSiteUrl()+"/api/sparqlUpdate")
+				.method("POST", body)
+				.addHeader("Accept", SemanticWebMediaType.APPLICATION_RDF_XML.toString())
+				.addHeader("Content-Type", "application/x-www-form-urlencoded")
+				.build();
+		Response response = client.newCall(request).execute();
+		return CommandResult.asCommandResult(response);
+
+	}
+	/**
 	 * @param username
 	 * @param passwd
 	 * @param concept
@@ -686,38 +1085,49 @@ public class VivoReceiver extends AbstractReceiver {
 	 * @return
 	 * @throws IOException
 	 */
-	public CommandResult addConcept(String username, String passwd, Concept concept, String MIME_Type) throws IOException{
+	public CommandResult addConcept(Concept concept) throws IOException{
 		String iri = concept.getIRI();
-		String updateConceptQuery = ""
-				+ "INSERT DATA  { GRAPH <> { ";
-		List<ConceptLabel> labels = concept.getLabels();
+		String uuid = UUID.randomUUID().toString();
+		String updateConceptQuery = SparqlHelper.SparqlPrefix 
+				+ "INSERT { GRAPH <> { \n";
+		List<LinguisticLabel> labels = concept.getLabels();
 		for (Iterator iterator = labels.iterator(); iterator.hasNext();) {
-			ConceptLabel conceptLabel = (ConceptLabel) iterator.next();
-			String subject = "<" +iri +"> ";
+			LinguisticLabel conceptLabel = (LinguisticLabel) iterator.next();
+			String subject = "?conceptIRI ";
 			String predicate = "<http://www.w3.org/2000/01/rdf-schema#label> ";
-			String object = "\"" +conceptLabel.getLabel() +"\"@"+conceptLabel.getLanguage() + " . ";
+			String object = "\"" +conceptLabel.getLabel() +"\"@"+conceptLabel.getLanguage() + " . \n";
 			updateConceptQuery+= subject;
 			updateConceptQuery+= predicate;
 			updateConceptQuery+= object;
 		}		
-		updateConceptQuery += "<" +iri +">  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://www.w3.org/2004/02/skos/core#Concept> . }}" ;
+		updateConceptQuery += "?conceptIRI  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://www.w3.org/2004/02/skos/core#Concept> . \n" ;
+		updateConceptQuery += "?conceptIRI  vitro:uuid  \""+ uuid +"\" . \n";
+
+		if (concept.getIRI()==null || concept.getIRI().isEmpty()){
+			updateConceptQuery +=  "} } WHERE \n{ <http://localhost:8080/vivo/individual/n> sfnc:hasNewIRI ?conceptIRI . } \n" ;
+		} else {
+			updateConceptQuery +=  "} } WHERE \n{ BIND (IRI(\""+iri+"\") AS ?conceptIRI) . } \n" ;		
+		}
+		System.out.println(updateConceptQuery);
 
 		String bodyValue = 
-				"email="+username+
-				"&password="+passwd+
+				"email="+LOGIN.getUserName()+
+				"&password="+LOGIN.getPasswd()+ 
 				"&update="+updateConceptQuery;
-		System.out.println(bodyValue);
 		OkHttpClient client = new OkHttpClient();
 		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
 		RequestBody body = RequestBody.create(mediaType, bodyValue);
 		Request request = new Request.Builder()
 				.url(getSiteUrl()+"/api/sparqlUpdate")
 				.method("POST", body)
-				.addHeader("Accept", MIME_Type)
+				.addHeader("Accept", SemanticWebMediaType.APPLICATION_RDF_XML.toString())
 				.addHeader("Content-Type", "application/x-www-form-urlencoded")
 				.build();
 		Response response = client.newCall(request).execute();
-		return CommandResult.asCommandResult(response);
+		System.out.println(response.body().string());
+//		return CommandResult.asCommandResult(response);
+		return DescribeByUUID(uuid.toString());
+
 	}
 	/**
 	 * @param username
@@ -860,6 +1270,35 @@ public class VivoReceiver extends AbstractReceiver {
 		return CommandResult.asCommandResult(personsUriList);
 	}
 	/**
+	 * Describe the IRI with specific vitro:uuid $uuid
+	 * @param uuid
+	 * @return
+	 * @throws IOException
+	 */
+	public CommandResult DescribeByUUID(String uuid) throws IOException {
+		String describeQuery = SparqlHelper.SparqlPrefix + 
+				" DESCRIBE ?indv \n"+
+				" WHERE { \n"+
+				" ?indv vitro:uuid \""+uuid+"\" . \n"+
+				" }";
+		String bodyValue = 
+				"email="+LOGIN.getUserName()+
+				"&password="+LOGIN.getPasswd()+ 
+				"&query="+describeQuery;
+
+		OkHttpClient client = new OkHttpClient();
+		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+		RequestBody body = RequestBody.create(mediaType, bodyValue);
+		Request request = new Request.Builder()
+				.url(getSiteUrl()+"/api/sparqlQuery")
+				.method("POST", body)
+				.addHeader("Accept", SemanticWebMediaType.TEXT_PLAIN.toString())
+				.addHeader("Content-Type", "application/x-www-form-urlencoded")
+				.build();
+		Response response = client.newCall(request).execute();
+		return CommandResult.asCommandResult(response);
+	}
+	/**
 	 * @param login
 	 * @param passwd
 	 * @param label
@@ -868,7 +1307,7 @@ public class VivoReceiver extends AbstractReceiver {
 	 * @throws IOException
 	 */
 	public CommandResult DescribeByLabel(String login, String passwd, String label, String MIME_Type) throws IOException {
-		String describeQuery = this.SparqlPrefix + " describe ?s \n"+
+		String describeQuery = SparqlHelper.SparqlPrefix + " describe ?s \n"+
 				" where { \n"+
 				" ?s rdfs:label ?label . \n"+
 				" FILTER (LCASE(STR(?label))=LCASE(STR(\""+label+"\"))) \n"+

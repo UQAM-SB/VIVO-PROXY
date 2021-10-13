@@ -38,6 +38,7 @@ import io.swagger.util.Json;
 @Produces({
 	"text/turtle",
 	"application/ld+json", 
+	"application/n-triples",
 	"text/plain",
 	"application/rdf+xml",
 	"text/n3",

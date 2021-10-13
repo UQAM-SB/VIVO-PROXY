@@ -7,10 +7,13 @@ import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddConceptCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddDocumentCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddHasResearchAreaCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddImageToIndividualCommand;
+import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddLabelsToIndividualCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddOrganizationCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddPersonCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddPersonListCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddResearchAreaOfCommand;
+import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddStatementCommand;
+import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddTypeToIndividualCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.CreatePositionForCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.LoginCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.LogoutCommand;
@@ -20,26 +23,37 @@ import ca.uqam.tool.vivoproxy.swagger.model.AuthorOfADocument;
 import ca.uqam.tool.vivoproxy.swagger.model.Concept;
 import ca.uqam.tool.vivoproxy.swagger.model.Document;
 import ca.uqam.tool.vivoproxy.swagger.model.Image;
+import ca.uqam.tool.vivoproxy.swagger.model.IndividualType;
+import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
+import ca.uqam.tool.vivoproxy.swagger.model.Organization;
 import ca.uqam.tool.vivoproxy.swagger.model.Person;
 import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
 import ca.uqam.tool.vivoproxy.swagger.model.ResourceToResource;
+import ca.uqam.tool.vivoproxy.swagger.model.Statement;
 
+/**
+ * @author Michel Héon; Université du Québec à Montréal
+ * @filename CommandFactory.java
+ * @date 22 sept. 2021
+ */
+/**
+ * @author Michel Héon; Université du Québec à Montréal
+ * @filename CommandFactory.java
+ * @date 23 sept. 2021
+ */
 public class CommandFactory {
     /*
      * CommandReceiver has Singleton
      */
     private CommandFactory() {}
-//  public Command createAddMemberOf(String personUri, String organizationUri, String roleLabel, String startField_year, String endField_year, String vivoOrganisationType) {
-//  AddMemberOfCommand addOrganizationCommand = new AddMemberOfCommand( personUri,  organizationUri,  roleLabel,  startField_year,  endField_year,  vivoOrganisationType);
-//  register(addOrganizationCommand);
-//  return addOrganizationCommand;
-//}
+
     private static class CommandFactoryHolder {
         static final CommandFactory SINGLE_INSTANCE = new CommandFactory();
     }
     public static CommandFactory getInstance() {
         return CommandFactoryHolder.SINGLE_INSTANCE;
     }
+    
     /**
      * @param username
      * @param password
@@ -49,6 +63,7 @@ public class CommandFactory {
         LoginCommand login = new LoginCommand(username, password);
         return login;
     }
+    
     /**
      * @return
      */
@@ -56,15 +71,16 @@ public class CommandFactory {
         LogoutCommand aCommand = new LogoutCommand();
         return aCommand;
     }
+    
     /**
-     * @param organisationName
-     * @param vivoOrganisationType
+     * @param organization
      * @return
      */
-    public Command createOrganization(String organisationName, String vivoOrganisationType) {
-        AddOrganizationCommand addOrganizationCommand = new AddOrganizationCommand(organisationName, vivoOrganisationType);
+    public Command createOrganization(Organization organization) {
+        AddOrganizationCommand addOrganizationCommand = new AddOrganizationCommand(organization);
         return addOrganizationCommand;
     }
+    
     /**
      * @param login
      * @param passwd
@@ -74,6 +90,7 @@ public class CommandFactory {
     public Command createSparqlDescribeCommand(String login, String passwd, String iri) {
         return createSparqlDescribeCommand(login, passwd, iri, "text/turtle");
     }
+    
     /**
      * @param login
      * @param passwd
@@ -85,6 +102,7 @@ public class CommandFactory {
         SparqlDescribeCommand sparqlDescribeCommand = new SparqlDescribeCommand(login, passwd, iri, MINE_TYPE);
         return sparqlDescribeCommand;
     }
+    
     /**
      * @param login
      * @param passwd
@@ -105,6 +123,7 @@ public class CommandFactory {
         CreatePositionForCommand createPositionForCommand = new CreatePositionForCommand(body);
         return createPositionForCommand;
     }
+    
 	/**
 	 * @param person
 	 * @return
@@ -113,6 +132,7 @@ public class CommandFactory {
         AddPersonCommand addPersonCmd = new AddPersonCommand(person);
 		return addPersonCmd;
 	}
+	
 	/**
 	 * @param personsList
 	 * @return
@@ -120,6 +140,32 @@ public class CommandFactory {
 	public Command createAddPerson(List<Person> personsList) {
 		AddPersonListCommand addPersonCmd = new AddPersonListCommand(personsList);
 		return addPersonCmd;
+	}
+
+	/**
+	 * @param IRI
+	 * @param labels
+	 * @return
+	 */
+	public Command createAddLabelsToIndividual(String IRI, List<LinguisticLabel> labels) {
+		AddLabelsToIndividualCommand addLabelsToIndividualCommand = new AddLabelsToIndividualCommand(IRI, labels);
+		return addLabelsToIndividualCommand;
+	}
+	/**
+	 * @param indvType
+	 * @return
+	 */
+	public Command createAddTypeToIndividual(IndividualType indvType) {
+		AddTypeToIndividualCommand addTypeToIndividualCommand = new AddTypeToIndividualCommand(indvType);
+		return addTypeToIndividualCommand;
+	}
+	/**
+	 * @param statement
+	 * @return
+	 */
+	public Command createAddStatementToIndividual(Statement statement) {
+		AddStatementCommand addStatementCommand = new AddStatementCommand(statement);
+		return addStatementCommand;
 	}
 	/**
 	 * @param login
@@ -139,8 +185,8 @@ public class CommandFactory {
 	 * @param MINE_TYPE
 	 * @return
 	 */
-	public Command createAddConceptCommand(String login, String passwd, Concept concept, String MINE_TYPE) {
-		AddConceptCommand command = new AddConceptCommand(login, passwd, concept, MINE_TYPE);
+	public Command createAddConceptCommand(Concept concept) {
+		AddConceptCommand command = new AddConceptCommand(concept);
         return command;
 	}
 	/**
