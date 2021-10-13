@@ -1,6 +1,7 @@
 # Résumé
-Ce répertoire contient les programmes nécessaires à l'évaluation des capacités de VIVO-Proxy. C'est à partir des données i18n extraites du repo `https://github.com/vivo-project/sample-data` que les applications de cette démo sont utilisé pour populer une instance locale de VIVO à partir de VIVO-PROXY
+> Ce répertoire contient les programmes nécessaires à l'évaluation des capacités de VIVO-Proxy. C'est à partir des données i18n extraites du repo `https://github.com/vivo-project/sample-data` que les applications de cette démo sont utilisé pour populer une instance locale de VIVO à partir de VIVO-PROXY
 
+___
 # Utilisation
 
 ## Pré requis
@@ -9,7 +10,7 @@ Ce répertoire contient les programmes nécessaires à l'évaluation des capacit
 - Maven
 - Linux
 - Bash
-- Jena 3.17.0
+- Jena 3.17.0 
 - Image Magik
 - curl
 - VIVO 1.12.0
@@ -24,6 +25,7 @@ Ce répertoire contient les programmes nécessaires à l'évaluation des capacit
 └── src
     └── main
         ├── bash
+        │   ├── build_sample.sh
         │   ├── build_table_datasource.sh
         │   ├── env.sh
         │   ├── get_indv_byLabel.sh
@@ -60,10 +62,11 @@ Ce répertoire contient les programmes nécessaires à l'évaluation des capacit
 ## Structure des API de VIVO-Proxy
  [voir vivo-proxy.yaml à partir du web](https://editor.swagger.io/?url=https://raw.githubusercontent.com/vivo-community/VIVO-PROXY/main/bundles/ca.uqam.tool.vivo-proxy/api/vivo-proxy.yaml) 
 
-## Évaluation rapide
+___
+# Évaluation rapide
 Cette étape consiste à faire une évaluation rapide du fonctionnement de VIVO-PROXY par la réalisation des étapes nécessaires pour créer une personne dans VIVO
 
-### 1) Configurer VIVO-Proxy
+## 1) Configurer VIVO-Proxy
 ```
 cd $PROXY_HOME/bundles/ca.uqam.tool.vivo-proxy
 ./script/start_vivo_proxy.sh
@@ -71,12 +74,12 @@ cd $PROXY_HOME/bundles/ca.uqam.tool.vivo-proxy
 
 Accèder aux api dans le furteur à `http://localhost:9090/`
 
-### 2) Installe et Démarrer VIVO
+## 2) Installe et Démarrer VIVO
 
 [Installing VIVO](https://wiki.lyrasis.org/display/VIVODOC112x/Installing+VIVO)
 
-### 3) Créer une personne avec Curl via VIVO-PROXY
-Envoyez cette commande dans un script Bash
+## 3) Créer une personne avec Curl via VIVO-PROXY
+> Envoyez cette commande dans un script Bash
 
 ```
 curl -X 'POST' \
@@ -107,21 +110,99 @@ curl -X 'POST' \
   ]
 }'
 ```
-
-## Utiliser VIVO-Proxy démo pour un traitement en lot de données
+___
+# Utiliser VIVO-Proxy démo pour un traitement en lot de données
 Cette démonstration consiste à réaliser une population en lot de VIVO à par l'exécution d'un ensemble de scripts pré-programmés
 
 Le flux ETL d'exécution est segmenté selon les étapes suivantes:
 ```
 [sample.ttl] --> générer les tables de données --> pour chaque table; exécuter le script de population --> [VIVO-PROXY] --> [VIVO] 
 ```
-
+## Flux d'exécution de la démo
 Le détail du flux est représenté ici: 
  
 ![](demo-workflow.jpg)
 
-### 1) Configuration
+- La première étape consiste à créer la fichier sample.ttl à partir des graphes de connaissances issus de [Vivo Project Sample Data](https://github.com/vivo-project/sample-data). Dans le processus ETL, le fichier sample.ttl représente la source de données d'origine d'où sont extraites les données.
 
-`cd ./src/main/bash`
+- La deuxième étape consiste à transformer les données de sample.ttl sous une forme tabulaire représentant la structure de données des formulaires de VIVO. Par exemple: people, organization, concepts, etc.
 
-`source env.sh`
+- La troisième étape consiste à transformer les données de la forme tabulaire en format JSON prêt à être soumis à VIVO-PROXY pour emmagasinage dans VIVO
+
+## Exécution
+> Notes: assurez vous que VIVO et VIVO-PROXY soit démarré
+
+```
+# 1- Créer le fichier sample.ttl
+cd $VIVO-PROXY_HOME/bundles/ca.uqam.tool.vivo-proxy.demo/src/main/bash
+bash$ ./build_sample.sh
+build sample.ttl
+
+# 2- Créer les tables
+bash$ ./build_tables_datasource.sh
+build name_title.tsv
+build organization.txt
+build position.txt
+build concept.txt
+build research.txt
+build_tables_datasource.sh.sh DONE! 
+
+# 3 Chargement des données dans VIVO via VIVO-PROXY
+# 3 a) les personnes et leur photo
+bash$ ./popul_vivo_person.sh
+    ... CREATING person (Claudia Martinez) (http://localhost:8080/vivo/individual/n4854) done!
+    ... processing photo (1/14) Claudia Martinez http://localhost:8080/vivo/individual/n4854 n1158  (560x600) (560,600)
+    ... processing photo (1/14) Claudia Martinez http://localhost:8080/vivo/individual/n4854 n1158  Done !
+Processing: (1/14) n1158 <http://localhost:8080/vivo_i18n/individual/n1158> http://vivoweb.org/ontology/core#NonFacultyAcademic Claudia Martinez
+    ... ADDING person type (http://vivoweb.org/ontology/core#Postdoc) to (Claudia Martinez) at (http://localhost:8080/vivo/individual/n4854) is done!
+Processing: (2/14) n1158 <http://localhost:8080/vivo_i18n/individual/n1158> http://vivoweb.org/o ...
+
+# 3 b) les organisations
+bash$ ./popul_vivo_organization.sh
+    ... CREATING organisation (http://vivoweb.org/ontology/core#AcademicDepartment) OR (Physique)/(Physics) AT (http://localhost:8080/vivo/individual/n4071) done!
+Processing: (1/33) KEY=n1927 ID= <http://localhost:8080/vivo_i18n/individual/n1927>  TYPE=http://vivoweb.org/ontology/core#AcademicDepartment (Physique) (Physics)
+    ... ADDING organisation (http://vivoweb.org/ontology/core#Department) FOR (Physique)/(Physics) AT (http://localhost:8080/vivo/individual/n4071) is done!
+Processing: (2/33) KEY=n1927 ID= <http://localhost:8080/vivo_i18n/individual/n1927>  TYPE=http://vivoweb.org/ontology/core#Department (Physique) (Physics)
+    ... ADDING organisation (http://xmlns.com/foaf/0.1/Organization) FOR (Physique) .....
+    
+# 3 c) les concepts (domaines d'expertise)
+bash$ ./popul_vivo_concept.sh 
+Processing: (1/7) (Derrida) (Derrida)
+    ... CREATING concept (Derrida) (Derrida) (http://localhost:8080/vivo/individual/n7224) done!
+Processing: (2/7) (Civil War Reconstruction) (Reconstruction de la guerre civile)
+    ... CREATING concept (Civil War Reconstruction) (Civil War Reconstruction) (http://localhost:8080/vivo/individual/n6053) done!
+Processing: (3/7) (Rhetoric) (Rhétorique) ...
+
+# 3 d) Associer une position aux personnes
+bash$ ./popul_vivo_position_for.sh 
+Processing (1/23) (n1158) (Claudia) (Martinez) (Chercheur Associé) (Postdoctoral Researcher) (Physique) (Physics) (http://vivoweb.org/ontology/core#NonFacultyAcademicPosition)
+    GET PERSON: Claudia Martinez
+    GET ORGANIZATION: Physics
+    PERS_IRI=(http://localhost:8080/vivo/individual/n4854) ORG_IRI=(http://localhost:8080/vivo/individual/n4071)
+Done Claudia Martinez !
+Processing (2/23) (n1158) (Claudia) (Martinez) (Chercheur Associé) (Postdoctoral Researcher) (Physique) (Physics) (http://vivoweb.org/ontology/core#Position) ...
+
+# 3 e) Associer un domaine de recherche aux personnes
+bash$ ./popul_vivo_hasResearchArea.sh 
+Processing: (1/6) (Patricia Roberts) (Electracy) (Electracy)
+    GET PERSON: Patricia Roberts
+    GET AREA: Electracy
+    CREATING hasResearchArea (Patricia Roberts) at (http://localhost:8080/vivo/individual/n7689) for (Electracy) at (http://localhost:8080/vivo/individual/n5017)  
+    CREATING hasResearchArea (Patricia Roberts) at (http://localhost:8080/vivo/individual/n7689) for (Electracy) at (http://localhost:8080/vivo/individual/n7689)  ... done!
+Processing: (2/6) (Patricia Roberts) (Political discourse) (Discours politique) ...
+
+```
+
+## Résultat partiel
+
+Illustration du résultat par une saisie d'écran de VIVO
+
+| Patricia Roberts (Français)  | Patricia Roberts (Anglais) |
+|------------------------------|:--------------------------:|
+|    ![](VIVO-pat_fr.png)      |  ![](VIVO-pat_en.png)      |
+
+___
+# Conclusion
+
+
+

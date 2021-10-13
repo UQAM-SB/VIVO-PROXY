@@ -36,7 +36,7 @@ EOF
           -H 'Content-Type: application/json' \ \
           -d @$PARAM_JSON | json2txt.sh | grep IRI-value | cut -f 2- -d ':'| tr -d '"' | tr -d " ")
         rm $PARAM_JSON
-        echo "    ... CREATING concept ($CONCEPT_EN) ($CONCEPT_EN ($CONCEPT_IRI) done!"
+        echo "    ... CREATING concept ($CONCEPT_EN) ($CONCEPT_EN) ($CONCEPT_IRI) done!"
 #        popul_image
 }
 DATA_FILENAME=$DEMO_RESOURCE/data/concept.txt
@@ -46,9 +46,6 @@ cat $DATA_FILENAME | sed 1,3d | head -n -1 | while IFS=$'|' read -r -a line_arra
     #
     # extract attributes for each record
     #
-    echo ${line_array[1]}
-    echo ${line_array[2]}
-    echo ${line_array[3]}
     ID=${line_array[1]}
     KEY=$(echo $ID | tr -d '>' | tr -d '<' | xargs basename )
     CONCEPT_EN=$(echo ${line_array[2]} | tr -d '"')
