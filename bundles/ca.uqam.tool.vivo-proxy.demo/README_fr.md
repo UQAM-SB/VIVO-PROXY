@@ -6,14 +6,14 @@ ___
 
 ## Pré requis
 
-- Java 1.8
+- Java 1.11
 - Maven
-- Linux
+- Linux Ubuntu
 - Bash
 - Jena 3.17.0 
-- Image Magik
+- ImageMagik
 - curl
-- VIVO 1.12.0
+- VIVO 1.12.0 incluant le [Pull-Request 250](https://github.com/vivo-project/VIVO/pull/250/)
 
 ## Structure du bundles démo
 > L'arborescence ci-dessous présente la répartition des différents composants nécessaires à l'exécution de la démo de VIVO-PROXY.
