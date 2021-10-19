@@ -13,13 +13,14 @@ import ca.uqam.tool.vivoproxy.swagger.model.Concept;
 import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
 import ca.uqam.tool.vivoproxy.swagger.model.Organization;
 import ca.uqam.tool.vivoproxy.swagger.model.Person;
+import ca.uqam.tool.vivoproxy.swagger.model.PersonWithEmail;
 
 /**
  * @author Michel Héon; Université du Québec à Montréal
  * @filename VivoReceiver_addPerson_Test.java
  * @date 6 oct. 2021
  */
-public class VivoReceiver_addPerson_Test extends AbstractReceiver {
+public class VivoReceiver_addPersonWithMail_Test extends AbstractReceiver {
 	public static void main(String[] argv) throws IOException {
 		String username = LOGIN.getUserName();
 		String password = LOGIN.getPasswd();
@@ -33,12 +34,8 @@ public class VivoReceiver_addPerson_Test extends AbstractReceiver {
 		pers.addFirstNameItem(fn);
 		pers.addLastNameItem(ln);
 		pers.setPersonType("http://vivoweb.org/ontology/core#FacultyMember");
+//		pers.setEMail("ln.fn@example.org");
 		CommandResult resu = vr.addPerson(pers);
-		Response response = resu.getOkhttpResult();
-		String model = response.body().string();
-		System.out.println(response.toString());
-		System.out.println(model);
-		
 //		Organization org = new Organization();
 //		LinguisticLabel cLabelFr = new LinguisticLabel();
 //		LinguisticLabel cLabelEn = new LinguisticLabel();
@@ -54,9 +51,9 @@ public class VivoReceiver_addPerson_Test extends AbstractReceiver {
 //		org.addNamesItem(cLabelEnCA);
 //		org.setOrganizationType("http://vivoweb.org/ontology/core#Publisher");
 //		CommandResult resu = vr.addOrganization(org);
-//		Response response = resu.getOkhttpResult();
-//		String model = response.body().string();
-//		System.out.println(VivoReceiverHelper.getUriResponseFromModel(model));
-//		System.out.println(response.toString());
+		Response response = resu.getOkhttpResult();
+		String model = response.body().string();
+		System.out.println(response.toString());
+		System.out.println(model);
 	}
 }

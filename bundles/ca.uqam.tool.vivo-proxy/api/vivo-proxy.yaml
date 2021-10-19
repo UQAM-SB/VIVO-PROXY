@@ -218,12 +218,46 @@ paths:
       security:
       - basicAuth: []
       x-codegen-request-body-name: body
+  /person/createWithEmailHasKey:
+    post:
+      tags:
+      - person
+      summary: Create a user in VIVO using the eMail address as an IRI key
+      description: This can only be done by the logged in person.
+      operationId: createPersonWithEmail
+      requestBody:
+        description: Created person object with email
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/personWithEmail'
+        required: true
+      responses:
+        200:
+          description: OK (successfully authenticated)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API-Response'
+        401:
+          description: Authentication information is missing or invalid
+          headers:
+            WWW_Authenticate:
+              schema:
+                type: string
+          content: {}
+        405:
+          description: Invalid input
+      security:
+      - basicAuth: []
+      x-codegen-request-body-name: body
   /person/createWithList:
     post:
       tags:
       - person
       summary: Creates list of users with given input array
       operationId: createUsersWithListInput
+      deprecated: true
       requestBody:
         description: List of user object
         content:
@@ -883,6 +917,66 @@ components:
                     },
                     {
                       "label": "Jasper",
+                      "language": "en-US"
+                    }
+                  ]
+      xml:
+        name: person
+    personWithEmail:
+      required:
+        - eMail
+        - firstName
+        - lastName
+        - personType
+        - title
+      type: object
+      properties:
+        firstName:
+          items:
+            $ref: '#/components/schemas/linguisticLabel'
+          example: [
+                    {
+                      "label": "Peter",
+                      "language": "fr-CA"
+                    },
+                    {
+                      "label": "Peter",
+                      "language": "en-US"
+                    }
+                  ]
+        lastName:
+          nullable: false
+          items:
+            $ref: '#/components/schemas/linguisticLabel'
+          example: [
+                    {
+                      "label": "Jasper",
+                      "language": "fr-CA"
+                    },
+                    {
+                      "label": "Jasper",
+                      "language": "en-US"
+                    }
+                  ]
+        eMail:
+          type: string
+          description: eMail is used has key
+          example: jasper.peter@example.org
+        personType:
+          nullable: false
+          type: string
+          example: http://vivoweb.org/ontology/core#FacultyMember
+        title: 
+          nullable: false
+          items:
+            $ref: '#/components/schemas/linguisticLabel'
+          example: [
+                    {
+                      "label": "Professeurr",
+                      "language": "fr-CA"
+                    },
+                    {
+                      "label": "Professor",
                       "language": "en-US"
                     }
                   ]

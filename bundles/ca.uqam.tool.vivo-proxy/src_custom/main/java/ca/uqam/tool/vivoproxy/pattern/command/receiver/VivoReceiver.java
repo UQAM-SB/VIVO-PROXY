@@ -41,6 +41,7 @@ import ca.uqam.tool.vivoproxy.swagger.model.IndividualType;
 import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
 import ca.uqam.tool.vivoproxy.swagger.model.Organization;
 import ca.uqam.tool.vivoproxy.swagger.model.Person;
+import ca.uqam.tool.vivoproxy.swagger.model.PersonWithEmail;
 import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
 import ca.uqam.tool.vivoproxy.swagger.model.ResourceToResource;
 import ca.uqam.tool.vivoproxy.swagger.model.Statement;
@@ -152,6 +153,7 @@ public class VivoReceiver extends AbstractReceiver {
 	protected String getSiteUrl() {
 		return getHostName()+"/"+getVivoSiteName();
 	}
+	
 	public CommandResult addPerson(Person person) throws IOException {
 		String aType = person.getPersonType();
 		String uuid = UUID.randomUUID().toString();
@@ -189,6 +191,7 @@ public class VivoReceiver extends AbstractReceiver {
 		 * Build vcard:Individual part vcard:hasName
 		 */
 		queryCore += " ?vcardHasName a owl:Thing , vcard:Identification , vcard:Addressing , vcard:Explanatory , vcard:Communication , vcard:Name . \n " ; 
+		queryCore += "    ?vcardHasName   vitro:mostSpecificType vcard:Name . \n " ; 
 		for (Iterator iterator = fName.iterator(); iterator.hasNext();) {
 			LinguisticLabel fNameLabel = (LinguisticLabel) iterator.next();
 			queryCore += " 	?vcardHasName vcard:givenName \"" + fNameLabel.getLabel() +"\"@" + fNameLabel.getLanguage() + " . \n";
@@ -205,8 +208,8 @@ public class VivoReceiver extends AbstractReceiver {
 		updateQuery += " 	sfnc:hasNewIRI ?vcardHasName ; \n" ;
 		updateQuery += "	sfnc:hasNewIRI ?persIRI . \n";
 		updateQuery += " } " ;
-//		System.out.println(updateQuery);
-//		System.exit(0);
+		System.out.println(updateQuery);
+		System.exit(0);
 		String bodyValue = 
 				"email="+LOGIN.getUserName()+
 				"&password="+LOGIN.getPasswd()+ 
@@ -225,6 +228,99 @@ public class VivoReceiver extends AbstractReceiver {
 		return DescribeByUUID(uuid.toString());
 
 	}
+	/**
+	 * @param person
+	 * @return
+	 * @throws IOException
+	 */
+	public CommandResult addPerson(PersonWithEmail person) throws IOException {
+		String aType = person.getPersonType();
+		String eMail = person.getEMail();
+		String uuid = eMail.split("@")[0];
+		String updateQuery = SparqlHelper.SparqlPrefix 
+				+ "INSERT { GRAPH <> { \n" ;
+		String queryCore =
+				" ?persIRI a <"+ aType +"> , owl:Thing , obo:BFO_0000004 , obo:BFO_0000001 , foaf:Agent , obo:BFO_0000002 , foaf:Person . \n" 
+						+ " ?persIRI  vitro:mostSpecificType  <"+ aType +"> . \n"
+						+ " ?persIRI obo:ARG_2000028  ?vcardIndv . \n";
+		/*
+		 * Adding rdfs:label "name" for each language
+		 */
+		List<LinguisticLabel> fName = person.getFirstName();
+		List<LinguisticLabel> lName = person.getLastName();
+		for (Iterator iterator = fName.iterator(); iterator.hasNext();) {
+			LinguisticLabel fNameLabel = (LinguisticLabel) iterator.next();
+			for (Iterator iterator2 = lName.iterator(); iterator2.hasNext();) {
+				LinguisticLabel lNameLabel = (LinguisticLabel) iterator2.next();
+				if (fNameLabel.getLanguage().equals(lNameLabel.getLanguage())){
+					String name = fNameLabel.getLabel() + " "+ lNameLabel.getLabel();
+					queryCore += " ?persIRI rdfs:label \"" + name +"\"@" + fNameLabel.getLanguage() + " . \n";
+				}
+			}
+		}
+		/*
+		 * Build vcard:Individual part
+		 */
+		queryCore += " ?vcardIndv a vcard:Kind , obo:BFO_0000031 , owl:Thing , obo:IAO_0000030 , obo:BFO_0000002 , obo:ARG_2000379 , obo:BFO_0000001 , vcard:Individual . \n " ;
+		queryCore += " 	?vcardIndv obo:ARG_2000029 ?vivoIndv . \n " ; 
+		queryCore += " 	?vcardIndv vcard:hasName ?vcardHasName . \n " ; 
+		queryCore += " 	?vcardIndv vcard:hasEmail ?vcardHasEmail . \n " ; 
+		//		queryCore += " 	?vcardIndv vcard:hasTitle ?vcardHasTitle . \n " ; 
+		queryCore += " 	  ?vcardIndv vitro:mostSpecificType  vcard:Individual . \n " ; 
+		/*
+		 * Build vcard:Individual part vcard:hasName
+		 */
+		queryCore += " ?vcardHasName a owl:Thing , vcard:Identification , vcard:Addressing , vcard:Explanatory , vcard:Communication , vcard:Name . \n " ; 
+		queryCore += "     ?vcardHasName vitro:mostSpecificType vcard:Name . \n " ; 
+
+		for (Iterator iterator = fName.iterator(); iterator.hasNext();) {
+			LinguisticLabel fNameLabel = (LinguisticLabel) iterator.next();
+			queryCore += " 	?vcardHasName vcard:givenName \"" + fNameLabel.getLabel() +"\"@" + fNameLabel.getLanguage() + " . \n";
+		}
+
+		for (Iterator iterator2 = lName.iterator(); iterator2.hasNext();) {
+			LinguisticLabel lNameLabel = (LinguisticLabel) iterator2.next();
+			queryCore += " 	?vcardHasName vcard:familyName \"" + lNameLabel.getLabel() +"\"@" + lNameLabel.getLanguage() + " . \n";  
+		}
+		queryCore += " ?vcardHasEmail a owl:Thing , vcard:Addressing , vcard:Code , vcard:Communication , vcard:Email , vcard:Explanatory , vcard:Identification , vcard:Type , vcard:Work . \n";
+		queryCore += "     ?vcardHasEmail vitro:mostSpecificType vcard:Email . \n";
+	    queryCore += "     ?vcardHasEmail vitro:mostSpecificType vcard:Work  . \n";
+		queryCore += "     ?vcardHasEmail vcard:email \"" +eMail+ "\" . \n";  
+
+		updateQuery += queryCore + "} } WHERE { \n";
+//		updateQuery += " <http://localhost:8080/vivo/individual/n> sfnc:hasNewIRI ?vivoIndv  ; \n"; 
+//		updateQuery += "	sfnc:hasNewIRI ?vcardIndv ; \n" ;
+//		updateQuery += " 	sfnc:hasNewIRI ?vcardHasName ; \n" ;
+//		updateQuery += " 	sfnc:hasNewIRI ?vcardHasEmail . \n" ;
+		updateQuery += "	bind(URI(\"http://localhost:8080/vivo/individual/"+uuid+"-indv\") as ?vivoIndv) . \n";
+		updateQuery += "	bind(URI(\"http://localhost:8080/vivo/individual/"+uuid+"-vcard\") as ?vcardIndv) . \n";
+		updateQuery += "	bind(URI(\"http://localhost:8080/vivo/individual/"+uuid+"-vcardName\") as ?vcardHasName) . \n";
+		updateQuery += "	bind(URI(\"http://localhost:8080/vivo/individual/"+uuid+"-vcardEmail\") as ?vcardHasEmail) . \n";
+		updateQuery += "	bind(URI(\"http://localhost:8080/vivo/individual/"+uuid+"\") as ?persIRI) . \n";
+		updateQuery += " } " ;
+//		System.out.println(updateQuery);
+//		System.exit(0);
+		String bodyValue = 
+				"email="+LOGIN.getUserName()+
+				"&password="+LOGIN.getPasswd()+ 
+				"&update="+updateQuery;
+		OkHttpClient client = new OkHttpClient();
+		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+		RequestBody body = RequestBody.create(mediaType, bodyValue);
+		Request request = new Request.Builder()
+				.url(getSiteUrl()+"/api/sparqlUpdate")
+				.method("POST", body)
+				.addHeader("Accept", SemanticWebMediaType.APPLICATION_RDF_XML.toString())
+				.addHeader("Content-Type", "application/x-www-form-urlencoded")
+				.build();
+		Response response = client.newCall(request).execute();
+//		System.out.println(response.body().string());
+		String newIRI = "http://localhost:8080/vivo/individual/"+uuid;
+//		System.out.println(newIRI);
+		return DESCRIBE(LOGIN.getUserName(), LOGIN.getPasswd(), newIRI, SemanticWebMediaType.TEXT_PLAIN.toString());
+	}
+				//DescribeByUUID(uuid.toString());	}
+
 	/**
 	 * @deprecated
 	 * @param person

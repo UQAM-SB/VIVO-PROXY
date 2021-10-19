@@ -23,9 +23,12 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 
 /**
- * Person
+ * PersonWithEmail
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-10-19T03:59:19.892-04:00[America/New_York]")public class Person   {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-10-19T03:59:19.892-04:00[America/New_York]")public class PersonWithEmail   {
+  @JsonProperty("eMail")
+  private String eMail = null;
+
   @JsonProperty("personType")
   private String personType = null;
 
@@ -35,7 +38,27 @@ import javax.validation.Valid;
   @JsonProperty("lastName")
   private List<LinguisticLabel> lastName = new ArrayList<LinguisticLabel>();
 
-  public Person personType(String personType) {
+  public PersonWithEmail eMail(String eMail) {
+    this.eMail = eMail;
+    return this;
+  }
+
+  /**
+   * eMail is used has key
+   * @return eMail
+   **/
+  @JsonProperty("eMail")
+  @Schema(example = "jasper.peter@example.org", required = true, description = "eMail is used has key")
+  @NotNull
+  public String getEMail() {
+    return eMail;
+  }
+
+  public void setEMail(String eMail) {
+    this.eMail = eMail;
+  }
+
+  public PersonWithEmail personType(String personType) {
     this.personType = personType;
     return this;
   }
@@ -55,12 +78,12 @@ import javax.validation.Valid;
     this.personType = personType;
   }
 
-  public Person firstName(List<LinguisticLabel> firstName) {
+  public PersonWithEmail firstName(List<LinguisticLabel> firstName) {
     this.firstName = firstName;
     return this;
   }
 
-  public Person addFirstNameItem(LinguisticLabel firstNameItem) {
+  public PersonWithEmail addFirstNameItem(LinguisticLabel firstNameItem) {
     this.firstName.add(firstNameItem);
     return this;
   }
@@ -81,12 +104,12 @@ import javax.validation.Valid;
     this.firstName = firstName;
   }
 
-  public Person lastName(List<LinguisticLabel> lastName) {
+  public PersonWithEmail lastName(List<LinguisticLabel> lastName) {
     this.lastName = lastName;
     return this;
   }
 
-  public Person addLastNameItem(LinguisticLabel lastNameItem) {
+  public PersonWithEmail addLastNameItem(LinguisticLabel lastNameItem) {
     this.lastName.add(lastNameItem);
     return this;
   }
@@ -116,23 +139,25 @@ import javax.validation.Valid;
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Person person = (Person) o;
-    return Objects.equals(this.personType, person.personType) &&
-        Objects.equals(this.firstName, person.firstName) &&
-        Objects.equals(this.lastName, person.lastName);
+    PersonWithEmail personWithEmail = (PersonWithEmail) o;
+    return Objects.equals(this.eMail, personWithEmail.eMail) &&
+        Objects.equals(this.personType, personWithEmail.personType) &&
+        Objects.equals(this.firstName, personWithEmail.firstName) &&
+        Objects.equals(this.lastName, personWithEmail.lastName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(personType, firstName, lastName);
+    return Objects.hash(eMail, personType, firstName, lastName);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Person {\n");
+    sb.append("class PersonWithEmail {\n");
     
+    sb.append("    eMail: ").append(toIndentedString(eMail)).append("\n");
     sb.append("    personType: ").append(toIndentedString(personType)).append("\n");
     sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");
     sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");

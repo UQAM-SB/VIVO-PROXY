@@ -10,8 +10,6 @@ import java.util.Properties;
  * @date 22 sept. 2021
  */
 public class LOGIN extends AbstractCredential{
-	private static  String USER_NAME = "vivo@uqam.ca";
-	private static  String PASSWD = "Vivo1234.";
 	private static Properties loginProperties;
 	private static LOGIN login_instance;
 	public static LOGIN getInstance()

@@ -19,6 +19,7 @@ import ca.uqam.tool.vivoproxy.pattern.command.concrete.LoginCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.LogoutCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.SparqlDescribeByLabelCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.SparqlDescribeCommand;
+import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddPersonWithEmailCommand;
 import ca.uqam.tool.vivoproxy.swagger.model.AuthorOfADocument;
 import ca.uqam.tool.vivoproxy.swagger.model.Concept;
 import ca.uqam.tool.vivoproxy.swagger.model.Document;
@@ -27,6 +28,7 @@ import ca.uqam.tool.vivoproxy.swagger.model.IndividualType;
 import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
 import ca.uqam.tool.vivoproxy.swagger.model.Organization;
 import ca.uqam.tool.vivoproxy.swagger.model.Person;
+import ca.uqam.tool.vivoproxy.swagger.model.PersonWithEmail;
 import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
 import ca.uqam.tool.vivoproxy.swagger.model.ResourceToResource;
 import ca.uqam.tool.vivoproxy.swagger.model.Statement;
@@ -132,6 +134,16 @@ public class CommandFactory {
         AddPersonCommand addPersonCmd = new AddPersonCommand(person);
 		return addPersonCmd;
 	}
+	
+	/**
+	 * @param person
+	 * @return
+	 */
+	public Command AddPersonWithEmailCommand(PersonWithEmail person) {
+		AddPersonWithEmailCommand addPersonCmd = new AddPersonWithEmailCommand(person);
+		return addPersonCmd;
+	}
+	
 	
 	/**
 	 * @param personsList

@@ -17,6 +17,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import ca.uqam.tool.vivoproxy.swagger.model.AuthorOfADocument;
 import ca.uqam.tool.vivoproxy.swagger.model.ModelAPIResponse;
 import ca.uqam.tool.vivoproxy.swagger.model.Person;
+import ca.uqam.tool.vivoproxy.swagger.model.PersonWithEmail;
 import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
 import ca.uqam.tool.vivoproxy.swagger.model.ResourceToResource;
 
@@ -40,7 +41,7 @@ import javax.validation.constraints.*;
 @Path("/person")
 
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-10-07T14:58:04.779-04:00[America/New_York]")public class PersonApi  {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-10-19T03:59:19.892-04:00[America/New_York]")public class PersonApi  {
    private final PersonApiService delegate;
 
    public PersonApi(@Context ServletConfig servletContext) {
@@ -81,6 +82,24 @@ import javax.validation.constraints.*;
 ,@Context SecurityContext securityContext)
     throws NotFoundException {
         return delegate.createPerson(body,securityContext);
+    }
+    @POST
+    @Path("/createWithEmailHasKey")
+    @Consumes({ "application/json" })
+    @Produces({ "application/json" })
+    @Operation(summary = "Create a user in VIVO using the eMail address as an IRI key", description = "This can only be done by the logged in person.", security = {
+        @SecurityRequirement(name = "basicAuth")    }, tags={ "person" })
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ModelAPIResponse.class))),
+        
+        @ApiResponse(responseCode = "401", description = "Authentication information is missing or invalid"),
+        
+        @ApiResponse(responseCode = "405", description = "Invalid input") })
+    public Response createPersonWithEmail(@Parameter(in = ParameterIn.DEFAULT, description = "Created person object with email" ,required=true) PersonWithEmail body
+
+,@Context SecurityContext securityContext)
+    throws NotFoundException {
+        return delegate.createPersonWithEmail(body,securityContext);
     }
     @POST
     @Path("/createWithList")

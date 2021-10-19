@@ -29,6 +29,7 @@ import ca.uqam.tool.vivoproxy.swagger.model.AuthorOfADocument;
 import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
 import ca.uqam.tool.vivoproxy.swagger.model.ModelAPIResponse;
 import ca.uqam.tool.vivoproxy.swagger.model.Person;
+import ca.uqam.tool.vivoproxy.swagger.model.PersonWithEmail;
 import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
 import ca.uqam.tool.vivoproxy.swagger.model.ResourceToResource;
 import ca.uqam.tool.vivoproxy.util.SemanticWebMediaType;
@@ -67,21 +68,9 @@ public class PersonApiServiceImpl extends PersonApiService {
 			 */
 			CommandResult result =invoker.execute();
 			return ApiServiceImplHelper.buildMessage((Command)addPersonCommand);
-
-//			com.squareup.okhttp.Response response = addPersonCommand.getCommandResult().getOkhttpResult();
-//			String newUserIri = VivoReceiverHelper.getUriResponse(response.body().string());
-//			LOGGER.info("Creating user at uri "+ newUserIri+" with return code " + response.code());
-//			ModelAPIResponse apiResp = new ModelAPIResponse();
-//			apiResp.setIrIValue(newUserIri);
-//			apiResp.setViVOMessage(" return code: " +response.code()+ " "  +response.message());
-//			apiResp.setCode(ApiResponseMessage.OK);
-//			apiResp.setType(new ApiResponseMessage(ApiResponseMessage.OK,"").getType());
-//			Response apiResponse = Response.ok().entity(apiResp).build();
-//			return apiResponse;
 		} catch (IOException e) {
 			return Response.serverError().entity(new VivoProxyResponseMessage(VivoProxyResponseMessage.ERROR, e.getMessage())).build();
 		}
-
 	}
 
 	/* (non-Javadoc)
@@ -299,6 +288,36 @@ public class PersonApiServiceImpl extends PersonApiService {
 	        System.out.println("Done!");
 		}
 		System.out.println("Done!");
+	}
+
+	@Override
+	public Response createPersonWithEmail(PersonWithEmail person, SecurityContext securityContext)
+			throws NotFoundException {
+		try {
+			CommandFactory cf = CommandFactory.getInstance();
+			VivoReceiver session = new VivoReceiver();
+			CommandInvoker invoker = new CommandInvoker();
+			/*
+			 * Create commands
+			 */
+			Command loginCommand = cf.createLogin(LOGIN.getUserName(), LOGIN.getPasswd());
+			Command addPersonCommand = cf.AddPersonWithEmailCommand(person);
+			Command logOutCommand = cf.createLogout();
+
+			/*
+			 * Register commands
+			 */
+			invoker.register(loginCommand);
+			invoker.register(addPersonCommand);
+			invoker.register(logOutCommand);
+			/*
+			 * Execute commands
+			 */
+			CommandResult result =invoker.execute();
+			return ApiServiceImplHelper.buildMessage((Command)addPersonCommand);
+		} catch (IOException e) {
+			return Response.serverError().entity(new VivoProxyResponseMessage(VivoProxyResponseMessage.ERROR, e.getMessage())).build();
+		}
 	}
 
 }
