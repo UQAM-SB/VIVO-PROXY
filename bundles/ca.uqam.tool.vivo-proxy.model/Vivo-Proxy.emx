@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--xtools2_universal_type_manager-->
-<!--Rational Software Architect Designer 9.7.0.2-->
+<!--Rational Software Architect Designer 9.7.1-->
 <?com.ibm.xtools.emf.core.signature <signature id="com.ibm.xtools.mmi.ui.signatures.diagram" version="7.0.0"><feature description="" name="Rational Modeling Platform (com.ibm.xtools.rmp)" url="" version="7.0.0"/></signature>?>
 <?com.ibm.xtools.emf.core.signature <signature id="com.ibm.xtools.uml.msl.model" version="7.0.0"><feature description="" name="com.ibm.xtools.ruml.feature" url="" version="7.0.0"/></signature>?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Deployment="http:///schemas/Deployment/_4OQv4D0TEeKt-L0gyEptgQ/2" xmlns:SketchNotation="http://www.ibm.com/ccl/soa/sketch/notation/1.0.0/" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmlns:umlnotation="http://www.ibm.com/xtools/1.5.3/Umlnotation" xsi:schemaLocation="http:///schemas/Deployment/_4OQv4D0TEeKt-L0gyEptgQ/2 pathmap://UML2_MSL_PROFILES/Deployment.epx#_4OVBUD0TEeKt-L0gyEptgQ?Deployment/Deployment?">
@@ -4843,6 +4843,12 @@
         <references xmi:type="ecore:EPackage" href="pathmap://UML2_MSL_PROFILES/Deployment.epx#_4OVBUD0TEeKt-L0gyEptgQ?Deployment/Deployment?"/>
       </eAnnotations>
       <appliedProfile href="pathmap://UML2_MSL_PROFILES/Deployment.epx#_vjbuwOvHEdiDX5bji0iVSA?Deployment?"/>
+    </profileApplication>
+    <profileApplication xmi:id="_2u_UYDEJEey8Gdgo1KGG9g">
+      <eAnnotations xmi:id="_2vRoQDEJEey8Gdgo1KGG9g" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://OPENAPI3/OpenAPI3.epx#_kHenQGu3EeuuC53FKZlw_w?OpenAPI3/OpenAPI3?"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://OPENAPI3/OpenAPI3.epx#_0jGTsGuMEeuMk8q6wy-yJw?OpenAPI3?"/>
     </profileApplication>
   </uml:Package>
   <Deployment:Cloud xmi:id="_pT7m0M9IEeuji-OLJMtmdw" base_Node="_nLkMIM9IEeuji-OLJMtmdw"/>
