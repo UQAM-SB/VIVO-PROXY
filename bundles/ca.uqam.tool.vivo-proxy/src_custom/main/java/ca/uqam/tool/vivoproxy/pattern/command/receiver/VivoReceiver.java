@@ -208,8 +208,6 @@ public class VivoReceiver extends AbstractReceiver {
 		updateQuery += " 	sfnc:hasNewIRI ?vcardHasName ; \n" ;
 		updateQuery += "	sfnc:hasNewIRI ?persIRI . \n";
 		updateQuery += " } " ;
-		System.out.println(updateQuery);
-		System.exit(0);
 		String bodyValue = 
 				"email="+LOGIN.getUserName()+
 				"&password="+LOGIN.getPasswd()+ 
