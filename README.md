@@ -1,4 +1,5 @@
 # VIVO-PROXY
+
 > VIVO-PROXY is a RESTful api and SDK client that allows data to be ingested into VIVO from applications using JSON data models
 
 > **Important note:** ***This work is in progress!***
