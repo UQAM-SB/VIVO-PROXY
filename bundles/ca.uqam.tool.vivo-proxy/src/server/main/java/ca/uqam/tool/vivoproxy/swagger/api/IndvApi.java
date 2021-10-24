@@ -40,7 +40,7 @@ import javax.validation.constraints.*;
 @Path("/indv")
 
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-10-19T03:59:19.892-04:00[America/New_York]")public class IndvApi  {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-10-23T07:39:42.585-04:00[America/New_York]")public class IndvApi  {
    private final IndvApiService delegate;
 
    public IndvApi(@Context ServletConfig servletContext) {

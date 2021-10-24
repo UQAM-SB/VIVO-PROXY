@@ -28,7 +28,7 @@ import ca.uqam.tool.vivoproxy.swagger.model.IndividualType;
 import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
 import ca.uqam.tool.vivoproxy.swagger.model.Organization;
 import ca.uqam.tool.vivoproxy.swagger.model.Person;
-import ca.uqam.tool.vivoproxy.swagger.model.PersonWithEmail;
+import ca.uqam.tool.vivoproxy.swagger.model.PersonWithOfficeInfo;
 import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
 import ca.uqam.tool.vivoproxy.swagger.model.ResourceToResource;
 import ca.uqam.tool.vivoproxy.swagger.model.Statement;
@@ -139,7 +139,7 @@ public class CommandFactory {
 	 * @param person
 	 * @return
 	 */
-	public Command AddPersonWithEmailCommand(PersonWithEmail person) {
+	public Command AddPersonWithEmailCommand(PersonWithOfficeInfo person) {
 		AddPersonWithEmailCommand addPersonCmd = new AddPersonWithEmailCommand(person);
 		return addPersonCmd;
 	}

@@ -9,7 +9,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE2.0.html
-  version: 1.0.0 - 2021-10-07
+  version: 1.0.0 - 2021-10-23
 externalDocs:
   description: Find out more about VIVO
   url: https://duraspace.org/vivo/
@@ -230,7 +230,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/personWithEmail'
+              $ref: '#/components/schemas/personWithOfficeInfo'
         required: true
       responses:
         200:
@@ -922,15 +922,19 @@ components:
                   ]
       xml:
         name: person
-    personWithEmail:
+    personWithOfficeInfo:
       required:
-        - eMail
+        - personType
         - firstName
         - lastName
-        - personType
         - title
+        - eMail
       type: object
       properties:
+        personType:
+          nullable: false
+          type: string
+          example: http://vivoweb.org/ontology/core#FacultyMember
         firstName:
           items:
             $ref: '#/components/schemas/linguisticLabel'
@@ -958,21 +962,13 @@ components:
                       "language": "en-US"
                     }
                   ]
-        eMail:
-          type: string
-          description: eMail is used has key
-          example: jasper.peter@example.org
-        personType:
-          nullable: false
-          type: string
-          example: http://vivoweb.org/ontology/core#FacultyMember
         title: 
           nullable: false
           items:
             $ref: '#/components/schemas/linguisticLabel'
           example: [
                     {
-                      "label": "Professeurr",
+                      "label": "Professeur",
                       "language": "fr-CA"
                     },
                     {
@@ -980,8 +976,89 @@ components:
                       "language": "en-US"
                     }
                   ]
+        eMail:
+          type: string
+          description: principal email that is used has key
+          example: jasper.peter@example.org
+        secondaryMails:
+          description: Other usefull emails
+          type: array
+          items:
+            type: string
+          example: [ 
+            jaspers2.peter@example.org , jaspers3.peter@example.org]
+        telephone:
+          type: string
+          description: telephone number
+          example: +1 (514) 987-3000 ext. 0000
+        address:
+          items:
+            $ref: '#/components/schemas/addressSchema'
+        organization-unit:
+          items:
+            $ref: '#/components/schemas/linguisticLabel'
+          example: [
+                    {
+                      "label": "Département d'informatique",
+                      "language": "fr-CA"
+                    },
+                    {
+                      "label": "Computer Science",
+                      "language": "en-US"
+                    }
+                  ]
+        organization-name:
+          items:
+            $ref: '#/components/schemas/linguisticLabel'
+          default: [
+                    {
+                      "label": "Université du Québec à Montréal",
+                      "language": "fr-CA"
+                    },
+                    {
+                      "label": "University of Quebec at Montreal",
+                      "language": "en-US"
+                    }
+                  ]
+          example: [
+                    {
+                      "label": "Université du Québec à Montréal",
+                      "language": "fr-CA"
+                    },
+                    {
+                      "label": "University of Quebec at Montreal",
+                      "language": "en-US"
+                    }
+                  ]
       xml:
         name: person
+    addressSchema:
+      required:
+        - streetAddress
+        - locality
+        - region
+        - country
+        - postalCode
+      type: object
+      properties:
+        streetAddress:
+          type: string
+          example: "Faculté des sciences; Case postale 8888, succ. Centre-ville"
+          description: "The ';' delimiter that separates the address header elements will be replaced by a line break in the display"
+        locality:
+          type: string
+          example: "Montréal"
+        region:
+          type: string
+          example: "Québec"
+        country:
+          type: string
+          example: "Canada"
+        postalCode:
+          type: string
+          example: H3C-3P8
+      xml:
+        name: address
     individualType:
       required:
         - vivoTypeIRI

@@ -29,7 +29,7 @@ import ca.uqam.tool.vivoproxy.swagger.model.AuthorOfADocument;
 import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
 import ca.uqam.tool.vivoproxy.swagger.model.ModelAPIResponse;
 import ca.uqam.tool.vivoproxy.swagger.model.Person;
-import ca.uqam.tool.vivoproxy.swagger.model.PersonWithEmail;
+import ca.uqam.tool.vivoproxy.swagger.model.PersonWithOfficeInfo;
 import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
 import ca.uqam.tool.vivoproxy.swagger.model.ResourceToResource;
 import ca.uqam.tool.vivoproxy.util.SemanticWebMediaType;
@@ -291,7 +291,7 @@ public class PersonApiServiceImpl extends PersonApiService {
 	}
 
 	@Override
-	public Response createPersonWithEmail(PersonWithEmail person, SecurityContext securityContext)
+	public Response createPersonWithEmail(PersonWithOfficeInfo person, SecurityContext securityContext)
 			throws NotFoundException {
 		try {
 			CommandFactory cf = CommandFactory.getInstance();

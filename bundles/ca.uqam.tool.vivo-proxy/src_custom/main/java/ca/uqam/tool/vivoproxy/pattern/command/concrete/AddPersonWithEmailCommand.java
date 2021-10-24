@@ -7,15 +7,14 @@ import ca.uqam.tool.vivoproxy.pattern.command.Command;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
 import ca.uqam.tool.vivoproxy.pattern.command.Receiver;
 import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
-import ca.uqam.tool.vivoproxy.swagger.model.Person;
-import ca.uqam.tool.vivoproxy.swagger.model.PersonWithEmail;
+import ca.uqam.tool.vivoproxy.swagger.model.PersonWithOfficeInfo;
 
 public class AddPersonWithEmailCommand extends Command {
 
-    private PersonWithEmail person;
+    private PersonWithOfficeInfo person;
 
 
-    public AddPersonWithEmailCommand(PersonWithEmail person) {
+    public AddPersonWithEmailCommand(PersonWithOfficeInfo person) {
     	super();
     	this.setPerson(person);
         setName(toString());
@@ -39,11 +38,11 @@ public class AddPersonWithEmailCommand extends Command {
 		return "AddPersonCommand [name=" + name + ", person=" + getPerson() + "]";
 	}
 
-	public PersonWithEmail getPerson() {
+	public PersonWithOfficeInfo getPerson() {
 		return person;
 	}
 
-	public void setPerson(PersonWithEmail person) {
+	public void setPerson(PersonWithOfficeInfo person) {
 		this.person = person;
 	}
 
