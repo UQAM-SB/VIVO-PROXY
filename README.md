@@ -1,38 +1,77 @@
 # VIVO-PROXY
-VIVO-PROXY is a Swagger API for VIVO to encapsulate VIVO method 
+> VIVO-PROXY is a RESTful api and SDK client that allows data to be ingested into VIVO from applications using JSON data models
 
-Work in progress
+> **Important note:** ***This work is in progress!***
+### VIVO-Proxy methods for this release
 
+> You can see from the web [vivo-proxy.yaml](https://editor.swagger.io/?url=https://raw.githubusercontent.com/vivo-community/VIVO-PROXY/main/bundles/ca.uqam.tool.vivo-proxy/api/vivo-proxy.yaml)
 
+___
 ## Installation
 
+### Prerequisites
 
+- VIVO 1.12.0 Instance installed and running (for VIVO repo get from [https://github.com/UQAM-SB/VIVO/tree/VIVO-2008](https://github.com/UQAM-SB/VIVO/tree/VIVO-2008) including **isNewIRI** SPARQL Function)
+- Java JDK-11
+- Maven 3.6.3
 
-To run the server, please execute the following:
+### To run VIVO-PROXY, 
+> please execute the following:
 
-Run a VIVO instance at `http://localhost:8080/vivo`
+#### 1) Run a VIVO instance at 
+`http://localhost:8080/vivo`
 
-need Java JDK-11
+#### 2) Configure VIVO-LOGIN for VIVO-PROXY by performing the following commands
 
 ```
-cd bundles/ca.uqam.tool.vivoproxy
+cd bundles/ca.uqam.tool.vivo-proxy
+cp src-overlay/main/java/ca/uqam/tool/util/credential/YOUR_LOGIN.java src-overlay/main/java/ca/uqam/tool/util/credential/LOGIN.java
+vi src-overlay/main/java/ca/uqam/tool/util/credential/LOGIN.java`
+
+Replace     
+    Class name YOUR_LOGIN by LOGIN
+    USER_NAME = "YOUR_VIVO_LOGIN";
+    PASSWD = "YOUR_VIVO_LOGIN_PASSWD"; 
+    by your VIVO_root credential (see :
+            rootUser.emailAddress = 
+            rootUser.passwordChangeRequired = false
+            rootUser.password = 
+      
+    properties in the $VIVO_HOME/config/runtimes.properties
+
+```
+
+####  3) compile and run VIVO-PROXY
+
+```
 mvn clean package jetty:run
 ```
+##### You can then view the swagger listing here:
 
-You can then view the swagger listing here:
+> [http://localhost:9090/vivo-proxy.yaml](http://localhost:9090/vivo-proxy.yaml) on localHost
 
-```
-http://localhost:9090/vivo-proxy.yaml
-```
-and swagger console here:
+##### and swagger console here:
 
-```
-http://localhost:9090/
-```
-
+[http://localhost:9090/](http://localhost:9090/)
+___
 ## Other instructions and videos
-VIVO Conference 2021: VIVO-PROXY POC: at [https://doi.org/10.13140/RG.2.2.24103.06569 ](https://doi.org/10.13140/RG.2.2.24103.06569)
 
+### VIVO-PROXY Demo
 
+> Demonstration of using VIVO-PROXY for the batch data population at: [bundles/ca.uqam.tool.vivo-proxy.demo/README.md](bundles/ca.uqam.tool.vivo-proxy.demo/README.md)
 
+___
+## Old stuff
+### PowerPoint Presentation
+
+> **VIVO Conference 2021**: VIVO-PROXY Proof Of Concept: at [https://doi.org/10.13140/RG.2.2.24103.06569 ](https://doi.org/10.13140/RG.2.2.24103.06569)
+
+### List of presentation videos
+
+- [VIVO-PROXY Scenario of 3 actions](https://youtu.be/alOBBHnIx14)
+- [Swagger Model Driven Development Demonstration ](https://youtu.be/jyz0WQuj9UU)
+
+### Try in out! : Use cases of VIVO-PROXY that you can try
+> You will find here a VIVO-PROXY usage scenario containing several use cases 
+> [Client use cases readme](https://github.com/vivo-community/VIVO-PROXY/tree/issues-3/bundles/ca.uqam.tool.vivo-proxy.client#readme)
 

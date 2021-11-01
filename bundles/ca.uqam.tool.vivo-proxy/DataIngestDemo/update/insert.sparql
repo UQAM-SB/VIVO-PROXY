@@ -1,0 +1,7 @@
+update=INSERT DATA  {
+   GRAPH <> {
+        <http://purl.org/uqam.ca/vocabulary/expertise#semanticweb>  <http://www.w3.org/2000/01/rdf-schema#label>  "semantic web"@en-CA .
+        <http://purl.org/uqam.ca/vocabulary/expertise#semanticweb>  <http://www.w3.org/2000/01/rdf-schema#label>  "wed sémantique"@fr-CA .
+        <http://purl.org/uqam.ca/vocabulary/expertise#semanticweb>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://www.w3.org/2004/02/skos/core#Concept> .
+    }
+}
