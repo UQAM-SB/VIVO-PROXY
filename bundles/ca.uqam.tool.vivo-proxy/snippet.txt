@@ -1,0 +1,13 @@
+curl -i -d 'email=vivo@uqam.ca' -d 'password=Vivo1234.' -d 'query=PREFIX jv: <java:edu.cornell.mannlib.vitro.webapp.controller.api.> SELECT ?s ?p ?uuid WHERE {?s ?p ?o . BIND (jv:genNewIRI() as ?uuid).} LIMIT 5' -H 'Accept: application/sparql-results+json' 'http://localhost:8080/vivo/api/sparqlQuery'
+curl -i -d 'email=vivo@uqam.ca' -d 'password=Vivo1234.' -d 'query=PREFIX jv: <java:edu.cornell.mannlib.vitro.webapp.controller.api.> SELECT ?s ?p ?uuid WHERE {?s ?p ?o . BIND (jv:generateNewIRI() as ?uuid).} LIMIT 5' -H 'Accept: application/sparql-results+json' 'http://localhost:8080/vivo/api/sparqlQuery'
+
+curl -i -d 'email=vivo@uqam.ca' -d 'password=Vivo1234.' -d 'query=PREFIX jv: <java:edu.cornell.mannlib.vitro.webapp.sparql.function.> SELECT ?s ?o  WHERE {<http://localhost:8080/vivo/individual/n> jv:hasNewIRI ?o . } LIMIT 5' -H 'Accept: application/sparql-results+json' 'http://localhost:8080/vivo/api/sparqlQuery'
+
+curl -i -d 'email=vivo@uqam.ca' -d 'password=Vivo1234.' -d 'query=PREFIX jv: <java:edu.cornell.mannlib.vitro.webapp.controller.api.> SELECT ?s ?o  WHERE {<http://localhost:8080/vivo/individual/n> jv:hasNewIRI ?o . } LIMIT 5' -H 'Accept: application/sparql-results+json' 'http://localhost:8080/vivo/api/sparqlQuery'
+
+http://openvivo.org/display/orcid0000-0003-4105-9220
+
+
+
+curl -i -d 'email=vivo@uqam.ca' -d 'password=Vivo1234.' -d 'query=PREFIX jv: <java:edu.cornell.mannlib.vitro.webapp.sparql.function.> SELECT ?s ?o  WHERE {<http://localhost:8080/vivo/individual/n> jv:hasNewIRI ?o . } LIMIT 5' -H 'Accept: application/sparql-results+json' 'http://localhost:8080/vivo/api/sparqlQuery'
+curl -i -d 'email=vivo@uqam.ca' -d 'password=Vivo1234.' -d 'query=PREFIX jv: <http://vivoweb.org/sparql/function#> SELECT ?s ?o  WHERE {<http://localhost:8080/vivo/individual/n> jv:hasNewIRI ?o . } LIMIT 5' -H 'Accept: application/sparql-results+json' 'http://localhost:8080/vivo/api/sparqlQuery'
