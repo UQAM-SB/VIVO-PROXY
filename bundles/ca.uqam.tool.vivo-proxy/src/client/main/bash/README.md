@@ -97,6 +97,7 @@ Class | Method | HTTP request | Description
 *OrganizationApi* | [**createOrganization**](docs/OrganizationApi.md#createorganization) | **POST** /organization | Create an organization in VIVO
 *PersonApi* | [**createPerson**](docs/PersonApi.md#createperson) | **POST** /person | Create a person in VIVO
 *PersonApi* | [**createPositionFor**](docs/PersonApi.md#createpositionfor) | **PUT** /person | Create organizational position for
+*PersonApi* | [**createUsersWithListInput**](docs/PersonApi.md#createuserswithlistinput) | **POST** /person/createWithList | Creates list of users with given input array
 *VivoApi* | [**getindividualByIRI**](docs/VivoApi.md#getindividualbyiri) | **GET** /vivo | Get an individual by IRI
 
 

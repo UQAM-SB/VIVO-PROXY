@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package ca.uqam.tool.vivoproxy.swagger.client.handler;
 
 import java.util.List;

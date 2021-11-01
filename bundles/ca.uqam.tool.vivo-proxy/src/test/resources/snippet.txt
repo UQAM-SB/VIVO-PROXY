@@ -1,0 +1,1 @@
+java -Dlog4j.configurationFile=file:/home/heon/01-SPRINT/2021-08-01-SPRINT-07/VIVO-Studio/plugins/ca.uqam.tool.external.jena_3.17.0/tools/log4j2.properties -cp '/home/heon/01-SPRINT/2021-08-01-SPRINT-07/VIVO-Studio/plugins/ca.uqam.tool.external.jena_3.17.0/tools/lib/*' riotcmd.infer --rdfs vivo.ttl sample-data-orig.ttl

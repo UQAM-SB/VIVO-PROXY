@@ -1,0 +1,14 @@
+[
+	{
+		"personType": "http://vivoweb.org/ontology/core#EmeritusFaculty",
+		"firstName": "Franklin",
+		"lastName": "Pierce",
+		"middleName": "J"
+	},
+	{
+		"personType": "http://vivoweb.org/ontology/core#EmeritusFaculty",
+		"firstName": "Franklin",
+		"lastName": "Pierce",
+		"middleName": "J"
+	}
+]

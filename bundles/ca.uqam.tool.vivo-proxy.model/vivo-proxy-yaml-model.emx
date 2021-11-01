@@ -1,0 +1,1835 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--xtools2_universal_type_manager-->
+<!--Rational Software Architect Designer 9.7.1-->
+<?com.ibm.xtools.emf.core.signature <signature id="com.ibm.xtools.mmi.ui.signatures.diagram" version="7.0.0"><feature description="" name="Rational Modeling Platform (com.ibm.xtools.rmp)" url="" version="7.0.0"/></signature>?>
+<?com.ibm.xtools.emf.core.signature <signature id="com.ibm.xtools.uml.msl.model" version="7.0.0"><feature description="" name="com.ibm.xtools.ruml.feature" url="" version="7.0.0"/></signature>?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Default="http:///schemas/Default/_fNm3AAqoEd6-N_NOT9vsCA/2" xmlns:OpenAPI3="http:///schemas/OpenAPI3/_kHYgoGu3EeuuC53FKZlw_w/3" xmlns:REST="http:///schemas/REST/_w_xMoDeXEea7zJ8GtyuLLw/26" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmlns:umlnotation="http://www.ibm.com/xtools/1.5.3/Umlnotation" xsi:schemaLocation="http:///schemas/Default/_fNm3AAqoEd6-N_NOT9vsCA/2 pathmap://UML2_MSL_PROFILES/Default.epx#_fNwoAAqoEd6-N_NOT9vsCA?Default/Default? http:///schemas/OpenAPI3/_kHYgoGu3EeuuC53FKZlw_w/3 pathmap://OPENAPI3/OpenAPI3.epx#_kHenQGu3EeuuC53FKZlw_w?OpenAPI3/OpenAPI3? http:///schemas/REST/_w_xMoDeXEea7zJ8GtyuLLw/26 pathmap://RESTProfile/REST.epx#_w_1eEDeXEea7zJ8GtyuLLw?REST/REST?">
+  <uml:Model xmi:id="_NRAMoAwOEdmFcaeZXPdWAQ" name="vivo-proxy-yaml-model">
+    <eAnnotations xmi:id="_NRAMoQwOEdmFcaeZXPdWAQ" source="uml2.diagrams" references="_NRAMogwOEdmFcaeZXPdWAQ">
+      <contents xmi:type="umlnotation:UMLDiagram" xmi:id="_NRAMogwOEdmFcaeZXPdWAQ" type="Freeform" name="Main">
+        <children xmi:type="umlnotation:UMLShape" xmi:id="_VLbewDMlEeyOqbgKav0G-w" element="_C2PNgDEfEey8Gdgo1KGG9g" fontName="Segoe UI" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
+          <children xmi:type="notation:DecorationNode" xmi:id="_VLbewjMlEeyOqbgKav0G-w" type="ImageCompartment">
+            <layoutConstraint xmi:type="notation:Size" xmi:id="_VLbewzMlEeyOqbgKav0G-w" width="1320" height="1320"/>
+          </children>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_VLbexDMlEeyOqbgKav0G-w" type="Stereotype"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_VLbexTMlEeyOqbgKav0G-w" type="Name"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_VLbexjMlEeyOqbgKav0G-w" type="Parent"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_VLbexzMlEeyOqbgKav0G-w" type="AttributeCompartment"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_VLbeyDMlEeyOqbgKav0G-w" type="OperationCompartment"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_VLbeyTMlEeyOqbgKav0G-w" visible="false" type="SignalCompartment"/>
+          <children xmi:type="umlnotation:UMLShapeCompartment" xmi:id="_VLbeyjMlEeyOqbgKav0G-w" visible="false" type="StructureCompartment"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_VLbewTMlEeyOqbgKav0G-w" x="1268" y="3487"/>
+        </children>
+        <children xmi:type="umlnotation:UMLShape" xmi:id="_W9ocMDMlEeyOqbgKav0G-w" element="_C2P0kDEfEey8Gdgo1KGG9g" fontName="Segoe UI" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
+          <children xmi:type="notation:DecorationNode" xmi:id="_W9ocMjMlEeyOqbgKav0G-w" type="ImageCompartment">
+            <layoutConstraint xmi:type="notation:Size" xmi:id="_W9ocMzMlEeyOqbgKav0G-w" width="1320" height="1320"/>
+          </children>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_W9ocNDMlEeyOqbgKav0G-w" type="Stereotype"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_W9ocNTMlEeyOqbgKav0G-w" type="Name"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_W9ocNjMlEeyOqbgKav0G-w" type="Parent"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_W9ocNzMlEeyOqbgKav0G-w" type="AttributeCompartment"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_W9ocODMlEeyOqbgKav0G-w" type="OperationCompartment"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_W9ocOTMlEeyOqbgKav0G-w" visible="false" type="SignalCompartment"/>
+          <children xmi:type="umlnotation:UMLShapeCompartment" xmi:id="_W9ocOjMlEeyOqbgKav0G-w" visible="false" type="StructureCompartment"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_W9ocMTMlEeyOqbgKav0G-w" x="8242" y="3487"/>
+        </children>
+        <children xmi:type="umlnotation:UMLShape" xmi:id="_c5QtIDMlEeyOqbgKav0G-w" element="_C4mlADEfEey8Gdgo1KGG9g" fontName="Segoe UI" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Image">
+          <children xmi:type="notation:DecorationNode" xmi:id="_c5QtIjMlEeyOqbgKav0G-w" type="ImageCompartment">
+            <layoutConstraint xmi:type="notation:Size" xmi:id="_c5QtIzMlEeyOqbgKav0G-w" width="1320" height="1320"/>
+          </children>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_c5QtJDMlEeyOqbgKav0G-w" type="Stereotype"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_c5QtJTMlEeyOqbgKav0G-w" type="Name"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_c5QtJjMlEeyOqbgKav0G-w" type="Parent"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_c5QtJzMlEeyOqbgKav0G-w" type="AttributeCompartment"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_c5QtKDMlEeyOqbgKav0G-w" type="OperationCompartment"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_c5QtKTMlEeyOqbgKav0G-w" visible="false" type="SignalCompartment"/>
+          <children xmi:type="umlnotation:UMLShapeCompartment" xmi:id="_c5QtKjMlEeyOqbgKav0G-w" visible="false" type="StructureCompartment"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_c5QtITMlEeyOqbgKav0G-w" x="6085" y="11800"/>
+        </children>
+        <children xmi:type="umlnotation:UMLShape" xmi:id="_fkztYDMlEeyOqbgKav0G-w" element="_C3Ds4DEfEey8Gdgo1KGG9g" fontName="Segoe UI" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Image">
+          <children xmi:type="notation:DecorationNode" xmi:id="_fkztYjMlEeyOqbgKav0G-w" type="ImageCompartment">
+            <layoutConstraint xmi:type="notation:Size" xmi:id="_fkztYzMlEeyOqbgKav0G-w" width="1320" height="1320"/>
+          </children>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_fkztZDMlEeyOqbgKav0G-w" type="Stereotype"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_fkztZTMlEeyOqbgKav0G-w" type="Name"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_fkztZjMlEeyOqbgKav0G-w" type="Parent"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_fkztZzMlEeyOqbgKav0G-w" type="AttributeCompartment"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_fkztaDMlEeyOqbgKav0G-w" type="OperationCompartment"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_fkztaTMlEeyOqbgKav0G-w" visible="false" type="SignalCompartment"/>
+          <children xmi:type="umlnotation:UMLShapeCompartment" xmi:id="_fkztajMlEeyOqbgKav0G-w" visible="false" type="StructureCompartment"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_fkztYTMlEeyOqbgKav0G-w" x="4630" y="16007"/>
+        </children>
+        <children xmi:type="umlnotation:UMLShape" xmi:id="_fzzysDMlEeyOqbgKav0G-w" element="_C2MKMDEfEey8Gdgo1KGG9g" fontName="Segoe UI" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
+          <children xmi:type="notation:DecorationNode" xmi:id="_fzzysjMlEeyOqbgKav0G-w" type="ImageCompartment">
+            <layoutConstraint xmi:type="notation:Size" xmi:id="_fzzyszMlEeyOqbgKav0G-w" width="1320" height="1320"/>
+          </children>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_fzzytDMlEeyOqbgKav0G-w" type="Stereotype"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_fzzytTMlEeyOqbgKav0G-w" type="Name"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_fzzytjMlEeyOqbgKav0G-w" type="Parent"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_fzzytzMlEeyOqbgKav0G-w" type="AttributeCompartment"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_fzzyuDMlEeyOqbgKav0G-w" type="OperationCompartment"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_fzzyuTMlEeyOqbgKav0G-w" visible="false" type="SignalCompartment"/>
+          <children xmi:type="umlnotation:UMLShapeCompartment" xmi:id="_fzzyujMlEeyOqbgKav0G-w" visible="false" type="StructureCompartment"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_fzzysTMlEeyOqbgKav0G-w" x="2169" y="19420"/>
+        </children>
+        <children xmi:type="umlnotation:UMLShape" xmi:id="_ih3UYDMlEeyOqbgKav0G-w" element="_C4t5wDEfEey8Gdgo1KGG9g" fontName="Segoe UI" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Image">
+          <children xmi:type="notation:DecorationNode" xmi:id="_ih3UYjMlEeyOqbgKav0G-w" type="ImageCompartment">
+            <layoutConstraint xmi:type="notation:Size" xmi:id="_ih3UYzMlEeyOqbgKav0G-w" width="1320" height="1320"/>
+          </children>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_ih3UZDMlEeyOqbgKav0G-w" type="Stereotype"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_ih3UZTMlEeyOqbgKav0G-w" type="Name"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_ih3UZjMlEeyOqbgKav0G-w" type="Parent"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_ih3UZzMlEeyOqbgKav0G-w" type="AttributeCompartment"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_ih3UaDMlEeyOqbgKav0G-w" type="OperationCompartment"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_ih3UaTMlEeyOqbgKav0G-w" visible="false" type="SignalCompartment"/>
+          <children xmi:type="umlnotation:UMLShapeCompartment" xmi:id="_ih3UajMlEeyOqbgKav0G-w" visible="false" type="StructureCompartment"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ih3UYTMlEeyOqbgKav0G-w" x="13202" y="9577"/>
+        </children>
+        <children xmi:type="umlnotation:UMLShape" xmi:id="_krQCwDMlEeyOqbgKav0G-w" element="_C2MxQTEfEey8Gdgo1KGG9g" fontName="Segoe UI" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
+          <children xmi:type="notation:DecorationNode" xmi:id="_krQCwjMlEeyOqbgKav0G-w" type="ImageCompartment">
+            <layoutConstraint xmi:type="notation:Size" xmi:id="_krQCwzMlEeyOqbgKav0G-w" width="1320" height="1320"/>
+          </children>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_krQCxDMlEeyOqbgKav0G-w" type="Stereotype"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_krQCxTMlEeyOqbgKav0G-w" type="Name"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_krQCxjMlEeyOqbgKav0G-w" type="Parent"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_krQCxzMlEeyOqbgKav0G-w" type="AttributeCompartment"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_krQCyDMlEeyOqbgKav0G-w" type="OperationCompartment"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_krQCyTMlEeyOqbgKav0G-w" visible="false" type="SignalCompartment"/>
+          <children xmi:type="umlnotation:UMLShapeCompartment" xmi:id="_krQCyjMlEeyOqbgKav0G-w" visible="false" type="StructureCompartment"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_krQCwTMlEeyOqbgKav0G-w" x="11412" y="16801"/>
+        </children>
+        <children xmi:type="umlnotation:UMLShape" xmi:id="_mx8CcDMlEeyOqbgKav0G-w" element="_C2Jt8TEfEey8Gdgo1KGG9g" fontName="Segoe UI" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
+          <children xmi:type="notation:DecorationNode" xmi:id="_mx8CcjMlEeyOqbgKav0G-w" type="ImageCompartment">
+            <layoutConstraint xmi:type="notation:Size" xmi:id="_mx8CczMlEeyOqbgKav0G-w" width="1320" height="1320"/>
+          </children>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_mx8CdDMlEeyOqbgKav0G-w" type="Stereotype"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_mx8CdTMlEeyOqbgKav0G-w" type="Name"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_mx8CdjMlEeyOqbgKav0G-w" type="Parent"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_mx8CdzMlEeyOqbgKav0G-w" type="AttributeCompartment"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_mx8CeDMlEeyOqbgKav0G-w" type="OperationCompartment"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_mx8CeTMlEeyOqbgKav0G-w" visible="false" type="SignalCompartment"/>
+          <children xmi:type="umlnotation:UMLShapeCompartment" xmi:id="_mx8CejMlEeyOqbgKav0G-w" visible="false" type="StructureCompartment"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_mx8CcTMlEeyOqbgKav0G-w" x="3492" y="9763"/>
+        </children>
+      </contents>
+      <contents xmi:type="umlnotation:UMLDiagram" xmi:id="_ZzGK0DEfEey8Gdgo1KGG9g" type="Class" name="DiagrammeClasse1">
+        <children xmi:type="umlnotation:UMLShape" xmi:id="_bIG18DEfEey8Gdgo1KGG9g" element="_C6pzcTEfEey8Gdgo1KGG9g" fontName="Noto Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Image">
+          <children xmi:type="notation:DecorationNode" xmi:id="_bIHdADEfEey8Gdgo1KGG9g" type="ImageCompartment">
+            <layoutConstraint xmi:type="notation:Size" xmi:id="_bIHdATEfEey8Gdgo1KGG9g" width="1320" height="1320"/>
+          </children>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_bIIEEDEfEey8Gdgo1KGG9g" type="Stereotype"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_bIIEETEfEey8Gdgo1KGG9g" type="Name"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_bIIEEjEfEey8Gdgo1KGG9g" type="Parent"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_bIIrIDEfEey8Gdgo1KGG9g" type="AttributeCompartment"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_bIJSMDEfEey8Gdgo1KGG9g" type="OperationCompartment"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_bIJSMTEfEey8Gdgo1KGG9g" visible="false" type="SignalCompartment"/>
+          <children xmi:type="umlnotation:UMLShapeCompartment" xmi:id="_bIJSMjEfEey8Gdgo1KGG9g" visible="false" type="StructureCompartment"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_bIG18TEfEey8Gdgo1KGG9g" x="6657" y="4438"/>
+        </children>
+        <children xmi:type="umlnotation:UMLShape" xmi:id="_cjoYwDEfEey8Gdgo1KGG9g" element="_C6whIzEfEey8Gdgo1KGG9g" fontName="Noto Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Image">
+          <children xmi:type="notation:DecorationNode" xmi:id="_cjoYwjEfEey8Gdgo1KGG9g" type="ImageCompartment">
+            <layoutConstraint xmi:type="notation:Size" xmi:id="_cjoYwzEfEey8Gdgo1KGG9g" width="1320" height="1320"/>
+          </children>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_cjo_0DEfEey8Gdgo1KGG9g" type="Stereotype"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_cjo_0TEfEey8Gdgo1KGG9g" type="Name"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_cjo_0jEfEey8Gdgo1KGG9g" type="Parent"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_cjo_0zEfEey8Gdgo1KGG9g" type="AttributeCompartment"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_cjpm4DEfEey8Gdgo1KGG9g" type="OperationCompartment"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_cjpm4TEfEey8Gdgo1KGG9g" visible="false" type="SignalCompartment"/>
+          <children xmi:type="umlnotation:UMLShapeCompartment" xmi:id="_cjpm4jEfEey8Gdgo1KGG9g" visible="false" type="StructureCompartment"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_cjoYwTEfEey8Gdgo1KGG9g" x="5389" y="8559"/>
+        </children>
+        <children xmi:type="umlnotation:UMLShape" xmi:id="_dJuvcDEfEey8Gdgo1KGG9g" element="_C3DF0jEfEey8Gdgo1KGG9g" fontName="Noto Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
+          <children xmi:type="notation:DecorationNode" xmi:id="_dJvWgDEfEey8Gdgo1KGG9g" type="ImageCompartment">
+            <layoutConstraint xmi:type="notation:Size" xmi:id="_dJvWgTEfEey8Gdgo1KGG9g" width="1320" height="1320"/>
+          </children>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_dJvWgjEfEey8Gdgo1KGG9g" type="Stereotype"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_dJvWgzEfEey8Gdgo1KGG9g" type="Name"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_dJv9kDEfEey8Gdgo1KGG9g" type="Parent"/>
+          <children xmi:type="umlnotation:UMLShapeCompartment" xmi:id="_dJv9kTEfEey8Gdgo1KGG9g" type="PackageContents" collapsed="true" canonical="false"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_dJuvcTEfEey8Gdgo1KGG9g" x="317" y="9827"/>
+        </children>
+        <children xmi:type="umlnotation:UMLShape" xmi:id="_ez1g0DEfEey8Gdgo1KGG9g" element="_C2P0kDEfEey8Gdgo1KGG9g" fontName="Noto Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
+          <children xmi:type="notation:DecorationNode" xmi:id="_ez2H4DEfEey8Gdgo1KGG9g" type="ImageCompartment">
+            <layoutConstraint xmi:type="notation:Size" xmi:id="_ez2H4TEfEey8Gdgo1KGG9g" width="1320" height="1320"/>
+          </children>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_ez2H4jEfEey8Gdgo1KGG9g" type="Stereotype"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_ez2H4zEfEey8Gdgo1KGG9g" type="Name"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_ez3WADEfEey8Gdgo1KGG9g" type="Parent"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_ez3WATEfEey8Gdgo1KGG9g" type="AttributeCompartment"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_ez3WAjEfEey8Gdgo1KGG9g" type="OperationCompartment"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_ez39EDEfEey8Gdgo1KGG9g" visible="false" type="SignalCompartment"/>
+          <children xmi:type="umlnotation:UMLShapeCompartment" xmi:id="_ez39ETEfEey8Gdgo1KGG9g" visible="false" type="StructureCompartment"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ez1g0TEfEey8Gdgo1KGG9g" x="6023" y="13631"/>
+        </children>
+        <children xmi:type="umlnotation:UMLShape" xmi:id="_gBhb8DEfEey8Gdgo1KGG9g" element="_C2N_YTEfEey8Gdgo1KGG9g" fontName="Noto Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
+          <children xmi:type="notation:DecorationNode" xmi:id="_gBhb8jEfEey8Gdgo1KGG9g" type="ImageCompartment">
+            <layoutConstraint xmi:type="notation:Size" xmi:id="_gBhb8zEfEey8Gdgo1KGG9g" width="1320" height="1320"/>
+          </children>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_gBiDADEfEey8Gdgo1KGG9g" type="Stereotype"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_gBiDATEfEey8Gdgo1KGG9g" type="Name"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_gBiDAjEfEey8Gdgo1KGG9g" type="Parent"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_gBiDAzEfEey8Gdgo1KGG9g" type="AttributeCompartment"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_gBiqEDEfEey8Gdgo1KGG9g" type="OperationCompartment"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_gBiqETEfEey8Gdgo1KGG9g" visible="false" type="SignalCompartment"/>
+          <children xmi:type="umlnotation:UMLShapeCompartment" xmi:id="_gBiqEjEfEey8Gdgo1KGG9g" visible="false" type="StructureCompartment"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_gBhb8TEfEey8Gdgo1KGG9g" x="13631" y="13631"/>
+        </children>
+        <children xmi:type="umlnotation:UMLShape" xmi:id="_ka1lkDEfEey8Gdgo1KGG9g" element="_C2JG4DEfEey8Gdgo1KGG9g" fontName="Noto Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
+          <children xmi:type="notation:DecorationNode" xmi:id="_ka2MoDEfEey8Gdgo1KGG9g" type="ImageCompartment">
+            <layoutConstraint xmi:type="notation:Size" xmi:id="_ka2MoTEfEey8Gdgo1KGG9g" width="1320" height="1320"/>
+          </children>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_ka2MojEfEey8Gdgo1KGG9g" type="Stereotype"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_ka2MozEfEey8Gdgo1KGG9g" type="Name"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_ka2MpDEfEey8Gdgo1KGG9g" type="Parent"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_ka2zsDEfEey8Gdgo1KGG9g" type="AttributeCompartment"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_ka2zsTEfEey8Gdgo1KGG9g" type="OperationCompartment"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_ka2zsjEfEey8Gdgo1KGG9g" visible="false" type="SignalCompartment"/>
+          <children xmi:type="umlnotation:UMLShapeCompartment" xmi:id="_ka2zszEfEey8Gdgo1KGG9g" visible="false" type="StructureCompartment"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ka1lkTEfEey8Gdgo1KGG9g" x="17806" y="8016"/>
+        </children>
+        <children xmi:type="umlnotation:UMLShape" xmi:id="_kyWGoDEfEey8Gdgo1KGG9g" element="_C2HRsTEfEey8Gdgo1KGG9g" fontName="Noto Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
+          <children xmi:type="notation:DecorationNode" xmi:id="_kyWtsDEfEey8Gdgo1KGG9g" type="ImageCompartment">
+            <layoutConstraint xmi:type="notation:Size" xmi:id="_kyWtsTEfEey8Gdgo1KGG9g" width="1320" height="1320"/>
+          </children>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_kyWtsjEfEey8Gdgo1KGG9g" type="Stereotype"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_kyXUwDEfEey8Gdgo1KGG9g" type="Name"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_kyXUwTEfEey8Gdgo1KGG9g" type="Parent"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_kyXUwjEfEey8Gdgo1KGG9g" type="AttributeCompartment"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_kyX70DEfEey8Gdgo1KGG9g" type="OperationCompartment"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_kyX70TEfEey8Gdgo1KGG9g" visible="false" type="SignalCompartment"/>
+          <children xmi:type="umlnotation:UMLShapeCompartment" xmi:id="_kyX70jEfEey8Gdgo1KGG9g" visible="false" type="StructureCompartment"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kyWGoTEfEey8Gdgo1KGG9g" x="24473" y="10874"/>
+        </children>
+        <children xmi:type="umlnotation:UMLShape" xmi:id="_nMNhADEfEey8Gdgo1KGG9g" element="_C3CewjEfEey8Gdgo1KGG9g" fontName="Noto Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
+          <children xmi:type="notation:DecorationNode" xmi:id="_nMPWMDEfEey8Gdgo1KGG9g" type="ImageCompartment">
+            <layoutConstraint xmi:type="notation:Size" xmi:id="_nMPWMTEfEey8Gdgo1KGG9g" width="1320" height="1320"/>
+          </children>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_nMQkUDEfEey8Gdgo1KGG9g" type="Stereotype"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_nMRLYDEfEey8Gdgo1KGG9g" type="Name"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_nMRycDEfEey8Gdgo1KGG9g" type="Parent"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_nMTAkDEfEey8Gdgo1KGG9g" type="AttributeCompartment"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_nMTnoDEfEey8Gdgo1KGG9g" type="OperationCompartment"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_nMUOsDEfEey8Gdgo1KGG9g" visible="false" type="SignalCompartment"/>
+          <children xmi:type="umlnotation:UMLShapeCompartment" xmi:id="_nMU1wDEfEey8Gdgo1KGG9g" visible="false" type="StructureCompartment"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_nMNhATEfEey8Gdgo1KGG9g" x="23891" y="4180"/>
+        </children>
+        <children xmi:type="umlnotation:UMLShape" xmi:id="_oB2vkDEfEey8Gdgo1KGG9g" element="_C1zvsDEfEey8Gdgo1KGG9g" fontName="Noto Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Image">
+          <children xmi:type="notation:DecorationNode" xmi:id="_oB3WoDEfEey8Gdgo1KGG9g" type="ImageCompartment">
+            <layoutConstraint xmi:type="notation:Size" xmi:id="_oB3WoTEfEey8Gdgo1KGG9g" width="1320" height="1320"/>
+          </children>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_oB3WojEfEey8Gdgo1KGG9g" type="Stereotype"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_oB3WozEfEey8Gdgo1KGG9g" type="Name"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_oB39sDEfEey8Gdgo1KGG9g" type="Parent"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_oB39sTEfEey8Gdgo1KGG9g" type="AttributeCompartment"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_oB39sjEfEey8Gdgo1KGG9g" type="OperationCompartment"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_oB39szEfEey8Gdgo1KGG9g" visible="false" type="SignalCompartment"/>
+          <children xmi:type="umlnotation:UMLShapeCompartment" xmi:id="_oB4kwDEfEey8Gdgo1KGG9g" visible="false" type="StructureCompartment"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_oB2vkTEfEey8Gdgo1KGG9g" x="16484" y="19337"/>
+        </children>
+        <children xmi:type="umlnotation:UMLShape" xmi:id="_oB4kwTEfEey8Gdgo1KGG9g" element="_C3Ds4DEfEey8Gdgo1KGG9g" fontName="Noto Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Image">
+          <children xmi:type="notation:DecorationNode" xmi:id="_oB5L0DEfEey8Gdgo1KGG9g" type="ImageCompartment">
+            <layoutConstraint xmi:type="notation:Size" xmi:id="_oB5L0TEfEey8Gdgo1KGG9g" width="1320" height="1320"/>
+          </children>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_oB5L0jEfEey8Gdgo1KGG9g" type="Stereotype"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_oB5L0zEfEey8Gdgo1KGG9g" type="Name"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_oB5L1DEfEey8Gdgo1KGG9g" type="Parent"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_oB5L1TEfEey8Gdgo1KGG9g" type="AttributeCompartment"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_oB5y4DEfEey8Gdgo1KGG9g" type="OperationCompartment"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_oB5y4TEfEey8Gdgo1KGG9g" visible="false" type="SignalCompartment"/>
+          <children xmi:type="umlnotation:UMLShapeCompartment" xmi:id="_oB5y4jEfEey8Gdgo1KGG9g" visible="false" type="StructureCompartment"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_oB4kwjEfEey8Gdgo1KGG9g" x="27262" y="19337"/>
+        </children>
+        <children xmi:type="umlnotation:UMLShape" xmi:id="_qBEOQDEfEey8Gdgo1KGG9g" element="_C5tYQDEfEey8Gdgo1KGG9g" fontName="Noto Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Image">
+          <children xmi:type="notation:DecorationNode" xmi:id="_qBE1UDEfEey8Gdgo1KGG9g" type="ImageCompartment">
+            <layoutConstraint xmi:type="notation:Size" xmi:id="_qBE1UTEfEey8Gdgo1KGG9g" width="1320" height="1320"/>
+          </children>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_qBE1UjEfEey8Gdgo1KGG9g" type="Stereotype"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_qBE1UzEfEey8Gdgo1KGG9g" type="Name"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_qBE1VDEfEey8Gdgo1KGG9g" type="Parent"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_qBE1VTEfEey8Gdgo1KGG9g" type="AttributeCompartment"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_qBFcYDEfEey8Gdgo1KGG9g" type="OperationCompartment"/>
+          <children xmi:type="notation:SemanticListCompartment" xmi:id="_qBFcYTEfEey8Gdgo1KGG9g" visible="false" type="SignalCompartment"/>
+          <children xmi:type="umlnotation:UMLShapeCompartment" xmi:id="_qBFcYjEfEey8Gdgo1KGG9g" visible="false" type="StructureCompartment"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_qBEOQTEfEey8Gdgo1KGG9g" x="27262" y="16167"/>
+        </children>
+        <element xsi:nil="true"/>
+        <edges xmi:type="umlnotation:UMLConnector" xmi:id="_dJyZ0DEfEey8Gdgo1KGG9g" type="OwnedElement" source="_dJuvcDEfEey8Gdgo1KGG9g" target="_bIG18DEfEey8Gdgo1KGG9g" fontName="Noto Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+          <element xsi:nil="true"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_dJyZ0TEfEey8Gdgo1KGG9g" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+        </edges>
+        <edges xmi:type="umlnotation:UMLConnector" xmi:id="_dJzA4DEfEey8Gdgo1KGG9g" type="OwnedElement" source="_dJuvcDEfEey8Gdgo1KGG9g" target="_cjoYwDEfEey8Gdgo1KGG9g" fontName="Noto Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+          <element xsi:nil="true"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_dJzA4TEfEey8Gdgo1KGG9g" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+        </edges>
+        <edges xmi:type="umlnotation:UMLConnector" xmi:id="_oB7oEDEfEey8Gdgo1KGG9g" element="_C3Ds4jEfEey8Gdgo1KGG9g" source="_oB2vkDEfEey8Gdgo1KGG9g" target="_oB4kwTEfEey8Gdgo1KGG9g" fontName="Noto Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+          <children xmi:type="notation:DecorationNode" xmi:id="_oB7oEjEfEey8Gdgo1KGG9g" type="NameLabel">
+            <children xmi:type="notation:BasicDecorationNode" xmi:id="_oB8PIDEfEey8Gdgo1KGG9g" type="Stereotype"/>
+            <children xmi:type="notation:BasicDecorationNode" xmi:id="_oB8PITEfEey8Gdgo1KGG9g" type="Name"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_oB7oEzEfEey8Gdgo1KGG9g" y="-186"/>
+          </children>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_oB7oETEfEey8Gdgo1KGG9g" points="[0, 53, 2272, 53]$[-2195, 53, 77, 53]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_oDNacDEfEey8Gdgo1KGG9g" id="(0.0,0.5)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_oDOBgDEfEey8Gdgo1KGG9g" id="(0.9652288732394366,0.5)"/>
+        </edges>
+        <edges xmi:type="umlnotation:UMLConnector" xmi:id="_qBGDcDEfEey8Gdgo1KGG9g" element="_C5tYQjEfEey8Gdgo1KGG9g" source="_oB2vkDEfEey8Gdgo1KGG9g" target="_qBEOQDEfEey8Gdgo1KGG9g" fontName="Noto Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+          <children xmi:type="notation:DecorationNode" xmi:id="_qBGqgDEfEey8Gdgo1KGG9g" type="NameLabel">
+            <children xmi:type="notation:BasicDecorationNode" xmi:id="_qBGqgjEfEey8Gdgo1KGG9g" type="Stereotype"/>
+            <children xmi:type="notation:BasicDecorationNode" xmi:id="_qBGqgzEfEey8Gdgo1KGG9g" type="Name"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_qBGqgTEfEey8Gdgo1KGG9g" y="-186"/>
+          </children>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_qBGDcTEfEey8Gdgo1KGG9g" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+        </edges>
+      </contents>
+    </eAnnotations>
+    <eAnnotations xmi:id="_TDfLEE7JEeuJafEqaum_RQ" source="com.ibm.xtools.common.ui.reduction.editingCapabilities">
+      <details xmi:id="_TTOQME7JEeuJafEqaum_RQ" key="com.ibm.xtools.http.activity.id" value="1"/>
+      <details xmi:id="_V31iAE7JEeuJafEqaum_RQ" key="com.ibm.xtools.rest.ui.uireduction.activity" value="1"/>
+      <details xmi:id="_YviH4E7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBComponentDiagram" value="1"/>
+      <details xmi:id="_YviH4U7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBDeploymentDiagram" value="1"/>
+      <details xmi:id="_YviH4k7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBClassDiagram" value="1"/>
+      <details xmi:id="_Yvj9EE7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBFreeFormDiagram" value="1"/>
+      <details xmi:id="_Yvj9EU7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBStateChartDiagram" value="1"/>
+      <details xmi:id="_Yvj9Ek7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBStructureDiagram" value="1"/>
+      <details xmi:id="_Yvj9E07JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBUseCaseDiagram" value="1"/>
+      <details xmi:id="_Yvj9FE7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBTimingDiagram" value="1"/>
+      <details xmi:id="_Yvj9FU7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBSequenceDiagram" value="1"/>
+      <details xmi:id="_Yvj9Fk7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBCommunicationDiagram" value="1"/>
+      <details xmi:id="_Yvj9F07JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBObjectDiagram" value="1"/>
+      <details xmi:id="_Yvj9GE7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBInteractionOverviewDiagram" value="1"/>
+      <details xmi:id="_Yvj9GU7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBActivityDiagram" value="1"/>
+      <details xmi:id="_Y5CCIE7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBStateMachine2" value="1"/>
+      <details xmi:id="_Y5CCIU7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBSpecificInstanceType2" value="1"/>
+      <details xmi:id="_Y5CCIk7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBStateMachine1" value="1"/>
+      <details xmi:id="_Y5FFcE7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBSpecificInstanceType1" value="1"/>
+      <details xmi:id="_Y5FFcU7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBPackageTemplateParameter" value="1"/>
+      <details xmi:id="_Y5FFck7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBTemplate" value="1"/>
+      <details xmi:id="_Y5FFc07JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBEvent2" value="1"/>
+      <details xmi:id="_Y5FFdE7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBEvent1" value="1"/>
+      <details xmi:id="_Y5FFdU7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBRelationship3" value="1"/>
+      <details xmi:id="_Y5FFdk7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBInterfaceTemplateParameter" value="1"/>
+      <details xmi:id="_Y5FFd07JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBRelationship1" value="1"/>
+      <details xmi:id="_Y5FFeE7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBRelationship2" value="1"/>
+      <details xmi:id="_Y5FFeU7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBInformationFlow" value="1"/>
+      <details xmi:id="_Y5FFek7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBActivity1" value="1"/>
+      <details xmi:id="_Y5FsgE7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBComponentTemplateParameter" value="1"/>
+      <details xmi:id="_Y5FsgU7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBActivity2" value="1"/>
+      <details xmi:id="_Y5Fsgk7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBCompositeStructure1" value="1"/>
+      <details xmi:id="_Y5Fsg07JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBActivity3" value="1"/>
+      <details xmi:id="_Y5FshE7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBCompositeStructure2" value="1"/>
+      <details xmi:id="_Y5FshU7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBSubsystem" value="1"/>
+      <details xmi:id="_Y5Fshk7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBActivity4" value="1"/>
+      <details xmi:id="_Y5Fsh07JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBFragment" value="1"/>
+      <details xmi:id="_Y5FsiE7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBInteraction" value="1"/>
+      <details xmi:id="_Y5FsiU7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBInterface" value="1"/>
+      <details xmi:id="_Y5Fsik7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBCommunication" value="1"/>
+      <details xmi:id="_Y5Fsi07JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBStereotypedComponent" value="1"/>
+      <details xmi:id="_Y5GTkE7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBDependancy" value="1"/>
+      <details xmi:id="_Y5GTkU7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBPackage" value="1"/>
+      <details xmi:id="_Y5GTkk7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBStereotypedArtifact" value="1"/>
+      <details xmi:id="_Y5GTk07JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBClass" value="1"/>
+      <details xmi:id="_Y5GTlE7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBRealization" value="1"/>
+      <details xmi:id="_Y5GTlU7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBFunction" value="1"/>
+      <details xmi:id="_Y5GTlk7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBComponent" value="1"/>
+      <details xmi:id="_Y5GTl07JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBTypes1" value="1"/>
+      <details xmi:id="_Y5GTmE7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBAction" value="1"/>
+      <details xmi:id="_Y5GTmU7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBArtifact" value="1"/>
+      <details xmi:id="_Y5GTmk7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBSequence1" value="1"/>
+      <details xmi:id="_Y5GTm07JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBSequence2" value="1"/>
+      <details xmi:id="_Y5GTnE7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBClassTemplateParameter" value="1"/>
+      <details xmi:id="_Y5GTnU7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBDeployment1" value="1"/>
+      <details xmi:id="_Y5GTnk7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBDeployment2" value="1"/>
+      <details xmi:id="_Y5G6oE7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBCollaboration" value="1"/>
+      <details xmi:id="_Y5G6oU7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBAbstractionRelation" value="1"/>
+      <details xmi:id="_Y5G6ok7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBElementImport2" value="1"/>
+      <details xmi:id="_Y5G6o07JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBUsage" value="1"/>
+      <details xmi:id="_Y5G6pE7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBInstance" value="1"/>
+      <details xmi:id="_Y5G6pU7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBTypes4" value="1"/>
+      <details xmi:id="_Y5G6pk7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBCollaborationUse" value="1"/>
+      <details xmi:id="_Y5G6p07JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBElementImport1" value="1"/>
+      <details xmi:id="_Y5G6qE7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBProfile" value="1"/>
+      <details xmi:id="_Y5G6qU7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBTypes3" value="1"/>
+      <details xmi:id="_Y5G6qk7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBTypes2" value="1"/>
+      <details xmi:id="_Y5G6q07JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBProfileApplication" value="1"/>
+      <details xmi:id="_Y5G6rE7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBStereotypedClass" value="1"/>
+      <details xmi:id="_Y5HhsE7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBPrimitiveTypeTemplateParameter" value="1"/>
+      <details xmi:id="_Y5HhsU7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBTiming" value="1"/>
+      <details xmi:id="_Y5Hhsk7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBLifeLine" value="1"/>
+      <details xmi:id="_Y5Hhs07JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBFunctionTemplateParameter" value="1"/>
+      <details xmi:id="_Y5HhtE7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBSignal" value="1"/>
+      <details xmi:id="_Y5HhtU7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBStereotypedDeployment1" value="1"/>
+      <details xmi:id="_Y5Hhtk7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBConstraint" value="1"/>
+      <details xmi:id="_Y5Hht07JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBComment2" value="1"/>
+      <details xmi:id="_Y5HhuE7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBComment3" value="1"/>
+      <details xmi:id="_Y5HhuU7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBUseCase1" value="1"/>
+      <details xmi:id="_Y5Hhuk7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBInteractionOverview" value="1"/>
+      <details xmi:id="_Y5Hhu07JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBUseCase2" value="1"/>
+      <details xmi:id="_Y5HhvE7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBComment1" value="1"/>
+      <details xmi:id="_Y5HhvU7JEeuJafEqaum_RQ" key="com.ibm.xtools.activities.umlBBDeploymentSpecification" value="1"/>
+      <details xmi:id="_59H3wDEeEey8Gdgo1KGG9g" key="com.ibm.xtools.rest.openapi.tooling.uireduction.activity" value="2"/>
+    </eAnnotations>
+    <packageImport xmi:id="_UeIAJtCzEdqK7KjEh4hvHw">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packageImport xmi:id="_4hZ-EE7JEeuJafEqaum_RQ">
+      <importedPackage xmi:type="uml:Model" href="pathmap://REST_REFERENCE_LIBRARY/RESTReference.emx#_k2UdolU1EeC9Y5Qgx9kuSg?RestReference?"/>
+    </packageImport>
+    <packageImport xmi:id="_8SlJoE7JEeuJafEqaum_RQ">
+      <importedPackage xmi:type="uml:Model" href="pathmap://COM_IBM_XTOOLS_HTTP_RESOURCES_LIBRARIES_PATHMAP/HTTPReference.emx#_VjHjYN-HEdq4Ye6VC0CPVg?HTTPReference?"/>
+    </packageImport>
+    <packageImport xmi:id="_HDZRwJzzEeuwKfkXsV21MQ">
+      <importedPackage xmi:type="uml:Model" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_LoS_gj6gEeaLouEOBcl3vg?SwaggerPrimitiveTypes?"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Class" xmi:id="_C1zvsDEfEey8Gdgo1KGG9g" name="VIVO Proxy API" clientDependency="_C3Ds4jEfEey8Gdgo1KGG9g _C4fQQTEfEey8Gdgo1KGG9g _C4tSsTEfEey8Gdgo1KGG9g _C5nRoTEfEey8Gdgo1KGG9g _C5tYQjEfEey8Gdgo1KGG9g _C78M4DEfEey8Gdgo1KGG9g">
+      <ownedComment xmi:id="_C2FcgDEfEey8Gdgo1KGG9g">
+        <body>Proxy API for VIVO Data Manipulation</body>
+      </ownedComment>
+      <nestedClassifier xmi:type="uml:Class" xmi:id="_C3CewjEfEey8Gdgo1KGG9g" name="Globals_UnauthorizedError_Headers">
+        <ownedAttribute xmi:id="_C3CewzEfEey8Gdgo1KGG9g" name="WWW_Authenticate">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+        </ownedAttribute>
+      </nestedClassifier>
+      <ownedOperation xmi:id="_C3BQoDEfEey8Gdgo1KGG9g" name="Globals">
+        <ownedParameter xmi:id="_C3B3sDEfEey8Gdgo1KGG9g" name="UnauthorizedError" clientDependency="_C3DF0DEfEey8Gdgo1KGG9g" direction="out">
+          <ownedComment xmi:id="_C3CewDEfEey8Gdgo1KGG9g">
+            <body>Authentication information is missing or invalid</body>
+          </ownedComment>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Artifact" xmi:id="_C14BIDEfEey8Gdgo1KGG9g" name="vivo-proxy.yaml" clientDependency="_C18SkDEfEey8Gdgo1KGG9g">
+      <manifestation xmi:id="_C18SkDEfEey8Gdgo1KGG9g" supplier="_C1zvsDEfEey8Gdgo1KGG9g" client="_C14BIDEfEey8Gdgo1KGG9g" utilizedElement="_C1zvsDEfEey8Gdgo1KGG9g"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_C2HRsDEfEey8Gdgo1KGG9g" name="Tags">
+      <packagedElement xmi:type="uml:Class" xmi:id="_C2HRsTEfEey8Gdgo1KGG9g" name="person">
+        <ownedComment xmi:id="_C2If0DEfEey8Gdgo1KGG9g">
+          <body>Operations about a Person in VIVO</body>
+        </ownedComment>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_C2JG4DEfEey8Gdgo1KGG9g" name="vivo">
+        <ownedComment xmi:id="_C2JG4jEfEey8Gdgo1KGG9g">
+          <body>Operations about generic individual in VIVO</body>
+        </ownedComment>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_C2Jt8TEfEey8Gdgo1KGG9g" name="organization">
+        <ownedComment xmi:id="_C2KVATEfEey8Gdgo1KGG9g">
+          <body>Operations about Organization in VIVO</body>
+        </ownedComment>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_C2K8ETEfEey8Gdgo1KGG9g" name="Schemas">
+      <packagedElement xmi:type="uml:Class" xmi:id="_C2LjIDEfEey8Gdgo1KGG9g" name="positionOfPerson">
+        <ownedAttribute xmi:id="_C2UtEDEfEey8Gdgo1KGG9g" name="personIRI">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C2V7MTEfEey8Gdgo1KGG9g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C2V7MDEfEey8Gdgo1KGG9g" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_C2XJUDEfEey8Gdgo1KGG9g" name="organisationIRI">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C2XJUjEfEey8Gdgo1KGG9g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C2XJUTEfEey8Gdgo1KGG9g" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_C2XwYTEfEey8Gdgo1KGG9g" name="positionTitleLabel"/>
+        <ownedAttribute xmi:id="_C2YXcTEfEey8Gdgo1KGG9g" name="positionTypeIRI">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C2Y-gDEfEey8Gdgo1KGG9g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C2YXcjEfEey8Gdgo1KGG9g" value="1"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_C2Y-gjEfEey8Gdgo1KGG9g" value="http://vivoweb.org/ontology/core#Position"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_C2ZlkDEfEey8Gdgo1KGG9g" name="startField_year">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C2ZlkjEfEey8Gdgo1KGG9g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C2ZlkTEfEey8Gdgo1KGG9g"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_C2aMoTEfEey8Gdgo1KGG9g" name="endField_year">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C2azsDEfEey8Gdgo1KGG9g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C2aMojEfEey8Gdgo1KGG9g"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_C2MKMDEfEey8Gdgo1KGG9g" name="concept">
+        <ownedAttribute xmi:id="_C2bawDEfEey8Gdgo1KGG9g" name="IRI">
+          <ownedComment xmi:id="_C2cB0TEfEey8Gdgo1KGG9g">
+            <body>Leave it blank to automatically generate a new IRI</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C2bawjEfEey8Gdgo1KGG9g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C2bawTEfEey8Gdgo1KGG9g"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_C2co4TEfEey8Gdgo1KGG9g" name="labels" type="_C2N_YTEfEey8Gdgo1KGG9g" association="_C2co4DEfEey8Gdgo1KGG9g">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C2co4zEfEey8Gdgo1KGG9g" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C2co4jEfEey8Gdgo1KGG9g" value="1"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_C2MxQTEfEey8Gdgo1KGG9g" name="image">
+        <ownedAttribute xmi:id="_C2d3ATEfEey8Gdgo1KGG9g" name="individualIRI">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C2eeETEfEey8Gdgo1KGG9g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C2eeEDEfEey8Gdgo1KGG9g" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_C2fFIDEfEey8Gdgo1KGG9g" name="imageURL">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C2fFIjEfEey8Gdgo1KGG9g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C2fFITEfEey8Gdgo1KGG9g" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_C2fsMTEfEey8Gdgo1KGG9g" name="orig_X">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_1fm0oD6gEeaLouEOBcl3vg?SwaggerPrimitiveTypes/integer?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C2gTQTEfEey8Gdgo1KGG9g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C2gTQDEfEey8Gdgo1KGG9g"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_C2g6UDEfEey8Gdgo1KGG9g" value="0"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_C2g6UTEfEey8Gdgo1KGG9g" name="orig_Y">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_1fm0oD6gEeaLouEOBcl3vg?SwaggerPrimitiveTypes/integer?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C2g6UzEfEey8Gdgo1KGG9g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C2g6UjEfEey8Gdgo1KGG9g"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_C2hhYTEfEey8Gdgo1KGG9g" value="0"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_C2hhYjEfEey8Gdgo1KGG9g" name="width">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_1fm0oD6gEeaLouEOBcl3vg?SwaggerPrimitiveTypes/integer?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C2iIcTEfEey8Gdgo1KGG9g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C2iIcDEfEey8Gdgo1KGG9g" value="1"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_C2iIczEfEey8Gdgo1KGG9g" value="270"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_C2ivgDEfEey8Gdgo1KGG9g" name="height">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_1fm0oD6gEeaLouEOBcl3vg?SwaggerPrimitiveTypes/integer?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C2ivgjEfEey8Gdgo1KGG9g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C2ivgTEfEey8Gdgo1KGG9g" value="1"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_C2jWkTEfEey8Gdgo1KGG9g" value="270"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_C2NYUTEfEey8Gdgo1KGG9g" name="document">
+        <ownedAttribute xmi:id="_C2jWkjEfEey8Gdgo1KGG9g" name="docTypeIRI">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C2j9oTEfEey8Gdgo1KGG9g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C2j9oDEfEey8Gdgo1KGG9g" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_C2kksDEfEey8Gdgo1KGG9g" name="title">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C2kksjEfEey8Gdgo1KGG9g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C2kksTEfEey8Gdgo1KGG9g" value="1"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_C2N_YTEfEey8Gdgo1KGG9g" name="linguisticLabel">
+        <eAnnotations xmi:id="_UoE3cDEfEey8Gdgo1KGG9g" source="uml2.diagrams"/>
+        <ownedAttribute xmi:id="_C2lLwTEfEey8Gdgo1KGG9g" name="label">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C2lLwzEfEey8Gdgo1KGG9g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C2lLwjEfEey8Gdgo1KGG9g" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_C2ly0TEfEey8Gdgo1KGG9g" name="language">
+          <ownedComment xmi:id="_C2mZ4TEfEey8Gdgo1KGG9g">
+            <body>Using the 'Language Tags and Locale Identifiers for the World Wide Web' defined at https://www.w3.org/TR/ltli/ for this field</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C2ly0zEfEey8Gdgo1KGG9g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C2ly0jEfEey8Gdgo1KGG9g" value="1"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_C2nA8TEfEey8Gdgo1KGG9g" value="en-US"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_C2OmcDEfEey8Gdgo1KGG9g" name="authorOfADocument">
+        <ownedAttribute xmi:id="_C2nA8jEfEey8Gdgo1KGG9g" name="documentIRI">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C2noADEfEey8Gdgo1KGG9g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C2nA8zEfEey8Gdgo1KGG9g" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_C2noAjEfEey8Gdgo1KGG9g" name="personIRI">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C2oPETEfEey8Gdgo1KGG9g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C2oPEDEfEey8Gdgo1KGG9g" value="1"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_C2PNgDEfEey8Gdgo1KGG9g" name="person">
+        <ownedAttribute xmi:id="_C2o2IDEfEey8Gdgo1KGG9g" name="personType">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C2pdMDEfEey8Gdgo1KGG9g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C2o2ITEfEey8Gdgo1KGG9g" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_C2qEQDEfEey8Gdgo1KGG9g" name="firstName"/>
+        <ownedAttribute xmi:id="_C2qEQjEfEey8Gdgo1KGG9g" name="lastName"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_C2P0kDEfEey8Gdgo1KGG9g" name="personWithEmail">
+        <ownedAttribute xmi:id="_C2qrUTEfEey8Gdgo1KGG9g" name="firstName"/>
+        <ownedAttribute xmi:id="_C2rSYTEfEey8Gdgo1KGG9g" name="lastName"/>
+        <ownedAttribute xmi:id="_C2r5cTEfEey8Gdgo1KGG9g" name="eMail">
+          <ownedComment xmi:id="_C2sggjEfEey8Gdgo1KGG9g">
+            <body>eMail is used has key</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C2sggDEfEey8Gdgo1KGG9g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C2r5cjEfEey8Gdgo1KGG9g" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_C2tHkDEfEey8Gdgo1KGG9g" name="personType">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C2tHkjEfEey8Gdgo1KGG9g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C2tHkTEfEey8Gdgo1KGG9g" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_C2tuoTEfEey8Gdgo1KGG9g" name="title"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_C2QboDEfEey8Gdgo1KGG9g" name="individualType">
+        <ownedAttribute xmi:id="_C2uVsDEfEey8Gdgo1KGG9g" name="individualIRI">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C2uVsjEfEey8Gdgo1KGG9g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C2uVsTEfEey8Gdgo1KGG9g" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_C2u8wTEfEey8Gdgo1KGG9g" name="vivoTypeIRI">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C2vj0TEfEey8Gdgo1KGG9g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C2vj0DEfEey8Gdgo1KGG9g" value="1"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_C2RCsDEfEey8Gdgo1KGG9g" name="statement">
+        <ownedAttribute xmi:id="_C2wK4TEfEey8Gdgo1KGG9g" name="subject">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C2wK4zEfEey8Gdgo1KGG9g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C2wK4jEfEey8Gdgo1KGG9g" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_C2wx8TEfEey8Gdgo1KGG9g" name="predicate">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C2wx8zEfEey8Gdgo1KGG9g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C2wx8jEfEey8Gdgo1KGG9g" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_C2xZATEfEey8Gdgo1KGG9g" name="object">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C2yAEDEfEey8Gdgo1KGG9g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C2xZAjEfEey8Gdgo1KGG9g" value="1"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_C2RpwDEfEey8Gdgo1KGG9g" name="vivo">
+        <ownedAttribute xmi:id="_C2ynIDEfEey8Gdgo1KGG9g" name="iri">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C2ynIjEfEey8Gdgo1KGG9g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C2ynITEfEey8Gdgo1KGG9g" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_C2zOMTEfEey8Gdgo1KGG9g" name="label">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C2zOMzEfEey8Gdgo1KGG9g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C2zOMjEfEey8Gdgo1KGG9g"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_C2z1QTEfEey8Gdgo1KGG9g" name="type">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C2z1QzEfEey8Gdgo1KGG9g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C2z1QjEfEey8Gdgo1KGG9g"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_C2RpwjEfEey8Gdgo1KGG9g" name="organization">
+        <ownedAttribute xmi:id="_C20cUTEfEey8Gdgo1KGG9g" name="organizationType">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C20cUzEfEey8Gdgo1KGG9g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C20cUjEfEey8Gdgo1KGG9g" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_C21qcTEfEey8Gdgo1KGG9g" name="names" type="_C2N_YTEfEey8Gdgo1KGG9g" association="_C21qcDEfEey8Gdgo1KGG9g">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C21qczEfEey8Gdgo1KGG9g" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C21qcjEfEey8Gdgo1KGG9g" value="1"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_C2SQ0TEfEey8Gdgo1KGG9g" name="API-Response">
+        <ownedAttribute xmi:id="_C224kDEfEey8Gdgo1KGG9g" name="code">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_1fm0oD6gEeaLouEOBcl3vg?SwaggerPrimitiveTypes/integer?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C224kjEfEey8Gdgo1KGG9g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C224kTEfEey8Gdgo1KGG9g"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_C23foDEfEey8Gdgo1KGG9g" name="type">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C23fojEfEey8Gdgo1KGG9g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C23foTEfEey8Gdgo1KGG9g"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_C24GsDEfEey8Gdgo1KGG9g" name="apiMessage">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C24GsjEfEey8Gdgo1KGG9g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C24GsTEfEey8Gdgo1KGG9g"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_C24twTEfEey8Gdgo1KGG9g" name="IRI-value">
+          <ownedComment xmi:id="_C25U0TEfEey8Gdgo1KGG9g">
+            <body>The subject IRI of the created statement</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C24twzEfEey8Gdgo1KGG9g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C24twjEfEey8Gdgo1KGG9g"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_C25U0zEfEey8Gdgo1KGG9g" name="VIVO-Message">
+          <ownedComment xmi:id="_C2574zEfEey8Gdgo1KGG9g">
+            <body>The transaction message transmitted by the VIVO server</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C2574TEfEey8Gdgo1KGG9g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C2574DEfEey8Gdgo1KGG9g"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_C2S34TEfEey8Gdgo1KGG9g" name="resourceToResource">
+        <ownedAttribute xmi:id="_C26i8TEfEey8Gdgo1KGG9g" name="subject-IRI">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C27KATEfEey8Gdgo1KGG9g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C27KADEfEey8Gdgo1KGG9g" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_C27xETEfEey8Gdgo1KGG9g" name="object-IRI">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C27xEzEfEey8Gdgo1KGG9g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C27xEjEfEey8Gdgo1KGG9g" value="1"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_C2co4DEfEey8Gdgo1KGG9g" memberEnd="_C2co4TEfEey8Gdgo1KGG9g _C2dP8DEfEey8Gdgo1KGG9g">
+        <ownedEnd xmi:id="_C2dP8DEfEey8Gdgo1KGG9g" name="" type="_C2MKMDEfEey8Gdgo1KGG9g" association="_C2co4DEfEey8Gdgo1KGG9g">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C2dP8jEfEey8Gdgo1KGG9g" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C2dP8TEfEey8Gdgo1KGG9g"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_C21qcDEfEey8Gdgo1KGG9g" memberEnd="_C21qcTEfEey8Gdgo1KGG9g _C21qdDEfEey8Gdgo1KGG9g">
+        <ownedEnd xmi:id="_C21qdDEfEey8Gdgo1KGG9g" name="" type="_C2RpwjEfEey8Gdgo1KGG9g" association="_C21qcDEfEey8Gdgo1KGG9g">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C22RgTEfEey8Gdgo1KGG9g" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C22RgDEfEey8Gdgo1KGG9g"/>
+        </ownedEnd>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_C28YITEfEey8Gdgo1KGG9g" name="Security Schemes">
+      <packagedElement xmi:type="uml:Class" xmi:id="_C28YIjEfEey8Gdgo1KGG9g" name="basicAuth"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_C3DF0DEfEey8Gdgo1KGG9g" supplier="_C3CewzEfEey8Gdgo1KGG9g" client="_C3B3sDEfEey8Gdgo1KGG9g"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_C3DF0jEfEey8Gdgo1KGG9g" name="Resources">
+      <packagedElement xmi:type="uml:Class" xmi:id="_C3Ds4DEfEey8Gdgo1KGG9g" name="concept" clientDependency="_C3E7ATEfEey8Gdgo1KGG9g _C3VZsTEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_C3ET8TEfEey8Gdgo1KGG9g" name="createIRI">
+        <nestedClassifier xmi:type="uml:Class" xmi:id="_C3S9czEfEey8Gdgo1KGG9g" name="createConceptWithNewIRI_401_Headers">
+          <ownedAttribute xmi:id="_C3TkgDEfEey8Gdgo1KGG9g" name="WWW_Authenticate">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          </ownedAttribute>
+        </nestedClassifier>
+        <ownedOperation xmi:id="_C3FiEDEfEey8Gdgo1KGG9g" name="createConceptWithNewIRI" clientDependency="_C3UyojEfEey8Gdgo1KGG9g">
+          <eAnnotations xmi:id="_C3PTEjEfEey8Gdgo1KGG9g" source="http://www.eclipse.org/uml2/2.0.0/UML">
+            <details xmi:id="_C3PTEzEfEey8Gdgo1KGG9g" key="concept"/>
+          </eAnnotations>
+          <ownedComment xmi:id="_C3FiETEfEey8Gdgo1KGG9g">
+            <body>This can only be done by the logged in person.</body>
+          </ownedComment>
+          <ownedParameter xmi:id="_C3P6IDEfEey8Gdgo1KGG9g" name="body" type="_C2MKMDEfEey8Gdgo1KGG9g">
+            <ownedComment xmi:id="_C3RIQTEfEey8Gdgo1KGG9g">
+              <body>Created skos concept</body>
+            </ownedComment>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C3RvUTEfEey8Gdgo1KGG9g" name="200" type="_C2SQ0TEfEey8Gdgo1KGG9g" direction="out">
+            <ownedComment xmi:id="_C3SWYDEfEey8Gdgo1KGG9g">
+              <body>OK (successfully authenticated)</body>
+            </ownedComment>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C3SWYjEfEey8Gdgo1KGG9g" name="401" clientDependency="_C3TkgTEfEey8Gdgo1KGG9g" direction="out">
+            <ownedComment xmi:id="_C3S9cTEfEey8Gdgo1KGG9g">
+              <body>Authentication information is missing or invalid</body>
+            </ownedComment>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C3ULkTEfEey8Gdgo1KGG9g" name="405" direction="out">
+            <ownedComment xmi:id="_C3UyoDEfEey8Gdgo1KGG9g">
+              <body>Invalid input</body>
+            </ownedComment>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C3E7ATEfEey8Gdgo1KGG9g" name="/createIRI" supplier="_C3ET8TEfEey8Gdgo1KGG9g" client="_C3Ds4DEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C3TkgTEfEey8Gdgo1KGG9g" supplier="_C3TkgDEfEey8Gdgo1KGG9g" client="_C3SWYjEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C3UyojEfEey8Gdgo1KGG9g" supplier="_C28YIjEfEey8Gdgo1KGG9g" client="_C3FiEDEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_C3UyozEfEey8Gdgo1KGG9g" name="withIRI">
+        <nestedClassifier xmi:type="uml:Class" xmi:id="_C4c0AzEfEey8Gdgo1KGG9g" name="createConcept_401_Headers">
+          <ownedAttribute xmi:id="_C4dbEDEfEey8Gdgo1KGG9g" name="WWW_Authenticate">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          </ownedAttribute>
+        </nestedClassifier>
+        <ownedOperation xmi:id="_C3WAwTEfEey8Gdgo1KGG9g" name="createConcept" clientDependency="_C4epMTEfEey8Gdgo1KGG9g">
+          <eAnnotations xmi:id="_C4ZwsTEfEey8Gdgo1KGG9g" source="http://www.eclipse.org/uml2/2.0.0/UML">
+            <details xmi:id="_C4ZwsjEfEey8Gdgo1KGG9g" key="concept"/>
+          </eAnnotations>
+          <ownedComment xmi:id="_C3WAwjEfEey8Gdgo1KGG9g">
+            <body>This can only be done by the logged in person.</body>
+          </ownedComment>
+          <ownedParameter xmi:id="_C4ZwszEfEey8Gdgo1KGG9g" name="body" type="_C2MKMDEfEey8Gdgo1KGG9g">
+            <ownedComment xmi:id="_C4a-0TEfEey8Gdgo1KGG9g">
+              <body>Created skos concept</body>
+            </ownedComment>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C4a-0zEfEey8Gdgo1KGG9g" name="200" type="_C2SQ0TEfEey8Gdgo1KGG9g" direction="out">
+            <ownedComment xmi:id="_C4bl4TEfEey8Gdgo1KGG9g">
+              <body>OK (successfully authenticated)</body>
+            </ownedComment>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C4cM8TEfEey8Gdgo1KGG9g" name="401" clientDependency="_C4dbETEfEey8Gdgo1KGG9g" direction="out">
+            <ownedComment xmi:id="_C4c0ATEfEey8Gdgo1KGG9g">
+              <body>Authentication information is missing or invalid</body>
+            </ownedComment>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C4eCITEfEey8Gdgo1KGG9g" name="405" direction="out">
+            <ownedComment xmi:id="_C4eCIzEfEey8Gdgo1KGG9g">
+              <body>Invalid input</body>
+            </ownedComment>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C3VZsTEfEey8Gdgo1KGG9g" name="/withIRI" supplier="_C3UyozEfEey8Gdgo1KGG9g" client="_C3Ds4DEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C4dbETEfEey8Gdgo1KGG9g" supplier="_C4dbEDEfEey8Gdgo1KGG9g" client="_C4cM8TEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C4epMTEfEey8Gdgo1KGG9g" supplier="_C28YIjEfEey8Gdgo1KGG9g" client="_C3WAwTEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_C4epMjEfEey8Gdgo1KGG9g" name="document" clientDependency="_C4mlAjEfEey8Gdgo1KGG9g">
+        <nestedClassifier xmi:type="uml:Class" xmi:id="_C4kIwzEfEey8Gdgo1KGG9g" name="createDocument_401_Headers">
+          <ownedAttribute xmi:id="_C4kv0DEfEey8Gdgo1KGG9g" name="WWW_Authenticate">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          </ownedAttribute>
+        </nestedClassifier>
+        <ownedOperation xmi:id="_C4fQQzEfEey8Gdgo1KGG9g" name="createDocument" clientDependency="_C4l98zEfEey8Gdgo1KGG9g">
+          <eAnnotations xmi:id="_C4hFcDEfEey8Gdgo1KGG9g" source="http://www.eclipse.org/uml2/2.0.0/UML">
+            <details xmi:id="_C4hFcTEfEey8Gdgo1KGG9g" key="document"/>
+          </eAnnotations>
+          <ownedComment xmi:id="_C4f3UDEfEey8Gdgo1KGG9g">
+            <body>This can only be done by the logged in person.</body>
+          </ownedComment>
+          <ownedParameter xmi:id="_C4hFcjEfEey8Gdgo1KGG9g" name="body" type="_C2NYUTEfEey8Gdgo1KGG9g">
+            <ownedComment xmi:id="_C4iTkDEfEey8Gdgo1KGG9g">
+              <body>Created a document</body>
+            </ownedComment>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C4iTkjEfEey8Gdgo1KGG9g" name="200" type="_C2SQ0TEfEey8Gdgo1KGG9g" direction="out">
+            <ownedComment xmi:id="_C4i6oTEfEey8Gdgo1KGG9g">
+              <body>OK (successfully authenticated)</body>
+            </ownedComment>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C4jhsTEfEey8Gdgo1KGG9g" name="401" clientDependency="_C4kv0TEfEey8Gdgo1KGG9g" direction="out">
+            <ownedComment xmi:id="_C4kIwTEfEey8Gdgo1KGG9g">
+              <body>Authentication information is missing or invalid</body>
+            </ownedComment>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C4lW4TEfEey8Gdgo1KGG9g" name="405" direction="out">
+            <ownedComment xmi:id="_C4l98TEfEey8Gdgo1KGG9g">
+              <body>Invalid input</body>
+            </ownedComment>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C4kv0TEfEey8Gdgo1KGG9g" supplier="_C4kv0DEfEey8Gdgo1KGG9g" client="_C4jhsTEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C4l98zEfEey8Gdgo1KGG9g" supplier="_C28YIjEfEey8Gdgo1KGG9g" client="_C4fQQzEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_C4mlADEfEey8Gdgo1KGG9g" name="addAuthorFor">
+        <nestedClassifier xmi:type="uml:Class" xmi:id="_C4sEkTEfEey8Gdgo1KGG9g" name="documentAddAuthorFor_401_Headers">
+          <ownedAttribute xmi:id="_C4sEkjEfEey8Gdgo1KGG9g" name="WWW_Authenticate">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          </ownedAttribute>
+        </nestedClassifier>
+        <ownedOperation xmi:id="_C4nMETEfEey8Gdgo1KGG9g" name="documentAddAuthorFor">
+          <eAnnotations xmi:id="_C4oaMjEfEey8Gdgo1KGG9g" source="http://www.eclipse.org/uml2/2.0.0/UML">
+            <details xmi:id="_C4oaMzEfEey8Gdgo1KGG9g" key="document"/>
+          </eAnnotations>
+          <ownedParameter xmi:id="_C4oaNDEfEey8Gdgo1KGG9g" name="body" type="_C2OmcDEfEey8Gdgo1KGG9g">
+            <ownedComment xmi:id="_C4qPYDEfEey8Gdgo1KGG9g">
+              <body>Author that need to be add to a document</body>
+            </ownedComment>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C4qPYjEfEey8Gdgo1KGG9g" name="200" type="_C2SQ0TEfEey8Gdgo1KGG9g" direction="out">
+            <ownedComment xmi:id="_C4q2cTEfEey8Gdgo1KGG9g">
+              <body>OK (successfully authenticated)</body>
+            </ownedComment>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C4rdgDEfEey8Gdgo1KGG9g" name="401" clientDependency="_C4sEkzEfEey8Gdgo1KGG9g" direction="out">
+            <ownedComment xmi:id="_C4rdgjEfEey8Gdgo1KGG9g">
+              <body>Authentication information is missing or invalid</body>
+            </ownedComment>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C4mlAjEfEey8Gdgo1KGG9g" name="/addAuthorFor" supplier="_C4mlADEfEey8Gdgo1KGG9g" client="_C4epMjEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C4sEkzEfEey8Gdgo1KGG9g" supplier="_C4sEkjEfEey8Gdgo1KGG9g" client="_C4rdgDEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_C4sroTEfEey8Gdgo1KGG9g" name="indv" clientDependency="_C4t5wjEfEey8Gdgo1KGG9g _C4zZUzEfEey8Gdgo1KGG9g _C46HATEfEey8Gdgo1KGG9g _C5ANoDEfEey8Gdgo1KGG9g _C5Z2QzEfEey8Gdgo1KGG9g _C5gj8zEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_C4t5wDEfEey8Gdgo1KGG9g" name="addImage">
+        <nestedClassifier xmi:type="uml:Class" xmi:id="_C4yyQTEfEey8Gdgo1KGG9g" name="indvAddImage_401_Headers">
+          <ownedAttribute xmi:id="_C4yyQjEfEey8Gdgo1KGG9g" name="WWW_Authenticate">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          </ownedAttribute>
+        </nestedClassifier>
+        <ownedOperation xmi:id="_C4ug0TEfEey8Gdgo1KGG9g" name="indvAddImage">
+          <eAnnotations xmi:id="_C4vu8jEfEey8Gdgo1KGG9g" source="http://www.eclipse.org/uml2/2.0.0/UML">
+            <details xmi:id="_C4vu8zEfEey8Gdgo1KGG9g" key="Individual"/>
+          </eAnnotations>
+          <ownedParameter xmi:id="_C4vu9DEfEey8Gdgo1KGG9g" name="body" type="_C2MxQTEfEey8Gdgo1KGG9g">
+            <ownedComment xmi:id="_C4w9EDEfEey8Gdgo1KGG9g">
+              <body>image associated to an individual</body>
+            </ownedComment>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C4w9EjEfEey8Gdgo1KGG9g" name="200" type="_C2SQ0TEfEey8Gdgo1KGG9g" direction="out">
+            <ownedComment xmi:id="_C4xkITEfEey8Gdgo1KGG9g">
+              <body>OK (successfully authenticated)</body>
+            </ownedComment>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C4xkIzEfEey8Gdgo1KGG9g" name="401" clientDependency="_C4yyQzEfEey8Gdgo1KGG9g" direction="out">
+            <ownedComment xmi:id="_C4yLMTEfEey8Gdgo1KGG9g">
+              <body>Authentication information is missing or invalid</body>
+            </ownedComment>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C4t5wjEfEey8Gdgo1KGG9g" name="/addImage" supplier="_C4t5wDEfEey8Gdgo1KGG9g" client="_C4sroTEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C4yyQzEfEey8Gdgo1KGG9g" supplier="_C4yyQjEfEey8Gdgo1KGG9g" client="_C4xkIzEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_C4zZUTEfEey8Gdgo1KGG9g" name="addLabel">
+        <nestedClassifier xmi:type="uml:Class" xmi:id="_C4444jEfEey8Gdgo1KGG9g" name="indvAddLabel_401_Headers">
+          <ownedAttribute xmi:id="_C4444zEfEey8Gdgo1KGG9g" name="WWW_Authenticate">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          </ownedAttribute>
+        </nestedClassifier>
+        <ownedOperation xmi:id="_C40AYTEfEey8Gdgo1KGG9g" name="indvAddLabel">
+          <eAnnotations xmi:id="_C40nczEfEey8Gdgo1KGG9g" source="http://www.eclipse.org/uml2/2.0.0/UML">
+            <details xmi:id="_C40ndDEfEey8Gdgo1KGG9g" key="Individual"/>
+          </eAnnotations>
+          <ownedParameter xmi:id="_C40ndTEfEey8Gdgo1KGG9g" name="IRI">
+            <ownedComment xmi:id="_C411kTEfEey8Gdgo1KGG9g">
+              <body>The IRI of the individual from which a label is added</body>
+            </ownedComment>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C411kzEfEey8Gdgo1KGG9g" name="body" type="_C2N_YTEfEey8Gdgo1KGG9g">
+            <ownedComment xmi:id="_C43DsjEfEey8Gdgo1KGG9g">
+              <body>Linguistic labels to add</body>
+            </ownedComment>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C43DsTEfEey8Gdgo1KGG9g" value="*"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C43qwDEfEey8Gdgo1KGG9g" name="200" type="_C2SQ0TEfEey8Gdgo1KGG9g" direction="out">
+            <ownedComment xmi:id="_C43qwjEfEey8Gdgo1KGG9g">
+              <body>OK (successfully authenticated)</body>
+            </ownedComment>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C44R0TEfEey8Gdgo1KGG9g" name="401" clientDependency="_C45f8DEfEey8Gdgo1KGG9g" direction="out">
+            <ownedComment xmi:id="_C4444DEfEey8Gdgo1KGG9g">
+              <body>Authentication information is missing or invalid</body>
+            </ownedComment>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C4zZUzEfEey8Gdgo1KGG9g" name="/addLabel" supplier="_C4zZUTEfEey8Gdgo1KGG9g" client="_C4sroTEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C45f8DEfEey8Gdgo1KGG9g" supplier="_C4444zEfEey8Gdgo1KGG9g" client="_C44R0TEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_C45f8jEfEey8Gdgo1KGG9g" name="addStatement">
+        <nestedClassifier xmi:type="uml:Class" xmi:id="_C4-YczEfEey8Gdgo1KGG9g" name="indvAddStatement_401_Headers">
+          <ownedAttribute xmi:id="_C4-_gDEfEey8Gdgo1KGG9g" name="WWW_Authenticate">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          </ownedAttribute>
+        </nestedClassifier>
+        <ownedOperation xmi:id="_C46HAzEfEey8Gdgo1KGG9g" name="indvAddStatement">
+          <eAnnotations xmi:id="_C47VITEfEey8Gdgo1KGG9g" source="http://www.eclipse.org/uml2/2.0.0/UML">
+            <details xmi:id="_C47VIjEfEey8Gdgo1KGG9g" key="Individual"/>
+          </eAnnotations>
+          <ownedParameter xmi:id="_C47VIzEfEey8Gdgo1KGG9g" name="body" type="_C2RCsDEfEey8Gdgo1KGG9g">
+            <ownedComment xmi:id="_C48jQjEfEey8Gdgo1KGG9g">
+              <body>Adding a triple to the graph</body>
+            </ownedComment>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C49KUTEfEey8Gdgo1KGG9g" name="200" type="_C2SQ0TEfEey8Gdgo1KGG9g" direction="out">
+            <ownedComment xmi:id="_C49KUzEfEey8Gdgo1KGG9g">
+              <body>OK (successfully authenticated)</body>
+            </ownedComment>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C49xYTEfEey8Gdgo1KGG9g" name="401" clientDependency="_C4-_gTEfEey8Gdgo1KGG9g" direction="out">
+            <ownedComment xmi:id="_C4-YcTEfEey8Gdgo1KGG9g">
+              <body>Authentication information is missing or invalid</body>
+            </ownedComment>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C46HATEfEey8Gdgo1KGG9g" name="/addStatement" supplier="_C45f8jEfEey8Gdgo1KGG9g" client="_C4sroTEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C4-_gTEfEey8Gdgo1KGG9g" supplier="_C4-_gDEfEey8Gdgo1KGG9g" client="_C49xYTEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_C4_mkTEfEey8Gdgo1KGG9g" name="addType">
+        <nestedClassifier xmi:type="uml:Class" xmi:id="_C5YoIjEfEey8Gdgo1KGG9g" name="indvAddType_401_Headers">
+          <ownedAttribute xmi:id="_C5ZPMDEfEey8Gdgo1KGG9g" name="WWW_Authenticate">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          </ownedAttribute>
+        </nestedClassifier>
+        <ownedOperation xmi:id="_C5ANojEfEey8Gdgo1KGG9g" name="indvAddType">
+          <eAnnotations xmi:id="_C5BbwjEfEey8Gdgo1KGG9g" source="http://www.eclipse.org/uml2/2.0.0/UML">
+            <details xmi:id="_C5BbwzEfEey8Gdgo1KGG9g" key="Individual"/>
+          </eAnnotations>
+          <ownedParameter xmi:id="_C5BbxDEfEey8Gdgo1KGG9g" name="body" type="_C2QboDEfEey8Gdgo1KGG9g">
+            <ownedComment xmi:id="_C5Cp4TEfEey8Gdgo1KGG9g">
+              <body>Adding type associated to an existing individual</body>
+            </ownedComment>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C5DQ8TEfEey8Gdgo1KGG9g" name="200" type="_C2SQ0TEfEey8Gdgo1KGG9g" direction="out">
+            <ownedComment xmi:id="_C5DQ8zEfEey8Gdgo1KGG9g">
+              <body>OK (successfully authenticated)</body>
+            </ownedComment>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C5YBEDEfEey8Gdgo1KGG9g" name="401" clientDependency="_C5ZPMTEfEey8Gdgo1KGG9g" direction="out">
+            <ownedComment xmi:id="_C5YoIDEfEey8Gdgo1KGG9g">
+              <body>Authentication information is missing or invalid</body>
+            </ownedComment>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C5ANoDEfEey8Gdgo1KGG9g" name="/addType" supplier="_C4_mkTEfEey8Gdgo1KGG9g" client="_C4sroTEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C5ZPMTEfEey8Gdgo1KGG9g" supplier="_C5ZPMDEfEey8Gdgo1KGG9g" client="_C5YBEDEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_C5Z2QTEfEey8Gdgo1KGG9g" name="byIri">
+        <nestedClassifier xmi:type="uml:Class" xmi:id="_C5euwTEfEey8Gdgo1KGG9g" name="getIndvByIRI_401_Headers">
+          <ownedAttribute xmi:id="_C5euwjEfEey8Gdgo1KGG9g" name="WWW_Authenticate">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          </ownedAttribute>
+        </nestedClassifier>
+        <ownedOperation xmi:id="_C5adUTEfEey8Gdgo1KGG9g" name="getIndvByIRI" clientDependency="_C5gj8DEfEey8Gdgo1KGG9g">
+          <eAnnotations xmi:id="_C5breTEfEey8Gdgo1KGG9g" source="http://www.eclipse.org/uml2/2.0.0/UML">
+            <details xmi:id="_C5brejEfEey8Gdgo1KGG9g" key="Individual"/>
+          </eAnnotations>
+          <ownedParameter xmi:id="_C5brezEfEey8Gdgo1KGG9g" name="IRI">
+            <ownedComment xmi:id="_C5cSgjEfEey8Gdgo1KGG9g">
+              <body>Used to obtain information from a VIVO individual by the IRI</body>
+            </ownedComment>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C5c5kDEfEey8Gdgo1KGG9g" name="200" direction="out">
+            <ownedComment xmi:id="_C5c5kjEfEey8Gdgo1KGG9g">
+              <body>successful operation</body>
+            </ownedComment>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C5dgoDEfEey8Gdgo1KGG9g" name="400" direction="out">
+            <ownedComment xmi:id="_C5dgojEfEey8Gdgo1KGG9g">
+              <body>Invalid IRI supplied</body>
+            </ownedComment>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C5eHsTEfEey8Gdgo1KGG9g" name="401" clientDependency="_C5euwzEfEey8Gdgo1KGG9g" direction="out">
+            <ownedComment xmi:id="_C5eHszEfEey8Gdgo1KGG9g">
+              <body>Authentication information is missing or invalid</body>
+            </ownedComment>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C5fV0TEfEey8Gdgo1KGG9g" name="404" direction="out">
+            <ownedComment xmi:id="_C5f84DEfEey8Gdgo1KGG9g">
+              <body>vivo not found</body>
+            </ownedComment>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C5Z2QzEfEey8Gdgo1KGG9g" name="/byIri" supplier="_C5Z2QTEfEey8Gdgo1KGG9g" client="_C4sroTEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C5euwzEfEey8Gdgo1KGG9g" supplier="_C5euwjEfEey8Gdgo1KGG9g" client="_C5eHsTEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C5gj8DEfEey8Gdgo1KGG9g" supplier="_C28YIjEfEey8Gdgo1KGG9g" client="_C5adUTEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_C5gj8TEfEey8Gdgo1KGG9g" name="byLabel">
+        <nestedClassifier xmi:type="uml:Class" xmi:id="_C5k1ZDEfEey8Gdgo1KGG9g" name="getIndvByLabel_401_Headers">
+          <ownedAttribute xmi:id="_C5lccDEfEey8Gdgo1KGG9g" name="WWW_Authenticate">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          </ownedAttribute>
+        </nestedClassifier>
+        <ownedOperation xmi:id="_C5hLATEfEey8Gdgo1KGG9g" name="getIndvByLabel" clientDependency="_C5mqkjEfEey8Gdgo1KGG9g">
+          <eAnnotations xmi:id="_C5iZIDEfEey8Gdgo1KGG9g" source="http://www.eclipse.org/uml2/2.0.0/UML">
+            <details xmi:id="_C5iZITEfEey8Gdgo1KGG9g" key="Individual"/>
+          </eAnnotations>
+          <ownedParameter xmi:id="_C5iZIjEfEey8Gdgo1KGG9g" name="Label">
+            <ownedComment xmi:id="_C5jAMTEfEey8Gdgo1KGG9g">
+              <body>Strict string used to obtain information from a VIVO individual</body>
+            </ownedComment>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C5jAMzEfEey8Gdgo1KGG9g" name="200" direction="out">
+            <ownedComment xmi:id="_C5jnQTEfEey8Gdgo1KGG9g">
+              <body>successful operation</body>
+            </ownedComment>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C5kOUDEfEey8Gdgo1KGG9g" name="400" direction="out">
+            <ownedComment xmi:id="_C5kOUjEfEey8Gdgo1KGG9g">
+              <body>Invalid label supplied</body>
+            </ownedComment>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C5k1YDEfEey8Gdgo1KGG9g" name="401" clientDependency="_C5lccTEfEey8Gdgo1KGG9g" direction="out">
+            <ownedComment xmi:id="_C5k1YjEfEey8Gdgo1KGG9g">
+              <body>Authentication information is missing or invalid</body>
+            </ownedComment>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C5mDgTEfEey8Gdgo1KGG9g" name="404" direction="out">
+            <ownedComment xmi:id="_C5mqkDEfEey8Gdgo1KGG9g">
+              <body>labelvivo not found</body>
+            </ownedComment>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C5gj8zEfEey8Gdgo1KGG9g" name="/byLabel" supplier="_C5gj8TEfEey8Gdgo1KGG9g" client="_C4sroTEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C5lccTEfEey8Gdgo1KGG9g" supplier="_C5lccDEfEey8Gdgo1KGG9g" client="_C5k1YDEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C5mqkjEfEey8Gdgo1KGG9g" supplier="_C28YIjEfEey8Gdgo1KGG9g" client="_C5hLATEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_C5mqkzEfEey8Gdgo1KGG9g" name="organization">
+        <nestedClassifier xmi:type="uml:Class" xmi:id="_C5sKITEfEey8Gdgo1KGG9g" name="createOrganization_401_Headers">
+          <ownedAttribute xmi:id="_C5sKIjEfEey8Gdgo1KGG9g" name="WWW_Authenticate">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          </ownedAttribute>
+        </nestedClassifier>
+        <ownedOperation xmi:id="_C5nRozEfEey8Gdgo1KGG9g" name="createOrganization" clientDependency="_C5pG0TEfEey8Gdgo1KGG9g _C5sxMjEfEey8Gdgo1KGG9g">
+          <eAnnotations xmi:id="_C5ofxDEfEey8Gdgo1KGG9g" source="http://www.eclipse.org/uml2/2.0.0/UML">
+            <details xmi:id="_C5pG0DEfEey8Gdgo1KGG9g" key="organization"/>
+          </eAnnotations>
+          <ownedComment xmi:id="_C5n4sDEfEey8Gdgo1KGG9g">
+            <body>This can only be done by the logged in VIVO.</body>
+          </ownedComment>
+          <ownedParameter xmi:id="_C5pG0jEfEey8Gdgo1KGG9g" name="body" type="_C2RpwjEfEey8Gdgo1KGG9g">
+            <ownedComment xmi:id="_C5qU8DEfEey8Gdgo1KGG9g">
+              <body>Created organization object</body>
+            </ownedComment>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C5qU8jEfEey8Gdgo1KGG9g" name="200" type="_C2SQ0TEfEey8Gdgo1KGG9g" direction="out">
+            <ownedComment xmi:id="_C5q8ATEfEey8Gdgo1KGG9g">
+              <body>OK (successfully authenticated)</body>
+            </ownedComment>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C5q8AzEfEey8Gdgo1KGG9g" name="401" clientDependency="_C5sxMDEfEey8Gdgo1KGG9g" direction="out">
+            <ownedComment xmi:id="_C5rjETEfEey8Gdgo1KGG9g">
+              <body>Authentication information is missing or invalid</body>
+            </ownedComment>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C5pG0TEfEey8Gdgo1KGG9g" supplier="_C2Jt8TEfEey8Gdgo1KGG9g" client="_C5nRozEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C5sxMDEfEey8Gdgo1KGG9g" supplier="_C5sKIjEfEey8Gdgo1KGG9g" client="_C5q8AzEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C5sxMjEfEey8Gdgo1KGG9g" supplier="_C28YIjEfEey8Gdgo1KGG9g" client="_C5nRozEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_C5tYQDEfEey8Gdgo1KGG9g" name="person" clientDependency="_C50tATEfEey8Gdgo1KGG9g _C56zoTEfEey8Gdgo1KGG9g _C6A6QTEfEey8Gdgo1KGG9g _C6kT4TEfEey8Gdgo1KGG9g _C6qagTEfEey8Gdgo1KGG9g _C6xIMTEfEey8Gdgo1KGG9g">
+        <nestedClassifier xmi:type="uml:Class" xmi:id="_C5y30DEfEey8Gdgo1KGG9g" name="createPerson_401_Headers">
+          <ownedAttribute xmi:id="_C5y30TEfEey8Gdgo1KGG9g" name="WWW_Authenticate">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          </ownedAttribute>
+        </nestedClassifier>
+        <ownedOperation xmi:id="_C5t_UTEfEey8Gdgo1KGG9g" name="createPerson" clientDependency="_C5vNdTEfEey8Gdgo1KGG9g _C50F8TEfEey8Gdgo1KGG9g">
+          <eAnnotations xmi:id="_C5vNczEfEey8Gdgo1KGG9g" source="http://www.eclipse.org/uml2/2.0.0/UML">
+            <details xmi:id="_C5vNdDEfEey8Gdgo1KGG9g" key="person"/>
+          </eAnnotations>
+          <ownedComment xmi:id="_C5t_UjEfEey8Gdgo1KGG9g">
+            <body>This can only be done by the logged in person.</body>
+          </ownedComment>
+          <ownedParameter xmi:id="_C5v0gDEfEey8Gdgo1KGG9g" name="body" type="_C2PNgDEfEey8Gdgo1KGG9g">
+            <ownedComment xmi:id="_C5wbkjEfEey8Gdgo1KGG9g">
+              <body>Created person object</body>
+            </ownedComment>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C5xCoTEfEey8Gdgo1KGG9g" name="200" type="_C2SQ0TEfEey8Gdgo1KGG9g" direction="out">
+            <ownedComment xmi:id="_C5xCozEfEey8Gdgo1KGG9g">
+              <body>OK (successfully authenticated)</body>
+            </ownedComment>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C5xpsTEfEey8Gdgo1KGG9g" name="401" clientDependency="_C5y30jEfEey8Gdgo1KGG9g" direction="out">
+            <ownedComment xmi:id="_C5yQwDEfEey8Gdgo1KGG9g">
+              <body>Authentication information is missing or invalid</body>
+            </ownedComment>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C5ze4TEfEey8Gdgo1KGG9g" name="405" direction="out">
+            <ownedComment xmi:id="_C5ze4zEfEey8Gdgo1KGG9g">
+              <body>Invalid input</body>
+            </ownedComment>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C5vNdTEfEey8Gdgo1KGG9g" supplier="_C2HRsTEfEey8Gdgo1KGG9g" client="_C5t_UTEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C5y30jEfEey8Gdgo1KGG9g" supplier="_C5y30TEfEey8Gdgo1KGG9g" client="_C5xpsTEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C50F8TEfEey8Gdgo1KGG9g" supplier="_C28YIjEfEey8Gdgo1KGG9g" client="_C5t_UTEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_C50F8jEfEey8Gdgo1KGG9g" name="addDocument">
+        <nestedClassifier xmi:type="uml:Class" xmi:id="_C55lgTEfEey8Gdgo1KGG9g" name="personAddDocument_401_Headers">
+          <ownedAttribute xmi:id="_C55lgjEfEey8Gdgo1KGG9g" name="WWW_Authenticate">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          </ownedAttribute>
+        </nestedClassifier>
+        <ownedOperation xmi:id="_C50tAzEfEey8Gdgo1KGG9g" name="personAddDocument" clientDependency="_C517IzEfEey8Gdgo1KGG9g">
+          <eAnnotations xmi:id="_C517ITEfEey8Gdgo1KGG9g" source="http://www.eclipse.org/uml2/2.0.0/UML">
+            <details xmi:id="_C517IjEfEey8Gdgo1KGG9g" key="person"/>
+          </eAnnotations>
+          <ownedParameter xmi:id="_C517JDEfEey8Gdgo1KGG9g" name="body" type="_C2OmcDEfEey8Gdgo1KGG9g">
+            <ownedComment xmi:id="_C53JQjEfEey8Gdgo1KGG9g">
+              <body>Author of document</body>
+            </ownedComment>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C53wUTEfEey8Gdgo1KGG9g" name="200" direction="out">
+            <ownedComment xmi:id="_C54XYDEfEey8Gdgo1KGG9g">
+              <body>OK (successfully authenticated)</body>
+            </ownedComment>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C54XYjEfEey8Gdgo1KGG9g" name="401" clientDependency="_C55lgzEfEey8Gdgo1KGG9g" direction="out">
+            <ownedComment xmi:id="_C54-cTEfEey8Gdgo1KGG9g">
+              <body>Authentication information is missing or invalid</body>
+            </ownedComment>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C50tATEfEey8Gdgo1KGG9g" name="/addDocument" supplier="_C50F8jEfEey8Gdgo1KGG9g" client="_C5tYQDEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C517IzEfEey8Gdgo1KGG9g" supplier="_C2HRsTEfEey8Gdgo1KGG9g" client="_C50tAzEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C55lgzEfEey8Gdgo1KGG9g" supplier="_C55lgjEfEey8Gdgo1KGG9g" client="_C54XYjEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_C56MkTEfEey8Gdgo1KGG9g" name="addHasResearchArea">
+        <nestedClassifier xmi:type="uml:Class" xmi:id="_C5_sIzEfEey8Gdgo1KGG9g" name="personHasAddResearchArea_401_Headers">
+          <ownedAttribute xmi:id="_C6ATMDEfEey8Gdgo1KGG9g" name="WWW_Authenticate">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          </ownedAttribute>
+        </nestedClassifier>
+        <ownedOperation xmi:id="_C56zozEfEey8Gdgo1KGG9g" name="personHasAddResearchArea" clientDependency="_C58BwzEfEey8Gdgo1KGG9g">
+          <eAnnotations xmi:id="_C58BwTEfEey8Gdgo1KGG9g" source="http://www.eclipse.org/uml2/2.0.0/UML">
+            <details xmi:id="_C58BwjEfEey8Gdgo1KGG9g" key="person"/>
+          </eAnnotations>
+          <ownedParameter xmi:id="_C58BxDEfEey8Gdgo1KGG9g" name="body" type="_C2S34TEfEey8Gdgo1KGG9g">
+            <ownedComment xmi:id="_C5928DEfEey8Gdgo1KGG9g">
+              <body>Research Area of a person</body>
+            </ownedComment>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C5-eATEfEey8Gdgo1KGG9g" name="200" type="_C2SQ0TEfEey8Gdgo1KGG9g" direction="out">
+            <ownedComment xmi:id="_C5_FETEfEey8Gdgo1KGG9g">
+              <body>OK (successfully authenticated)</body>
+            </ownedComment>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C5_FEzEfEey8Gdgo1KGG9g" name="401" clientDependency="_C6ATMTEfEey8Gdgo1KGG9g" direction="out">
+            <ownedComment xmi:id="_C5_sITEfEey8Gdgo1KGG9g">
+              <body>Authentication information is missing or invalid</body>
+            </ownedComment>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C56zoTEfEey8Gdgo1KGG9g" name="/addHasResearchArea" supplier="_C56MkTEfEey8Gdgo1KGG9g" client="_C5tYQDEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C58BwzEfEey8Gdgo1KGG9g" supplier="_C2HRsTEfEey8Gdgo1KGG9g" client="_C56zozEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C6ATMTEfEey8Gdgo1KGG9g" supplier="_C6ATMDEfEey8Gdgo1KGG9g" client="_C5_FEzEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_C6ATMzEfEey8Gdgo1KGG9g" name="addPositionFor">
+        <nestedClassifier xmi:type="uml:Class" xmi:id="_C6jFwTEfEey8Gdgo1KGG9g" name="personAddOrganisationalPositionTo_401_Headers">
+          <ownedAttribute xmi:id="_C6jFwjEfEey8Gdgo1KGG9g" name="WWW_Authenticate">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          </ownedAttribute>
+        </nestedClassifier>
+        <ownedOperation xmi:id="_C6BhUTEfEey8Gdgo1KGG9g" name="personAddOrganisationalPositionTo" clientDependency="_C6fbYTEfEey8Gdgo1KGG9g">
+          <eAnnotations xmi:id="_C6CIYjEfEey8Gdgo1KGG9g" source="http://www.eclipse.org/uml2/2.0.0/UML">
+            <details xmi:id="_C6fbYDEfEey8Gdgo1KGG9g" key="person"/>
+          </eAnnotations>
+          <ownedParameter xmi:id="_C6gCcDEfEey8Gdgo1KGG9g" name="body" type="_C2LjIDEfEey8Gdgo1KGG9g">
+            <ownedComment xmi:id="_C6hQkDEfEey8Gdgo1KGG9g">
+              <body>Person that need to be in an organization</body>
+            </ownedComment>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C6hQkjEfEey8Gdgo1KGG9g" name="200" type="_C2SQ0TEfEey8Gdgo1KGG9g" direction="out">
+            <ownedComment xmi:id="_C6h3oTEfEey8Gdgo1KGG9g">
+              <body>OK (successfully authenticated)</body>
+            </ownedComment>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C6h3ozEfEey8Gdgo1KGG9g" name="401" clientDependency="_C6jFwzEfEey8Gdgo1KGG9g" direction="out">
+            <ownedComment xmi:id="_C6iesTEfEey8Gdgo1KGG9g">
+              <body>Authentication information is missing or invalid</body>
+            </ownedComment>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C6A6QTEfEey8Gdgo1KGG9g" name="/addPositionFor" supplier="_C6ATMzEfEey8Gdgo1KGG9g" client="_C5tYQDEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C6fbYTEfEey8Gdgo1KGG9g" supplier="_C2HRsTEfEey8Gdgo1KGG9g" client="_C6BhUTEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C6jFwzEfEey8Gdgo1KGG9g" supplier="_C6jFwjEfEey8Gdgo1KGG9g" client="_C6h3ozEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_C6js0TEfEey8Gdgo1KGG9g" name="addResearchAreaOf">
+        <nestedClassifier xmi:type="uml:Class" xmi:id="_C6olUzEfEey8Gdgo1KGG9g" name="personAddResearchAreaOf_401_Headers">
+          <ownedAttribute xmi:id="_C6olVDEfEey8Gdgo1KGG9g" name="WWW_Authenticate">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          </ownedAttribute>
+        </nestedClassifier>
+        <ownedOperation xmi:id="_C6kT4zEfEey8Gdgo1KGG9g" name="personAddResearchAreaOf" clientDependency="_C6liBDEfEey8Gdgo1KGG9g">
+          <eAnnotations xmi:id="_C6liAjEfEey8Gdgo1KGG9g" source="http://www.eclipse.org/uml2/2.0.0/UML">
+            <details xmi:id="_C6liAzEfEey8Gdgo1KGG9g" key="person"/>
+          </eAnnotations>
+          <ownedParameter xmi:id="_C6liBTEfEey8Gdgo1KGG9g" name="body" type="_C2S34TEfEey8Gdgo1KGG9g">
+            <ownedComment xmi:id="_C6mwITEfEey8Gdgo1KGG9g">
+              <body>Research Area of a person</body>
+            </ownedComment>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C6nXMDEfEey8Gdgo1KGG9g" name="200" type="_C2SQ0TEfEey8Gdgo1KGG9g" direction="out">
+            <ownedComment xmi:id="_C6nXMjEfEey8Gdgo1KGG9g">
+              <body>OK (successfully authenticated)</body>
+            </ownedComment>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C6n-QTEfEey8Gdgo1KGG9g" name="401" clientDependency="_C6pMYDEfEey8Gdgo1KGG9g" direction="out">
+            <ownedComment xmi:id="_C6olUTEfEey8Gdgo1KGG9g">
+              <body>Authentication information is missing or invalid</body>
+            </ownedComment>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C6kT4TEfEey8Gdgo1KGG9g" name="/addResearchAreaOf" supplier="_C6js0TEfEey8Gdgo1KGG9g" client="_C5tYQDEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C6liBDEfEey8Gdgo1KGG9g" supplier="_C2HRsTEfEey8Gdgo1KGG9g" client="_C6kT4zEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C6pMYDEfEey8Gdgo1KGG9g" supplier="_C6olVDEfEey8Gdgo1KGG9g" client="_C6n-QTEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_C6pzcTEfEey8Gdgo1KGG9g" name="createWithEmailHasKey">
+        <nestedClassifier xmi:type="uml:Class" xmi:id="_C6ur8zEfEey8Gdgo1KGG9g" name="createPersonWithEmail_401_Headers">
+          <ownedAttribute xmi:id="_C6vTADEfEey8Gdgo1KGG9g" name="WWW_Authenticate">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          </ownedAttribute>
+        </nestedClassifier>
+        <ownedOperation xmi:id="_C6qagzEfEey8Gdgo1KGG9g" name="createPersonWithEmail" clientDependency="_C6ropTEfEey8Gdgo1KGG9g _C6whIjEfEey8Gdgo1KGG9g">
+          <eAnnotations xmi:id="_C6roozEfEey8Gdgo1KGG9g" source="http://www.eclipse.org/uml2/2.0.0/UML">
+            <details xmi:id="_C6ropDEfEey8Gdgo1KGG9g" key="person"/>
+          </eAnnotations>
+          <ownedComment xmi:id="_C6qahDEfEey8Gdgo1KGG9g">
+            <body>This can only be done by the logged in person.</body>
+          </ownedComment>
+          <ownedParameter xmi:id="_C6sPsDEfEey8Gdgo1KGG9g" name="body" type="_C2P0kDEfEey8Gdgo1KGG9g">
+            <ownedComment xmi:id="_C6s2wjEfEey8Gdgo1KGG9g">
+              <body>Created person object with email</body>
+            </ownedComment>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C6td0TEfEey8Gdgo1KGG9g" name="200" type="_C2SQ0TEfEey8Gdgo1KGG9g" direction="out">
+            <ownedComment xmi:id="_C6td0zEfEey8Gdgo1KGG9g">
+              <body>OK (successfully authenticated)</body>
+            </ownedComment>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C6uE4TEfEey8Gdgo1KGG9g" name="401" clientDependency="_C6vTATEfEey8Gdgo1KGG9g" direction="out">
+            <ownedComment xmi:id="_C6ur8TEfEey8Gdgo1KGG9g">
+              <body>Authentication information is missing or invalid</body>
+            </ownedComment>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C6v6ETEfEey8Gdgo1KGG9g" name="405" direction="out">
+            <ownedComment xmi:id="_C6whIDEfEey8Gdgo1KGG9g">
+              <body>Invalid input</body>
+            </ownedComment>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C6qagTEfEey8Gdgo1KGG9g" name="/createWithEmailHasKey" supplier="_C6pzcTEfEey8Gdgo1KGG9g" client="_C5tYQDEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C6ropTEfEey8Gdgo1KGG9g" supplier="_C2HRsTEfEey8Gdgo1KGG9g" client="_C6qagzEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C6vTATEfEey8Gdgo1KGG9g" supplier="_C6vTADEfEey8Gdgo1KGG9g" client="_C6uE4TEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C6whIjEfEey8Gdgo1KGG9g" supplier="_C28YIjEfEey8Gdgo1KGG9g" client="_C6qagzEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_C6whIzEfEey8Gdgo1KGG9g" name="createWithList">
+        <ownedOperation xmi:id="_C6xvQTEfEey8Gdgo1KGG9g" name="createUsersWithListInput" clientDependency="_C6yWXDEfEey8Gdgo1KGG9g">
+          <eAnnotations xmi:id="_C6yWWjEfEey8Gdgo1KGG9g" source="http://www.eclipse.org/uml2/2.0.0/UML">
+            <details xmi:id="_C6yWWzEfEey8Gdgo1KGG9g" key="person"/>
+          </eAnnotations>
+          <ownedParameter xmi:id="_C6y9YDEfEey8Gdgo1KGG9g" name="body" type="_C2PNgDEfEey8Gdgo1KGG9g">
+            <ownedComment xmi:id="_C60LgDEfEey8Gdgo1KGG9g">
+              <body>List of user object</body>
+            </ownedComment>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C6zkcjEfEey8Gdgo1KGG9g" value="*"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C60LgjEfEey8Gdgo1KGG9g" name="200" direction="out">
+            <ownedComment xmi:id="_C60ykTEfEey8Gdgo1KGG9g">
+              <body>OK (successfully authenticated)</body>
+            </ownedComment>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C7gvETEfEey8Gdgo1KGG9g" name="405" direction="out">
+            <ownedComment xmi:id="_C7hWITEfEey8Gdgo1KGG9g">
+              <body>Validation exception</body>
+            </ownedComment>
+          </ownedParameter>
+          <ownedParameter xmi:id="_C7hWIzEfEey8Gdgo1KGG9g" name="default" direction="out">
+            <ownedComment xmi:id="_C7h9MTEfEey8Gdgo1KGG9g">
+              <body>successful operation</body>
+            </ownedComment>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://SWAGGER_PRIMITIVETYPES/SwaggerPrimitiveTypes.emx#_Arp2UD6hEeaLouEOBcl3vg?SwaggerPrimitiveTypes/string?"/>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C6xIMTEfEey8Gdgo1KGG9g" name="/createWithList" supplier="_C6whIzEfEey8Gdgo1KGG9g" client="_C5tYQDEfEey8Gdgo1KGG9g"/>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_C6yWXDEfEey8Gdgo1KGG9g" supplier="_C2HRsTEfEey8Gdgo1KGG9g" client="_C6xvQTEfEey8Gdgo1KGG9g"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_C3Ds4jEfEey8Gdgo1KGG9g" name="/concept" supplier="_C3Ds4DEfEey8Gdgo1KGG9g" client="_C1zvsDEfEey8Gdgo1KGG9g"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_C4fQQTEfEey8Gdgo1KGG9g" name="/document" supplier="_C4epMjEfEey8Gdgo1KGG9g" client="_C1zvsDEfEey8Gdgo1KGG9g"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_C4tSsTEfEey8Gdgo1KGG9g" name="/indv" supplier="_C4sroTEfEey8Gdgo1KGG9g" client="_C1zvsDEfEey8Gdgo1KGG9g"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_C5nRoTEfEey8Gdgo1KGG9g" name="/organization" supplier="_C5mqkzEfEey8Gdgo1KGG9g" client="_C1zvsDEfEey8Gdgo1KGG9g"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_C5tYQjEfEey8Gdgo1KGG9g" name="/person" supplier="_C5tYQDEfEey8Gdgo1KGG9g" client="_C1zvsDEfEey8Gdgo1KGG9g"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_C78M4DEfEey8Gdgo1KGG9g" supplier="_C28YIjEfEey8Gdgo1KGG9g" client="_C1zvsDEfEey8Gdgo1KGG9g"/>
+    <profileApplication xmi:id="_UeIAINCzEdqK7KjEh4hvHw">
+      <eAnnotations xmi:id="_UeIAIdCzEdqK7KjEh4hvHw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Standard.profile.uml#_yzU58YinEdqtvbnfB2L_5w"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+    </profileApplication>
+    <profileApplication xmi:id="_UeIAItCzEdqK7KjEh4hvHw">
+      <eAnnotations xmi:id="_UeIAI9CzEdqK7KjEh4hvHw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UML2_MSL_PROFILES/Default.epx#_fNwoAAqoEd6-N_NOT9vsCA?Default/Default?"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://UML2_MSL_PROFILES/Default.epx#_a_S3wNWLEdiy4IqP8whjFA?Default?"/>
+    </profileApplication>
+    <profileApplication xmi:id="_UeIAJNCzEdqK7KjEh4hvHw">
+      <eAnnotations xmi:id="_UeIAJdCzEdqK7KjEh4hvHw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UML2_MSL_PROFILES/Deployment.epx#_4OVBUD0TEeKt-L0gyEptgQ?Deployment/Deployment?"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://UML2_MSL_PROFILES/Deployment.epx#_vjbuwOvHEdiDX5bji0iVSA?Deployment?"/>
+    </profileApplication>
+    <profileApplication xmi:id="_BK5g4E5xEeuJafEqaum_RQ">
+      <eAnnotations xmi:id="_BK6H8E5xEeuJafEqaum_RQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://RESTProfile/REST.epx#_w_1eEDeXEea7zJ8GtyuLLw?REST/REST?"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://RESTProfile/REST.epx#_G6KGQAwqEd-fBO8fbtF2Cg?REST?"/>
+    </profileApplication>
+    <profileApplication xmi:id="_594FsDEeEey8Gdgo1KGG9g">
+      <eAnnotations xmi:id="_6ASggDEeEey8Gdgo1KGG9g" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://OPENAPI3/OpenAPI3.epx#_kHenQGu3EeuuC53FKZlw_w?OpenAPI3/OpenAPI3?"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://OPENAPI3/OpenAPI3.epx#_0jGTsGuMEeuMk8q6wy-yJw?OpenAPI3?"/>
+    </profileApplication>
+  </uml:Model>
+  <Default:Documentation xmi:id="_MgfsUDEfEey8Gdgo1KGG9g" base_Comment="_C5ze4zEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIOperation xmi:id="_Mgg6cDEfEey8Gdgo1KGG9g" base_Operation="_C50tAzEfEey8Gdgo1KGG9g" summary="Associate a Document to a Person"/>
+  <REST:Path xmi:id="_MgivoDEfEey8Gdgo1KGG9g" base_Dependency="_C56zoTEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_Mgj9wDEfEey8Gdgo1KGG9g" base_Comment="_C5k1YjEfEey8Gdgo1KGG9g"/>
+  <REST:Path xmi:id="_MglL4DEfEey8Gdgo1KGG9g" base_Dependency="_C50tATEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_MgmaADEfEey8Gdgo1KGG9g" base_Parameter="_C7hWIzEfEey8Gdgo1KGG9g"/>
+  <REST:POST xmi:id="_MgnBEDEfEey8Gdgo1KGG9g" base_Operation="_C5t_UTEfEey8Gdgo1KGG9g">
+    <producesEx xmi:id="_MgnoIDEfEey8Gdgo1KGG9g">
+      <typeRef xmi:type="uml:Property" href="pathmap://REST_REFERENCE_LIBRARY/RESTReference.emx#_cvT9ABlcEeKLlYuxjnl7lg?RestReference/MediaType/APPLICATION_JSON?"/>
+    </producesEx>
+    <consumesEx xmi:id="_MgnoITEfEey8Gdgo1KGG9g">
+      <typeRef xmi:type="uml:Property" href="pathmap://REST_REFERENCE_LIBRARY/RESTReference.emx#_cvT9ABlcEeKLlYuxjnl7lg?RestReference/MediaType/APPLICATION_JSON?"/>
+    </consumesEx>
+  </REST:POST>
+  <REST:Param xmi:id="_MgoPMDEfEey8Gdgo1KGG9g" paramType="BodyParam" paramName="body" base_Parameter="_C5v0gDEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MgpdUDEfEey8Gdgo1KGG9g" base_Comment="_C6qahDEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MgqrcDEfEey8Gdgo1KGG9g" base_Comment="_C5Cp4TEfEey8Gdgo1KGG9g"/>
+  <REST:Param xmi:id="_Mgr5kDEfEey8Gdgo1KGG9g" paramType="BodyParam" paramName="body" base_Parameter="_C4hFcjEfEey8Gdgo1KGG9g"/>
+  <REST:Path xmi:id="_MgtHsDEfEey8Gdgo1KGG9g" base_Dependency="_C5ANoDEfEey8Gdgo1KGG9g"/>
+  <REST:Path xmi:id="_MgtuwDEfEey8Gdgo1KGG9g" base_Dependency="_C6A6QTEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_Mgu84DEfEey8Gdgo1KGG9g" required="true" base_Property="_C21qcTEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIRequestBody xmi:id="_MgwyEDEfEey8Gdgo1KGG9g" base_Parameter="_C5v0gDEfEey8Gdgo1KGG9g" required="true"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_MgyAMDEfEey8Gdgo1KGG9g" base_Parameter="_C5YBEDEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MgzOUDEfEey8Gdgo1KGG9g" base_Comment="_C5c5kjEfEey8Gdgo1KGG9g"/>
+  <REST:Param xmi:id="_Mg0ccDEfEey8Gdgo1KGG9g" paramType="BodyParam" paramName="body" base_Parameter="_C5pG0jEfEey8Gdgo1KGG9g"/>
+  <REST:Path xmi:id="_Mg1qkDEfEey8Gdgo1KGG9g" base_Dependency="_C6kT4TEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_Mg24sDEfEey8Gdgo1KGG9g" base_Comment="_C2mZ4TEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIOperation xmi:id="_Mg4G0DEfEey8Gdgo1KGG9g" base_Operation="_C6qagzEfEey8Gdgo1KGG9g" summary="Create a user in VIVO using the eMail address as an IRI key"/>
+  <OpenAPI3:OpenAPIOperation xmi:id="_Mg4t4DEfEey8Gdgo1KGG9g" base_Operation="_C5t_UTEfEey8Gdgo1KGG9g" summary="Create a person in VIVO"/>
+  <Default:Documentation xmi:id="_Mg58ADEfEey8Gdgo1KGG9g" base_Comment="_C5_sITEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_Mg7KIDEfEey8Gdgo1KGG9g" base_Comment="_C4f3UDEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIOperation xmi:id="_Mg8YQDEfEey8Gdgo1KGG9g" base_Operation="_C3FiEDEfEey8Gdgo1KGG9g" summary="Create a concept(skos:Concept) in VIVO with created IRI"/>
+  <OpenAPI3:OpenAPIParam xmi:id="_Mg8_UDEfEey8Gdgo1KGG9g" required="true" base_Parameter="_C4ZwszEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_Mg-NcDEfEey8Gdgo1KGG9g" base_Parameter="_C3RvUTEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIHeader xmi:id="_Mg-0gDEfEey8Gdgo1KGG9g" base_Property="_C6vTADEfEey8Gdgo1KGG9g"/>
+  <REST:Resource xmi:id="_MhACoDEfEey8Gdgo1KGG9g" base_Class="_C4sroTEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_MhApsDEfEey8Gdgo1KGG9g" base_Parameter="_C49KUTEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIHeader xmi:id="_MhB30DEfEey8Gdgo1KGG9g" base_Property="_C5y30TEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPISchema xmi:id="_MhDF8DEfEey8Gdgo1KGG9g" base_Class="_C2MxQTEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_MhDtADEfEey8Gdgo1KGG9g" base_Parameter="_C4rdgDEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MhE7IDEfEey8Gdgo1KGG9g" base_Comment="_C2FcgDEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MhGJQDEfEey8Gdgo1KGG9g" base_Comment="_C5jnQTEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPISchema xmi:id="_MhGwUDEfEey8Gdgo1KGG9g" base_Class="_C2MKMDEfEey8Gdgo1KGG9g"/>
+  <REST:Path xmi:id="_MhH-cDEfEey8Gdgo1KGG9g" base_Dependency="_C3E7ATEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_MhJMkDEfEey8Gdgo1KGG9g" base_Parameter="_C4cM8TEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_MhJzoDEfEey8Gdgo1KGG9g" base_Parameter="_C6h3ozEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIParam xmi:id="_MhLBwDEfEey8Gdgo1KGG9g" required="true" base_Parameter="_C4vu9DEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIHeader xmi:id="_MhLo0DEfEey8Gdgo1KGG9g" base_Property="_C6jFwjEfEey8Gdgo1KGG9g"/>
+  <REST:Path xmi:id="_MhMP4DEfEey8Gdgo1KGG9g" base_Dependency="_C4zZUzEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_MhNeADEfEey8Gdgo1KGG9g" required="true" base_Property="_C2tuoTEfEey8Gdgo1KGG9g" example="[{label=Professeurr, language=fr-CA}, {label=Professor, language=en-US}]"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_MhOsIDEfEey8Gdgo1KGG9g" required="true" base_Property="_C2u8wTEfEey8Gdgo1KGG9g" example="http://vivoweb.org/ontology/core#FacultyMember"/>
+  <REST:Path xmi:id="_MhPTMDEfEey8Gdgo1KGG9g" base_Dependency="_C5Z2QzEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIRequestBody xmi:id="_MhQhUDEfEey8Gdgo1KGG9g" base_Parameter="_C411kzEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIRequestBody xmi:id="_MhRvcDEfEey8Gdgo1KGG9g" base_Parameter="_C517JDEfEey8Gdgo1KGG9g" required="true"/>
+  <OpenAPI3:OpenAPIHeader xmi:id="_MhS9kDEfEey8Gdgo1KGG9g" base_Property="_C6olVDEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIHeader xmi:id="_MhTkoDEfEey8Gdgo1KGG9g" base_Property="_C6ATMDEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MhUywDEfEey8Gdgo1KGG9g" base_Comment="_C2cB0TEfEey8Gdgo1KGG9g"/>
+  <REST:POST xmi:id="_MhWA4DEfEey8Gdgo1KGG9g" base_Operation="_C4fQQzEfEey8Gdgo1KGG9g">
+    <producesEx xmi:id="_MhWA4TEfEey8Gdgo1KGG9g">
+      <typeRef xmi:type="uml:Property" href="pathmap://REST_REFERENCE_LIBRARY/RESTReference.emx#_cvT9ABlcEeKLlYuxjnl7lg?RestReference/MediaType/APPLICATION_JSON?"/>
+    </producesEx>
+    <consumesEx xmi:id="_MhWA4jEfEey8Gdgo1KGG9g">
+      <typeRef xmi:type="uml:Property" href="pathmap://REST_REFERENCE_LIBRARY/RESTReference.emx#_cvT9ABlcEeKLlYuxjnl7lg?RestReference/MediaType/APPLICATION_JSON?"/>
+    </consumesEx>
+  </REST:POST>
+  <OpenAPI3:OpenAPIOperation xmi:id="_MhXPADEfEey8Gdgo1KGG9g" base_Operation="_C56zozEfEey8Gdgo1KGG9g" summary="Create 'has Research Area' for a person"/>
+  <Default:Documentation xmi:id="_MhZEMDEfEey8Gdgo1KGG9g" base_Comment="_C5kOUjEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_Mha5YDEfEey8Gdgo1KGG9g" required="true" base_Property="_C2qEQjEfEey8Gdgo1KGG9g" example="[{label=Jasper, language=fr-CA}, {label=Jasper, language=en-US}]"/>
+  <REST:Path xmi:id="_Mhd8sDEfEey8Gdgo1KGG9g" base_Dependency="_C4tSsTEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIOperation xmi:id="_Mhfx4DEfEey8Gdgo1KGG9g" base_Operation="_C5ANojEfEey8Gdgo1KGG9g" summary="Associate a type to an individual"/>
+  <Default:Documentation xmi:id="_MhhAADEfEey8Gdgo1KGG9g" base_Comment="_C6olUTEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MhiOIDEfEey8Gdgo1KGG9g" base_Comment="_C3WAwjEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIRequestBody xmi:id="_Mhi1MDEfEey8Gdgo1KGG9g" base_Parameter="_C6gCcDEfEey8Gdgo1KGG9g" required="true"/>
+  <Default:Documentation xmi:id="_MhkDUDEfEey8Gdgo1KGG9g" base_Comment="_C53JQjEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIHeader xmi:id="_MhlRcDEfEey8Gdgo1KGG9g" base_Property="_C4-_gDEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIHeader xmi:id="_Mhl4gDEfEey8Gdgo1KGG9g" base_Property="_C5sKIjEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MhnGoDEfEey8Gdgo1KGG9g" base_Comment="_C43qwjEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIOperation xmi:id="_MhoUwDEfEey8Gdgo1KGG9g" base_Operation="_C40AYTEfEey8Gdgo1KGG9g" summary="Add a label to an individual"/>
+  <OpenAPI3:OpenAPIHeader xmi:id="_Mho70DEfEey8Gdgo1KGG9g" base_Property="_C4yyQjEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MhqJ8DEfEey8Gdgo1KGG9g" base_Comment="_C60LgDEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_MhqxADEfEey8Gdgo1KGG9g" required="true" base_Property="_C2wK4TEfEey8Gdgo1KGG9g" example="http://localhost:8080/vivo/individual/n6870"/>
+  <OpenAPI3:OpenAPIOperation xmi:id="_Mhr_IDEfEey8Gdgo1KGG9g" base_Operation="_C3WAwTEfEey8Gdgo1KGG9g" summary="Create a concept(skos:Concept) in VIVO"/>
+  <REST:Resource xmi:id="_MhsmMDEfEey8Gdgo1KGG9g" base_Class="_C4t5wDEfEey8Gdgo1KGG9g"/>
+  <REST:Path xmi:id="_Mht0UDEfEey8Gdgo1KGG9g" base_Dependency="_C5gj8zEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_MhubYDEfEey8Gdgo1KGG9g" required="true" base_Property="_C2uVsDEfEey8Gdgo1KGG9g" example="http://localhost:8080/vivo/individual/n6870"/>
+  <Default:Documentation xmi:id="_MhvpgDEfEey8Gdgo1KGG9g" base_Comment="_C4-YcTEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIParam xmi:id="_MhwQkDEfEey8Gdgo1KGG9g" required="true" base_Parameter="_C5iZIjEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MhxesDEfEey8Gdgo1KGG9g" base_Comment="_C2sggjEfEey8Gdgo1KGG9g"/>
+  <REST:Path xmi:id="_MhyFwDEfEey8Gdgo1KGG9g" base_Dependency="_C4mlAjEfEey8Gdgo1KGG9g"/>
+  <REST:GET xmi:id="_MhzT4DEfEey8Gdgo1KGG9g" base_Operation="_C5adUTEfEey8Gdgo1KGG9g">
+    <producesEx xmi:id="_MhzT4TEfEey8Gdgo1KGG9g" type="application/ld+json"/>
+    <producesEx xmi:id="_MhzT4jEfEey8Gdgo1KGG9g" type="text/owl-functional"/>
+    <producesEx xmi:id="_MhzT4zEfEey8Gdgo1KGG9g">
+      <typeRef xmi:type="uml:Property" href="pathmap://REST_REFERENCE_LIBRARY/RESTReference.emx#_cvT9ABlcEeKLlYuxjnl7lg?RestReference/MediaType/APPLICATION_JSON?"/>
+    </producesEx>
+    <producesEx xmi:id="_MhzT5DEfEey8Gdgo1KGG9g" type="application/owl+xml"/>
+    <producesEx xmi:id="_MhzT5TEfEey8Gdgo1KGG9g" type="application/rdf+xml"/>
+    <producesEx xmi:id="_MhzT5jEfEey8Gdgo1KGG9g" type="text/turtle"/>
+    <producesEx xmi:id="_MhzT5zEfEey8Gdgo1KGG9g" type="text/owl-manchester"/>
+    <producesEx xmi:id="_MhzT6DEfEey8Gdgo1KGG9g" type="text/n3"/>
+    <producesEx xmi:id="_MhzT6TEfEey8Gdgo1KGG9g">
+      <typeRef xmi:type="uml:Property" href="pathmap://REST_REFERENCE_LIBRARY/RESTReference.emx#_cpaJUBlcEeKLlYuxjnl7lg?RestReference/MediaType/TEXT_PLAIN?"/>
+    </producesEx>
+  </REST:GET>
+  <OpenAPI3:OpenAPIOperation xmi:id="_Mhz68DEfEey8Gdgo1KGG9g" base_Operation="_C5nRozEfEey8Gdgo1KGG9g" summary="Create an organization in VIVO"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_Mh1JEDEfEey8Gdgo1KGG9g" required="true" base_Property="_C2fFIDEfEey8Gdgo1KGG9g" example="/home/user/photo/picture.jpg"/>
+  <Default:Documentation xmi:id="_Mh1wIDEfEey8Gdgo1KGG9g" base_Comment="_C3UyoDEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_Mh2-QDEfEey8Gdgo1KGG9g" base_Parameter="_C5qU8jEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_Mh3lUDEfEey8Gdgo1KGG9g" required="true" base_Property="_C2d3ATEfEey8Gdgo1KGG9g" example="http://localhost:8080/vivo/individual/n7440"/>
+  <REST:Param xmi:id="_Mh4zcDEfEey8Gdgo1KGG9g" paramType="BodyParam" paramName="body" base_Parameter="_C4vu9DEfEey8Gdgo1KGG9g"/>
+  <REST:PUT xmi:id="_Mh5agDEfEey8Gdgo1KGG9g" base_Operation="_C4nMETEfEey8Gdgo1KGG9g">
+    <producesEx xmi:id="_Mh6BkDEfEey8Gdgo1KGG9g">
+      <typeRef xmi:type="uml:Property" href="pathmap://REST_REFERENCE_LIBRARY/RESTReference.emx#_cvT9ABlcEeKLlYuxjnl7lg?RestReference/MediaType/APPLICATION_JSON?"/>
+    </producesEx>
+    <consumesEx xmi:id="_Mh6BkTEfEey8Gdgo1KGG9g">
+      <typeRef xmi:type="uml:Property" href="pathmap://REST_REFERENCE_LIBRARY/RESTReference.emx#_cvT9ABlcEeKLlYuxjnl7lg?RestReference/MediaType/APPLICATION_JSON?"/>
+    </consumesEx>
+  </REST:PUT>
+  <OpenAPI3:OpenAPIOperation xmi:id="_Mh6ooDEfEey8Gdgo1KGG9g" base_Operation="_C5adUTEfEey8Gdgo1KGG9g" summary="Get an individual by IRI"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_Mh7PsDEfEey8Gdgo1KGG9g" required="true" base_Property="_C2YXcTEfEey8Gdgo1KGG9g" example="http://vivoweb.org/ontology/core#Position"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_Mh8d0DEfEey8Gdgo1KGG9g" base_Property="_C25U0zEfEey8Gdgo1KGG9g" example="&lt;H1>200 SPARQL update accepted.&lt;/H1>"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_Mh9E4DEfEey8Gdgo1KGG9g" required="true" base_Property="_C2co4TEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_Mh-TADEfEey8Gdgo1KGG9g" base_Property="_C2bawDEfEey8Gdgo1KGG9g" example="http://purl.org/uqam.ca/vocabulary/expertise#semanticweb"/>
+  <Default:Documentation xmi:id="_Mh_hIDEfEey8Gdgo1KGG9g" base_Comment="_C6h3oTEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MiAIMDEfEey8Gdgo1KGG9g" base_Comment="_C49KUzEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_MiAvQDEfEey8Gdgo1KGG9g" base_Parameter="_C3SWYjEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPISchema xmi:id="_MiB9YDEfEey8Gdgo1KGG9g" base_Class="_C2RpwDEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIParam xmi:id="_MiCkcDEfEey8Gdgo1KGG9g" required="true" base_Parameter="_C40ndTEfEey8Gdgo1KGG9g"/>
+  <REST:Resource xmi:id="_MiDykDEfEey8Gdgo1KGG9g" base_Class="_C3UyozEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_MiEZoDEfEey8Gdgo1KGG9g" base_Parameter="_C53wUTEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_MiFnwDEfEey8Gdgo1KGG9g" base_Parameter="_C43qwDEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPITag xmi:id="_MiG14DEfEey8Gdgo1KGG9g" base_Class="_C2JG4DEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_MiHc8DEfEey8Gdgo1KGG9g" base_Parameter="_C4qPYjEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MiIrEDEfEey8Gdgo1KGG9g" base_Comment="_C411kTEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_MiJSIDEfEey8Gdgo1KGG9g" base_Parameter="_C4jhsTEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MiJ5MDEfEey8Gdgo1KGG9g" base_Comment="_C5q8ATEfEey8Gdgo1KGG9g"/>
+  <REST:PUT xmi:id="_MiLHUDEfEey8Gdgo1KGG9g" base_Operation="_C6kT4zEfEey8Gdgo1KGG9g">
+    <producesEx xmi:id="_MiLHUTEfEey8Gdgo1KGG9g">
+      <typeRef xmi:type="uml:Property" href="pathmap://REST_REFERENCE_LIBRARY/RESTReference.emx#_cvT9ABlcEeKLlYuxjnl7lg?RestReference/MediaType/APPLICATION_JSON?"/>
+    </producesEx>
+    <consumesEx xmi:id="_MiLHUjEfEey8Gdgo1KGG9g">
+      <typeRef xmi:type="uml:Property" href="pathmap://REST_REFERENCE_LIBRARY/RESTReference.emx#_cvT9ABlcEeKLlYuxjnl7lg?RestReference/MediaType/APPLICATION_JSON?"/>
+    </consumesEx>
+  </REST:PUT>
+  <OpenAPI3:OpenAPISchema xmi:id="_MiLuYDEfEey8Gdgo1KGG9g" base_Class="_C2OmcDEfEey8Gdgo1KGG9g"/>
+  <REST:Resource xmi:id="_MiM8gDEfEey8Gdgo1KGG9g" base_Class="_C4epMjEfEey8Gdgo1KGG9g"/>
+  <REST:Resource xmi:id="_MiNjkDEfEey8Gdgo1KGG9g" base_Class="_C4mlADEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIParam xmi:id="_MiOxsDEfEey8Gdgo1KGG9g" required="true" base_Parameter="_C6liBTEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_MiP_0DEfEey8Gdgo1KGG9g" base_Property="_C24twTEfEey8Gdgo1KGG9g" example="http://localhost:8080/vivo/individual/n774"/>
+  <Default:Documentation xmi:id="_MiQm4DEfEey8Gdgo1KGG9g" base_Comment="_C6iesTEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MiR1ADEfEey8Gdgo1KGG9g" base_Comment="_C4q2cTEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MiScEDEfEey8Gdgo1KGG9g" base_Comment="_C5qU8DEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MiTqMDEfEey8Gdgo1KGG9g" base_Comment="_C6ur8TEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MiURQDEfEey8Gdgo1KGG9g" base_Comment="_C4c0ATEfEey8Gdgo1KGG9g"/>
+  <REST:Param xmi:id="_MiVfYDEfEey8Gdgo1KGG9g" paramType="BodyParam" paramName="body" base_Parameter="_C6liBTEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_MiWGcDEfEey8Gdgo1KGG9g" required="true" base_Property="_C26i8TEfEey8Gdgo1KGG9g" example="http://localhost:8080/vivo/individual/n774"/>
+  <Default:Documentation xmi:id="_MiXUkDEfEey8Gdgo1KGG9g" base_Comment="_C5wbkjEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_MiX7oDEfEey8Gdgo1KGG9g" base_Parameter="_C5c5kDEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIHeader xmi:id="_MiZJwDEfEey8Gdgo1KGG9g" base_Property="_C5lccDEfEey8Gdgo1KGG9g"/>
+  <REST:Resource xmi:id="_MiZw0DEfEey8Gdgo1KGG9g" base_Class="_C4zZUTEfEey8Gdgo1KGG9g"/>
+  <REST:POST xmi:id="_Mia-8DEfEey8Gdgo1KGG9g" base_Operation="_C6xvQTEfEey8Gdgo1KGG9g">
+    <producesEx xmi:id="_Mia-8TEfEey8Gdgo1KGG9g" type="application/ld+json"/>
+    <producesEx xmi:id="_Mia-8jEfEey8Gdgo1KGG9g" type="text/owl-functional"/>
+    <producesEx xmi:id="_Mia-8zEfEey8Gdgo1KGG9g" type="application/owl+xml"/>
+    <producesEx xmi:id="_Mia-9DEfEey8Gdgo1KGG9g" type="application/rdf+xml"/>
+    <producesEx xmi:id="_Mia-9TEfEey8Gdgo1KGG9g" type="text/turtle"/>
+    <producesEx xmi:id="_Mia-9jEfEey8Gdgo1KGG9g" type="text/owl-manchester"/>
+    <producesEx xmi:id="_Mia-9zEfEey8Gdgo1KGG9g" type="text/n3"/>
+    <producesEx xmi:id="_Mia--DEfEey8Gdgo1KGG9g">
+      <typeRef xmi:type="uml:Property" href="pathmap://REST_REFERENCE_LIBRARY/RESTReference.emx#_cpaJUBlcEeKLlYuxjnl7lg?RestReference/MediaType/TEXT_PLAIN?"/>
+    </producesEx>
+    <consumesEx xmi:id="_Mia--TEfEey8Gdgo1KGG9g">
+      <typeRef xmi:type="uml:Property" href="pathmap://REST_REFERENCE_LIBRARY/RESTReference.emx#_cvT9ABlcEeKLlYuxjnl7lg?RestReference/MediaType/APPLICATION_JSON?"/>
+    </consumesEx>
+  </REST:POST>
+  <OpenAPI3:OpenAPIHeader xmi:id="_MiiTsDEfEey8Gdgo1KGG9g" base_Property="_C4kv0DEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_Mii6wDEfEey8Gdgo1KGG9g" required="true" base_Property="_C2hhYjEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MikI4DEfEey8Gdgo1KGG9g" base_Comment="_C43DsjEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_Mikv8DEfEey8Gdgo1KGG9g" base_Comment="_C4rdgjEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_Mil-EDEfEey8Gdgo1KGG9g" base_Parameter="_C5q8AzEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MinMMDEfEey8Gdgo1KGG9g" base_Comment="_C4qPYDEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIHeader xmi:id="_MioaUDEfEey8Gdgo1KGG9g" base_Property="_C4sEkjEfEey8Gdgo1KGG9g"/>
+  <REST:Resource xmi:id="_MipBYDEfEey8Gdgo1KGG9g" base_Class="_C5tYQDEfEey8Gdgo1KGG9g"/>
+  <REST:Param xmi:id="_MiqPgDEfEey8Gdgo1KGG9g" paramType="QueryParam" paramName="Label" base_Parameter="_C5iZIjEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIRequestBody xmi:id="_MirdoDEfEey8Gdgo1KGG9g" base_Parameter="_C6liBTEfEey8Gdgo1KGG9g" required="true"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_MisrwDEfEey8Gdgo1KGG9g" base_Property="_C24GsDEfEey8Gdgo1KGG9g"/>
+  <REST:PUT xmi:id="_MitS0DEfEey8Gdgo1KGG9g" base_Operation="_C5ANojEfEey8Gdgo1KGG9g">
+    <producesEx xmi:id="_MitS0TEfEey8Gdgo1KGG9g">
+      <typeRef xmi:type="uml:Property" href="pathmap://REST_REFERENCE_LIBRARY/RESTReference.emx#_cvT9ABlcEeKLlYuxjnl7lg?RestReference/MediaType/APPLICATION_JSON?"/>
+    </producesEx>
+    <consumesEx xmi:id="_MitS0jEfEey8Gdgo1KGG9g">
+      <typeRef xmi:type="uml:Property" href="pathmap://REST_REFERENCE_LIBRARY/RESTReference.emx#_cvT9ABlcEeKLlYuxjnl7lg?RestReference/MediaType/APPLICATION_JSON?"/>
+    </consumesEx>
+  </REST:PUT>
+  <REST:Resource xmi:id="_Miug8DEfEey8Gdgo1KGG9g" base_Class="_C50F8jEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPITag xmi:id="_MivvEDEfEey8Gdgo1KGG9g" base_Class="_C2HRsTEfEey8Gdgo1KGG9g" externaldocs_url="http://localhost:8080/vivo" externaldocs_url_desc="Local VIVO Instance"/>
+  <REST:Param xmi:id="_Miw9MDEfEey8Gdgo1KGG9g" paramType="BodyParam" paramName="body" base_Parameter="_C5BbxDEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_MixkQDEfEey8Gdgo1KGG9g" base_Parameter="_C6uE4TEfEey8Gdgo1KGG9g"/>
+  <REST:PUT xmi:id="_MiyyYDEfEey8Gdgo1KGG9g" base_Operation="_C46HAzEfEey8Gdgo1KGG9g">
+    <producesEx xmi:id="_MiyyYTEfEey8Gdgo1KGG9g">
+      <typeRef xmi:type="uml:Property" href="pathmap://REST_REFERENCE_LIBRARY/RESTReference.emx#_cvT9ABlcEeKLlYuxjnl7lg?RestReference/MediaType/APPLICATION_JSON?"/>
+    </producesEx>
+    <consumesEx xmi:id="_MiyyYjEfEey8Gdgo1KGG9g">
+      <typeRef xmi:type="uml:Property" href="pathmap://REST_REFERENCE_LIBRARY/RESTReference.emx#_cvT9ABlcEeKLlYuxjnl7lg?RestReference/MediaType/APPLICATION_JSON?"/>
+    </consumesEx>
+  </REST:PUT>
+  <REST:Resource xmi:id="_Mi0AgDEfEey8Gdgo1KGG9g" base_Class="_C5mqkzEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_Mi1OoDEfEey8Gdgo1KGG9g" base_Comment="_C6hQkDEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_Mi2cwDEfEey8Gdgo1KGG9g" base_Comment="_C5_FETEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_Mi3D0DEfEey8Gdgo1KGG9g" base_Comment="_C6mwITEfEey8Gdgo1KGG9g"/>
+  <REST:Param xmi:id="_Mi4R8DEfEey8Gdgo1KGG9g" paramType="BodyParam" paramName="body" base_Parameter="_C3P6IDEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_Mi5gEDEfEey8Gdgo1KGG9g" base_Comment="_C5f84DEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_Mi6HIDEfEey8Gdgo1KGG9g" base_Parameter="_C4w9EjEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_Mi7VQDEfEey8Gdgo1KGG9g" base_Parameter="_C6nXMDEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIParam xmi:id="_Mi8jYDEfEey8Gdgo1KGG9g" required="true" base_Parameter="_C3P6IDEfEey8Gdgo1KGG9g"/>
+  <REST:Path xmi:id="_Mi9xgDEfEey8Gdgo1KGG9g" base_Dependency="_C6qagTEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_Mi-YkDEfEey8Gdgo1KGG9g" base_Parameter="_C5-eATEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_Mi_msDEfEey8Gdgo1KGG9g" base_Parameter="_C5DQ8TEfEey8Gdgo1KGG9g"/>
+  <REST:Path xmi:id="_MjA00DEfEey8Gdgo1KGG9g" base_Dependency="_C4t5wjEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MjBb4DEfEey8Gdgo1KGG9g" base_Comment="_C5eHszEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIRequestBody xmi:id="_MjCqADEfEey8Gdgo1KGG9g" base_Parameter="_C5pG0jEfEey8Gdgo1KGG9g" required="true"/>
+  <OpenAPI3:OpenAPIRequestBody xmi:id="_MjD4IDEfEey8Gdgo1KGG9g" base_Parameter="_C58BxDEfEey8Gdgo1KGG9g" required="true"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_MjEfMDEfEey8Gdgo1KGG9g" base_Parameter="_C6n-QTEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MjFtUDEfEey8Gdgo1KGG9g" base_Comment="_C7hWITEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_MjG7cDEfEey8Gdgo1KGG9g" base_Parameter="_C5fV0TEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MjHigDEfEey8Gdgo1KGG9g" base_Comment="_C4kIwTEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MjIwoDEfEey8Gdgo1KGG9g" base_Comment="_C3RIQTEfEey8Gdgo1KGG9g"/>
+  <REST:Param xmi:id="_MjJ-wDEfEey8Gdgo1KGG9g" paramType="BodyParam" paramName="body" base_Parameter="_C47VIzEfEey8Gdgo1KGG9g"/>
+  <REST:Resource xmi:id="_MjKl0DEfEey8Gdgo1KGG9g" base_Class="_C4_mkTEfEey8Gdgo1KGG9g"/>
+  <REST:POST xmi:id="_MjLM4DEfEey8Gdgo1KGG9g" base_Operation="_C6qagzEfEey8Gdgo1KGG9g">
+    <producesEx xmi:id="_MjLM4TEfEey8Gdgo1KGG9g">
+      <typeRef xmi:type="uml:Property" href="pathmap://REST_REFERENCE_LIBRARY/RESTReference.emx#_cvT9ABlcEeKLlYuxjnl7lg?RestReference/MediaType/APPLICATION_JSON?"/>
+    </producesEx>
+    <consumesEx xmi:id="_MjLM4jEfEey8Gdgo1KGG9g">
+      <typeRef xmi:type="uml:Property" href="pathmap://REST_REFERENCE_LIBRARY/RESTReference.emx#_cvT9ABlcEeKLlYuxjnl7lg?RestReference/MediaType/APPLICATION_JSON?"/>
+    </consumesEx>
+  </REST:POST>
+  <REST:Param xmi:id="_MjMbADEfEey8Gdgo1KGG9g" paramType="BodyParam" paramName="body" base_Parameter="_C6gCcDEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MjNCEDEfEey8Gdgo1KGG9g" base_Comment="_C5yQwDEfEey8Gdgo1KGG9g"/>
+  <REST:Path xmi:id="_MjOQMDEfEey8Gdgo1KGG9g" base_Dependency="_C3VZsTEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_MjPeUDEfEey8Gdgo1KGG9g" base_Parameter="_C4xkIzEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIParam xmi:id="_MjQFYDEfEey8Gdgo1KGG9g" required="true" base_Parameter="_C4oaNDEfEey8Gdgo1KGG9g"/>
+  <REST:Path xmi:id="_MjRTgDEfEey8Gdgo1KGG9g" base_Dependency="_C46HATEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIHeader xmi:id="_MjR6kDEfEey8Gdgo1KGG9g" base_Property="_C3TkgDEfEey8Gdgo1KGG9g"/>
+  <REST:PUT xmi:id="_MjTIsDEfEey8Gdgo1KGG9g" base_Operation="_C40AYTEfEey8Gdgo1KGG9g">
+    <producesEx xmi:id="_MjTIsTEfEey8Gdgo1KGG9g">
+      <typeRef xmi:type="uml:Property" href="pathmap://REST_REFERENCE_LIBRARY/RESTReference.emx#_cvT9ABlcEeKLlYuxjnl7lg?RestReference/MediaType/APPLICATION_JSON?"/>
+    </producesEx>
+    <consumesEx xmi:id="_MjTIsjEfEey8Gdgo1KGG9g">
+      <typeRef xmi:type="uml:Property" href="pathmap://REST_REFERENCE_LIBRARY/RESTReference.emx#_cvT9ABlcEeKLlYuxjnl7lg?RestReference/MediaType/APPLICATION_JSON?"/>
+    </consumesEx>
+  </REST:PUT>
+  <REST:PUT xmi:id="_MjTvwDEfEey8Gdgo1KGG9g" base_Operation="_C56zozEfEey8Gdgo1KGG9g">
+    <producesEx xmi:id="_MjTvwTEfEey8Gdgo1KGG9g">
+      <typeRef xmi:type="uml:Property" href="pathmap://REST_REFERENCE_LIBRARY/RESTReference.emx#_cvT9ABlcEeKLlYuxjnl7lg?RestReference/MediaType/APPLICATION_JSON?"/>
+    </producesEx>
+    <consumesEx xmi:id="_MjTvwjEfEey8Gdgo1KGG9g">
+      <typeRef xmi:type="uml:Property" href="pathmap://REST_REFERENCE_LIBRARY/RESTReference.emx#_cvT9ABlcEeKLlYuxjnl7lg?RestReference/MediaType/APPLICATION_JSON?"/>
+    </consumesEx>
+  </REST:PUT>
+  <OpenAPI3:OpenAPIResponse xmi:id="_MjU94DEfEey8Gdgo1KGG9g" base_Parameter="_C5ze4TEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIRequestBody xmi:id="_MjWMADEfEey8Gdgo1KGG9g" base_Parameter="_C3P6IDEfEey8Gdgo1KGG9g" required="true"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_MjWzEDEfEey8Gdgo1KGG9g" base_Parameter="_C5jAMzEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIRequestBody xmi:id="_MjYBMDEfEey8Gdgo1KGG9g" base_Parameter="_C5BbxDEfEey8Gdgo1KGG9g" required="true"/>
+  <OpenAPI3:OpenAPIParam xmi:id="_MjYoQDEfEey8Gdgo1KGG9g" required="true" base_Parameter="_C6y9YDEfEey8Gdgo1KGG9g"/>
+  <REST:POST xmi:id="_MjZ2YDEfEey8Gdgo1KGG9g" base_Operation="_C3FiEDEfEey8Gdgo1KGG9g">
+    <producesEx xmi:id="_MjZ2YTEfEey8Gdgo1KGG9g">
+      <typeRef xmi:type="uml:Property" href="pathmap://REST_REFERENCE_LIBRARY/RESTReference.emx#_cvT9ABlcEeKLlYuxjnl7lg?RestReference/MediaType/APPLICATION_JSON?"/>
+    </producesEx>
+    <consumesEx xmi:id="_MjZ2YjEfEey8Gdgo1KGG9g">
+      <typeRef xmi:type="uml:Property" href="pathmap://REST_REFERENCE_LIBRARY/RESTReference.emx#_cvT9ABlcEeKLlYuxjnl7lg?RestReference/MediaType/APPLICATION_JSON?"/>
+    </consumesEx>
+  </REST:POST>
+  <REST:POST xmi:id="_MjbEgDEfEey8Gdgo1KGG9g" base_Operation="_C5nRozEfEey8Gdgo1KGG9g">
+    <producesEx xmi:id="_MjbEgTEfEey8Gdgo1KGG9g">
+      <typeRef xmi:type="uml:Property" href="pathmap://REST_REFERENCE_LIBRARY/RESTReference.emx#_cvT9ABlcEeKLlYuxjnl7lg?RestReference/MediaType/APPLICATION_JSON?"/>
+    </producesEx>
+    <consumesEx xmi:id="_MjbEgjEfEey8Gdgo1KGG9g">
+      <typeRef xmi:type="uml:Property" href="pathmap://REST_REFERENCE_LIBRARY/RESTReference.emx#_cvT9ABlcEeKLlYuxjnl7lg?RestReference/MediaType/APPLICATION_JSON?"/>
+    </consumesEx>
+  </REST:POST>
+  <OpenAPI3:OpenAPIRequestBody xmi:id="_MjbrkDEfEey8Gdgo1KGG9g" base_Parameter="_C4hFcjEfEey8Gdgo1KGG9g" required="true"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_Mjc5sDEfEey8Gdgo1KGG9g" base_Parameter="_C5xCoTEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MjdgwDEfEey8Gdgo1KGG9g" base_Comment="_C4bl4TEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_Mjeu4DEfEey8Gdgo1KGG9g" base_Comment="_C5928DEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_MjfV8DEfEey8Gdgo1KGG9g" base_Parameter="_C3ULkTEfEey8Gdgo1KGG9g"/>
+  <REST:Resource xmi:id="_MjgkEDEfEey8Gdgo1KGG9g" base_Class="_C5Z2QTEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MjhLIDEfEey8Gdgo1KGG9g" base_Comment="_C6s2wjEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MjiZQDEfEey8Gdgo1KGG9g" base_Comment="_C4iTkDEfEey8Gdgo1KGG9g"/>
+  <REST:Param xmi:id="_MjjnYDEfEey8Gdgo1KGG9g" paramType="BodyParam" paramName="body" base_Parameter="_C58BxDEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_Mjk1gDEfEey8Gdgo1KGG9g" base_Comment="_C6td0zEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIRequestBody xmi:id="_MjlckDEfEey8Gdgo1KGG9g" base_Parameter="_C6y9YDEfEey8Gdgo1KGG9g" required="true"/>
+  <OpenAPI3:OpenAPIHeader xmi:id="_MjmqsDEfEey8Gdgo1KGG9g" base_Property="_C4444zEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIParam xmi:id="_Mjn40DEfEey8Gdgo1KGG9g" required="true" base_Parameter="_C5brezEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIHeader xmi:id="_MjpG8DEfEey8Gdgo1KGG9g" base_Property="_C5euwjEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIHeader xmi:id="_MjpuADEfEey8Gdgo1KGG9g" base_Property="_C5ZPMDEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_Mjq8IDEfEey8Gdgo1KGG9g" base_Parameter="_C54XYjEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIParam xmi:id="_MjsKQDEfEey8Gdgo1KGG9g" required="true" base_Parameter="_C6sPsDEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MjtYYDEfEey8Gdgo1KGG9g" base_Comment="_C3SWYDEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MjumgDEfEey8Gdgo1KGG9g" base_Comment="_C7h9MTEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MjvNkDEfEey8Gdgo1KGG9g" base_Comment="_C5YoIDEfEey8Gdgo1KGG9g"/>
+  <REST:POST xmi:id="_MjwbsDEfEey8Gdgo1KGG9g" base_Operation="_C3WAwTEfEey8Gdgo1KGG9g">
+    <producesEx xmi:id="_MjwbsTEfEey8Gdgo1KGG9g">
+      <typeRef xmi:type="uml:Property" href="pathmap://REST_REFERENCE_LIBRARY/RESTReference.emx#_cvT9ABlcEeKLlYuxjnl7lg?RestReference/MediaType/APPLICATION_JSON?"/>
+    </producesEx>
+    <consumesEx xmi:id="_MjwbsjEfEey8Gdgo1KGG9g">
+      <typeRef xmi:type="uml:Property" href="pathmap://REST_REFERENCE_LIBRARY/RESTReference.emx#_cvT9ABlcEeKLlYuxjnl7lg?RestReference/MediaType/APPLICATION_JSON?"/>
+    </consumesEx>
+  </REST:POST>
+  <OpenAPI3:OpenAPIResponse xmi:id="_Mjxp0DEfEey8Gdgo1KGG9g" base_Parameter="_C60LgjEfEey8Gdgo1KGG9g"/>
+  <REST:Resource xmi:id="_Mjy38DEfEey8Gdgo1KGG9g" base_Class="_C56MkTEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_Mj0GEDEfEey8Gdgo1KGG9g" base_Parameter="_C5mDgTEfEey8Gdgo1KGG9g"/>
+  <REST:Path xmi:id="_Mj1UMDEfEey8Gdgo1KGG9g" base_Dependency="_C6xIMTEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIRequestBody xmi:id="_Mj2iUDEfEey8Gdgo1KGG9g" base_Parameter="_C4vu9DEfEey8Gdgo1KGG9g" required="true"/>
+  <OpenAPI3:OpenAPIOperation xmi:id="_Mj3JYDEfEey8Gdgo1KGG9g" base_Operation="_C5hLATEfEey8Gdgo1KGG9g" summary="Get an individual IRI by label (rdfs:label)"/>
+  <OpenAPI3:OpenAPIParam xmi:id="_Mj4XgDEfEey8Gdgo1KGG9g" required="true" base_Parameter="_C6gCcDEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_Mj5loDEfEey8Gdgo1KGG9g" base_Comment="_C3FiETEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_Mj6MsDEfEey8Gdgo1KGG9g" base_Parameter="_C6v6ETEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIOperation xmi:id="_Mj7a0DEfEey8Gdgo1KGG9g" base_Operation="_C4fQQzEfEey8Gdgo1KGG9g" summary="Create a document in VIVO"/>
+  <REST:Param xmi:id="_Mj8B4DEfEey8Gdgo1KGG9g" paramType="BodyParam" paramName="body" base_Parameter="_C6sPsDEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_Mj9QADEfEey8Gdgo1KGG9g" base_Parameter="_C5k1YDEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIRequestBody xmi:id="_Mj93EDEfEey8Gdgo1KGG9g" base_Parameter="_C4oaNDEfEey8Gdgo1KGG9g" required="true"/>
+  <Default:Documentation xmi:id="_Mj_FMDEfEey8Gdgo1KGG9g" base_Comment="_C4xkITEfEey8Gdgo1KGG9g"/>
+  <REST:Param xmi:id="_MkATUDEfEey8Gdgo1KGG9g" paramType="BodyParam" paramName="body" base_Parameter="_C4oaNDEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MkA6YDEfEey8Gdgo1KGG9g" base_Comment="_C4yLMTEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MkCIgDEfEey8Gdgo1KGG9g" base_Comment="_C54-cTEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MkDWoDEfEey8Gdgo1KGG9g" base_Comment="_C54XYDEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_MkD9sDEfEey8Gdgo1KGG9g" base_Parameter="_C4a-0zEfEey8Gdgo1KGG9g"/>
+  <REST:Param xmi:id="_MkFL0DEfEey8Gdgo1KGG9g" paramType="QueryParam" paramName="IRI" base_Parameter="_C5brezEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MkFy4DEfEey8Gdgo1KGG9g" base_Comment="_C5DQ8zEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_MkHBADEfEey8Gdgo1KGG9g" base_Parameter="_C44R0TEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_MkHoEDEfEey8Gdgo1KGG9g" base_Parameter="_C4lW4TEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_MkI2MDEfEey8Gdgo1KGG9g" base_Parameter="_C7gvETEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIParam xmi:id="_MkJdQDEfEey8Gdgo1KGG9g" required="true" base_Parameter="_C58BxDEfEey8Gdgo1KGG9g"/>
+  <REST:Resource xmi:id="_MkKrYDEfEey8Gdgo1KGG9g" base_Class="_C6ATMzEfEey8Gdgo1KGG9g"/>
+  <REST:Resource xmi:id="_MkL5gDEfEey8Gdgo1KGG9g" base_Class="_C3Ds4DEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_MkMgkDEfEey8Gdgo1KGG9g" base_Parameter="_C5eHsTEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MkNusDEfEey8Gdgo1KGG9g" base_Comment="_C5rjETEfEey8Gdgo1KGG9g"/>
+  <REST:Param xmi:id="_MkOVwDEfEey8Gdgo1KGG9g" paramType="BodyParam" paramName="body" base_Parameter="_C517JDEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_MkO80DEfEey8Gdgo1KGG9g" base_Parameter="_C5_FEzEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_MkQK8DEfEey8Gdgo1KGG9g" base_Parameter="_C5dgoDEfEey8Gdgo1KGG9g"/>
+  <REST:Param xmi:id="_MkQyADEfEey8Gdgo1KGG9g" paramType="BodyParam" paramName="body" base_Parameter="_C4ZwszEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_MkSAIDEfEey8Gdgo1KGG9g" base_Parameter="_C5kOUDEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIRequestBody xmi:id="_MkTOQDEfEey8Gdgo1KGG9g" base_Parameter="_C6sPsDEfEey8Gdgo1KGG9g" required="true"/>
+  <OpenAPI3:OpenAPIParam xmi:id="_MkT1UDEfEey8Gdgo1KGG9g" required="true" base_Parameter="_C5BbxDEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIParam xmi:id="_MkVDcDEfEey8Gdgo1KGG9g" required="true" base_Parameter="_C517JDEfEey8Gdgo1KGG9g"/>
+  <REST:Param xmi:id="_MkVqgDEfEey8Gdgo1KGG9g" paramType="BodyParam" paramName="body" base_Parameter="_C411kzEfEey8Gdgo1KGG9g"/>
+  <REST:Resource xmi:id="_MkW4oDEfEey8Gdgo1KGG9g" base_Class="_C6pzcTEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIOperation xmi:id="_MkYGwDEfEey8Gdgo1KGG9g" base_Operation="_C6xvQTEfEey8Gdgo1KGG9g" deprecated="true" summary="Creates list of users with given input array"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_MkYt0DEfEey8Gdgo1KGG9g" base_Parameter="_C6hQkjEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MkZ78DEfEey8Gdgo1KGG9g" base_Comment="_C4444DEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MkajADEfEey8Gdgo1KGG9g" base_Comment="_C5n4sDEfEey8Gdgo1KGG9g"/>
+  <REST:Resource xmi:id="_MkbxIDEfEey8Gdgo1KGG9g" base_Class="_C45f8jEfEey8Gdgo1KGG9g"/>
+  <REST:Param xmi:id="_MkcYMDEfEey8Gdgo1KGG9g" paramType="BodyParam" paramName="body" base_Parameter="_C6y9YDEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MkdmUDEfEey8Gdgo1KGG9g" base_Comment="_C6whIDEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_Mke0cDEfEey8Gdgo1KGG9g" base_Parameter="_C6td0TEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MkgCkDEfEey8Gdgo1KGG9g" base_Comment="_C5dgojEfEey8Gdgo1KGG9g"/>
+  <REST:Resource xmi:id="_MkgpoDEfEey8Gdgo1KGG9g" base_Class="_C5gj8TEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_Mkh3wDEfEey8Gdgo1KGG9g" base_Comment="_C4w9EDEfEey8Gdgo1KGG9g"/>
+  <REST:Param xmi:id="_Mkie0DEfEey8Gdgo1KGG9g" paramType="QueryParam" paramName="IRI" base_Parameter="_C40ndTEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIParam xmi:id="_Mkjs8DEfEey8Gdgo1KGG9g" required="true" base_Parameter="_C5pG0jEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIRequestBody xmi:id="_Mkk7EDEfEey8Gdgo1KGG9g" base_Parameter="_C4ZwszEfEey8Gdgo1KGG9g" required="true"/>
+  <Default:Documentation xmi:id="_MkliIDEfEey8Gdgo1KGG9g" base_Comment="_C4l98TEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIParam xmi:id="_MkmwQDEfEey8Gdgo1KGG9g" base_Parameter="_C411kzEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_MknXUDEfEey8Gdgo1KGG9g" base_Parameter="_C4eCITEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIOperation xmi:id="_MkolcDEfEey8Gdgo1KGG9g" base_Operation="_C4nMETEfEey8Gdgo1KGG9g" summary="Add an organizational position for"/>
+  <Default:Documentation xmi:id="_MkpMgDEfEey8Gdgo1KGG9g" base_Comment="_C60ykTEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIOperation xmi:id="_MkqaoDEfEey8Gdgo1KGG9g" base_Operation="_C4ug0TEfEey8Gdgo1KGG9g" summary="Associate an image to an individual"/>
+  <Default:Documentation xmi:id="_MkrowDEfEey8Gdgo1KGG9g" base_Comment="_C4i6oTEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIRequestBody xmi:id="_MksP0DEfEey8Gdgo1KGG9g" base_Parameter="_C47VIzEfEey8Gdgo1KGG9g" required="true"/>
+  <OpenAPI3:OpenAPIOperation xmi:id="_Mktd8DEfEey8Gdgo1KGG9g" base_Operation="_C6BhUTEfEey8Gdgo1KGG9g" summary="Add an organizational position for"/>
+  <OpenAPI3:OpenAPIHeader xmi:id="_MkuFADEfEey8Gdgo1KGG9g" base_Property="_C4dbEDEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MkusEDEfEey8Gdgo1KGG9g" base_Comment="_C6nXMjEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_Mkv6MDEfEey8Gdgo1KGG9g" base_Comment="_C4eCIzEfEey8Gdgo1KGG9g"/>
+  <REST:Resource xmi:id="_MkxIUDEfEey8Gdgo1KGG9g" base_Class="_C3ET8TEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIHeader xmi:id="_MkxvYDEfEey8Gdgo1KGG9g" base_Property="_C55lgjEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_Mky9gDEfEey8Gdgo1KGG9g" base_Comment="_C4a-0TEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MkzkkDEfEey8Gdgo1KGG9g" base_Comment="_C48jQjEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIParam xmi:id="_Mk0LoDEfEey8Gdgo1KGG9g" required="true" base_Parameter="_C5v0gDEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIOperation xmi:id="_Mk1ZwDEfEey8Gdgo1KGG9g" base_Operation="_C46HAzEfEey8Gdgo1KGG9g" summary="Adding statement"/>
+  <Default:Documentation xmi:id="_Mk2n4DEfEey8Gdgo1KGG9g" base_Comment="_C5jAMTEfEey8Gdgo1KGG9g"/>
+  <REST:Resource xmi:id="_Mk32ADEfEey8Gdgo1KGG9g" base_Class="_C6whIzEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_Mk4dEDEfEey8Gdgo1KGG9g" base_Parameter="_C4iTkjEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_Mk5rMDEfEey8Gdgo1KGG9g" base_Comment="_C5cSgjEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_Mk6SQDEfEey8Gdgo1KGG9g" base_Parameter="_C5xpsTEfEey8Gdgo1KGG9g"/>
+  <REST:PUT xmi:id="_Mk7gYDEfEey8Gdgo1KGG9g" base_Operation="_C50tAzEfEey8Gdgo1KGG9g">
+    <producesEx xmi:id="_Mk7gYTEfEey8Gdgo1KGG9g">
+      <typeRef xmi:type="uml:Property" href="pathmap://REST_REFERENCE_LIBRARY/RESTReference.emx#_cvT9ABlcEeKLlYuxjnl7lg?RestReference/MediaType/APPLICATION_JSON?"/>
+    </producesEx>
+    <producesEx xmi:id="_Mk7gYjEfEey8Gdgo1KGG9g" type="text/turtle"/>
+    <consumesEx xmi:id="_Mk7gYzEfEey8Gdgo1KGG9g">
+      <typeRef xmi:type="uml:Property" href="pathmap://REST_REFERENCE_LIBRARY/RESTReference.emx#_cvT9ABlcEeKLlYuxjnl7lg?RestReference/MediaType/APPLICATION_JSON?"/>
+    </consumesEx>
+  </REST:PUT>
+  <REST:PUT xmi:id="_Mk8HcDEfEey8Gdgo1KGG9g" base_Operation="_C6BhUTEfEey8Gdgo1KGG9g">
+    <producesEx xmi:id="_Mk8HcTEfEey8Gdgo1KGG9g">
+      <typeRef xmi:type="uml:Property" href="pathmap://REST_REFERENCE_LIBRARY/RESTReference.emx#_cvT9ABlcEeKLlYuxjnl7lg?RestReference/MediaType/APPLICATION_JSON?"/>
+    </producesEx>
+    <consumesEx xmi:id="_Mk8HcjEfEey8Gdgo1KGG9g">
+      <typeRef xmi:type="uml:Property" href="pathmap://REST_REFERENCE_LIBRARY/RESTReference.emx#_cvT9ABlcEeKLlYuxjnl7lg?RestReference/MediaType/APPLICATION_JSON?"/>
+    </consumesEx>
+  </REST:PUT>
+  <OpenAPI3:OpenAPIResponse xmi:id="_Mk9VkDEfEey8Gdgo1KGG9g" base_Parameter="_C49xYTEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_Mk98oDEfEey8Gdgo1KGG9g" base_Comment="_C3S9cTEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIOperation xmi:id="_Mk_KwDEfEey8Gdgo1KGG9g" base_Operation="_C6kT4zEfEey8Gdgo1KGG9g" summary="Create a 'Research Area of' a person"/>
+  <Default:Documentation xmi:id="_Mk_x0DEfEey8Gdgo1KGG9g" base_Comment="_C5xCozEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIParam xmi:id="_MlA_8DEfEey8Gdgo1KGG9g" required="true" base_Parameter="_C47VIzEfEey8Gdgo1KGG9g"/>
+  <REST:GET xmi:id="_MlCOEDEfEey8Gdgo1KGG9g" base_Operation="_C5hLATEfEey8Gdgo1KGG9g">
+    <producesEx xmi:id="_MlCOETEfEey8Gdgo1KGG9g" type="application/ld+json"/>
+    <producesEx xmi:id="_MlCOEjEfEey8Gdgo1KGG9g" type="text/owl-functional"/>
+    <producesEx xmi:id="_MlCOEzEfEey8Gdgo1KGG9g">
+      <typeRef xmi:type="uml:Property" href="pathmap://REST_REFERENCE_LIBRARY/RESTReference.emx#_cvT9ABlcEeKLlYuxjnl7lg?RestReference/MediaType/APPLICATION_JSON?"/>
+    </producesEx>
+    <producesEx xmi:id="_MlCOFDEfEey8Gdgo1KGG9g" type="application/owl+xml"/>
+    <producesEx xmi:id="_MlCOFTEfEey8Gdgo1KGG9g" type="application/rdf+xml"/>
+    <producesEx xmi:id="_MlCOFjEfEey8Gdgo1KGG9g" type="text/turtle"/>
+    <producesEx xmi:id="_MlCOFzEfEey8Gdgo1KGG9g" type="text/owl-manchester"/>
+    <producesEx xmi:id="_MlCOGDEfEey8Gdgo1KGG9g" type="text/n3"/>
+    <producesEx xmi:id="_MlCOGTEfEey8Gdgo1KGG9g">
+      <typeRef xmi:type="uml:Property" href="pathmap://REST_REFERENCE_LIBRARY/RESTReference.emx#_cpaJUBlcEeKLlYuxjnl7lg?RestReference/MediaType/TEXT_PLAIN?"/>
+    </producesEx>
+  </REST:GET>
+  <REST:Resource xmi:id="_MlDcMDEfEey8Gdgo1KGG9g" base_Class="_C6js0TEfEey8Gdgo1KGG9g"/>
+  <REST:PUT xmi:id="_MlEDQDEfEey8Gdgo1KGG9g" base_Operation="_C4ug0TEfEey8Gdgo1KGG9g">
+    <producesEx xmi:id="_MlEDQTEfEey8Gdgo1KGG9g">
+      <typeRef xmi:type="uml:Property" href="pathmap://REST_REFERENCE_LIBRARY/RESTReference.emx#_cvT9ABlcEeKLlYuxjnl7lg?RestReference/MediaType/APPLICATION_JSON?"/>
+    </producesEx>
+    <consumesEx xmi:id="_MlEDQjEfEey8Gdgo1KGG9g">
+      <typeRef xmi:type="uml:Property" href="pathmap://REST_REFERENCE_LIBRARY/RESTReference.emx#_cvT9ABlcEeKLlYuxjnl7lg?RestReference/MediaType/APPLICATION_JSON?"/>
+    </consumesEx>
+  </REST:PUT>
+  <OpenAPI3:OpenAPIParam xmi:id="_MlFRYDEfEey8Gdgo1KGG9g" required="true" base_Parameter="_C4hFcjEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MlF4cDEfEey8Gdgo1KGG9g" base_Comment="_C5t_UjEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MlGfgDEfEey8Gdgo1KGG9g" base_Comment="_C5mqkDEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_MlHtoDEfEey8Gdgo1KGG9g" required="true" base_Property="_C2nA8jEfEey8Gdgo1KGG9g" example="http://localhost:8080/vivo/individual/n7440"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_MlI7wDEfEey8Gdgo1KGG9g" required="true" base_Property="_C2ivgDEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPISchema xmi:id="_MlJi0DEfEey8Gdgo1KGG9g" base_Class="_C2PNgDEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPISchema xmi:id="_MlKw8DEfEey8Gdgo1KGG9g" base_Class="_C2SQ0TEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_MlL_EDEfEey8Gdgo1KGG9g" required="true" base_Property="_C2kksDEfEey8Gdgo1KGG9g" example="Les écrans, des machines de vision"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_MlNNMDEfEey8Gdgo1KGG9g" required="true" base_Property="_C2o2IDEfEey8Gdgo1KGG9g" example="http://vivoweb.org/ontology/core#FacultyMember"/>
+  <Default:Documentation xmi:id="_MlN0QDEfEey8Gdgo1KGG9g" base_Comment="_C2574zEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_MlPCYDEfEey8Gdgo1KGG9g" required="true" base_Property="_C2XwYTEfEey8Gdgo1KGG9g" example="[{label=Professeur, language=fr-CA}, {label=Professor, language=en-US}]"/>
+  <OpenAPI3:OpenAPIHeader xmi:id="_MlPpcDEfEey8Gdgo1KGG9g" base_Property="_C3CewzEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_MlQ3kDEfEey8Gdgo1KGG9g" required="true" base_Property="_C20cUTEfEey8Gdgo1KGG9g" example="http://vivoweb.org/ontology/core#University"/>
+  <REST:Path xmi:id="_MlReoDEfEey8Gdgo1KGG9g" base_Dependency="_C5nRoTEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MlSswDEfEey8Gdgo1KGG9g" base_Comment="_C25U0TEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_MlTT0DEfEey8Gdgo1KGG9g" required="true" base_Property="_C2UtEDEfEey8Gdgo1KGG9g" example="http://localhost:8080/vivo/individual/n774"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_MlUh8DEfEey8Gdgo1KGG9g" base_Property="_C224kDEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPISchema xmi:id="_MlVJADEfEey8Gdgo1KGG9g" base_Class="_C2QboDEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_MlWXIDEfEey8Gdgo1KGG9g" required="true" base_Property="_C2r5cTEfEey8Gdgo1KGG9g" example="jasper.peter@example.org"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_MlW-MDEfEey8Gdgo1KGG9g" required="true" base_Property="_C2lLwTEfEey8Gdgo1KGG9g" example="semantic web"/>
+  <OpenAPI3:OpenAPISecurityBasic xmi:id="_MlXlQDEfEey8Gdgo1KGG9g" base_Class="_C28YIjEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_MlYzYDEfEey8Gdgo1KGG9g" required="true" base_Property="_C2ynIDEfEey8Gdgo1KGG9g" example="http://localhost:8080/vivo/individual/n6870"/>
+  <OpenAPI3:OpenAPISchema xmi:id="_MlZacDEfEey8Gdgo1KGG9g" base_Class="_C2S34TEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_MlaokDEfEey8Gdgo1KGG9g" required="true" base_Property="_C2XJUDEfEey8Gdgo1KGG9g" example="http://localhost:8080/vivo/individual/n4762"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_MlbPoDEfEey8Gdgo1KGG9g" base_Property="_C2z1QTEfEey8Gdgo1KGG9g" example="http://vivoweb.org/ontology/core#FacultyMember"/>
+  <Default:Documentation xmi:id="_MlcdwDEfEey8Gdgo1KGG9g" base_Comment="_C2KVATEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_MldE0DEfEey8Gdgo1KGG9g" base_Comment="_C2If0DEfEey8Gdgo1KGG9g"/>
+  <Default:Documentation xmi:id="_Mldr4DEfEey8Gdgo1KGG9g" base_Comment="_C2JG4jEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPITag xmi:id="_Mle6ADEfEey8Gdgo1KGG9g" base_Class="_C2Jt8TEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_MlfhEDEfEey8Gdgo1KGG9g" base_Property="_C2ZlkDEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPISchema xmi:id="_MlgvMDEfEey8Gdgo1KGG9g" base_Class="_C2LjIDEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPISchema xmi:id="_MlhWQDEfEey8Gdgo1KGG9g" base_Class="_C2P0kDEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_MlikYDEfEey8Gdgo1KGG9g" required="true" base_Property="_C2jWkjEfEey8Gdgo1KGG9g" example="http://vivoweb.org/ontology/core#ConferencePaper"/>
+  <REST:Path xmi:id="_MljLcDEfEey8Gdgo1KGG9g" base_Dependency="_C5tYQjEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPISchema xmi:id="_MlkZkDEfEey8Gdgo1KGG9g" base_Class="_C2RpwjEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_MllAoDEfEey8Gdgo1KGG9g" base_Property="_C2aMoTEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_MlmOwDEfEey8Gdgo1KGG9g" required="true" base_Property="_C2qrUTEfEey8Gdgo1KGG9g" example="[{label=Peter, language=fr-CA}, {label=Peter, language=en-US}]"/>
+  <REST:Path xmi:id="_Mlm10DEfEey8Gdgo1KGG9g" base_Dependency="_C4fQQTEfEey8Gdgo1KGG9g"/>
+  <REST:Application xmi:id="_MloD8DEfEey8Gdgo1KGG9g" base_Class="_C1zvsDEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIApp xmi:id="_MlorADEfEey8Gdgo1KGG9g" base_Class="_C1zvsDEfEey8Gdgo1KGG9g" externaldocs_url="https://duraspace.org/vivo/" externaldocs_url_desc="Find out more about VIVO">
+    <servers xmi:id="_MlorATEfEey8Gdgo1KGG9g" url="http://localhost:9090/vivoproxy"/>
+    <info xmi:id="_MlorAjEfEey8Gdgo1KGG9g" termsOfService="http://swagger.io/terms/" title="VIVO Proxy API" version="1.0.0 - 2021-10-07">
+      <contact xmi:id="_MlorAzEfEey8Gdgo1KGG9g" email="vivo@uqam.ca" name="Michel Héon PhD"/>
+      <license xmi:id="_MlorBDEfEey8Gdgo1KGG9g" name="Apache 2.0" url="http://www.apache.org/licenses/LICENSE2.0.html"/>
+    </info>
+  </OpenAPI3:OpenAPIApp>
+  <Default:Documentation xmi:id="_Mlp5IDEfEey8Gdgo1KGG9g" base_Comment="_C3CewDEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIResponse xmi:id="_MlqgMDEfEey8Gdgo1KGG9g" base_Parameter="_C3B3sDEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_MlruUDEfEey8Gdgo1KGG9g" required="true" base_Property="_C27xETEfEey8Gdgo1KGG9g" example="http://purl.org/uqam.ca/vocabulary/expertise#semanticweb"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_MlsVYDEfEey8Gdgo1KGG9g" base_Property="_C2g6UTEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_MltjgDEfEey8Gdgo1KGG9g" base_Property="_C2fsMTEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_MluKkDEfEey8Gdgo1KGG9g" base_Property="_C2zOMTEfEey8Gdgo1KGG9g" example="a label"/>
+  <OpenAPI3:OpenAPISchema xmi:id="_MluxoDEfEey8Gdgo1KGG9g" base_Class="_C2N_YTEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_Mlv_wDEfEey8Gdgo1KGG9g" required="true" base_Property="_C2wx8TEfEey8Gdgo1KGG9g" example="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_Mlwm0DEfEey8Gdgo1KGG9g" required="true" base_Property="_C2rSYTEfEey8Gdgo1KGG9g" example="[{label=Jasper, language=fr-CA}, {label=Jasper, language=en-US}]"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_Mlx08DEfEey8Gdgo1KGG9g" required="true" base_Property="_C2tHkDEfEey8Gdgo1KGG9g" example="http://vivoweb.org/ontology/core#FacultyMember"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_MlycADEfEey8Gdgo1KGG9g" required="true" base_Property="_C2noAjEfEey8Gdgo1KGG9g" example="http://localhost:8080/vivo/individual/n32"/>
+  <OpenAPI3:OpenAPISchema xmi:id="_MlzqIDEfEey8Gdgo1KGG9g" base_Class="_C2NYUTEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_Ml0RMDEfEey8Gdgo1KGG9g" required="true" base_Property="_C2qEQDEfEey8Gdgo1KGG9g" example="[{label=Peter, language=fr-CA}, {label=Peter, language=en-US}]"/>
+  <OpenAPI3:OpenAPISchema xmi:id="_Ml04QDEfEey8Gdgo1KGG9g" base_Class="_C2RCsDEfEey8Gdgo1KGG9g"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_Ml2tcDEfEey8Gdgo1KGG9g" required="true" base_Property="_C2ly0TEfEey8Gdgo1KGG9g" example="fr-CA"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_Ml3UgDEfEey8Gdgo1KGG9g" required="true" base_Property="_C2xZATEfEey8Gdgo1KGG9g" example="http://vivoweb.org/ontology/core#FacultyMember"/>
+  <OpenAPI3:OpenAPIProperty xmi:id="_Ml4ioDEfEey8Gdgo1KGG9g" base_Property="_C23foDEfEey8Gdgo1KGG9g"/>
+  <REST:Path xmi:id="_Ml5wwDEfEey8Gdgo1KGG9g" base_Dependency="_C3Ds4jEfEey8Gdgo1KGG9g"/>
+</xmi:XMI>

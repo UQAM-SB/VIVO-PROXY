@@ -98,6 +98,7 @@ declare -A operation_parameters_minimum_occurrences
 operation_parameters_minimum_occurrences["createOrganization:::body"]=1
 operation_parameters_minimum_occurrences["createPerson:::body"]=1
 operation_parameters_minimum_occurrences["createPositionFor:::body"]=1
+operation_parameters_minimum_occurrences["createUsersWithListInput:::body"]=1
 operation_parameters_minimum_occurrences["getindividualByIRI:::IRI"]=1
 
 ##
@@ -110,6 +111,7 @@ declare -A operation_parameters_maximum_occurrences
 operation_parameters_maximum_occurrences["createOrganization:::body"]=0
 operation_parameters_maximum_occurrences["createPerson:::body"]=0
 operation_parameters_maximum_occurrences["createPositionFor:::body"]=0
+operation_parameters_maximum_occurrences["createUsersWithListInput:::body"]=0
 operation_parameters_maximum_occurrences["getindividualByIRI:::IRI"]=0
 
 ##
@@ -119,6 +121,7 @@ declare -A operation_parameters_collection_type
 operation_parameters_collection_type["createOrganization:::body"]=""
 operation_parameters_collection_type["createPerson:::body"]=""
 operation_parameters_collection_type["createPositionFor:::body"]=""
+operation_parameters_collection_type["createUsersWithListInput:::body"]=
 operation_parameters_collection_type["getindividualByIRI:::IRI"]=""
 
 
@@ -493,6 +496,7 @@ echo "  $ops" | column -t -s ';'
 read -r -d '' ops <<EOF
   ${CYAN}createPerson${OFF};Create a person in VIVO (AUTH)
   ${CYAN}createPositionFor${OFF};Create organizational position for (AUTH)
+  ${CYAN}createUsersWithListInput${OFF};Creates list of users with given input array (AUTH)
 EOF
 echo "  $ops" | column -t -s ';'
     echo ""
@@ -624,6 +628,27 @@ print_createPositionFor_help() {
     echo -e "${result_color_table[${code:0:1}]}  404;Organisation not found${OFF}" | paste -sd' ' | column -t -s ';' | fold -sw 80 | sed '2,$s/^/       /'
     code=405
     echo -e "${result_color_table[${code:0:1}]}  405;Validation exception${OFF}" | paste -sd' ' | column -t -s ';' | fold -sw 80 | sed '2,$s/^/       /'
+}
+##############################################################################
+#
+# Print help for createUsersWithListInput operation
+#
+##############################################################################
+print_createUsersWithListInput_help() {
+    echo ""
+    echo -e "${BOLD}${WHITE}createUsersWithListInput - Creates list of users with given input array${OFF}${BLUE}(AUTH - BASIC)${OFF}" | paste -sd' ' | fold -sw 80 | sed '2,$s/^/    /'
+    echo -e ""
+    echo -e "" | paste -sd' ' | fold -sw 80
+    echo -e ""
+    echo -e "${BOLD}${WHITE}Parameters${OFF}"
+    echo -e "  * ${GREEN}body${OFF} ${BLUE}[]${OFF} ${RED}(required)${OFF}${OFF} - List of user object" | paste -sd' ' | fold -sw 80 | sed '2,$s/^/    /'
+    echo -e ""
+    echo ""
+    echo -e "${BOLD}${WHITE}Responses${OFF}"
+    code=405
+    echo -e "${result_color_table[${code:0:1}]}  405;Validation exception${OFF}" | paste -sd' ' | column -t -s ';' | fold -sw 80 | sed '2,$s/^/       /'
+    code=0
+    echo -e "${result_color_table[${code:0:1}]}  0;successful operation${OFF}" | paste -sd' ' | column -t -s ';' | fold -sw 80 | sed '2,$s/^/       /'
 }
 ##############################################################################
 #
@@ -870,6 +895,75 @@ call_createPositionFor() {
 
 ##############################################################################
 #
+# Call createUsersWithListInput operation
+#
+##############################################################################
+call_createUsersWithListInput() {
+    # ignore error about 'path_parameter_names' being unused; passed by reference
+    # shellcheck disable=SC2034
+    local path_parameter_names=()
+    # ignore error about 'query_parameter_names' being unused; passed by reference
+    # shellcheck disable=SC2034
+    local query_parameter_names=(  )
+    local path
+
+    if ! path=$(build_request_path "/vivoproxy/person/createWithList" path_parameter_names query_parameter_names); then
+        ERROR_MSG=$path
+        exit 1
+    fi
+    local method="POST"
+    local headers_curl
+    headers_curl=$(header_arguments_to_curl)
+    if [[ -n $header_accept ]]; then
+        headers_curl="${headers_curl} -H 'Accept: ${header_accept}'"
+    fi
+
+    local basic_auth_option=""
+    if [[ -n $basic_auth_credential ]]; then
+        basic_auth_option="-u ${basic_auth_credential}"
+    fi
+    local body_json_curl=""
+
+    #
+    # Check if the user provided 'Content-type' headers in the
+    # command line. If not try to set them based on the Swagger specification
+    # if values produces and consumes are defined unambigously
+    #
+
+
+    if [[ -z $header_content_type && "$force" = false ]]; then
+        :
+    else
+        headers_curl="${headers_curl} -H 'Content-type: ${header_content_type}'"
+    fi
+
+
+    #
+    # If we have received some body content over pipe, pass it from the
+    # temporary file to cURL
+    #
+    if [[ -n $body_content_temp_file ]]; then
+        if [[ "$print_curl" = true ]]; then
+            echo "cat ${body_content_temp_file} | curl ${basic_auth_option} ${curl_arguments} ${headers_curl} -X ${method} \"${host}${path}\" -d @-"
+        else
+            eval "cat ${body_content_temp_file} | curl ${basic_auth_option} ${curl_arguments} ${headers_curl} -X ${method} \"${host}${path}\" -d @-"
+        fi
+        rm "${body_content_temp_file}"
+    #
+    # If not, try to build the content body from arguments KEY==VALUE and KEY:=VALUE
+    #
+    else
+        body_json_curl=$(body_parameters_to_json)
+        if [[ "$print_curl" = true ]]; then
+            echo "curl ${basic_auth_option} ${curl_arguments} ${headers_curl} -X ${method} ${body_json_curl} \"${host}${path}\""
+        else
+            eval "curl ${basic_auth_option} ${curl_arguments} ${headers_curl} -X ${method} ${body_json_curl} \"${host}${path}\""
+        fi
+    fi
+}
+
+##############################################################################
+#
 # Call getindividualByIRI operation
 #
 ##############################################################################
@@ -1010,6 +1104,9 @@ case $key in
     createPositionFor)
     operation="createPositionFor"
     ;;
+    createUsersWithListInput)
+    operation="createUsersWithListInput"
+    ;;
     getindividualByIRI)
     operation="getindividualByIRI"
     ;;
@@ -1098,6 +1195,9 @@ case $operation in
     ;;
     createPositionFor)
     call_createPositionFor
+    ;;
+    createUsersWithListInput)
+    call_createUsersWithListInput
     ;;
     getindividualByIRI)
     call_getindividualByIRI

@@ -71,6 +71,7 @@ _()
     operations["createOrganization"]=1
     operations["createPerson"]=1
     operations["createPositionFor"]=1
+    operations["createUsersWithListInput"]=1
     operations["getindividualByIRI"]=1
 
     # An associative array of operations to their parameters
@@ -79,6 +80,7 @@ _()
     operation_parameters["createOrganization"]=""
     operation_parameters["createPerson"]=""
     operation_parameters["createPositionFor"]=""
+    operation_parameters["createUsersWithListInput"]=""
     operation_parameters["getindividualByIRI"]="IRI= "
 
     # An associative array of possible values for enum parameters
