@@ -22,7 +22,7 @@ import javax.validation.Valid;
 /**
  * AuthorOfADocument
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-10-23T07:39:42.585-04:00[America/New_York]")public class AuthorOfADocument   {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-10-26T11:18:52.710-04:00[America/New_York]")public class AuthorOfADocument   {
   @JsonProperty("documentIRI")
   private String documentIRI = null;
 

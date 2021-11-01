@@ -38,7 +38,7 @@ import javax.validation.constraints.*;
 @Path("/document")
 
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-10-23T07:39:42.585-04:00[America/New_York]")public class DocumentApi  {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-10-26T11:18:52.710-04:00[America/New_York]")public class DocumentApi  {
    private final DocumentApiService delegate;
 
    public DocumentApi(@Context ServletConfig servletContext) {
@@ -84,7 +84,7 @@ import javax.validation.constraints.*;
     @Path("/addAuthorFor")
     @Consumes({ "application/json" })
     @Produces({ "application/json" })
-    @Operation(summary = "Add an organizational position for", description = "", security = {
+    @Operation(summary = "Associate a document to an Author", description = "", security = {
         @SecurityRequirement(name = "basicAuth")    }, tags={ "document" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ModelAPIResponse.class))),

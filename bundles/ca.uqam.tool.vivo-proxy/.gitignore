@@ -20,3 +20,5 @@ target
 .gradle
 build
 /snippet.txt
+/aws/
+/awscliv2.zip
