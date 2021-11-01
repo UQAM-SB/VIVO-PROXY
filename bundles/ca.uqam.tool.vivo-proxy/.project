@@ -31,6 +31,11 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
+			<name>com.ibm.xtools.mde.builder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
 			<name>org.eclipse.m2e.core.maven2Builder</name>
 			<arguments>
 			</arguments>
@@ -44,5 +49,6 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
+		<nature>com.ibm.xtools.mde.nature</nature>
 	</natures>
 </projectDescription>

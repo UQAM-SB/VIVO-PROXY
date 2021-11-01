@@ -3,8 +3,7 @@ package ca.uqam.tool.vivoproxy.swagger.api.factories;
 import ca.uqam.tool.vivoproxy.swagger.api.PersonApiService;
 import ca.uqam.tool.vivoproxy.swagger.api.impl.PersonApiServiceImpl;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen", date = "2021-06-29T14:46:58.837-04:00")
-public class PersonApiServiceFactory {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-10-26T11:18:52.710-04:00[America/New_York]")public class PersonApiServiceFactory {
     private final static PersonApiService service = new PersonApiServiceImpl();
 
     public static PersonApiService getPersonApi() {

@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package ca.uqam.tool.vivoproxy.swagger.client.api;
 
 import ca.uqam.tool.vivoproxy.swagger.client.handler.ApiCallback;
@@ -27,7 +26,6 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import ca.uqam.tool.vivoproxy.swagger.client.model.Vivo;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -64,7 +62,7 @@ public class VivoApi {
      */
     public com.squareup.okhttp.Call getindividualByIRICall(String IRI, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
-
+        
         // create path and map variables
         String localVarPath = "/vivo";
 
@@ -78,7 +76,7 @@ public class VivoApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "application/json", "text/plain", "application/rdf+xml", "text/n3", "text/turtle", "text/funtional", "text/manchester", "application/owl+xml"
+            "text/turtle", "text/plain", "application/ld+json", "text/n3", "text/owl-manchester", "text/owl-functional", "application/rdf+xml", "application/owl+xml", "application/json"
         };
         final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) localVarHeaderParams.put("Accept", localVarAccept);
@@ -104,30 +102,32 @@ public class VivoApi {
         String[] localVarAuthNames = new String[] { "basicAuth" };
         return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
-
+    
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call getindividualByIRIValidateBeforeCall(String IRI, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
         // verify the required parameter 'IRI' is set
         if (IRI == null) {
             throw new ApiException("Missing the required parameter 'IRI' when calling getindividualByIRI(Async)");
         }
         
-
         com.squareup.okhttp.Call call = getindividualByIRICall(IRI, progressListener, progressRequestListener);
         return call;
 
+        
+        
+        
+        
     }
 
     /**
      * Get an individual by IRI
      * 
      * @param IRI Used to obtain information from a VIVO individual by the IRI (required)
-     * @return Vivo
+     * @return String
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public Vivo getindividualByIRI(String IRI) throws ApiException {
-        ApiResponse<Vivo> resp = getindividualByIRIWithHttpInfo(IRI);
+    public String getindividualByIRI(String IRI) throws ApiException {
+        ApiResponse<String> resp = getindividualByIRIWithHttpInfo(IRI);
         return resp.getData();
     }
 
@@ -135,12 +135,12 @@ public class VivoApi {
      * Get an individual by IRI
      * 
      * @param IRI Used to obtain information from a VIVO individual by the IRI (required)
-     * @return ApiResponse&lt;Vivo&gt;
+     * @return ApiResponse&lt;String&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<Vivo> getindividualByIRIWithHttpInfo(String IRI) throws ApiException {
+    public ApiResponse<String> getindividualByIRIWithHttpInfo(String IRI) throws ApiException {
         com.squareup.okhttp.Call call = getindividualByIRIValidateBeforeCall(IRI, null, null);
-        Type localVarReturnType = new TypeToken<Vivo>(){}.getType();
+        Type localVarReturnType = new TypeToken<String>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
@@ -152,7 +152,7 @@ public class VivoApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call getindividualByIRIAsync(String IRI, final ApiCallback<Vivo> callback) throws ApiException {
+    public com.squareup.okhttp.Call getindividualByIRIAsync(String IRI, final ApiCallback<String> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -174,7 +174,7 @@ public class VivoApi {
         }
 
         com.squareup.okhttp.Call call = getindividualByIRIValidateBeforeCall(IRI, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<Vivo>(){}.getType();
+        Type localVarReturnType = new TypeToken<String>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }

@@ -1,0 +1,10 @@
+---------------------------------------------------------------------------------------------------------------------------------------------------
+| s                                                  | gname      | fname     | researchArea_fr                      | researchArea_en            |
+===================================================================================================================================================
+| <http://localhost:8080/vivo_i18n/individual/n1736> | "Patricia" | "Roberts" | "Electracy"                          | "Electracy"                |
+| <http://localhost:8080/vivo_i18n/individual/n1736> | "Patricia" | "Roberts" | "Discours politique"                 | "Political discourse"      |
+| <http://localhost:8080/vivo_i18n/individual/n1736> | "Patricia" | "Roberts" | "Rhétorique"                         | "Rhetoric"                 |
+| <http://localhost:8080/vivo_i18n/individual/n725>  | "Franklin" | "Pierce"  | "Guerre civile américaine"           | "American Civil War"       |
+| <http://localhost:8080/vivo_i18n/individual/n725>  | "Franklin" | "Pierce"  | "Reconstruction de la guerre civile" | "Civil War Reconstruction" |
+| <http://localhost:8080/vivo_i18n/individual/n733>  | "Andrew"   | "Bogart"  | "Rhétorique"                         | "Rhetoric"                 |
+---------------------------------------------------------------------------------------------------------------------------------------------------

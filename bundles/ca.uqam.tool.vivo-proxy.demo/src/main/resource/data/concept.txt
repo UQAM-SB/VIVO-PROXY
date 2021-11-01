@@ -1,0 +1,11 @@
+--------------------------------------------------------------------------------------------------------------------------
+| concept                                            | label_en                   | label_fr                             |
+==========================================================================================================================
+| <http://localhost:8080/vivo_i18n/individual/n1454> | "Derrida"                  |                                      |
+| <http://localhost:8080/vivo_i18n/individual/n2238> | "Civil War Reconstruction" | "Reconstruction de la guerre civile" |
+| <http://localhost:8080/vivo_i18n/individual/n2854> | "Rhetoric"                 | "Rhétorique"                         |
+| <http://localhost:8080/vivo_i18n/individual/n3396> | "American Civil War"       | "Guerre civile américaine"           |
+| <http://localhost:8080/vivo_i18n/individual/n5504> | "Political discourse"      | "Discours politique"                 |
+| <http://localhost:8080/vivo_i18n/individual/n6523> | "Quantum Physics"          | "Physique quantique"                 |
+| <http://localhost:8080/vivo_i18n/individual/n6561> | "Electracy"                | "Electracy"                          |
+--------------------------------------------------------------------------------------------------------------------------
