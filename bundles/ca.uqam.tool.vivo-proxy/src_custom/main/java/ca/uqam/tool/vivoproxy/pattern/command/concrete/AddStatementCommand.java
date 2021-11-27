@@ -6,7 +6,6 @@ import ca.uqam.tool.vivoproxy.pattern.command.Command;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
 import ca.uqam.tool.vivoproxy.pattern.command.Receiver;
 import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
-import ca.uqam.tool.vivoproxy.swagger.model.IndividualType;
 import ca.uqam.tool.vivoproxy.swagger.model.Statement;
 
 /**
@@ -46,6 +45,7 @@ public class AddStatementCommand extends Command {
 		this.statement = statement;
 	}
 
+	@Override
 	public String toString() {
 		return "AddStatementCommand [statement=" + statement + "]";
 	}

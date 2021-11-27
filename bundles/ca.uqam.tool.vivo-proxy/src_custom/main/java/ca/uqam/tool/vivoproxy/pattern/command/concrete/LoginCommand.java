@@ -22,7 +22,8 @@ public class LoginCommand extends Command {
     private String username;
 
 
-    public CommandResult execute(Receiver receiver) {
+    @Override
+	public CommandResult execute(Receiver receiver) {
         CommandResult result = null;
         try {
             result = ((VivoReceiver)receiver).login(username, password);

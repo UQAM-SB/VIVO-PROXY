@@ -333,6 +333,22 @@
                             </resources>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>copy-resources-depl</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>target/${project.artifactId}-${project.version}</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.basedir}/src/main/${webapp.depl}</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
         </plugins>
@@ -570,7 +586,6 @@
 
     </dependencies>
     <properties>
-
         <java.version>1.8</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -578,7 +593,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit-version>4.13.1</junit-version>
         <default.package>ca.uqam.tool.vivoproxy.swagger</default.package>
-
 <!--        <jetty-version>9.4.41.v20210516</jetty-version> -->
         <jetty-version>9.4.43.v20210629</jetty-version>
         <!-- <jersey2-version>2.34</jersey2-version> -->
@@ -586,10 +600,8 @@
         <!-- <swagger-version>1.6.2</swagger-version> -->
         <!-- <logback-version>1.2.3</logback-version> -->
         <!-- <servlet-version>2.5</servlet-version> -->
-
 <!--         <jetty-version>9.3.27.v20190418</jetty-version> -->
         <okhttp-version>2.7.5</okhttp-version>
-
 <!--         <jersey2-version>2.34</jersey2-version> -->
         <jersey2-version>2.25.1</jersey2-version>
         <jackson-version>2.11.4</jackson-version>
@@ -598,12 +610,8 @@
         <!-- <swagger-version>1.6.2</swagger-version> -->
         <logback-version>1.2.0</logback-version>
         <servlet-version>2.5</servlet-version>
-
-
         <skipGen-client>true</skipGen-client>
         <skipGen>true</skipGen>
-
-
     </properties>
 
 </project>

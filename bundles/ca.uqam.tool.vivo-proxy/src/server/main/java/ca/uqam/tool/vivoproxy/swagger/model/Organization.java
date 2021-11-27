@@ -25,7 +25,7 @@ import javax.validation.Valid;
 /**
  * Organization
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-10-26T11:18:52.710-04:00[America/New_York]")public class Organization   {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-11-25T14:03:34.331-05:00[America/New_York]")public class Organization   {
   @JsonProperty("organizationType")
   private String organizationType = null;
 

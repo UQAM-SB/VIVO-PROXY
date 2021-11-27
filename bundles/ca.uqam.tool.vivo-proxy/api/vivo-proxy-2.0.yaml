@@ -11,7 +11,7 @@
       name: "Apache 2.0"
       url: "http://www.apache.org/licenses/LICENSE2.0.html"
   host: "localhost:9090"
-  basePath: "/vivoproxy"
+  basePath: "/vivo-proxy"
   tags:
   - name: "person"
     description: "Operations about a Person in VIVO"

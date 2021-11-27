@@ -2,8 +2,6 @@ package ca.uqam.tool.vivoproxy.pattern.command.concrete;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
-
 import ca.uqam.tool.vivoproxy.pattern.command.Command;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
 import ca.uqam.tool.vivoproxy.pattern.command.Receiver;

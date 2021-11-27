@@ -12,10 +12,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import org.apache.commons.lang3.NotImplementedException;
-import org.apache.jena.query.Query;
 import org.apache.jena.query.QuerySolution;
-import org.apache.jena.query.ResultSet;
-import org.apache.jena.rdf.model.ResourceFactory;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
 import org.eclipse.rdf4j.model.vocabulary.FOAF;
@@ -152,6 +149,7 @@ public class VivoReceiver extends AbstractReceiver {
 	/* (non-Javadoc)
 	 * @see ca.uqam.tool.vivoproxy.pattern.command.CommandResult#getSiteUrl()
 	 */
+	@Override
 	protected String getSiteUrl() {
 		return getHostName()+"/"+getVivoSiteName();
 	}
@@ -402,6 +400,7 @@ public class VivoReceiver extends AbstractReceiver {
 	 * @return
 	 * @throws IOException
 	 */
+	@Deprecated
 	public CommandResult addPerson_(Person person) throws IOException {
 		Response response = VivoReceiverHelper.gotoAdminPage(getHostName()+"/"+getVivoSiteName(), getHttpClient());
 		LOGGER.info(getHostName()+"/"+getVivoSiteName() + "with return code " + response.code());
@@ -761,6 +760,7 @@ public class VivoReceiver extends AbstractReceiver {
 	 * @return
 	 * @throws IOException
 	 */
+	@Deprecated
 	public CommandResult addOrganization_(Organization organization) throws IOException {
 		List<LinguisticLabel> names = organization.getNames();
 		int nameCtr = 0;
@@ -929,6 +929,7 @@ public class VivoReceiver extends AbstractReceiver {
 	 * @return
 	 * @throws IOException
 	 */
+	@Deprecated
 	public CommandResult addPositionOfPerson_(PositionOfPerson position) throws IOException
 	{
 		List<LinguisticLabel> posTitleList = position.getPositionTitleLabel();

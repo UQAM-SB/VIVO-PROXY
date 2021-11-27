@@ -8,13 +8,7 @@ import java.io.IOException;
 
 import java.util.logging.Logger;
 
-import com.squareup.okhttp.Request;
-
-import ca.uqam.tool.util.credential.LOGIN;
-import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
-import ca.uqam.tool.vivoproxy.swagger.model.Person;
-import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
-import ca.uqam.vivo.vocabulary.VIVO;;
+import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;;
 
 public class Main {
     private final static Logger LOGGER = Logger.getLogger(Main.class.getName());

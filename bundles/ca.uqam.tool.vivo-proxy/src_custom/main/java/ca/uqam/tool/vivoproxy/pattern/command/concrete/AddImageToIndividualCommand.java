@@ -6,10 +6,7 @@ import ca.uqam.tool.vivoproxy.pattern.command.Command;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
 import ca.uqam.tool.vivoproxy.pattern.command.Receiver;
 import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
-import ca.uqam.tool.vivoproxy.swagger.model.Concept;
 import ca.uqam.tool.vivoproxy.swagger.model.Image;
-import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
-import ca.uqam.tool.vivoproxy.swagger.model.ResourceToResource;
 
 public class AddImageToIndividualCommand extends Command {
 	private Image image;
@@ -20,7 +17,8 @@ public class AddImageToIndividualCommand extends Command {
         setName(toString());
     }
 
-    public CommandResult execute(Receiver vivo) {
+    @Override
+	public CommandResult execute(Receiver vivo) {
         try {
             CommandResult result = ((VivoReceiver)vivo).addImageToIndividual(image);
             this.setCommandResult(result);
@@ -31,6 +29,7 @@ public class AddImageToIndividualCommand extends Command {
         return null;
     }
 
+	@Override
 	public String toString() {
 		return "AddImageToIndividualCommand [image=" + image + "]";
 	}

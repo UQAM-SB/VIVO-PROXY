@@ -1,7 +1,5 @@
 package ca.uqam.tool.vivoproxy.pattern.command.concrete;
 import java.io.IOException;
-import java.util.List;
-
 import ca.uqam.tool.vivoproxy.pattern.command.Command;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
 import ca.uqam.tool.vivoproxy.pattern.command.Receiver;
@@ -33,6 +31,7 @@ public class SparqlDescribeByLabelCommand extends Command {
         setName(toString());
     }
 
+	@Override
 	public CommandResult execute(Receiver receiver) {
         CommandResult result = null;
         try {

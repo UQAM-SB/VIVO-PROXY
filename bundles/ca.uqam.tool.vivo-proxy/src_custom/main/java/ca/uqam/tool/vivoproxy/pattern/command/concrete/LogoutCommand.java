@@ -15,7 +15,8 @@ public class LogoutCommand extends Command {
         super();
         setName("Logout:"+UUID.randomUUID().toString());
     }
-    public CommandResult execute(Receiver receiver) {
+    @Override
+	public CommandResult execute(Receiver receiver) {
         CommandResult result = null;
         try {
             result = ((VivoReceiver)receiver).logout();

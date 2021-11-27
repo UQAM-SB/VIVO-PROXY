@@ -20,7 +20,8 @@ public class CreatePositionForCommand extends Command {
         setName(toString());
     }
 
-    public CommandResult execute(Receiver vivo) {
+    @Override
+	public CommandResult execute(Receiver vivo) {
         try {
             result = ((VivoReceiver)vivo).addPositionOfPerson(positionOfPerson);
             this.setCommandResult(result);
@@ -48,7 +49,8 @@ public class CreatePositionForCommand extends Command {
     /* (non-Javadoc)
      * @see java.lang.Object#toString()
      */
-    public String toString() {
+    @Override
+	public String toString() {
         try {
             return positionOfPerson.toString();
         } catch (Exception e) {

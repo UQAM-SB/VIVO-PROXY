@@ -14,7 +14,8 @@ externalDocs:
   description: Find out more about VIVO
   url: https://duraspace.org/vivo/
 servers:
-- url: http://localhost:9090/vivoproxy
+- url: http://localhost:9090/vivo-proxy
+- url: http://vivo-proxy.ca-central-1.elasticbeanstalk.com/vivo-proxy
 security:
 - basicAuth: []
 tags:

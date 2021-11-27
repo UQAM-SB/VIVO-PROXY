@@ -7,11 +7,7 @@ import com.squareup.okhttp.Response;
 import ca.uqam.tool.util.credential.LOGIN;
 import ca.uqam.tool.vivoproxy.pattern.command.AbstractReceiver;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
-import ca.uqam.tool.vivoproxy.pattern.command.util.VivoReceiverHelper;
-import ca.uqam.tool.vivoproxy.swagger.model.AuthorOfADocument;
-import ca.uqam.tool.vivoproxy.swagger.model.Concept;
 import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
-import ca.uqam.tool.vivoproxy.swagger.model.Organization;
 import ca.uqam.tool.vivoproxy.swagger.model.Person;
 
 /**

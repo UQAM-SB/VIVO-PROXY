@@ -42,6 +42,7 @@ public class SparqlDescribeCommand extends Command {
         this.setMINE_TYPE(MINE_TYPE);
         setName(toString());	}
 
+	@Override
 	public CommandResult execute(Receiver receiver) {
         CommandResult result = null;
         try {

@@ -10,7 +10,6 @@ import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
 import ca.uqam.tool.vivoproxy.swagger.model.AddressSchema;
 import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
 import ca.uqam.tool.vivoproxy.swagger.model.PersonWithOfficeInfo;
-import ca.uqam.tool.vivoproxy.swagger.model.PersonWithOfficeInfo;
 
 /**
  * @author Michel Héon; Université du Québec à Montréal
