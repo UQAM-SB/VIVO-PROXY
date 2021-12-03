@@ -25,12 +25,38 @@ import javax.validation.Valid;
 /**
  * Organization
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-11-25T14:03:34.331-05:00[America/New_York]")public class Organization   {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-12-03T05:51:13.026-05:00[America/New_York]")public class Organization   {
+  @JsonProperty("id")
+  private String id = null;
+
   @JsonProperty("organizationType")
   private String organizationType = null;
 
   @JsonProperty("names")
   private List<LinguisticLabel> names = new ArrayList<LinguisticLabel>();
+
+  @JsonProperty("overview")
+  private List<LinguisticLabel> overview = null;
+
+  public Organization id(String id) {
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+   **/
+  @JsonProperty("id")
+  @Schema(example = "UQAM", required = true, description = "")
+  @NotNull
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
 
   public Organization organizationType(String organizationType) {
     this.organizationType = organizationType;
@@ -67,7 +93,7 @@ import javax.validation.Valid;
    * @return names
    **/
   @JsonProperty("names")
-  @Schema(required = true, description = "")
+  @Schema(example = "[{\"label\":\"Université du Québec à Montréal\",\"language\":\"fr-CA\"},{\"label\":\"University Of Québec in Montreal\",\"language\":\"en-US\"}]", required = true, description = "")
   @NotNull
   @Valid
   public List<LinguisticLabel> getNames() {
@@ -76,6 +102,34 @@ import javax.validation.Valid;
 
   public void setNames(List<LinguisticLabel> names) {
     this.names = names;
+  }
+
+  public Organization overview(List<LinguisticLabel> overview) {
+    this.overview = overview;
+    return this;
+  }
+
+  public Organization addOverviewItem(LinguisticLabel overviewItem) {
+    if (this.overview == null) {
+      this.overview = new ArrayList<LinguisticLabel>();
+    }
+    this.overview.add(overviewItem);
+    return this;
+  }
+
+  /**
+   * Get overview
+   * @return overview
+   **/
+  @JsonProperty("overview")
+  @Schema(example = "[{\"label\":\"L’Université du Québec à Montréal (UQAM) est une université publique de langue française dont le rayonnement est international. L’originalité et les caractéristiques propres de ses programmes, sa recherche de pointe souvent axée sur les préoccupations sociales ainsi que ses innovations en création ont contribué à bâtir sa renommée.\\nL’université offre de la formation sur le campus montréalais et dans ses campus régionaux situés dans la grande région métropolitaine de Montréal.\",\"language\":\"fr-CA\"},{\"label\":\"The Université du Québec à Montréal (UQAM) is a French-language public university with an international reputation. The originality and specific characteristics of its programs, its cutting-edge research often focused on social concerns, and its creative innovations have helped build its reputation.\\nThe university offers training on the Montreal campus and on its regional campuses located in the greater Montreal area.\",\"language\":\"en-US\"},{\"label\":\"The Université du Québec à Montréal (UQAM) is a French-language public university with an international reputation. The originality and specific characteristics of its programs, its cutting-edge research often focused on social concerns, and its creative innovations have helped build its reputation.\\nThe university offers training on the Montreal campus and on its regional campuses located in the greater Montreal area.\",\"language\":\"en-CA\"}]", description = "")
+  @Valid
+  public List<LinguisticLabel> getOverview() {
+    return overview;
+  }
+
+  public void setOverview(List<LinguisticLabel> overview) {
+    this.overview = overview;
   }
 
 
@@ -88,13 +142,15 @@ import javax.validation.Valid;
       return false;
     }
     Organization organization = (Organization) o;
-    return Objects.equals(this.organizationType, organization.organizationType) &&
-        Objects.equals(this.names, organization.names);
+    return Objects.equals(this.id, organization.id) &&
+        Objects.equals(this.organizationType, organization.organizationType) &&
+        Objects.equals(this.names, organization.names) &&
+        Objects.equals(this.overview, organization.overview);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(organizationType, names);
+    return Objects.hash(id, organizationType, names, overview);
   }
 
 
@@ -103,8 +159,10 @@ import javax.validation.Valid;
     StringBuilder sb = new StringBuilder();
     sb.append("class Organization {\n");
     
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    organizationType: ").append(toIndentedString(organizationType)).append("\n");
     sb.append("    names: ").append(toIndentedString(names)).append("\n");
+    sb.append("    overview: ").append(toIndentedString(overview)).append("\n");
     sb.append("}");
     return sb.toString();
   }

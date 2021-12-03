@@ -22,7 +22,7 @@ import javax.validation.Valid;
 /**
  * LinguisticLabel
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-11-25T14:03:34.331-05:00[America/New_York]")public class LinguisticLabel   {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-12-03T05:51:13.026-05:00[America/New_York]")public class LinguisticLabel   {
   @JsonProperty("label")
   private String label = null;
 

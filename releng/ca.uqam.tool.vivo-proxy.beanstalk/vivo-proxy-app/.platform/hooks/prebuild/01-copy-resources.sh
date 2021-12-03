@@ -4,10 +4,9 @@
 # Script Name   :
 # Description   :
 # Args          : 
-# Author       	: Michel Héon	
+# Author       	: Michel Héon PhD
+# Institution   : Université du Québec à Montréal
+# Copyright     : Université du Québec à Montréal (c) 2021
 # Email         : heon.michel@uqam.ca
 ###################################################################
-SCRIPT_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null ; pwd )"
-cd $SCRIPT_HOME/../
-mvn -T1.5C clean generate-sources -DskipGen=false
-
+cp -r /var/app/staging/.platform/hooks/resources /tmp

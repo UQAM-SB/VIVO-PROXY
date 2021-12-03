@@ -17,7 +17,7 @@ import ca.uqam.tool.vivoproxy.pattern.command.util.VivoReceiverHelper;
 import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
 import ca.uqam.tool.vivoproxy.swagger.model.Person;
 import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
-import ca.uqam.vivo.vocabulary.VIVO;
+import ca.uqam.tool.vocab.vivo.VIVO;
 
 public class CommandTest {
 	private final static Logger LOGGER = Logger.getLogger(CommandTest.class.getName());

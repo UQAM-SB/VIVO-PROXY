@@ -1,9 +1,12 @@
 package ca.uqam.tool.vivoproxy.pattern.command.receiver;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -13,9 +16,18 @@ import java.util.logging.Logger;
 
 import org.apache.commons.lang3.NotImplementedException;
 import org.apache.jena.query.QuerySolution;
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.rdf.model.ResourceFactory;
+import org.apache.jena.riot.Lang;
+import org.apache.jena.riot.RDFDataMgr;
+import org.apache.jena.sparql.vocabulary.FOAF;
+import org.apache.jena.update.UpdateFactory;
+import org.apache.jena.update.UpdateRequest;
+import org.apache.jena.vocabulary.OWL;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
-import org.eclipse.rdf4j.model.vocabulary.FOAF;
 
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.MediaType;
@@ -46,7 +58,10 @@ import ca.uqam.tool.vivoproxy.swagger.model.ResourceToResource;
 import ca.uqam.tool.vivoproxy.swagger.model.Statement;
 import ca.uqam.tool.vivoproxy.util.SemanticWebMediaType;
 import ca.uqam.tool.vivoproxy.util.SparqlHelper;
-import ca.uqam.vivo.vocabulary.VIVO;
+import ca.uqam.tool.vocab.uqam.UQAM;
+import ca.uqam.tool.vocab.vitro.VITRO;
+import ca.uqam.tool.vocab.vivo.OBO;
+import ca.uqam.tool.vocab.vivo.VIVO;
 
 /**
  * @author Michel Héon
@@ -129,8 +144,8 @@ public class VivoReceiver extends AbstractReceiver {
 	 */
 	public CommandResult logout() throws IOException{
 
-		String url = getHostName()+"/"+getVivoSiteName() + "/logout";
-		String referer = getHostName()+"/"+getVivoSiteName()+"/people";
+		String url = (getHostName()+"/"+getVivoSiteName() + "/logout").replaceAll("[/]+", "/");
+		String referer = (getHostName()+"/"+getVivoSiteName()+"/people").replaceAll("[/]+", "/");
 		Request request = new Request.Builder()
 				.url(url)
 				.method("GET", null)
@@ -151,7 +166,11 @@ public class VivoReceiver extends AbstractReceiver {
 	 */
 	@Override
 	protected String getSiteUrl() {
-		return getHostName()+"/"+getVivoSiteName();
+		try {
+			return (new URL(getHostName()+getVivoSiteName())).toString();
+		} catch (MalformedURLException e) {
+		} 
+		return null;
 	}
 
 	public CommandResult addPerson(Person person) throws IOException {
@@ -558,7 +577,7 @@ public class VivoReceiver extends AbstractReceiver {
 		EditKeyForPosition editKeyVar = new EditKeyForPosition();
 		editKeyVar.setSubjectUri(author.getPersonIRI()); 
 		editKeyVar.setPredicateUri(VIVO.relatedBy.getURI());
-		editKeyVar.setDomainUri(FOAF.PERSON.stringValue());
+		editKeyVar.setDomainUri(FOAF.Person.getURI());
 		editKeyVar.setRangeUri(VIVO.Authorship.getURI());
 		editKey = VivoReceiverHelper.getEditKey(getHostName()+"/"+getVivoSiteName(), getHttpClient(),editKeyVar);
 		/*
@@ -694,8 +713,36 @@ public class VivoReceiver extends AbstractReceiver {
 	 * @throws IOException
 	 */
 	public CommandResult addOrganization(Organization organization) throws IOException {
+		Resource orgTypeRes = ResourceFactory.createResource(organization.getOrganizationType());
+		String orgId = organization.getId();
+		Model model = ModelFactory.createDefaultModel();
+		Resource orgdURI = UQAM.createDept(orgId);
+		model.add(orgdURI, RDF.type, OBO.BFO_0000001);
+		model.add(orgdURI, RDF.type, OBO.BFO_0000002);
+		model.add(orgdURI, RDF.type, OBO.BFO_0000004);
+		model.add(orgdURI, RDF.type, orgTypeRes);
+		model.add(orgdURI, RDF.type, OWL.Thing);
+		model.add(orgdURI, RDF.type, FOAF.Agent);
+		model.add(orgdURI, RDF.type, FOAF.Organization);
+		model.add(orgdURI, VITRO.mostSpecificType, orgTypeRes);
+		List<LinguisticLabel> orgName = organization.getNames();
+		for (Iterator iterator = orgName.iterator(); iterator.hasNext();) {
+			LinguisticLabel linguisticLabel = (LinguisticLabel) iterator.next();
+			model.add(orgdURI, RDFS.label, ResourceFactory.createLangLiteral(linguisticLabel.getLabel(), linguisticLabel.getLanguage()));
+		}
+		List<LinguisticLabel> overviews = organization.getOverview();
+		for (Iterator iterator = overviews.iterator(); iterator.hasNext();) {
+			LinguisticLabel linguisticLabel = (LinguisticLabel) iterator.next();
+			model.add(orgdURI, VIVO.overview, ResourceFactory.createLangLiteral(linguisticLabel.getLabel(), linguisticLabel.getLanguage()));
+		}
+		Response response = SparqlHelper.updateVIVOWithModel(model);
+		return CommandResult.asCommandResult(response);
+	}
+
+	public CommandResult addOrganization__(Organization organization) throws IOException {
 		String uuid = UUID.randomUUID().toString();
 		String orgType = organization.getOrganizationType();
+		String orgId = organization.getId();
 		String updateQuery = SparqlHelper.SparqlPrefix 
 				+ "INSERT { GRAPH <> { \n"
 				+ "?orgIRI a foaf:Agent , foaf:Organization ,  obo:BFO_0000004 , obo:BFO_0000001 , obo:BFO_0000002 , owl:Thing, <"+ orgType +"> . \n"
@@ -711,7 +758,7 @@ public class VivoReceiver extends AbstractReceiver {
 			queryCore+= predicate;
 			queryCore+= object;
 		}		
-		updateQuery += queryCore + "} } WHERE \n{ <http://localhost:8080/vivo/individual/n> sfnc:hasNewIRI ?orgIRI . 	} " ;
+		updateQuery += queryCore + "} } WHERE \n{ <"+LOGIN.getVivoUrl() +"/individual/n> sfnc:hasNewIRI ?orgIRI . 	} " ;
 		String bodyValue = 
 				"email="+LOGIN.getUserName()+
 				"&password="+LOGIN.getPasswd()+ 
@@ -719,13 +766,15 @@ public class VivoReceiver extends AbstractReceiver {
 		OkHttpClient client = new OkHttpClient();
 		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
 		RequestBody body = RequestBody.create(mediaType, bodyValue);
+		String sparqlUpdateUrl = (new URL(getSiteUrl()+"/api/sparqlUpdate")).toString();
 		Request request = new Request.Builder()
-				.url(getSiteUrl()+"/api/sparqlUpdate")
+				.url(sparqlUpdateUrl)
 				.method("POST", body)
 				.addHeader("Accept", SemanticWebMediaType.APPLICATION_RDF_XML.toString())
 				.addHeader("Content-Type", "application/x-www-form-urlencoded")
 				.build();
 		Response response = client.newCall(request).execute();
+		
 		return DescribeByUUID(uuid.toString());
 
 
@@ -964,12 +1013,12 @@ public class VivoReceiver extends AbstractReceiver {
 				EditKeyForPosition editKeyVar = new EditKeyForPosition();
 				editKeyVar.setSubjectUri(position.getPersonIRI()); 
 				editKeyVar.setPredicateUri(VIVO.relatedBy.getURI());
-				editKeyVar.setDomainUri(FOAF.PERSON.stringValue());
+				editKeyVar.setDomainUri(FOAF.Person.getURI());
 				editKeyVar.setRangeUri(VIVO.Position.getURI()); 
 				editKey = VivoReceiverHelper.getEditKey(getHostName()+"/"+getVivoSiteName(), getHttpClient(),editKeyVar);
 
 				HttpUrl url = HttpUrl.parse(getSiteUrl() +"/edit/process").newBuilder()
-						.addQueryParameter("orgType", FOAF.ORGANIZATION.stringValue())
+						.addQueryParameter("orgType", FOAF.Organization.getURI())
 						//				.addQueryParameter("orgLabel", "")
 						//				.addQueryParameter("orgLabelDisplay", "Fondation nationale des sciences")
 						.addQueryParameter("existingOrg", position.getOrganisationIRI())
@@ -1069,7 +1118,7 @@ public class VivoReceiver extends AbstractReceiver {
 		HttpUrl refererUrl = HttpUrl.parse(getHostName()+"/"+getVivoSiteName() +"/editRequestDispatch").newBuilder()
 				.addQueryParameter("subjectUri", personUri)
 				.addQueryParameter("predicateUri", OBO_RO_0000053)
-				.addQueryParameter("domainUri", FOAF.PERSON.stringValue())
+				.addQueryParameter("domainUri", FOAF.Person.getURI())
 				.addQueryParameter("rangeUri", VIVO.MemberRole.getURI())
 				.build();
 

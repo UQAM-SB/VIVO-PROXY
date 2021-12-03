@@ -220,7 +220,7 @@ public class VivoReceiverHelper {
 	public static String getUriResponseFromModel(String model) {
 		String retValue = "" ;
 		OntModel ontModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
-		ontModel.read(new ByteArrayInputStream(model.getBytes()), null, Lang.NT.getName());
+		ontModel.read(new ByteArrayInputStream(model.getBytes()), null, Lang.NTRIPLES.getName());
 		List<Resource> subjects = ontModel.listSubjects().toList();
 		for (Iterator iterator = subjects.iterator(); iterator.hasNext();) {
 			Resource resource = (Resource) iterator.next();

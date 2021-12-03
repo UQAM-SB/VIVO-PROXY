@@ -12,6 +12,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/server/main/resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src_overlay/main/java"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp-localhost"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <property name="java-output-path" value="/ca.uqam.tool.vivo-proxy/target/classes"/>
         <property name="context-root" value="ca.uqam.tool.vivo-proxy"/>
             

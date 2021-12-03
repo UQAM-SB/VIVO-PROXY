@@ -2,10 +2,12 @@ package ca.uqam.tool.vivoproxy.pattern.command;
 
 import com.squareup.okhttp.Response;
 
+import ca.uqam.tool.util.credential.LOGIN;
+
 public class CommandResult {
     private Object result;
-    private static String hostName = "http://localhost:8080";
-    private static String vivoSiteName = "vivo";
+    private static String hostName = LOGIN.getVivoUrl();
+    private static String vivoSiteName = LOGIN.getVivoSite();
 
     public Object getResult() {
         return result;

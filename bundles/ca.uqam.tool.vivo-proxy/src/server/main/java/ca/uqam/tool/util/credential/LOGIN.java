@@ -54,4 +54,18 @@ public class LOGIN extends AbstractCredential{
 		LOGIN.getInstance();
 		return loginProperties.getProperty("username");
 	}
+	static public String getVivoUrl() {
+		LOGIN.getInstance();
+		return loginProperties.getProperty("vivo-url");
+	}
+	static public String getVivoSite() {
+		LOGIN.getInstance();
+		return loginProperties.getProperty("vivo-site");
+	}
+
+	static public String getIndvNS() {
+		LOGIN.getInstance();
+		return loginProperties.getProperty("indvNS");
+	}
+
 }

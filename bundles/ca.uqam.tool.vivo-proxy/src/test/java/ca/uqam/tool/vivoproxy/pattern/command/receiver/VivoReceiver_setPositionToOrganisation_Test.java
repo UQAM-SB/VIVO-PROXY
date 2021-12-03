@@ -7,7 +7,7 @@ import ca.uqam.tool.vivoproxy.pattern.command.AbstractReceiver;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
 import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
 import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
-import ca.uqam.vivo.vocabulary.VIVO;
+import ca.uqam.tool.vocab.vivo.VIVO;
 
 /**
  * @author Michel Héon; Université du Québec à Montréal
