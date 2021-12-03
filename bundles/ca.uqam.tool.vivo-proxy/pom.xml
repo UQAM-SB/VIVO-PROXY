@@ -281,7 +281,7 @@
                 <executions>
                     <execution>
                         <id>copy-resources-vivo</id>
-                        <phase>validate</phase>
+                        <phase>package</phase>
                         <goals>
                             <goal>copy-resources</goal>
                         </goals>
@@ -300,7 +300,7 @@
                     </execution>
                     <execution>
                         <id>copy-resources-dist</id>
-                        <phase>validate</phase>
+                        <phase>package</phase>
                         <goals>
                             <goal>copy-resources</goal>
                         </goals>
@@ -319,7 +319,7 @@
                     </execution>
                     <execution>
                         <id>copy-resources-api</id>
-                        <phase>validate</phase>
+                        <phase>package</phase>
                         <goals>
                             <goal>copy-resources</goal>
                         </goals>
@@ -335,7 +335,7 @@
                     </execution>
                     <execution>
                         <id>copy-resources-depl</id>
-                        <phase>validate</phase>
+                        <phase>package</phase>
                         <goals>
                             <goal>copy-resources</goal>
                         </goals>

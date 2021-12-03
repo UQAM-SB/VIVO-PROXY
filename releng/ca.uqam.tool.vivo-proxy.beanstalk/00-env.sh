@@ -16,5 +16,5 @@ export SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd 
 export VIVO_PROXY_SRC_HOME=$(cd $SCRIPT_DIR/../../bundles/ca.uqam.tool.vivo-proxy ; pwd) # Emplacement du plugin de vivo-proxy
 export VIVO_PROXY_TARGET=$(cd $VIVO_PROXY_SRC_HOME/target/ca.uqam.tool.vivo-proxy-1.0.1-SNAPSHOT ; pwd) # Emplacement du target à déployer
 
-export CNAME=vivo-proxy5 # Prefix de l'URL de déploiement
+export CNAME=vivo-proxy1 # Prefix de l'URL de déploiement
 export AWS_ENV=${CNAME}-env  # Nom de l'environement de déploiement
