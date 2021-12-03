@@ -1,0 +1,7 @@
+JENA_HOME="/opt/apache-jena-3.17.0"
+export JENA_HOME
+
+JENA_BIN="$JENA_HOME/bin"
+
+PATH=$JENA_BIN:$PATH
+export PATH

@@ -9,4 +9,8 @@
 # Copyright     : Université du Québec à Montréal (c) 2021
 # Email         : heon.michel@uqam.ca
 ###################################################################
-touch /tmp/prebuilt.log
+export SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+source $SCRIPT_DIR/00-env.sh
+(cd aws-deploy ; eb terminate --force )
+aws elasticbeanstalk delete-application --application-name $CNAME
+

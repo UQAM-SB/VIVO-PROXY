@@ -4,13 +4,15 @@
         <profile>
             <id>localhost</id>
             <properties>
-        <webapp.depl>webapp-localhost</webapp.depl>
+                <webapp.depl>webapp-localhost</webapp.depl>
+                <webapp.target>target/${project.artifactId}-${project.version}</webapp.target>
             </properties>
         </profile>
         <profile>
             <id>aws-dev</id>
             <properties>
-        <webapp.depl>webapp-aws-dev</webapp.depl>
+                <webapp.target>/var/lib/tomcat/webapps/ROOT</webapp.target>
+                <webapp.depl>webapp-aws-dev</webapp.depl>
             </properties>
         </profile>
     </profiles>

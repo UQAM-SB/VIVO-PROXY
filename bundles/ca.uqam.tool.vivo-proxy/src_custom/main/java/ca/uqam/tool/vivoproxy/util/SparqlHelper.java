@@ -117,7 +117,7 @@ public class SparqlHelper {
 		return solList;
 	}
 	public static Response updateVIVOWithModel(Model model) throws IOException {
-		String sparqlEndpointUrl = 	LOGIN.getVivoUrl()+LOGIN.getVivoSite()+"/api/sparqlUpdate";
+		String sparqlEndpointUrl = 	LOGIN.getSparqlUpdateURL();
 		ByteArrayOutputStream modelTriples = new ByteArrayOutputStream();
 		RDFDataMgr.write(modelTriples, model, Lang.NTRIPLES) ;
 		String modelString;

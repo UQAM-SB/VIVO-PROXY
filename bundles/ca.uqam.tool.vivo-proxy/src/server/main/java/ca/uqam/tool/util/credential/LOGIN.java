@@ -67,5 +67,13 @@ public class LOGIN extends AbstractCredential{
 		LOGIN.getInstance();
 		return loginProperties.getProperty("indvNS");
 	}
+	static public String getSparqlQueryURL() {
+		LOGIN.getInstance();
+		return loginProperties.getProperty("vivo-sparql-query-url");
+	}
+	static public String getSparqlUpdateURL() {
+		LOGIN.getInstance();
+		return loginProperties.getProperty("vivo-sparql-update-url");
+	}
 
 }

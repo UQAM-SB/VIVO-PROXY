@@ -286,7 +286,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>target/${project.artifactId}-${project.version}/WEB-INF/classes</outputDirectory>
+                            <outputDirectory>${webapp.target}/WEB-INF/classes</outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>${project.basedir}/src/server/main/resources</directory>
@@ -305,7 +305,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>target/${project.artifactId}-${project.version}</outputDirectory>
+                            <outputDirectory>${webapp.target}</outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>${project.build.directory}/swagger-ui-master/dist</directory>
@@ -324,7 +324,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>target/${project.artifactId}-${project.version}</outputDirectory>
+                            <outputDirectory>${webapp.target}</outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>${project.basedir}/api</directory>
@@ -340,7 +340,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>target/${project.artifactId}-${project.version}</outputDirectory>
+                            <outputDirectory>${webapp.target}</outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>${project.basedir}/src/main/${webapp.depl}</directory>
