@@ -377,7 +377,7 @@
                             <resources>
                                 <resource>
                                     <directory>target/${project.artifactId}-${project.version}</directory>
-                                    <filtering>true</filtering>
+                                    <filtering>false</filtering>
                                 </resource>
                             </resources>
                         </configuration>
