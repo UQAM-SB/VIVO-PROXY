@@ -27,10 +27,12 @@
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    
     <servlet-mapping>
         <servlet-name>jersey</servlet-name>
         <url-pattern>/vivo-proxy/*</url-pattern>
     </servlet-mapping>
+    
     <filter>
         <filter-name>ApiOriginFilter</filter-name>
         <filter-class>ca.uqam.tool.vivoproxy.swagger.api.ApiOriginFilter</filter-class>
