@@ -11,6 +11,6 @@
 ###################################################################
 source /etc/profile
 cd /opt/GIT/VIVO-PROXY/bundles/ca.uqam.tool.vivo-proxy
-mvn -T2C clean package -DskipTests=true -s settings.xml -Paws-dev
+mvn -T2C clean install -s settings.xml -Paws-dev
 chown -R tomcat:tomcat /var/lib/tomcat/webapps/ROOT
 

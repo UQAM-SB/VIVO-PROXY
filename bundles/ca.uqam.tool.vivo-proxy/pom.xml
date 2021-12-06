@@ -6,15 +6,15 @@
     <version>1.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
     <build>
-<!--         <sourceDirectory>src/main/java</sourceDirectory> -->
+        <!-- <sourceDirectory>src/main/java</sourceDirectory> -->
         <resources>
             <resource>
                 <directory>src/main/java</directory>
-<!--                 <includes> -->
-<!--                     <include>**/*.java</include> -->
-<!--                     <include>**/*.properties</include> -->
-<!--                     <include>**/*.xml</include> -->
-<!--                 </includes> -->
+                <!-- <includes> -->
+                <!-- <include>**/*.java</include> -->
+                <!-- <include>**/*.properties</include> -->
+                <!-- <include>**/*.xml</include> -->
+                <!-- </includes> -->
             </resource>
             <resource>
                 <directory>src_overlay/main/java</directory>
@@ -43,9 +43,22 @@
                                 <source>src/server/main/java</source>
                                 <source>src_overlay/main/java</source>
                                 <source>src_custom/main/java</source>
-<!--                                 <source>src/client/main/java</source> -->
+                                <!-- <source>src/client/main/java</source> -->
                             </sources>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.2</version>
+                <executions>
+                    <execution>
+                        <id>default-war</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>war</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
@@ -207,6 +220,7 @@
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>${jetty-version}</version>
                 <configuration>
+                    <skip>${skipJetty}</skip>
                     <webApp>
                         <contextPath>/</contextPath>
                     </webApp>
@@ -277,7 +291,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>2.6</version>
+                <version>3.1.0</version>
                 <executions>
                     <execution>
                         <id>copy-resources-vivo</id>
@@ -286,7 +300,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${webapp.target}/WEB-INF/classes</outputDirectory>
+                            <outputDirectory>target/${project.artifactId}-${project.version}/WEB-INF/classes</outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>${project.basedir}/src/server/main/resources</directory>
@@ -305,7 +319,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${webapp.target}</outputDirectory>
+                            <outputDirectory>target/${project.artifactId}-${project.version}</outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>${project.build.directory}/swagger-ui-master/dist</directory>
@@ -324,7 +338,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${webapp.target}</outputDirectory>
+                            <outputDirectory>target/${project.artifactId}-${project.version}</outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>${project.basedir}/api</directory>
@@ -340,10 +354,29 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${webapp.target}</outputDirectory>
+                            <outputDirectory>target/${project.artifactId}-${project.version}</outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>${project.basedir}/src/main/${webapp.depl}</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-resources-aws</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${aws.skipCopy}</skip>
+                            <overwrite>true</overwrite>
+                            <includeEmptyDirs>true</includeEmptyDirs>
+                            <outputDirectory>${webapp.target}</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>target/${project.artifactId}-${project.version}</directory>
                                     <filtering>true</filtering>
                                 </resource>
                             </resources>
@@ -593,25 +626,27 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit-version>4.13.1</junit-version>
         <default.package>ca.uqam.tool.vivoproxy.swagger</default.package>
-<!--        <jetty-version>9.4.41.v20210516</jetty-version> -->
+        <!-- <jetty-version>9.4.41.v20210516</jetty-version> -->
         <jetty-version>9.4.43.v20210629</jetty-version>
         <!-- <jersey2-version>2.34</jersey2-version> -->
         <!-- <jackson-version>2.12.3</jackson-version> -->
         <!-- <swagger-version>1.6.2</swagger-version> -->
         <!-- <logback-version>1.2.3</logback-version> -->
         <!-- <servlet-version>2.5</servlet-version> -->
-<!--         <jetty-version>9.3.27.v20190418</jetty-version> -->
+        <!-- <jetty-version>9.3.27.v20190418</jetty-version> -->
         <okhttp-version>2.7.5</okhttp-version>
-<!--         <jersey2-version>2.34</jersey2-version> -->
+        <!-- <jersey2-version>2.34</jersey2-version> -->
         <jersey2-version>2.25.1</jersey2-version>
         <jackson-version>2.11.4</jackson-version>
-<!--         <swagger-version>1.5.24</swagger-version> -->
+        <!-- <swagger-version>1.5.24</swagger-version> -->
         <swagger-version>1.6.2</swagger-version>
         <!-- <swagger-version>1.6.2</swagger-version> -->
         <logback-version>1.2.0</logback-version>
         <servlet-version>2.5</servlet-version>
         <skipGen-client>true</skipGen-client>
         <skipGen>true</skipGen>
+        <aws.skipCopy>true</aws.skipCopy> 
+        <skipJetty>false</skipJetty>
     </properties>
 
 </project>
