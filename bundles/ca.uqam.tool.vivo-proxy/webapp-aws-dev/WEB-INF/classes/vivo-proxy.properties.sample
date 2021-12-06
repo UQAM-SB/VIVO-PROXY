@@ -1,9 +1,0 @@
-#
-# Assigned your values and renamed the file to vivo-proxy.properties
-# The values must be identical to those in the VIVO_HOME runtime.properties file
-#
-username=YOUR_USER_NAME
-password=YOUR_PASSWORD
-
-vivo-url=http://purl.org/vivo-uqam.ca
-vivo-site=vivo
