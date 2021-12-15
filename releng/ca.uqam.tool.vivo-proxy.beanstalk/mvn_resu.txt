@@ -1,0 +1,68 @@
+[[1;34mINFO[m] Scanning for projects...
+[[1;33mWARNING[m] 
+[[1;33mWARNING[m] Some problems were encountered while building the effective model for ca.uqam.tool.vivo-proxy:ca.uqam.tool.vivo-proxy:war:1.0.1-SNAPSHOT
+[[1;33mWARNING[m] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: junit:junit:jar -> version 4.12 vs ${junit-version} @ line 537, column 15
+[[1;33mWARNING[m] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: com.google.code.gson:gson:jar -> duplicate declaration of version 2.8.6 @ line 613, column 15
+[[1;33mWARNING[m] 'build.plugins.plugin.(groupId:artifactId)' must be unique but found duplicate declaration of plugin com.googlecode.maven-download-plugin:download-maven-plugin @ line 286, column 12
+[[1;33mWARNING[m] 
+[[1;33mWARNING[m] It is highly recommended to fix these problems because they threaten the stability of your build.
+[[1;33mWARNING[m] 
+[[1;33mWARNING[m] For this reason, future Maven versions might no longer support building such malformed projects.
+[[1;33mWARNING[m] 
+[[1;34mINFO[m] 
+[[1;34mINFO[m] Using the MultiThreadedBuilder implementation with a thread count of 16
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m----------< [0;36mca.uqam.tool.vivo-proxy:ca.uqam.tool.vivo-proxy[0;1m >-----------[m
+[[1;34mINFO[m] [1mBuilding ca.uqam.tool.vivo-proxy 1.0.1-SNAPSHOT[m
+[[1;34mINFO[m] [1m--------------------------------[ war ]---------------------------------[m
+[[1;33mWARNING[m] *****************************************************************
+[[1;33mWARNING[m] * Your build is requesting parallel execution, but project      *
+[[1;33mWARNING[m] * contains the following plugin(s) that have goals not marked   *
+[[1;33mWARNING[m] * as @threadSafe to support parallel building.                  *
+[[1;33mWARNING[m] * While this /may/ work fine, please look for plugin updates    *
+[[1;33mWARNING[m] * and/or request plugins be made thread-safe.                   *
+[[1;33mWARNING[m] * If reporting an issue, report it against the plugin in        *
+[[1;33mWARNING[m] * question, not against maven-core                              *
+[[1;33mWARNING[m] *****************************************************************
+[[1;33mWARNING[m] The following plugins are not marked @threadSafe in ca.uqam.tool.vivo-proxy:
+[[1;33mWARNING[m] org.eclipse.jetty:jetty-maven-plugin:9.4.43.v20210629
+[[1;33mWARNING[m] com.googlecode.maven-download-plugin:download-maven-plugin:1.2.1
+[[1;33mWARNING[m] Enable debug to see more precisely which goals are not marked @threadSafe.
+[[1;33mWARNING[m] *****************************************************************
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-clean-plugin:2.5:clean[m [1m(default-clean)[m @ [36mca.uqam.tool.vivo-proxy[0;1m ---[m
+[[1;34mINFO[m] Deleting /home/heon/01-SPRINT/2021-11-12-SPRINT-08/VivoStudioWS/VS-GIT/VIVO-PROXY/bundles/ca.uqam.tool.vivo-proxy/target
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mbuild-helper-maven-plugin:3.0.0:add-source[m [1m(default)[m @ [36mca.uqam.tool.vivo-proxy[0;1m ---[m
+[[1;34mINFO[m] Source directory: /home/heon/01-SPRINT/2021-11-12-SPRINT-08/VivoStudioWS/VS-GIT/VIVO-PROXY/bundles/ca.uqam.tool.vivo-proxy/src/main/java added.
+[[1;34mINFO[m] Source directory: /home/heon/01-SPRINT/2021-11-12-SPRINT-08/VivoStudioWS/VS-GIT/VIVO-PROXY/bundles/ca.uqam.tool.vivo-proxy/src/server/main/java added.
+[[1;34mINFO[m] Source directory: /home/heon/01-SPRINT/2021-11-12-SPRINT-08/VivoStudioWS/VS-GIT/VIVO-PROXY/bundles/ca.uqam.tool.vivo-proxy/src_overlay/main/java added.
+[[1;34mINFO[m] Source directory: /home/heon/01-SPRINT/2021-11-12-SPRINT-08/VivoStudioWS/VS-GIT/VIVO-PROXY/bundles/ca.uqam.tool.vivo-proxy/src_custom/main/java added.
+[[1;34mINFO[m] Source directory: /home/heon/01-SPRINT/2021-11-12-SPRINT-08/VivoStudioWS/VS-GIT/VIVO-PROXY/bundles/ca.uqam.tool.vivo-proxy/conf added.
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mswagger-codegen-maven-plugin:3.0.27:generate[m [1m(server)[m @ [36mca.uqam.tool.vivo-proxy[0;1m ---[m
+[[1;34mINFO[m] Code generation is skipped.
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mswagger-codegen-maven-plugin:3.0.27:generate[m [1m(client-java)[m @ [36mca.uqam.tool.vivo-proxy[0;1m ---[m
+[[1;34mINFO[m] Code generation is skipped.
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.1.0:resources[m [1m(default-resources)[m @ [36mca.uqam.tool.vivo-proxy[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 6 resources
+[[1;34mINFO[m] Copying 8 resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mdownload-maven-plugin:1.2.1:wget[m [1m(swagger-ui)[m @ [36mca.uqam.tool.vivo-proxy[0;1m ---[m
+[[1;34mINFO[m] Got from cache: /home/heon/.m2/repository/.cache/maven-download-plugin/master.tar.gz
+[[1;34mINFO[m] Expanding: /home/heon/01-SPRINT/2021-11-12-SPRINT-08/VivoStudioWS/VS-GIT/VIVO-PROXY/bundles/ca.uqam.tool.vivo-proxy/target/master.tar.gz into /home/heon/01-SPRINT/2021-11-12-SPRINT-08/VivoStudioWS/VS-GIT/VIVO-PROXY/bundles/ca.uqam.tool.vivo-proxy/target
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.8.1:compile[m [1m(default-compile)[m @ [36mca.uqam.tool.vivo-proxy[0;1m ---[m
+[[1;34mINFO[m] Changes detected - recompiling the module!
+[[1;34mINFO[m] Compiling 121 source files to /home/heon/01-SPRINT/2021-11-12-SPRINT-08/VivoStudioWS/VS-GIT/VIVO-PROXY/bundles/ca.uqam.tool.vivo-proxy/target/classes
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.1.0:testResources[m [1m(default-testResources)[m @ [36mca.uqam.tool.vivo-proxy[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 15 resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.8.1:testCompile[m [1m(default-testCompile)[m @ [36mca.uqam.tool.vivo-proxy[0;1m ---[m
+[[1;34mINFO[m] Changes detected - recompiling the module!
+[[1;34mINFO[m] Compiling 12 source files to /home/heon/01-SPRINT/2021-11-12-SPRINT-08/VivoStudioWS/VS-GIT/VIVO-PROXY/bundles/ca.uqam.tool.vivo-proxy/target/test-classes

@@ -22,7 +22,7 @@ import javax.validation.Valid;
 /**
  * ModelAPIResponse
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-12-03T05:51:13.026-05:00[America/New_York]")public class ModelAPIResponse   {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-12-15T09:09:12.506-05:00[America/New_York]")public class ModelAPIResponse   {
   @JsonProperty("code")
   private Integer code = null;
 
@@ -44,11 +44,11 @@ import javax.validation.Valid;
   }
 
   /**
-   * Get code
+   * Proxy return code
    * @return code
    **/
   @JsonProperty("code")
-  @Schema(description = "")
+  @Schema(description = "Proxy return code")
   public Integer getCode() {
     return code;
   }
@@ -63,11 +63,11 @@ import javax.validation.Valid;
   }
 
   /**
-   * Get type
+   * Proxy return type code
    * @return type
    **/
   @JsonProperty("type")
-  @Schema(description = "")
+  @Schema(description = "Proxy return type code")
   public String getType() {
     return type;
   }
@@ -82,11 +82,11 @@ import javax.validation.Valid;
   }
 
   /**
-   * Get apiMessage
+   * Proxy return message
    * @return apiMessage
    **/
   @JsonProperty("apiMessage")
-  @Schema(description = "")
+  @Schema(description = "Proxy return message")
   public String getApiMessage() {
     return apiMessage;
   }

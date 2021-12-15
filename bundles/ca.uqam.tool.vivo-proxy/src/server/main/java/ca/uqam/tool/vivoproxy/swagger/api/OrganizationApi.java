@@ -37,7 +37,7 @@ import javax.validation.constraints.*;
 @Path("/organization")
 
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-12-03T05:51:13.026-05:00[America/New_York]")public class OrganizationApi  {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-12-15T09:09:12.506-05:00[America/New_York]")public class OrganizationApi  {
    private final OrganizationApiService delegate;
 
    public OrganizationApi(@Context ServletConfig servletContext) {
@@ -69,6 +69,8 @@ import javax.validation.constraints.*;
         @SecurityRequirement(name = "basicAuth")    }, tags={ "organization" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ModelAPIResponse.class))),
+        
+        @ApiResponse(responseCode = "502", description = "OK (successfully authenticated)", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ModelAPIResponse.class))),
         
         @ApiResponse(responseCode = "401", description = "Authentication information is missing or invalid") })
     public Response createOrganization(@Parameter(in = ParameterIn.DEFAULT, description = "Created organization object" ,required=true) Organization body

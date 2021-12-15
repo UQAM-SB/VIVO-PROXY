@@ -7,7 +7,7 @@ import ca.uqam.tool.vivoproxy.pattern.command.AbstractReceiver;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
 import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
 import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
-import ca.uqam.tool.vocab.vivo.VIVO;
+import ca.uqam.vocab.vivo.VIVO;
 
 /**
  * @author Michel Héon; Université du Québec à Montréal
@@ -15,7 +15,7 @@ import ca.uqam.tool.vocab.vivo.VIVO;
  * @date 27 sept. 2021
  */
 public class VivoReceiver_setPositionToOrganisation_Test extends AbstractReceiver {
-	public static void main (String[] argv) throws IOException
+	public static void main (String[] argv) throws Exception
 	{
 		String username=LOGIN.getUserName();
 		String password=LOGIN.getPasswd();

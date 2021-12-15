@@ -22,7 +22,7 @@ import javax.validation.Valid;
 /**
  * Image
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-12-03T05:51:13.026-05:00[America/New_York]")public class Image   {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-12-15T09:09:12.506-05:00[America/New_York]")public class Image   {
   @JsonProperty("individualIRI")
   private String individualIRI = null;
 

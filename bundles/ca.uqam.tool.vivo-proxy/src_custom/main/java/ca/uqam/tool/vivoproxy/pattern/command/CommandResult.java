@@ -12,6 +12,12 @@ public class CommandResult {
     public Object getResult() {
         return result;
     }
+    public boolean isOkhttpResult() {
+    	if (result instanceof com.squareup.okhttp.Response) {
+            return true;
+    	}
+        return false;
+    }
     public Response getOkhttpResult() {
     	if (result instanceof com.squareup.okhttp.Response) {
             return (Response)this.getResult();

@@ -1,0 +1,13 @@
+rsparql --service=https://vivo-demo-db-instance-1.c2o1sdzzfasi.ca-central-1.neptune.amazonaws.com:8182/sparql 'update=INSERT DATA { GRAPH <http://vitro.mannlib.cornell.edu/default/vitro-kb-2>  { <http://purl.org/vivo.uqam.ca/data/dept#idUQAM> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Agent> } }'
+
+
+rsparql --service=https://vivo-demo-db.cluster-c2o1sdzzfasi.ca-central-1.neptune.amazonaws.com:8182/sparql "update=INSERT DATA { <http://purl.org/vivo.uqam.ca/data/dept#idUQAM> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Agent> . }"
+curl -X POST --data-binary 'update=INSERT DATA { <https://test.com/s> <https://test.com/p> <https://test.com/o> . }'  https://vivo-demo-db.cluster-c2o1sdzzfasi.ca-central-1.neptune.amazonaws.com:8182/sparql
+
+
+rsparql --service=https://vivo-demo-db.cluster-c2o1sdzzfasi.ca-central-1.neptune.amazonaws.com:8182/sparql "update=INSERT DATA { <http://purl.org/vivo.uqam.ca/data/dept#idUQAM> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Agent> . }"
+
+
+update=
+
+INSERT DATA { <http://purl.org/vivo.uqam.ca/data/dept#idUQAM> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Agent> . }

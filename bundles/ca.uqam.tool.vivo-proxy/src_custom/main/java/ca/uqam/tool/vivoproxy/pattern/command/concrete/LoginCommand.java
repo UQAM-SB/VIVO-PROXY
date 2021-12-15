@@ -10,37 +10,33 @@ import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
 
 
 public class LoginCommand extends Command {
-    private String name;
-    public LoginCommand(String username, String password) {
-        super();
-        this.password = password;
-        this.username = username;
-        setName("Login:"+UUID.randomUUID().toString());
-    }
+	private String name;
+	public LoginCommand(String username, String password) {
+		super();
+		this.password = password;
+		this.username = username;
+		setName("Login:"+UUID.randomUUID().toString());
+	}
 
-    private String password;
-    private String username;
-
-
-    @Override
-	public CommandResult execute(Receiver receiver) {
-        CommandResult result = null;
-        try {
-            result = ((VivoReceiver)receiver).login(username, password);
-            setCommandResult(result);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
+	private String password;
+	private String username;
 
 
-    public String getPassword() {
-        return password;
-    }
+	@Override
+	public CommandResult execute(Receiver receiver) throws Exception {
+		CommandResult result = null;
+		result = ((VivoReceiver)receiver).login(username, password);
+		setCommandResult(result);
+		return result;
+	}
 
-    public String getUsername() {
-        return username;
-    }
- 
+
+	public String getPassword() {
+		return password;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
 }

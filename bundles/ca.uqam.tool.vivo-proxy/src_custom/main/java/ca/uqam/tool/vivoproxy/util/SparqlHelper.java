@@ -5,10 +5,13 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
 import java.security.cert.CertificateException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
@@ -17,6 +20,7 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
+import javax.swing.text.StringContent;
 
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryExecution;
@@ -41,8 +45,13 @@ import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
 import ca.uqam.tool.util.credential.LOGIN;
+import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
+import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
+import ca.uqam.tool.vivoproxy.pattern.command.util.VivoReceiverHelper;
 
 public class SparqlHelper {
+	private final static Logger LOGGER = Logger.getLogger(SparqlHelper.class.getName());
+
 	public static String SparqlPrefix = "PREFIX  crdc: <http://purl.org/uqam.ca/vocabulary/crdc_ccrd#> \n"+
 			" PREFIX  ocrer: <http://purl.org/net/OCRe/research.owl#> \n"+
 			" PREFIX  p3:   <http://vivoweb.org/ontology/vitroAnnotfr_CA#> \n"+
@@ -116,7 +125,7 @@ public class SparqlHelper {
 		}
 		return solList;
 	}
-	public static Response updateVIVOWithModel(Model model) throws IOException {
+	public static String updateVIVOWithModel(Model model) throws Exception {
 		String sparqlEndpointUrl = 	LOGIN.getSparqlUpdateURL();
 		ByteArrayOutputStream modelTriples = new ByteArrayOutputStream();
 		RDFDataMgr.write(modelTriples, model, Lang.NTRIPLES) ;
@@ -126,33 +135,54 @@ public class SparqlHelper {
 		} catch (UnsupportedEncodingException e) {
 			modelString = new String(modelTriples.toString());
 		}
-		String updateQuery = ""
-				+ "INSERT DATA {"
-				+ "   GRAPH <http://vitro.mannlib.cornell.edu/default/vitro-kb-2> { "
+		//		String updateQuery = "update=INSERT DATA { "
+		//				+ "   GRAPH <http://vitro.mannlib.cornell.edu/default/vitro-kb-2> { "
+		//				+ modelString 
+		//				+ "    } }";
+		String updateQuery = "INSERT DATA { "
 				+ modelString 
-				+ "    } }";
-		String bodyValue = 
-				"email="+LOGIN.getUserName()+
-				"&password="+LOGIN.getPasswd()+ 
-				"&update="+updateQuery;
+				+ " }";
+		//		String bodyValue = 
+		//				"email="+LOGIN.getUserName()+
+		//				"&password="+LOGIN.getPasswd()+ 
+		//				"&update="+updateQuery;
 		//		OkHttpClient client = new OkHttpClient();
-		OkHttpClient client = getUnsafeOkHttpClient();
-		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
-		RequestBody body = RequestBody.create(mediaType, bodyValue);
-		String sparqlUpdateUrl = (new URL(sparqlEndpointUrl)).toString();
-		Request request = new Request.Builder()
-				.url(sparqlUpdateUrl)
-				.method("POST", body)
-				.addHeader("Accept", SemanticWebMediaType.APPLICATION_RDF_XML.toString())
-				.addHeader("Content-Type", "application/x-www-form-urlencoded")
-				.build();
-		Response response = null;
-		try {
-			response = client.newCall(request).execute();
-		} catch (SSLPeerUnverifiedException e) {
-			e.printStackTrace(System.err);
-		}
-		return response;
+		//		LOGGER.fine(bodyValue);
+
+		//		OkHttpClient client = getUnsafeOkHttpClient();
+
+		// JENA METHOD
+		UpdateRequest request = UpdateFactory.create() ;
+		request.add(updateQuery);
+		// Construction de l'exécuteur
+		UpdateProcessor processor = UpdateExecutionFactory.createRemoteForm(request, sparqlEndpointUrl);
+		// Les paramètres d"authentification de ViVo
+		//Exécuter la requête
+		processor.execute();
+		return modelString ;
+		// end JENA METHOD
+
+		//		OkHttpClient client = getUnsafeOkHttpClient();
+		//		
+		//		MediaType mediaType = MediaType.parse("text/plain");
+		//		String updateQueryBody = URLEncoder.encode(updateQuery, StandardCharsets.UTF_8.toString());
+		//		RequestBody body = RequestBody.create(mediaType, updateQueryBody);
+		//		String sparqlUpdateUrl = (new URL(sparqlEndpointUrl)).toString();
+		//		Request request = new Request.Builder()
+		//				.url(sparqlUpdateUrl)
+		//				.method("POST", body)
+		//				.addHeader("Accept", SemanticWebMediaType.APPLICATION_RDF_XML.toString())
+		//				.addHeader("Content-Type", "application/x-www-form-urlencoded")
+		//				.build();
+		//		Response response = null;
+		//		try {
+		//			response  = client.newCall(request).execute();
+		//		} catch (Exception e) {
+		//			String message =  e.getMessage() + " at (" + sparqlEndpointUrl + ") for user: (" + LOGIN.getUserName() +") ";
+		//			LOGGER.info(message);
+		//			throw new Exception(message);
+		//		}
+		//		return response;
 	}
 	private static OkHttpClient getUnsafeOkHttpClient() {
 		try {

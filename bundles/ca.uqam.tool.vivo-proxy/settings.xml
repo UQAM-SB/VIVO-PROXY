@@ -2,10 +2,19 @@
 <settings>
     <profiles>
         <profile>
+            <id>localhost-jetty</id>
+            <properties>
+                <skipTests>true</skipTests>
+                <skipJetty>false</skipJetty>
+                <webapp.depl>webapp-localhost-jetty</webapp.depl>
+            </properties>
+        </profile>
+        <profile>
             <id>localhost</id>
             <properties>
                 <skipTests>true</skipTests>
-                <webapp.depl>webapp-localhost</webapp.depl>
+                <skipJetty>true</skipJetty>
+                <webapp.depl>webapp-localhost-tomcat</webapp.depl>
             </properties>
         </profile>
         <profile>
@@ -15,6 +24,16 @@
                 <skipJetty>true</skipJetty>
                 <aws.skipCopy>false</aws.skipCopy> 
                 <webapp.target>/var/lib/tomcat/webapps/ROOT</webapp.target>
+                <webapp.depl>webapp-aws-dev</webapp.depl>
+            </properties>
+        </profile>
+        <profile>
+            <id>aws-dev-local</id>
+            <properties>
+                <skipTests>true</skipTests>
+                <skipJetty>true</skipJetty>
+                <aws.skipCopy>false</aws.skipCopy> 
+                <webapp.target>/home/heon/01-SPRINT/2021-11-12-SPRINT-08/VivoStudioWS/VS-GIT/VIVO-PROXY/releng/ca.uqam.tool.vivo-proxy.beanstalk/aws-deploy-from-local</webapp.target>
                 <webapp.depl>webapp-aws-dev</webapp.depl>
             </properties>
         </profile>

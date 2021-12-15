@@ -17,7 +17,7 @@ import ca.uqam.tool.vivoproxy.pattern.command.util.VivoReceiverHelper;
 import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
 import ca.uqam.tool.vivoproxy.swagger.model.Person;
 import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
-import ca.uqam.tool.vocab.vivo.VIVO;
+import ca.uqam.vocab.vivo.VIVO;
 
 public class CommandTest {
 	private final static Logger LOGGER = Logger.getLogger(CommandTest.class.getName());
@@ -35,7 +35,7 @@ public class CommandTest {
 	}
 
 	@Test
-	public void testAddMultiplePersons() throws IOException {
+	public void testAddMultiplePersons() throws Exception {
 		CommandInvoker invoker = new CommandInvoker();
 		CommandFactory cf = CommandFactory.getInstance(); 
 		Command loginCommand = cf.createLogin(username, password);
@@ -61,7 +61,7 @@ public class CommandTest {
 		System.out.println(((List<String>) results.getResult()).get(0));
 	}
 	@Test
-	public void testAddPerson() throws IOException {
+	public void testAddPerson() throws Exception {
 		Person person = new Person();
 		String firstName = "Pierre";
 		String lastName = "Jacques";
@@ -96,7 +96,7 @@ public class CommandTest {
 	}
 
 	@Test
-	public void testCreateOrganisation() throws IOException {
+	public void testCreateOrganisation() throws Exception {
 		fail("Not yet finish implemented");
 		String organisationName = "Collège du vieux Montréal";
 		CommandFactory cf = CommandFactory.getInstance(); 

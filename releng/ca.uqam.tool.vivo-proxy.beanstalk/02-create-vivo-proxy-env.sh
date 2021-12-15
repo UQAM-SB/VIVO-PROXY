@@ -11,6 +11,6 @@
 ###################################################################
 export SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 source $SCRIPT_DIR/00-env.sh
-cd $SCRIPT_DIR/aws-deploy
+cd $AWS_DEPLOY_HOME
 eb init $CNAME -p 'Tomcat 8.5 with Corretto 8 running on 64bit Amazon Linux 2' -r 'ca-central-1' -k 'Cle-VIVO-Demo'
-eb create $AWS_ENV -c $CNAME -p 'Tomcat 8.5 with Corretto 8 running on 64bit Amazon Linux 2' -r 'ca-central-1' -k 'Cle-VIVO-Demo'
+eb create $AWS_ENV -c $CNAME -p 'Tomcat 8.5 with Corretto 8 running on 64bit Amazon Linux 2' -r 'ca-central-1' -k 'Cle-VIVO-Demo' --single

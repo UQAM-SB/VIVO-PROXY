@@ -18,3 +18,4 @@ export VIVO_PROXY_TARGET=$(cd $VIVO_PROXY_SRC_HOME/target/ca.uqam.tool.vivo-prox
 
 export CNAME=vivo-proxy # Prefix de l'URL de déploiement
 export AWS_ENV=${CNAME}-env  # Nom de l'environement de déploiement
+export AWS_DEPLOY_HOME=$SCRIPT_DIR/aws-deploy-from-local

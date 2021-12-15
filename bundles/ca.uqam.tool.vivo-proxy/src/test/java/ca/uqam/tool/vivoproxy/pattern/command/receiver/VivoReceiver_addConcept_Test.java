@@ -13,7 +13,7 @@ import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
  *
  */
 public class VivoReceiver_addConcept_Test extends AbstractReceiver {
-	public static void main (String[] argv) throws IOException
+	public static void main (String[] argv) throws Exception
 	{
 		String username=LOGIN.getUserName();
 		String password=LOGIN.getPasswd();

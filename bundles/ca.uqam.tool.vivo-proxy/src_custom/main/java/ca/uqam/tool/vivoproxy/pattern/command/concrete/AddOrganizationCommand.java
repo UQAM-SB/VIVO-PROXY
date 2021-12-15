@@ -20,16 +20,11 @@ public class AddOrganizationCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Receiver vivo) {
+    public CommandResult execute(Receiver vivo) throws Exception {
         CommandResult result = null;
-        try {
             result = ((VivoReceiver)vivo).addOrganization(organization);
             setCommandResult(result);
-            return result;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return result;
     }
 
 	public Organization getOrganization() {

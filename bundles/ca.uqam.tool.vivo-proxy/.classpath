@@ -6,6 +6,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry exported="true" kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="src" path="src_custom/main/java"/>
 	<classpathentry including="vivo-proxy.properties" kind="src" path="src/server/main/resources"/>
 	<classpathentry excluding="ca/uqam/tool/vivoproxy/swagger/api/impl/*.java" including="**/*.java" kind="src" output="target/classes" path="src/main/java">
 		<attributes>
@@ -13,24 +14,9 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry excluding="ca/uqam/tool/vivoproxy/swagger/api/impl/*.java" kind="src" output="target/classes" path="src/server/main/java">
-		<attributes>
-			<attribute name="optional" value="true"/>
-			<attribute name="maven.pomderived" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry excluding="ca/uqam/tool/vivoproxy/swagger/api/impl/*.java" kind="src" output="target/classes" path="src_custom/main/java">
-		<attributes>
-			<attribute name="optional" value="true"/>
-			<attribute name="maven.pomderived" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry including="**/*.java" kind="src" output="target/classes" path="src_overlay/main/java">
-		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
-			<attribute name="optional" value="true"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="src" path="src/server/main/java"/>
+	<classpathentry including="*.properties" kind="src" path="conf"/>
+	<classpathentry kind="src" path="src_overlay/main/java"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>

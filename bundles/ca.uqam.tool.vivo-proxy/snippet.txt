@@ -1,9 +1,9 @@
 curl -X 'POST' \
-  'http://vivo-proxy2.ca-central-1.elasticbeanstalk.com/organization' \
+  'http://localhost:8080/ca.uqam.tool.vivo-proxy/vivo-proxy/organization' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
-  "id": "UQAM2",
+  "id": "UQAM",
   "organizationType": "http://vivoweb.org/ontology/core#University",
   "names": [
     {

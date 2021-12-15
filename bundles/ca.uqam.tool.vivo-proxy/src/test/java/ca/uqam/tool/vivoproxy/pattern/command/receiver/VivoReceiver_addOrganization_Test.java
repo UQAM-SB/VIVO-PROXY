@@ -1,24 +1,21 @@
 package ca.uqam.tool.vivoproxy.pattern.command.receiver;
 
-import java.io.IOException;
 import java.util.Locale;
 
 import com.squareup.okhttp.Response;
 
-import ca.uqam.tool.util.credential.LOGIN;
 import ca.uqam.tool.vivoproxy.pattern.command.AbstractReceiver;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
-import ca.uqam.tool.vivoproxy.pattern.command.util.VivoReceiverHelper;
 import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
 import ca.uqam.tool.vivoproxy.swagger.model.Organization;
-import ca.uqam.tool.vocab.vivo.VIVO;
+import ca.uqam.vocab.vivo.VIVO;
 
 /**
  * @author Michel Héon
  *
  */
 public class VivoReceiver_addOrganization_Test extends AbstractReceiver {
-	public static void main (String[] argv) throws IOException
+	public static void main (String[] argv) throws Exception
 	{
 		VivoReceiver vr = new VivoReceiver();
 		Organization org = new Organization();

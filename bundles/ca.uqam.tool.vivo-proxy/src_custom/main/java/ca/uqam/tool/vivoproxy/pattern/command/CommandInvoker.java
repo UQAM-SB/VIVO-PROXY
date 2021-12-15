@@ -27,16 +27,13 @@ public CommandInvoker() {
         register(command.getName(), command);
         history.add(command);
     }
-    public CommandResult execute() throws IOException {
+    public CommandResult execute() throws Exception {
     	CommandResult commandResult = null;
 		vivoReceiver=new VivoReceiver();
     	
     	for (Iterator iterator = history.iterator(); iterator.hasNext();) {
 			Command command =  (Command) iterator.next();
 			commandResult = command.execute(vivoReceiver);
-//	        LOGGER.fine("result ("+command.getName()+ ": " +commandResult.getOkhttpResult().code()+") ("+commandResult.getOkhttpResult().body().string()+")");
-//			int code = commandResult.getOkhttpResult().code();
-//	        LOGGER.fine("result ("+command.getName()+ ") code (" + code +")");
 	        LOGGER.fine("result ("+command.getName()+ ")");
 		}
 		return commandResult;

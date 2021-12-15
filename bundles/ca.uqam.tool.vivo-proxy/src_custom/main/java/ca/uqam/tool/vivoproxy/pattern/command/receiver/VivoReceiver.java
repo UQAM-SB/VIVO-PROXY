@@ -58,10 +58,11 @@ import ca.uqam.tool.vivoproxy.swagger.model.ResourceToResource;
 import ca.uqam.tool.vivoproxy.swagger.model.Statement;
 import ca.uqam.tool.vivoproxy.util.SemanticWebMediaType;
 import ca.uqam.tool.vivoproxy.util.SparqlHelper;
-import ca.uqam.tool.vocab.uqam.UQAM;
-import ca.uqam.tool.vocab.vitro.VITRO;
-import ca.uqam.tool.vocab.vivo.OBO;
-import ca.uqam.tool.vocab.vivo.VIVO;
+import ca.uqam.vocab.uqam.UQAM_DATA;
+import ca.uqam.vocab.uqam.UQAM_ORGANIZATION;
+import ca.uqam.vocab.vitro.VITRO;
+import ca.uqam.vocab.vivo.OBO;
+import ca.uqam.vocab.vivo.VIVO;
 
 /**
  * @author Michel Héon
@@ -116,7 +117,7 @@ public class VivoReceiver extends AbstractReceiver {
 	 * @return
 	 * @throws IOException
 	 */
-	public CommandResult login(String username, String password) throws IOException {
+	public CommandResult login(String username, String password) throws Exception {
 		password = password +"";
 		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
 		RequestBody body = RequestBody.create(mediaType, "loginName="+username+"&loginPassword="+password+"&loginForm=Connexion");
@@ -134,8 +135,13 @@ public class VivoReceiver extends AbstractReceiver {
 				.addHeader("Referer", referer)
 				.addHeader("Upgrade-Insecure-Requests", "1")
 				.build();
-		Response response = getHttpClient().newCall(request).execute();
-		LOGGER.info("Login for " + username +" with return code: "+response.code() + " (" +response.message() +  ") response url ("+ VivoReceiverHelper.getNetworkUri(response)+")");
+		Response response=null;
+		try {
+			response = getHttpClient().newCall(request).execute();
+		} catch (Exception e) {
+			LOGGER.info("Login for " + username +" with return code: "+response.code() + " (" +response.message() +  ") response url ("+ VivoReceiverHelper.getNetworkUri(response)+")");
+			throw new Exception("Login for " + username +" with return code: "+response.code() + " (" +response.message() +  ") response url ("+ VivoReceiverHelper.getNetworkUri(response)+")");
+		}
 		return CommandResult.asCommandResult(response);
 	}
 	/**
@@ -710,13 +716,13 @@ public class VivoReceiver extends AbstractReceiver {
 	 * @param organisationName
 	 * @param vivoOrganisationType
 	 * @return
-	 * @throws IOException
+	 * @throws Exception 
 	 */
-	public CommandResult addOrganization(Organization organization) throws IOException {
+	public CommandResult addOrganization(Organization organization) throws Exception {
 		Resource orgTypeRes = ResourceFactory.createResource(organization.getOrganizationType());
 		String orgId = organization.getId();
 		Model model = ModelFactory.createDefaultModel();
-		Resource orgdURI = UQAM.createDept(orgId);
+		Resource orgdURI = ResourceFactory.createResource(UQAM_ORGANIZATION.id.getURI() +orgId);
 		model.add(orgdURI, RDF.type, OBO.BFO_0000001);
 		model.add(orgdURI, RDF.type, OBO.BFO_0000002);
 		model.add(orgdURI, RDF.type, OBO.BFO_0000004);
@@ -735,8 +741,20 @@ public class VivoReceiver extends AbstractReceiver {
 			LinguisticLabel linguisticLabel = (LinguisticLabel) iterator.next();
 			model.add(orgdURI, VIVO.overview, ResourceFactory.createLangLiteral(linguisticLabel.getLabel(), linguisticLabel.getLanguage()));
 		}
-		Response response = SparqlHelper.updateVIVOWithModel(model);
-		return CommandResult.asCommandResult(response);
+		try {
+			SparqlHelper.updateVIVOWithModel(model);
+		} catch (Exception e) {
+			return CommandResult.asCommandResult(e.getMessage());
+		}
+//		ByteArrayOutputStream modelString = new ByteArrayOutputStream();
+//		RDFDataMgr.write(modelString, model, Lang.TURTLE) ;
+		String subjIRI = "NOT Found";
+		try {
+			subjIRI = model.listSubjects().toList().get(0).asResource().getURI();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return CommandResult.asCommandResult(subjIRI);
 	}
 
 	public CommandResult addOrganization__(Organization organization) throws IOException {
