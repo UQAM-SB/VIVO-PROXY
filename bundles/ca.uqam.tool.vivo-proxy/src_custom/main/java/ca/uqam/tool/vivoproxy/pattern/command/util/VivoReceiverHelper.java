@@ -8,9 +8,13 @@ import java.util.logging.Logger;
 
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntModelSpec;
+import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.rdf.model.ResourceFactory;
 import org.apache.jena.riot.Lang;
+import org.apache.jena.vocabulary.RDFS;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -22,6 +26,7 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
 import ca.uqam.tool.vivoproxy.pattern.command.receiver.util.EditKeyForPosition;
+import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
 
 public class VivoReceiverHelper {
 	private final static Logger LOGGER = Logger.getLogger(VivoReceiverHelper.class.getName());
@@ -229,4 +234,11 @@ public class VivoReceiverHelper {
 		}
 		return retValue;
 	}
+	public static void addLinguisticLabelToResource(List<LinguisticLabel> labels, Resource res, Property property, Model model) {
+		for (Iterator iterator = labels.iterator(); iterator.hasNext();) {
+			LinguisticLabel linguisticLabel = (LinguisticLabel) iterator.next();
+			model.add(res, property, ResourceFactory.createLangLiteral(linguisticLabel.getLabel(), linguisticLabel.getLanguage()));
+		}
+	}
+
 }

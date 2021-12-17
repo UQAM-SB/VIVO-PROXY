@@ -33,7 +33,7 @@
                 <skipTests>true</skipTests>
                 <skipJetty>true</skipJetty>
                 <aws.skipCopy>false</aws.skipCopy> 
-                <webapp.target>/home/heon/01-SPRINT/2021-11-12-SPRINT-08/VivoStudioWS/VS-GIT/VIVO-PROXY/releng/ca.uqam.tool.vivo-proxy.beanstalk/aws-deploy-from-local</webapp.target>
+                <webapp.target>${project.basedir}/../../releng/ca.uqam.tool.vivo-proxy.beanstalk/aws-deploy-from-local</webapp.target>
                 <webapp.depl>webapp-aws-dev</webapp.depl>
             </properties>
         </profile>

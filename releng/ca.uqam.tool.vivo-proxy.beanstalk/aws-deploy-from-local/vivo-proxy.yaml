@@ -228,7 +228,7 @@ paths:
       x-codegen-request-body-name: body
   /person/createWithEmailHasKey:
     post:
-      deprecated: true
+      deprecated: false
       tags:
       - person
       summary: Create a user in VIVO using the eMail address as an IRI key
@@ -947,6 +947,23 @@ components:
           nullable: false
           type: string
           example: http://vivoweb.org/ontology/core#FacultyMember
+        id:
+          type: string
+          description: id of person
+          example: SOME_ID
+        displayName:
+          items:
+            $ref: '#/components/schemas/linguisticLabel'
+          example: [
+                    {
+                      "label": "Peter Jasper",
+                      "language": "fr-CA"
+                    },
+                    {
+                      "label": "Peter Jasper",
+                      "language": "en-US"
+                    }
+                  ]
         firstName:
           items:
             $ref: '#/components/schemas/linguisticLabel'
@@ -988,12 +1005,17 @@ components:
                       "language": "en-US"
                     }
                   ]
+        secondaryTitle:
+          description: Other useful title
+          type: array
+          items:
+            $ref: '#/components/schemas/linguisticLabel'
         eMail:
           type: string
           description: principal email that is used has key
           example: jasper.peter@example.org
         secondaryMails:
-          description: Other usefull emails
+          description: Other useful emails
           type: array
           items:
             type: string
@@ -1003,56 +1025,22 @@ components:
           type: string
           description: telephone number
           example: +1 (514) 987-3000 ext. 0000
+        organization-unit-id:
+          type: string
+          description: id of organization unit
+          example: 6010
         address:
           items:
             $ref: '#/components/schemas/addressSchema'
-        organization-unit:
-          items:
-            $ref: '#/components/schemas/linguisticLabel'
-          example: [
-                    {
-                      "label": "Département d'informatique",
-                      "language": "fr-CA"
-                    },
-                    {
-                      "label": "Computer Science",
-                      "language": "en-US"
-                    }
-                  ]
-        organization-name:
-          items:
-            $ref: '#/components/schemas/linguisticLabel'
-          default: [
-                    {
-                      "label": "Université du Québec à Montréal",
-                      "language": "fr-CA"
-                    },
-                    {
-                      "label": "University of Quebec at Montreal",
-                      "language": "en-US"
-                    }
-                  ]
-          example: [
-                    {
-                      "label": "Université du Québec à Montréal",
-                      "language": "fr-CA"
-                    },
-                    {
-                      "label": "University of Quebec at Montreal",
-                      "language": "en-US"
-                    }
-                  ]
       xml:
         name: person
     addressSchema:
-      required:
-        - streetAddress
-        - locality
-        - region
-        - country
-        - postalCode
       type: object
       properties:
+        officeNumber:
+          type: string
+          example: "Bur. 201"
+          description: "Office number"        
         streetAddress:
           type: string
           example: "Faculté des sciences; Case postale 8888, succ. Centre-ville"
@@ -1217,4 +1205,5 @@ The university offers training on the Montreal campus and on its regional campus
     basicAuth:
       type: http
       scheme: basic
+
 

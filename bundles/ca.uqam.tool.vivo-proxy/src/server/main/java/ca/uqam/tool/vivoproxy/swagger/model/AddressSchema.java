@@ -22,7 +22,10 @@ import javax.validation.Valid;
 /**
  * AddressSchema
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-12-15T09:09:12.506-05:00[America/New_York]")public class AddressSchema   {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-12-16T09:09:24.006-05:00[America/New_York]")public class AddressSchema   {
+  @JsonProperty("officeNumber")
+  private String officeNumber = null;
+
   @JsonProperty("streetAddress")
   private String streetAddress = null;
 
@@ -38,6 +41,25 @@ import javax.validation.Valid;
   @JsonProperty("postalCode")
   private String postalCode = null;
 
+  public AddressSchema officeNumber(String officeNumber) {
+    this.officeNumber = officeNumber;
+    return this;
+  }
+
+  /**
+   * Office number
+   * @return officeNumber
+   **/
+  @JsonProperty("officeNumber")
+  @Schema(example = "Bur. 201", description = "Office number")
+  public String getOfficeNumber() {
+    return officeNumber;
+  }
+
+  public void setOfficeNumber(String officeNumber) {
+    this.officeNumber = officeNumber;
+  }
+
   public AddressSchema streetAddress(String streetAddress) {
     this.streetAddress = streetAddress;
     return this;
@@ -48,8 +70,7 @@ import javax.validation.Valid;
    * @return streetAddress
    **/
   @JsonProperty("streetAddress")
-  @Schema(example = "Faculté des sciences; Case postale 8888, succ. Centre-ville", required = true, description = "The ';' delimiter that separates the address header elements will be replaced by a line break in the display")
-  @NotNull
+  @Schema(example = "Faculté des sciences; Case postale 8888, succ. Centre-ville", description = "The ';' delimiter that separates the address header elements will be replaced by a line break in the display")
   public String getStreetAddress() {
     return streetAddress;
   }
@@ -68,8 +89,7 @@ import javax.validation.Valid;
    * @return locality
    **/
   @JsonProperty("locality")
-  @Schema(example = "Montréal", required = true, description = "")
-  @NotNull
+  @Schema(example = "Montréal", description = "")
   public String getLocality() {
     return locality;
   }
@@ -88,8 +108,7 @@ import javax.validation.Valid;
    * @return region
    **/
   @JsonProperty("region")
-  @Schema(example = "Québec", required = true, description = "")
-  @NotNull
+  @Schema(example = "Québec", description = "")
   public String getRegion() {
     return region;
   }
@@ -108,8 +127,7 @@ import javax.validation.Valid;
    * @return country
    **/
   @JsonProperty("country")
-  @Schema(example = "Canada", required = true, description = "")
-  @NotNull
+  @Schema(example = "Canada", description = "")
   public String getCountry() {
     return country;
   }
@@ -128,8 +146,7 @@ import javax.validation.Valid;
    * @return postalCode
    **/
   @JsonProperty("postalCode")
-  @Schema(example = "H3C-3P8", required = true, description = "")
-  @NotNull
+  @Schema(example = "H3C-3P8", description = "")
   public String getPostalCode() {
     return postalCode;
   }
@@ -148,7 +165,8 @@ import javax.validation.Valid;
       return false;
     }
     AddressSchema addressSchema = (AddressSchema) o;
-    return Objects.equals(this.streetAddress, addressSchema.streetAddress) &&
+    return Objects.equals(this.officeNumber, addressSchema.officeNumber) &&
+        Objects.equals(this.streetAddress, addressSchema.streetAddress) &&
         Objects.equals(this.locality, addressSchema.locality) &&
         Objects.equals(this.region, addressSchema.region) &&
         Objects.equals(this.country, addressSchema.country) &&
@@ -157,7 +175,7 @@ import javax.validation.Valid;
 
   @Override
   public int hashCode() {
-    return Objects.hash(streetAddress, locality, region, country, postalCode);
+    return Objects.hash(officeNumber, streetAddress, locality, region, country, postalCode);
   }
 
 
@@ -166,6 +184,7 @@ import javax.validation.Valid;
     StringBuilder sb = new StringBuilder();
     sb.append("class AddressSchema {\n");
     
+    sb.append("    officeNumber: ").append(toIndentedString(officeNumber)).append("\n");
     sb.append("    streetAddress: ").append(toIndentedString(streetAddress)).append("\n");
     sb.append("    locality: ").append(toIndentedString(locality)).append("\n");
     sb.append("    region: ").append(toIndentedString(region)).append("\n");

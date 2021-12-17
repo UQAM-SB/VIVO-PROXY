@@ -1,6 +1,5 @@
 package ca.uqam.tool.vivoproxy.pattern.command.receiver;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.CookieManager;
@@ -20,14 +19,12 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.ResourceFactory;
-import org.apache.jena.riot.Lang;
-import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.sparql.vocabulary.FOAF;
-import org.apache.jena.update.UpdateFactory;
-import org.apache.jena.update.UpdateRequest;
 import org.apache.jena.vocabulary.OWL;
+import org.apache.jena.vocabulary.OWL2;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
+import org.apache.jena.vocabulary.VCARD4;
 
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.MediaType;
@@ -45,7 +42,6 @@ import ca.uqam.tool.vivoproxy.pattern.command.util.VivoReceiverHelper;
 import ca.uqam.tool.vivoproxy.swagger.model.AddressSchema;
 import ca.uqam.tool.vivoproxy.swagger.model.AuthorOfADocument;
 import ca.uqam.tool.vivoproxy.swagger.model.Concept;
-
 import ca.uqam.tool.vivoproxy.swagger.model.Document;
 import ca.uqam.tool.vivoproxy.swagger.model.Image;
 import ca.uqam.tool.vivoproxy.swagger.model.IndividualType;
@@ -58,10 +54,11 @@ import ca.uqam.tool.vivoproxy.swagger.model.ResourceToResource;
 import ca.uqam.tool.vivoproxy.swagger.model.Statement;
 import ca.uqam.tool.vivoproxy.util.SemanticWebMediaType;
 import ca.uqam.tool.vivoproxy.util.SparqlHelper;
-import ca.uqam.vocab.uqam.UQAM_DATA;
 import ca.uqam.vocab.uqam.UQAM_ORGANIZATION;
+import ca.uqam.vocab.uqam.UQAM_PEOPLE;
 import ca.uqam.vocab.vitro.VITRO;
 import ca.uqam.vocab.vivo.OBO;
+import ca.uqam.vocab.vivo.VCARD;
 import ca.uqam.vocab.vivo.VIVO;
 
 /**
@@ -251,173 +248,7 @@ public class VivoReceiver extends AbstractReceiver {
 		return DescribeByUUID(uuid.toString());
 
 	}
-	/**
-	 * @param person
-	 * @return
-	 * @throws IOException
-	 */
-	public CommandResult addPerson(PersonWithOfficeInfo person) throws IOException {
-		String aType = person.getPersonType();
-		String eMail = person.getEMail();
-		String uuid = //eMail.split("@")[0];
-				eMail.replace("@", "_").replace(".", "_");
-		String telephone = person.getTelephone();
-		AddressSchema address = person.getAddress().get(0);
-		String updateQuery = SparqlHelper.SparqlPrefix 
-				+ "INSERT { GRAPH <> { \n" ;
-		String queryCore =
-				" ?persIRI a <"+ aType +"> , owl:Thing , obo:BFO_0000004 , obo:BFO_0000001 , foaf:Agent , obo:BFO_0000002 , foaf:Person . \n" 
-						+ " ?persIRI  vitro:mostSpecificType  <"+ aType +"> . \n"
-						+ " ?persIRI obo:ARG_2000028  ?vcardIndv . \n";
-		/*
-		 * Adding rdfs:label "name" for each language
-		 */
-		List<LinguisticLabel> fName = person.getFirstName();
-		List<LinguisticLabel> lName = person.getLastName();
-		for (Iterator iterator = fName.iterator(); iterator.hasNext();) {
-			LinguisticLabel fNameLabel = (LinguisticLabel) iterator.next();
-			for (Iterator iterator2 = lName.iterator(); iterator2.hasNext();) {
-				LinguisticLabel lNameLabel = (LinguisticLabel) iterator2.next();
-				if (fNameLabel.getLanguage().equals(lNameLabel.getLanguage())){
-					String name = fNameLabel.getLabel() + " "+ lNameLabel.getLabel();
-					queryCore += " ?persIRI rdfs:label \"" + name +"\"@" + fNameLabel.getLanguage() + " . \n";
-				}
-			}
-		}
-		/*
-		 * Build vcard:Individual part
-		 */
-		queryCore += " ?vcardIndv a vcard:Kind , obo:BFO_0000031 , owl:Thing , obo:IAO_0000030 , obo:BFO_0000002 , obo:ARG_2000379 , obo:BFO_0000001 , vcard:Individual . \n " ;
-		queryCore += "        ?vcardIndv obo:ARG_2000029 ?persIRI . \n " ; 
-		queryCore += "        ?vcardIndv vcard:hasName ?vcardHasName . \n " ; 
-		queryCore += "        ?vcardIndv vcard:hasEmail ?vcardHasEmail . \n " ; 
-		//		queryCore += " 	?vcardIndv vcard:hasTitle ?vcardHasTitle . \n " ; 
-		queryCore += "        ?vcardIndv vitro:mostSpecificType  vcard:Individual . \n" ; 
-		/*
-		 * Build vcard:Individual part vcard:hasName
-		 */
-		queryCore += " ?vcardHasName a owl:Thing , vcard:Identification , vcard:Addressing , vcard:Explanatory , vcard:Communication , vcard:Name . \n " ; 
-		queryCore += "       ?vcardHasName vitro:mostSpecificType vcard:Name . \n " ; 
 
-		for (Iterator iterator = fName.iterator(); iterator.hasNext();) {
-			LinguisticLabel fNameLabel = (LinguisticLabel) iterator.next();
-			queryCore += "       ?vcardHasName vcard:givenName \"" + fNameLabel.getLabel() +"\"@" + fNameLabel.getLanguage() + " . \n";
-		}
-
-		for (Iterator iterator2 = lName.iterator(); iterator2.hasNext();) {
-			LinguisticLabel lNameLabel = (LinguisticLabel) iterator2.next();
-			queryCore += "        ?vcardHasName vcard:familyName \"" + lNameLabel.getLabel() +"\"@" + lNameLabel.getLanguage() + " . \n";  
-		}
-		/*
-		 * Process email as mandatory
-		 */
-		queryCore += " ?vcardHasEmail a owl:Thing , vcard:Addressing , vcard:Code , vcard:Communication , vcard:Email , vcard:Explanatory , vcard:Identification , vcard:Type , vcard:Work . \n";
-		queryCore += "        ?vcardHasEmail vitro:mostSpecificType vcard:Email . \n";
-		queryCore += "        ?vcardHasEmail vitro:mostSpecificType vcard:Work  . \n";
-		queryCore += "        ?vcardHasEmail vcard:email \"" +eMail+ "\" . \n";
-		/*
-		 * Secondary eMail
-		 */
-		if (person.getSecondaryMails()!=null && !person.getSecondaryMails().isEmpty()) {
-			queryCore += " ?vcardIndv vcard:hasEmail ?vcardHasSecEmail . \n " ; 
-			queryCore += " ?vcardHasSecEmail a owl:Thing , vcard:Identification , vcard:Addressing , vcard:Explanatory , vcard:Communication , vcard:Email .\n";
-			queryCore += "        ?vcardHasSecEmail vitro:mostSpecificType vcard:Email . \n";
-			List<String> secEmail = person.getSecondaryMails();
-			for (Iterator iterator = secEmail.iterator(); iterator.hasNext();) {
-				String email = (String) iterator.next();
-				queryCore += "        ?vcardHasSecEmail vcard:email \"" +email+ "\" . \n";
-			}
-		}
-		/*
-		 * Process telephone as optional
-		 */
-		if (telephone != null && !telephone.isEmpty()) {
-			queryCore += " ?vcardIndv vcard:hasTelephone ?vcardHasTelephone . \n" ; 
-			queryCore += " ?vcardHasTelephone a owl:Thing , vcard:Addressing , vcard:Communication , vcard:Explanatory , vcard:Identification , vcard:Telephone . \n";
-			queryCore += "        ?vcardHasTelephone vitro:mostSpecificType vcard:Telephone . \n";
-			queryCore += "        ?vcardHasTelephone vcard:telephone \"" +telephone+ "\" . \n";  
-		}
-		/*
-		 * Process address as optional
-		 */
-		if (address != null) {
-			queryCore += " ?vcardIndv vcard:hasAddress ?vcardHasAddress . \n" ; 
-			queryCore += " ?vcardHasAddress a vcard:Address , vcard:Explanatory , owl:Thing , vcard:Identification , vcard:Addressing , vcard:Communication . \n";
-			queryCore += "       ?vcardHasAddress vitro:mostSpecificType vcard:Address . \n";
-			if (isValid(address.getCountry())) 
-				queryCore += "       ?vcardHasAddress vcard:country-name \"" + address.getCountry() + "\" . \n";
-			if (isValid(address.getLocality())) 
-				queryCore += "       ?vcardHasAddress vcard:locality \"" + address.getLocality() + "\" . \n";
-			if (isValid(address.getRegion())) 
-				queryCore += "       ?vcardHasAddress vcard:region \"" + address.getRegion() + "\" . \n";
-			if (isValid(address.getPostalCode())) 
-				queryCore += "       ?vcardHasAddress vcard:postalCode \"" + address.getPostalCode() + "\" . \n";
-			if (isValid(address.getStreetAddress()))
-				queryCore += "       ?vcardHasAddress vcard:streetAddress \"" + address.getStreetAddress() + "\" . \n";
-
-
-
-
-			//			List<String> streetList = address.getStreetAddress();
-			//			if (streetList!=null && !streetList.isEmpty()) {
-			//				Iterator<String> it = streetList.iterator();
-			//				String streetLabel = (String) it.next();
-			//				queryCore += "       ?vcardHasAddress vcard:streetAddress \""+streetLabel+"\"";
-			//				while (it.hasNext()) {
-			//					streetLabel = (String) it.next();
-			//					queryCore +=  ", \""+ streetLabel+"\"";
-			//				}
-			//				queryCore += " . \n";
-			//			}
-			///			List<LinguisticLabel> countryLabel = address.get(0).getCountry();
-			//			for (Iterator iterator = countryLabel.iterator(); iterator.hasNext();) {
-			//				LinguisticLabel countryName = (LinguisticLabel) iterator.next();
-			//				queryCore += "       ?vcardHasAddress vcard:country-name \"" + countryName.getLabel() +"\"@" + countryName.getLanguage() + " . \n";
-			//			}
-
-		}
-
-		updateQuery += queryCore + "} \n} WHERE { \n";
-		//		updateQuery += "	bind(URI(\"http://localhost:8080/vivo/individual/"+uuid+"-indv\") as ?vivoIndv) . \n";
-		updateQuery += "	bind(URI(\"http://localhost:8080/vivo/individual/"+uuid+"-vcard\") as ?vcardIndv) . \n";
-		updateQuery += "	bind(URI(\"http://localhost:8080/vivo/individual/"+uuid+"-vcardName\") as ?vcardHasName) . \n";
-		updateQuery += "	bind(URI(\"http://localhost:8080/vivo/individual/"+uuid+"-vcardEmail\") as ?vcardHasEmail) . \n";
-		if (person.getSecondaryMails()!=null && !person.getSecondaryMails().isEmpty()) {
-			updateQuery += "	bind(URI(\"http://localhost:8080/vivo/individual/"+uuid+"-vcardSecEmail\") as ?vcardHasSecEmail) . \n";
-		}
-		if (telephone != null && !telephone.isEmpty()) {
-			updateQuery += "	bind(URI(\"http://localhost:8080/vivo/individual/"+uuid+"-vcardTelephone\") as ?vcardHasTelephone) . \n";
-		}
-		if (address != null) {
-			updateQuery += "	bind(URI(\"http://localhost:8080/vivo/individual/"+uuid+"-vcardAddress\") as ?vcardHasAddress) . \n";	
-		}
-		updateQuery += "	bind(URI(\"http://localhost:8080/vivo/individual/"+uuid+"\") as ?persIRI) . \n";
-		updateQuery += " } " ;
-		// System.out.println(updateQuery); System.exit(0); //print and exit
-		//		 System.out.println(updateQuery); System.exit(0); //print and exit
-		String bodyValue = 
-				"email="+LOGIN.getUserName()+
-				"&password="+LOGIN.getPasswd()+ 
-				"&update="+updateQuery;
-		OkHttpClient client = new OkHttpClient();
-		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
-		RequestBody body = RequestBody.create(mediaType, bodyValue);
-		Request request = new Request.Builder()
-				.url(getSiteUrl()+"/api/sparqlUpdate")
-				.method("POST", body)
-				.addHeader("Accept", SemanticWebMediaType.APPLICATION_RDF_XML.toString())
-				.addHeader("Content-Type", "application/x-www-form-urlencoded")
-				.build();
-		Response response = client.newCall(request).execute();
-		//		System.out.println(response.body().string());
-		String newIRI = "http://localhost:8080/vivo/individual/"+uuid;
-		//		System.out.println(newIRI);
-		return DESCRIBE(LOGIN.getUserName(), LOGIN.getPasswd(), newIRI, SemanticWebMediaType.TEXT_PLAIN.toString());
-	}
-	//DescribeByUUID(uuid.toString());	}
-	private static boolean isValid(String vaToValidate) {
-		return (vaToValidate !=null && !vaToValidate.isEmpty());
-	}
 
 	/**
 	 * @deprecated
@@ -731,23 +562,15 @@ public class VivoReceiver extends AbstractReceiver {
 		model.add(orgdURI, RDF.type, FOAF.Agent);
 		model.add(orgdURI, RDF.type, FOAF.Organization);
 		model.add(orgdURI, VITRO.mostSpecificType, orgTypeRes);
-		List<LinguisticLabel> orgName = organization.getNames();
-		for (Iterator iterator = orgName.iterator(); iterator.hasNext();) {
-			LinguisticLabel linguisticLabel = (LinguisticLabel) iterator.next();
-			model.add(orgdURI, RDFS.label, ResourceFactory.createLangLiteral(linguisticLabel.getLabel(), linguisticLabel.getLanguage()));
-		}
-		List<LinguisticLabel> overviews = organization.getOverview();
-		for (Iterator iterator = overviews.iterator(); iterator.hasNext();) {
-			LinguisticLabel linguisticLabel = (LinguisticLabel) iterator.next();
-			model.add(orgdURI, VIVO.overview, ResourceFactory.createLangLiteral(linguisticLabel.getLabel(), linguisticLabel.getLanguage()));
-		}
+		VivoReceiverHelper.addLinguisticLabelToResource(organization.getNames(), orgdURI,  RDFS.label, model);
+		VivoReceiverHelper.addLinguisticLabelToResource(organization.getOverview(), orgdURI, VIVO.overview, model);
 		try {
 			SparqlHelper.updateVIVOWithModel(model);
 		} catch (Exception e) {
 			return CommandResult.asCommandResult(e.getMessage());
 		}
-//		ByteArrayOutputStream modelString = new ByteArrayOutputStream();
-//		RDFDataMgr.write(modelString, model, Lang.TURTLE) ;
+		//		ByteArrayOutputStream modelString = new ByteArrayOutputStream();
+		//		RDFDataMgr.write(modelString, model, Lang.TURTLE) ;
 		String subjIRI = "NOT Found";
 		try {
 			subjIRI = model.listSubjects().toList().get(0).asResource().getURI();
@@ -757,6 +580,382 @@ public class VivoReceiver extends AbstractReceiver {
 		return CommandResult.asCommandResult(subjIRI);
 	}
 
+	private static boolean isValid(List<LinguisticLabel> list) {
+		return (list !=null && !list.isEmpty());
+	}
+
+	public CommandResult addPerson(PersonWithOfficeInfo person) throws IOException {
+		Model model = ModelFactory.createDefaultModel();
+		Resource resType = ResourceFactory.createResource(person.getPersonType());
+		String eMail = person.getEMail();
+		String uuid = eMail.replace("@", "_").replace(".", "_");
+		Resource persUri = ResourceFactory.createResource(UQAM_PEOPLE.getURI() +uuid);
+		model.add(persUri, RDF.type, OWL.Thing);
+		model.add(persUri, OWL2.hasKey, person.getId());
+		model.add(persUri, RDF.type, OBO.BFO_0000001);
+		model.add(persUri, RDF.type, OBO.BFO_0000002);
+		model.add(persUri, RDF.type, OBO.BFO_0000004);
+		model.add(persUri, RDF.type, resType);
+		model.add(persUri, RDF.type, FOAF.Agent);
+		model.add(persUri, RDF.type, FOAF.Person);
+		model.add(persUri, VITRO.mostSpecificType, resType);
+		VivoReceiverHelper.addLinguisticLabelToResource(person.getDisplayName(), persUri, RDFS.label, model);
+
+
+		/*
+		 * Position
+		 */
+		/*
+		 <http://purl.org/vivo.uqam.ca/data/people#abdallah_chahrazad_uqam_ca>        
+		 	vivo:relatedBy  <http://purl.org/vivo-uqam.ca/individual/n4870> ;
+
+		<http://purl.org/vivo-uqam.ca/individual/n4870>
+        a                       obo:BFO_0000002 , owl:Thing , vivo:Position , obo:BFO_0000001 , vivo:FacultyPosition , vivo:Relationship , obo:BFO_0000020 ;
+        rdfs:label              "Directeur du bureau"@fr-ca ;
+        vitro:mostSpecificType  vivo:FacultyPosition ;
+        vivo:relates            <http://purl.org/vivo.uqam.ca/data/organization#id6015> , <http://purl.org/vivo.uqam.ca/data/people#abdallah_chahrazad_uqam_ca> .
+
+
+
+		 */
+		if (isValid(person.getOrganizationUnitId()) && isValid(person.getTitle())) {
+			Resource positionUri = model.createResource(persUri.getURI()+"-position");
+			model.add(persUri, VIVO.relatedBy, positionUri);
+			model.add(positionUri, RDF.type, OBO.BFO_0000002);
+			model.add(positionUri, RDF.type, OWL.Thing);
+			model.add(positionUri, RDF.type, VIVO.Position);
+			model.add(positionUri, RDF.type, OBO.BFO_0000001);
+			model.add(positionUri, RDF.type, resType);
+			model.add(positionUri, RDF.type, VIVO.Relationship);
+			model.add(positionUri, RDF.type, OBO.BFO_0000020);
+			model.add(positionUri, VITRO.mostSpecificType, resType);
+			model.add(positionUri, VIVO.relates, model.createResource(UQAM_ORGANIZATION.id.getURI()+person.getOrganizationUnitId()));
+			model.add(positionUri, VIVO.relates, persUri);
+			VivoReceiverHelper.addLinguisticLabelToResource(person.getTitle(), positionUri, RDFS.label, model);
+		}
+		/*
+		 * Process: vcard:Individual part
+		 */
+		Resource vcardIndv = model.createResource(persUri.getURI()+"-vcard");
+		model.add(vcardIndv, RDF.type, OWL.Thing);
+		model.add(vcardIndv, RDF.type, VCARD.Kind);
+		model.add(vcardIndv, RDF.type, VCARD.Individual);
+		model.add(vcardIndv, RDF.type, OBO.BFO_0000031);
+		model.add(vcardIndv, RDF.type, OBO.IAO_0000030);
+		model.add(vcardIndv, RDF.type, OBO.BFO_0000002);
+		model.add(vcardIndv, RDF.type, OBO.ARG_2000379);
+		model.add(vcardIndv, RDF.type, OBO.BFO_0000001);
+		model.add(persUri, OBO.ARG_2000028, vcardIndv);
+		model.add(vcardIndv, OBO.ARG_2000029, persUri);
+		model.add(vcardIndv, VITRO.mostSpecificType, VCARD4.Individual);
+
+		/*
+		 * Process: vcard:hasName part 
+		 */
+		Resource vcardHasName = model.createResource(persUri.getURI()+"-vcardHasName");
+		model.add(vcardIndv, VCARD.hasName, vcardHasName);
+		model.add(vcardHasName, RDF.type, OWL.Thing);
+		model.add(vcardHasName, RDF.type, VCARD.Individual);
+		model.add(vcardHasName, RDF.type, VCARD.Individual);
+		model.add(vcardHasName, RDF.type, VCARD.Addressing);
+		model.add(vcardHasName, RDF.type, VCARD.Explanatory);
+		model.add(vcardHasName, RDF.type, VCARD.Communication);
+		model.add(vcardHasName, RDF.type, VCARD.Name);
+		model.add(vcardHasName, VITRO.mostSpecificType,VCARD.Name);
+		List<LinguisticLabel> fName = person.getFirstName();
+		List<LinguisticLabel> lName = person.getLastName();
+		VivoReceiverHelper.addLinguisticLabelToResource(person.getFirstName(), vcardHasName, VCARD.givenName, model);
+		VivoReceiverHelper.addLinguisticLabelToResource(person.getLastName(), vcardHasName, VCARD.familyName, model);
+
+		/*
+		 * Process: title 
+		 */
+		if (isValid(person.getTitle())) {
+			Resource vcardHasTitle = model.createResource(persUri.getURI()+"-vcardHasTitle");
+			model.add(vcardIndv, VCARD.hasTitle, vcardHasTitle);
+			model.add(vcardHasTitle, RDF.type, OWL.Thing);
+			model.add(vcardHasTitle, RDF.type, VCARD.Identification);
+			model.add(vcardHasTitle, RDF.type, VCARD.Addressing);
+			model.add(vcardHasTitle, RDF.type, VCARD.Communication);
+			model.add(vcardHasTitle, RDF.type, VCARD.Geo);
+			model.add(vcardHasTitle, RDF.type, VCARD.TimeZone);
+			model.add(vcardHasTitle, RDF.type, VCARD.Security);
+			model.add(vcardHasTitle, RDF.type, VCARD.Calendar);
+			model.add(vcardHasTitle, RDF.type, VCARD.Explanatory);
+			model.add(vcardHasTitle, RDF.type, VCARD.Organizational);
+			model.add(vcardHasTitle, RDF.type, VCARD.Geographical);
+			model.add(vcardHasTitle, RDF.type, VCARD.Title);
+			model.add(vcardHasTitle, VITRO.mostSpecificType,VCARD.Title);
+			VivoReceiverHelper.addLinguisticLabelToResource(person.getTitle(), vcardHasTitle, VCARD.title, model);
+		}
+		/*
+		 * Process: email as mandatory
+		 */
+		Resource vcardHasEmail = model.createResource(persUri.getURI()+"-vcardHasEmail");
+		model.add(vcardIndv, VCARD.hasEmail, vcardHasEmail);
+		model.add(vcardHasEmail, RDF.type, OWL.Thing);
+		model.add(vcardHasEmail, RDF.type,VCARD.Addressing);
+		model.add(vcardHasEmail, RDF.type,VCARD.Code);
+		model.add(vcardHasEmail, RDF.type,VCARD.Communication);
+		model.add(vcardHasEmail, RDF.type,VCARD.Email);
+		model.add(vcardHasEmail, RDF.type,VCARD.Explanatory);
+		model.add(vcardHasEmail, RDF.type,VCARD.Identification);
+		model.add(vcardHasEmail, RDF.type,VCARD.Type);
+		model.add(vcardHasEmail, RDF.type,VCARD.Work);
+		model.add(vcardHasEmail, VITRO.mostSpecificType,VCARD.Email);
+		model.add(vcardHasEmail, VITRO.mostSpecificType,VCARD.Work);
+		model.add(vcardHasEmail, VCARD.email, person.getEMail());
+
+		/*
+		 * Secondary eMail
+		 */
+		List<String> secEmails = person.getSecondaryMails();
+		if (secEmails != null && !secEmails.isEmpty()) {
+			Resource vcardHasSecEmail = model.createResource(persUri.getURI()+"-vcardSecEmail");
+			model.add(vcardIndv, VCARD.hasEmail, vcardHasSecEmail);
+			model.add(vcardHasEmail, RDF.type, OWL.Thing);
+			model.add(vcardHasEmail, RDF.type,VCARD.Identification);
+			model.add(vcardHasEmail, RDF.type,VCARD.Addressing);
+			model.add(vcardHasEmail, RDF.type,VCARD.Explanatory);
+			model.add(vcardHasEmail, RDF.type,VCARD.Communication);
+			model.add(vcardHasEmail, RDF.type,VCARD.Email);
+			model.add(vcardHasEmail, VITRO.mostSpecificType,VCARD.Email);
+			model.add(vcardHasEmail, VCARD.email, person.getEMail());
+			for (Iterator iterator = secEmails.iterator(); iterator.hasNext();) {
+				String secEmail = (String) iterator.next();
+				model.add(vcardHasSecEmail, VCARD.email, secEmail);
+			}
+		}
+
+		/*
+		 * Process telephone as optional
+		 */
+		String telephone = person.getTelephone();
+		if (telephone != null && !telephone.isEmpty()) {
+			Resource vcardHasTelephone = model.createResource(persUri.getURI()+"-vcardTelephone");
+			model.add(vcardIndv, VCARD.hasTelephone, vcardHasTelephone);
+			model.add(vcardHasTelephone, RDF.type, OWL.Thing);
+			model.add(vcardHasTelephone, RDF.type,VCARD.Addressing);
+			model.add(vcardHasTelephone, RDF.type,VCARD.Communication);
+			model.add(vcardHasTelephone, RDF.type,VCARD.Explanatory);
+			model.add(vcardHasTelephone, RDF.type,VCARD.Identification);
+			model.add(vcardHasTelephone, RDF.type,VCARD.Telephone);
+			model.add(vcardHasTelephone, VITRO.mostSpecificType,VCARD.Telephone);
+			model.add(vcardHasTelephone, VCARD.telephone, telephone);
+		}
+		/*
+		 * Process address as optional
+		 */
+		List<AddressSchema> addressList = person.getAddress();
+		AddressSchema address;
+		if (addressList != null && !addressList.isEmpty()) {
+			Resource vcardHasAddress = model.createResource(persUri.getURI()+"-vcardAddress");
+			model.add(vcardIndv, VCARD.hasAddress, vcardHasAddress);
+			model.add(vcardHasAddress, RDF.type, OWL.Thing);
+			model.add(vcardHasAddress, RDF.type,VCARD.Address);
+			model.add(vcardHasAddress, RDF.type,VCARD.Explanatory);
+			model.add(vcardHasAddress, RDF.type,VCARD.Identification);
+			model.add(vcardHasAddress, RDF.type,VCARD.Addressing);
+			model.add(vcardHasAddress, RDF.type,VCARD.Communication);
+			model.add(vcardHasAddress, VITRO.mostSpecificType,VCARD.Address);
+			address = addressList.get(0);
+			String streetAdress = "";
+			if (isValid(address.getOfficeNumber())) {
+				streetAdress = address.getOfficeNumber() +",\n "; 
+			}
+			if (isValid(address.getStreetAddress())) {
+				streetAdress += address.getStreetAddress();
+			}
+			model.add(vcardHasAddress, VCARD.streetAddress,streetAdress);
+			if (isValid(address.getCountry())) {
+				model.add(vcardHasAddress, VCARD.country, address.getCountry());
+			}
+			if (isValid(address.getLocality())) {
+				model.add(vcardHasAddress, VCARD.locality,address.getLocality());
+			}
+			if (isValid(address.getRegion())) {
+				model.add(vcardHasAddress, VCARD.region,address.getRegion());
+			}
+			if (isValid(address.getPostalCode())) {
+				model.add(vcardHasAddress, VCARD.postalCode,address.getPostalCode());
+			}
+		}
+
+
+		try {
+			SparqlHelper.updateVIVOWithModel(model);
+		} catch (Exception e) {
+			return CommandResult.asCommandResult(e.getMessage());
+		}
+		return CommandResult.asCommandResult(persUri.getURI());
+	}
+	/**
+	 * @param person
+	 * @return
+	 * @throws IOException
+	 */
+	public CommandResult _addPerson(PersonWithOfficeInfo person) throws IOException {
+		String aType = person.getPersonType();
+		String eMail = person.getEMail();
+		String uuid = //eMail.split("@")[0];
+				eMail.replace("@", "_").replace(".", "_");
+		String telephone = person.getTelephone();
+		AddressSchema address = person.getAddress().get(0);
+		String updateQuery = SparqlHelper.SparqlPrefix 
+				+ "INSERT { GRAPH <> { \n" ;
+		String queryCore =
+				" ?persIRI a <"+ aType +"> , owl:Thing , obo:BFO_0000004 , obo:BFO_0000001 , foaf:Agent , obo:BFO_0000002 , foaf:Person . \n" 
+						+ " ?persIRI  vitro:mostSpecificType  <"+ aType +"> . \n"
+						+ " ?persIRI obo:ARG_2000028  ?vcardIndv . \n";
+		/*
+		 * Adding rdfs:label "name" for each language
+		 */
+		List<LinguisticLabel> fName = person.getFirstName();
+		List<LinguisticLabel> lName = person.getLastName();
+		for (Iterator iterator = fName.iterator(); iterator.hasNext();) {
+			LinguisticLabel fNameLabel = (LinguisticLabel) iterator.next();
+			for (Iterator iterator2 = lName.iterator(); iterator2.hasNext();) {
+				LinguisticLabel lNameLabel = (LinguisticLabel) iterator2.next();
+				if (fNameLabel.getLanguage().equals(lNameLabel.getLanguage())){
+					String name = fNameLabel.getLabel() + " "+ lNameLabel.getLabel();
+					queryCore += " ?persIRI rdfs:label \"" + name +"\"@" + fNameLabel.getLanguage() + " . \n";
+				}
+			}
+		}
+		/*
+		 * Build vcard:Individual part
+		 */
+		queryCore += " ?vcardIndv a vcard:Kind , obo:BFO_0000031 , owl:Thing , obo:IAO_0000030 , obo:BFO_0000002 , obo:ARG_2000379 , obo:BFO_0000001 , vcard:Individual . \n " ;
+		queryCore += "        ?vcardIndv obo:ARG_2000029 ?persIRI . \n " ; 
+		queryCore += "        ?vcardIndv vcard:hasName ?vcardHasName . \n " ; 
+		queryCore += "        ?vcardIndv vcard:hasEmail ?vcardHasEmail . \n " ; 
+		//		queryCore += " 	?vcardIndv vcard:hasTitle ?vcardHasTitle . \n " ; 
+		queryCore += "        ?vcardIndv vitro:mostSpecificType  vcard:Individual . \n" ; 
+		/*
+		 * Build vcard:Individual part vcard:hasName
+		 */
+		queryCore += " ?vcardHasName a owl:Thing , vcard:Identification , vcard:Addressing , vcard:Explanatory , vcard:Communication , vcard:Name . \n " ; 
+		queryCore += "       ?vcardHasName vitro:mostSpecificType vcard:Name . \n " ; 
+
+		for (Iterator iterator = fName.iterator(); iterator.hasNext();) {
+			LinguisticLabel fNameLabel = (LinguisticLabel) iterator.next();
+			queryCore += "       ?vcardHasName vcard:givenName \"" + fNameLabel.getLabel() +"\"@" + fNameLabel.getLanguage() + " . \n";
+		}
+
+		for (Iterator iterator2 = lName.iterator(); iterator2.hasNext();) {
+			LinguisticLabel lNameLabel = (LinguisticLabel) iterator2.next();
+			queryCore += "        ?vcardHasName vcard:familyName \"" + lNameLabel.getLabel() +"\"@" + lNameLabel.getLanguage() + " . \n";  
+		}
+		/*
+		 * Process email as mandatory
+		 */
+		queryCore += " ?vcardHasEmail a owl:Thing , vcard:Addressing , vcard:Code , vcard:Communication , vcard:Email , vcard:Explanatory , vcard:Identification , vcard:Type , vcard:Work . \n";
+		queryCore += "        ?vcardHasEmail vitro:mostSpecificType vcard:Email . \n";
+		queryCore += "        ?vcardHasEmail vitro:mostSpecificType vcard:Work  . \n";
+		queryCore += "        ?vcardHasEmail vcard:email \"" +eMail+ "\" . \n";
+		/*
+		 * Secondary eMail
+		 */
+		if (person.getSecondaryMails()!=null && !person.getSecondaryMails().isEmpty()) {
+			queryCore += " ?vcardIndv vcard:hasEmail ?vcardHasSecEmail . \n " ; 
+			queryCore += " ?vcardHasSecEmail a owl:Thing , vcard:Identification , vcard:Addressing , vcard:Explanatory , vcard:Communication , vcard:Email .\n";
+			queryCore += "        ?vcardHasSecEmail vitro:mostSpecificType vcard:Email . \n";
+			List<String> secEmail = person.getSecondaryMails();
+			for (Iterator iterator = secEmail.iterator(); iterator.hasNext();) {
+				String email = (String) iterator.next();
+				queryCore += "        ?vcardHasSecEmail vcard:email \"" +email+ "\" . \n";
+			}
+		}
+		/*
+		 * Process telephone as optional
+		 */
+		if (telephone != null && !telephone.isEmpty()) {
+			queryCore += " ?vcardIndv vcard:hasTelephone ?vcardHasTelephone . \n" ; 
+			queryCore += " ?vcardHasTelephone a owl:Thing , vcard:Addressing , vcard:Communication , vcard:Explanatory , vcard:Identification , vcard:Telephone . \n";
+			queryCore += "        ?vcardHasTelephone vitro:mostSpecificType vcard:Telephone . \n";
+			queryCore += "        ?vcardHasTelephone vcard:telephone \"" +telephone+ "\" . \n";  
+		}
+		/*
+		 * Process address as optional
+		 */
+		if (address != null) {
+			queryCore += " ?vcardIndv vcard:hasAddress ?vcardHasAddress . \n" ; 
+			queryCore += " ?vcardHasAddress a vcard:Address , vcard:Explanatory , owl:Thing , vcard:Identification , vcard:Addressing , vcard:Communication . \n";
+			queryCore += "       ?vcardHasAddress vitro:mostSpecificType vcard:Address . \n";
+			if (isValid(address.getCountry())) 
+				queryCore += "       ?vcardHasAddress vcard:country-name \"" + address.getCountry() + "\" . \n";
+			if (isValid(address.getLocality())) 
+				queryCore += "       ?vcardHasAddress vcard:locality \"" + address.getLocality() + "\" . \n";
+			if (isValid(address.getRegion())) 
+				queryCore += "       ?vcardHasAddress vcard:region \"" + address.getRegion() + "\" . \n";
+			if (isValid(address.getPostalCode())) 
+				queryCore += "       ?vcardHasAddress vcard:postalCode \"" + address.getPostalCode() + "\" . \n";
+			if (isValid(address.getStreetAddress()))
+				queryCore += "       ?vcardHasAddress vcard:streetAddress \"" + address.getStreetAddress() + "\" . \n";
+
+
+
+
+			//			List<String> streetList = address.getStreetAddress();
+			//			if (streetList!=null && !streetList.isEmpty()) {
+			//				Iterator<String> it = streetList.iterator();
+			//				String streetLabel = (String) it.next();
+			//				queryCore += "       ?vcardHasAddress vcard:streetAddress \""+streetLabel+"\"";
+			//				while (it.hasNext()) {
+			//					streetLabel = (String) it.next();
+			//					queryCore +=  ", \""+ streetLabel+"\"";
+			//				}
+			//				queryCore += " . \n";
+			//			}
+			///			List<LinguisticLabel> countryLabel = address.get(0).getCountry();
+			//			for (Iterator iterator = countryLabel.iterator(); iterator.hasNext();) {
+			//				LinguisticLabel countryName = (LinguisticLabel) iterator.next();
+			//				queryCore += "       ?vcardHasAddress vcard:country-name \"" + countryName.getLabel() +"\"@" + countryName.getLanguage() + " . \n";
+			//			}
+
+		}
+
+		updateQuery += queryCore + "} \n} WHERE { \n";
+		//		updateQuery += "	bind(URI(\"http://localhost:8080/vivo/individual/"+uuid+"-indv\") as ?vivoIndv) . \n";
+		updateQuery += "	bind(URI(\"http://localhost:8080/vivo/individual/"+uuid+"-vcard\") as ?vcardIndv) . \n";
+		updateQuery += "	bind(URI(\"http://localhost:8080/vivo/individual/"+uuid+"-vcardName\") as ?vcardHasName) . \n";
+		updateQuery += "	bind(URI(\"http://localhost:8080/vivo/individual/"+uuid+"-vcardEmail\") as ?vcardHasEmail) . \n";
+		if (person.getSecondaryMails()!=null && !person.getSecondaryMails().isEmpty()) {
+			updateQuery += "	bind(URI(\"http://localhost:8080/vivo/individual/"+uuid+"-vcardSecEmail\") as ?vcardHasSecEmail) . \n";
+		}
+		if (telephone != null && !telephone.isEmpty()) {
+			updateQuery += "	bind(URI(\"http://localhost:8080/vivo/individual/"+uuid+"-vcardTelephone\") as ?vcardHasTelephone) . \n";
+		}
+		if (address != null) {
+			updateQuery += "	bind(URI(\"http://localhost:8080/vivo/individual/"+uuid+"-vcardAddress\") as ?vcardHasAddress) . \n";	
+		}
+		updateQuery += "	bind(URI(\"http://localhost:8080/vivo/individual/"+uuid+"\") as ?persIRI) . \n";
+		updateQuery += " } " ;
+		// System.out.println(updateQuery); System.exit(0); //print and exit
+		//		 System.out.println(updateQuery); System.exit(0); //print and exit
+		String bodyValue = 
+				"email="+LOGIN.getUserName()+
+				"&password="+LOGIN.getPasswd()+ 
+				"&update="+updateQuery;
+		OkHttpClient client = new OkHttpClient();
+		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+		RequestBody body = RequestBody.create(mediaType, bodyValue);
+		Request request = new Request.Builder()
+				.url(getSiteUrl()+"/api/sparqlUpdate")
+				.method("POST", body)
+				.addHeader("Accept", SemanticWebMediaType.APPLICATION_RDF_XML.toString())
+				.addHeader("Content-Type", "application/x-www-form-urlencoded")
+				.build();
+		Response response = client.newCall(request).execute();
+		//		System.out.println(response.body().string());
+		String newIRI = "http://localhost:8080/vivo/individual/"+uuid;
+		//		System.out.println(newIRI);
+		return DESCRIBE(LOGIN.getUserName(), LOGIN.getPasswd(), newIRI, SemanticWebMediaType.TEXT_PLAIN.toString());
+	}
+	//DescribeByUUID(uuid.toString());	}
+	private static boolean isValid(String vaToValidate) {
+		return (vaToValidate !=null && !vaToValidate.isEmpty());
+	}
 	public CommandResult addOrganization__(Organization organization) throws IOException {
 		String uuid = UUID.randomUUID().toString();
 		String orgType = organization.getOrganizationType();
@@ -792,7 +991,7 @@ public class VivoReceiver extends AbstractReceiver {
 				.addHeader("Content-Type", "application/x-www-form-urlencoded")
 				.build();
 		Response response = client.newCall(request).execute();
-		
+
 		return DescribeByUUID(uuid.toString());
 
 

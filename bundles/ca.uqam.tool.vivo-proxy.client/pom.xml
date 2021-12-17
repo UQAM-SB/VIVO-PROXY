@@ -108,7 +108,7 @@
                         </goals>
                         <configuration>
                             <skip>${skipGen}</skip>
-                            <inputSpec>${project.basedir}/api/vivo-proxy.yaml</inputSpec>
+                            <inputSpec>${yaml.url}</inputSpec>
                             <language>jaxrs-jersey</language>
                             <apiPackage>${default.package}.api</apiPackage>
                             <modelPackage>${default.package}.model</modelPackage>
@@ -141,7 +141,7 @@
                         </goals>
                         <configuration>
                             <skip>${skipGen-client}</skip>
-                            <inputSpec>/home/heon/01-SPRINT/2021-11-12-SPRINT-08/VivoStudioWS/VS-GIT/VIVO-PROXY/bundles/ca.uqam.tool.vivo-proxy/api/vivo-proxy.yaml</inputSpec>
+                            <inputSpec>${yaml.url}</inputSpec>
                             <language>java</language>
                             <output>${project.basedir}</output>
                             <apiPackage>${default.package}.client.api</apiPackage>
@@ -608,6 +608,7 @@
         <skipGen>true</skipGen>
         <aws.skipCopy>true</aws.skipCopy>
         <webapp.target>target/${project.artifactId}-${project.version}</webapp.target>
+        <yaml.url>${project.basedir}/../ca.uqam.tool.vivo-proxy/api/vivo-proxy.yaml</yaml.url>
         <skipJetty>false</skipJetty>
         <webapp.depl>webapp-localhost-tomcat</webapp.depl>
     </properties>

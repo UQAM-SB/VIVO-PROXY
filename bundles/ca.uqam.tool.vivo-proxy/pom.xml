@@ -694,5 +694,4 @@
 		<skipJetty>false</skipJetty>
 		<webapp.depl>webapp-localhost-tomcat</webapp.depl>
 	</properties>
-
 </project>

@@ -29,10 +29,16 @@ import java.util.List;
  * PersonWithOfficeInfo
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2021-12-15T10:12:31.007-05:00[America/New_York]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2021-12-16T08:26:24.631-05:00[America/New_York]")
 public class PersonWithOfficeInfo {
   @SerializedName("personType")
   private String personType = null;
+
+  @SerializedName("id")
+  private String id = null;
+
+  @SerializedName("displayName")
+  private List<LinguisticLabel> displayName = null;
 
   @SerializedName("firstName")
   private List<LinguisticLabel> firstName = new ArrayList<LinguisticLabel>();
@@ -43,6 +49,9 @@ public class PersonWithOfficeInfo {
   @SerializedName("title")
   private List<LinguisticLabel> title = new ArrayList<LinguisticLabel>();
 
+  @SerializedName("secondaryTitle")
+  private List<LinguisticLabel> secondaryTitle = null;
+
   @SerializedName("eMail")
   private String eMail = null;
 
@@ -52,14 +61,11 @@ public class PersonWithOfficeInfo {
   @SerializedName("telephone")
   private String telephone = null;
 
+  @SerializedName("organization-unit-id")
+  private String organizationUnitId = null;
+
   @SerializedName("address")
   private List<AddressSchema> address = null;
-
-  @SerializedName("organization-unit")
-  private List<LinguisticLabel> organizationUnit = null;
-
-  @SerializedName("organization-name")
-  private List<LinguisticLabel> organizationName = null;
 
   public PersonWithOfficeInfo personType(String personType) {
     this.personType = personType;
@@ -77,6 +83,50 @@ public class PersonWithOfficeInfo {
 
   public void setPersonType(String personType) {
     this.personType = personType;
+  }
+
+  public PersonWithOfficeInfo id(String id) {
+    this.id = id;
+    return this;
+  }
+
+   /**
+   * id of person
+   * @return id
+  **/
+  @Schema(example = "SOME_ID", description = "id of person")
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public PersonWithOfficeInfo displayName(List<LinguisticLabel> displayName) {
+    this.displayName = displayName;
+    return this;
+  }
+
+  public PersonWithOfficeInfo addDisplayNameItem(LinguisticLabel displayNameItem) {
+    if (this.displayName == null) {
+      this.displayName = new ArrayList<LinguisticLabel>();
+    }
+    this.displayName.add(displayNameItem);
+    return this;
+  }
+
+   /**
+   * Get displayName
+   * @return displayName
+  **/
+  @Schema(example = "[{\"label\":\"Peter Jasper\",\"language\":\"fr-CA\"},{\"label\":\"Peter Jasper\",\"language\":\"en-US\"}]", description = "")
+  public List<LinguisticLabel> getDisplayName() {
+    return displayName;
+  }
+
+  public void setDisplayName(List<LinguisticLabel> displayName) {
+    this.displayName = displayName;
   }
 
   public PersonWithOfficeInfo firstName(List<LinguisticLabel> firstName) {
@@ -148,6 +198,32 @@ public class PersonWithOfficeInfo {
     this.title = title;
   }
 
+  public PersonWithOfficeInfo secondaryTitle(List<LinguisticLabel> secondaryTitle) {
+    this.secondaryTitle = secondaryTitle;
+    return this;
+  }
+
+  public PersonWithOfficeInfo addSecondaryTitleItem(LinguisticLabel secondaryTitleItem) {
+    if (this.secondaryTitle == null) {
+      this.secondaryTitle = new ArrayList<LinguisticLabel>();
+    }
+    this.secondaryTitle.add(secondaryTitleItem);
+    return this;
+  }
+
+   /**
+   * Other useful title
+   * @return secondaryTitle
+  **/
+  @Schema(description = "Other useful title")
+  public List<LinguisticLabel> getSecondaryTitle() {
+    return secondaryTitle;
+  }
+
+  public void setSecondaryTitle(List<LinguisticLabel> secondaryTitle) {
+    this.secondaryTitle = secondaryTitle;
+  }
+
   public PersonWithOfficeInfo eMail(String eMail) {
     this.eMail = eMail;
     return this;
@@ -180,10 +256,10 @@ public class PersonWithOfficeInfo {
   }
 
    /**
-   * Other usefull emails
+   * Other useful emails
    * @return secondaryMails
   **/
-  @Schema(example = "[\"jaspers2.peter@example.org\",\"jaspers3.peter@example.org\"]", description = "Other usefull emails")
+  @Schema(example = "[\"jaspers2.peter@example.org\",\"jaspers3.peter@example.org\"]", description = "Other useful emails")
   public List<String> getSecondaryMails() {
     return secondaryMails;
   }
@@ -208,6 +284,24 @@ public class PersonWithOfficeInfo {
 
   public void setTelephone(String telephone) {
     this.telephone = telephone;
+  }
+
+  public PersonWithOfficeInfo organizationUnitId(String organizationUnitId) {
+    this.organizationUnitId = organizationUnitId;
+    return this;
+  }
+
+   /**
+   * id of organization unit
+   * @return organizationUnitId
+  **/
+  @Schema(example = "6010", description = "id of organization unit")
+  public String getOrganizationUnitId() {
+    return organizationUnitId;
+  }
+
+  public void setOrganizationUnitId(String organizationUnitId) {
+    this.organizationUnitId = organizationUnitId;
   }
 
   public PersonWithOfficeInfo address(List<AddressSchema> address) {
@@ -236,58 +330,6 @@ public class PersonWithOfficeInfo {
     this.address = address;
   }
 
-  public PersonWithOfficeInfo organizationUnit(List<LinguisticLabel> organizationUnit) {
-    this.organizationUnit = organizationUnit;
-    return this;
-  }
-
-  public PersonWithOfficeInfo addOrganizationUnitItem(LinguisticLabel organizationUnitItem) {
-    if (this.organizationUnit == null) {
-      this.organizationUnit = new ArrayList<LinguisticLabel>();
-    }
-    this.organizationUnit.add(organizationUnitItem);
-    return this;
-  }
-
-   /**
-   * Get organizationUnit
-   * @return organizationUnit
-  **/
-  @Schema(example = "[{\"label\":\"Département d'informatique\",\"language\":\"fr-CA\"},{\"label\":\"Computer Science\",\"language\":\"en-US\"}]", description = "")
-  public List<LinguisticLabel> getOrganizationUnit() {
-    return organizationUnit;
-  }
-
-  public void setOrganizationUnit(List<LinguisticLabel> organizationUnit) {
-    this.organizationUnit = organizationUnit;
-  }
-
-  public PersonWithOfficeInfo organizationName(List<LinguisticLabel> organizationName) {
-    this.organizationName = organizationName;
-    return this;
-  }
-
-  public PersonWithOfficeInfo addOrganizationNameItem(LinguisticLabel organizationNameItem) {
-    if (this.organizationName == null) {
-      this.organizationName = new ArrayList<LinguisticLabel>();
-    }
-    this.organizationName.add(organizationNameItem);
-    return this;
-  }
-
-   /**
-   * Get organizationName
-   * @return organizationName
-  **/
-  @Schema(example = "[{\"label\":\"Université du Québec à Montréal\",\"language\":\"fr-CA\"},{\"label\":\"University of Quebec at Montreal\",\"language\":\"en-US\"}]", description = "")
-  public List<LinguisticLabel> getOrganizationName() {
-    return organizationName;
-  }
-
-  public void setOrganizationName(List<LinguisticLabel> organizationName) {
-    this.organizationName = organizationName;
-  }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -299,20 +341,22 @@ public class PersonWithOfficeInfo {
     }
     PersonWithOfficeInfo personWithOfficeInfo = (PersonWithOfficeInfo) o;
     return Objects.equals(this.personType, personWithOfficeInfo.personType) &&
+        Objects.equals(this.id, personWithOfficeInfo.id) &&
+        Objects.equals(this.displayName, personWithOfficeInfo.displayName) &&
         Objects.equals(this.firstName, personWithOfficeInfo.firstName) &&
         Objects.equals(this.lastName, personWithOfficeInfo.lastName) &&
         Objects.equals(this.title, personWithOfficeInfo.title) &&
+        Objects.equals(this.secondaryTitle, personWithOfficeInfo.secondaryTitle) &&
         Objects.equals(this.eMail, personWithOfficeInfo.eMail) &&
         Objects.equals(this.secondaryMails, personWithOfficeInfo.secondaryMails) &&
         Objects.equals(this.telephone, personWithOfficeInfo.telephone) &&
-        Objects.equals(this.address, personWithOfficeInfo.address) &&
-        Objects.equals(this.organizationUnit, personWithOfficeInfo.organizationUnit) &&
-        Objects.equals(this.organizationName, personWithOfficeInfo.organizationName);
+        Objects.equals(this.organizationUnitId, personWithOfficeInfo.organizationUnitId) &&
+        Objects.equals(this.address, personWithOfficeInfo.address);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(personType, firstName, lastName, title, eMail, secondaryMails, telephone, address, organizationUnit, organizationName);
+    return Objects.hash(personType, id, displayName, firstName, lastName, title, secondaryTitle, eMail, secondaryMails, telephone, organizationUnitId, address);
   }
 
 
@@ -322,15 +366,17 @@ public class PersonWithOfficeInfo {
     sb.append("class PersonWithOfficeInfo {\n");
     
     sb.append("    personType: ").append(toIndentedString(personType)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
     sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");
     sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
+    sb.append("    secondaryTitle: ").append(toIndentedString(secondaryTitle)).append("\n");
     sb.append("    eMail: ").append(toIndentedString(eMail)).append("\n");
     sb.append("    secondaryMails: ").append(toIndentedString(secondaryMails)).append("\n");
     sb.append("    telephone: ").append(toIndentedString(telephone)).append("\n");
+    sb.append("    organizationUnitId: ").append(toIndentedString(organizationUnitId)).append("\n");
     sb.append("    address: ").append(toIndentedString(address)).append("\n");
-    sb.append("    organizationUnit: ").append(toIndentedString(organizationUnit)).append("\n");
-    sb.append("    organizationName: ").append(toIndentedString(organizationName)).append("\n");
     sb.append("}");
     return sb.toString();
   }

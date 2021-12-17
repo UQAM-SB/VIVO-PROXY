@@ -26,9 +26,15 @@ import javax.validation.Valid;
 /**
  * PersonWithOfficeInfo
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-12-15T09:09:12.506-05:00[America/New_York]")public class PersonWithOfficeInfo   {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-12-16T09:09:24.006-05:00[America/New_York]")public class PersonWithOfficeInfo   {
   @JsonProperty("personType")
   private String personType = null;
+
+  @JsonProperty("id")
+  private String id = null;
+
+  @JsonProperty("displayName")
+  private List<LinguisticLabel> displayName = null;
 
   @JsonProperty("firstName")
   private List<LinguisticLabel> firstName = new ArrayList<LinguisticLabel>();
@@ -39,6 +45,9 @@ import javax.validation.Valid;
   @JsonProperty("title")
   private List<LinguisticLabel> title = new ArrayList<LinguisticLabel>();
 
+  @JsonProperty("secondaryTitle")
+  private List<LinguisticLabel> secondaryTitle = null;
+
   @JsonProperty("eMail")
   private String eMail = null;
 
@@ -48,14 +57,11 @@ import javax.validation.Valid;
   @JsonProperty("telephone")
   private String telephone = null;
 
+  @JsonProperty("organization-unit-id")
+  private String organizationUnitId = null;
+
   @JsonProperty("address")
   private List<AddressSchema> address = null;
-
-  @JsonProperty("organization-unit")
-  private List<LinguisticLabel> organizationUnit = null;
-
-  @JsonProperty("organization-name")
-  private List<LinguisticLabel> organizationName = null;
 
   public PersonWithOfficeInfo personType(String personType) {
     this.personType = personType;
@@ -75,6 +81,53 @@ import javax.validation.Valid;
 
   public void setPersonType(String personType) {
     this.personType = personType;
+  }
+
+  public PersonWithOfficeInfo id(String id) {
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * id of person
+   * @return id
+   **/
+  @JsonProperty("id")
+  @Schema(example = "SOME_ID", description = "id of person")
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public PersonWithOfficeInfo displayName(List<LinguisticLabel> displayName) {
+    this.displayName = displayName;
+    return this;
+  }
+
+  public PersonWithOfficeInfo addDisplayNameItem(LinguisticLabel displayNameItem) {
+    if (this.displayName == null) {
+      this.displayName = new ArrayList<LinguisticLabel>();
+    }
+    this.displayName.add(displayNameItem);
+    return this;
+  }
+
+  /**
+   * Get displayName
+   * @return displayName
+   **/
+  @JsonProperty("displayName")
+  @Schema(example = "[{\"label\":\"Peter Jasper\",\"language\":\"fr-CA\"},{\"label\":\"Peter Jasper\",\"language\":\"en-US\"}]", description = "")
+  @Valid
+  public List<LinguisticLabel> getDisplayName() {
+    return displayName;
+  }
+
+  public void setDisplayName(List<LinguisticLabel> displayName) {
+    this.displayName = displayName;
   }
 
   public PersonWithOfficeInfo firstName(List<LinguisticLabel> firstName) {
@@ -155,6 +208,34 @@ import javax.validation.Valid;
     this.title = title;
   }
 
+  public PersonWithOfficeInfo secondaryTitle(List<LinguisticLabel> secondaryTitle) {
+    this.secondaryTitle = secondaryTitle;
+    return this;
+  }
+
+  public PersonWithOfficeInfo addSecondaryTitleItem(LinguisticLabel secondaryTitleItem) {
+    if (this.secondaryTitle == null) {
+      this.secondaryTitle = new ArrayList<LinguisticLabel>();
+    }
+    this.secondaryTitle.add(secondaryTitleItem);
+    return this;
+  }
+
+  /**
+   * Other useful title
+   * @return secondaryTitle
+   **/
+  @JsonProperty("secondaryTitle")
+  @Schema(description = "Other useful title")
+  @Valid
+  public List<LinguisticLabel> getSecondaryTitle() {
+    return secondaryTitle;
+  }
+
+  public void setSecondaryTitle(List<LinguisticLabel> secondaryTitle) {
+    this.secondaryTitle = secondaryTitle;
+  }
+
   public PersonWithOfficeInfo eMail(String eMail) {
     this.eMail = eMail;
     return this;
@@ -189,11 +270,11 @@ import javax.validation.Valid;
   }
 
   /**
-   * Other usefull emails
+   * Other useful emails
    * @return secondaryMails
    **/
   @JsonProperty("secondaryMails")
-  @Schema(example = "[\"jaspers2.peter@example.org\",\"jaspers3.peter@example.org\"]", description = "Other usefull emails")
+  @Schema(example = "[\"jaspers2.peter@example.org\",\"jaspers3.peter@example.org\"]", description = "Other useful emails")
   public List<String> getSecondaryMails() {
     return secondaryMails;
   }
@@ -219,6 +300,25 @@ import javax.validation.Valid;
 
   public void setTelephone(String telephone) {
     this.telephone = telephone;
+  }
+
+  public PersonWithOfficeInfo organizationUnitId(String organizationUnitId) {
+    this.organizationUnitId = organizationUnitId;
+    return this;
+  }
+
+  /**
+   * id of organization unit
+   * @return organizationUnitId
+   **/
+  @JsonProperty("organization-unit-id")
+  @Schema(example = "6010", description = "id of organization unit")
+  public String getOrganizationUnitId() {
+    return organizationUnitId;
+  }
+
+  public void setOrganizationUnitId(String organizationUnitId) {
+    this.organizationUnitId = organizationUnitId;
   }
 
   public PersonWithOfficeInfo address(List<AddressSchema> address) {
@@ -249,62 +349,6 @@ import javax.validation.Valid;
     this.address = address;
   }
 
-  public PersonWithOfficeInfo organizationUnit(List<LinguisticLabel> organizationUnit) {
-    this.organizationUnit = organizationUnit;
-    return this;
-  }
-
-  public PersonWithOfficeInfo addOrganizationUnitItem(LinguisticLabel organizationUnitItem) {
-    if (this.organizationUnit == null) {
-      this.organizationUnit = new ArrayList<LinguisticLabel>();
-    }
-    this.organizationUnit.add(organizationUnitItem);
-    return this;
-  }
-
-  /**
-   * Get organizationUnit
-   * @return organizationUnit
-   **/
-  @JsonProperty("organization-unit")
-  @Schema(example = "[{\"label\":\"Département d'informatique\",\"language\":\"fr-CA\"},{\"label\":\"Computer Science\",\"language\":\"en-US\"}]", description = "")
-  @Valid
-  public List<LinguisticLabel> getOrganizationUnit() {
-    return organizationUnit;
-  }
-
-  public void setOrganizationUnit(List<LinguisticLabel> organizationUnit) {
-    this.organizationUnit = organizationUnit;
-  }
-
-  public PersonWithOfficeInfo organizationName(List<LinguisticLabel> organizationName) {
-    this.organizationName = organizationName;
-    return this;
-  }
-
-  public PersonWithOfficeInfo addOrganizationNameItem(LinguisticLabel organizationNameItem) {
-    if (this.organizationName == null) {
-      this.organizationName = new ArrayList<LinguisticLabel>();
-    }
-    this.organizationName.add(organizationNameItem);
-    return this;
-  }
-
-  /**
-   * Get organizationName
-   * @return organizationName
-   **/
-  @JsonProperty("organization-name")
-  @Schema(example = "[{\"label\":\"Université du Québec à Montréal\",\"language\":\"fr-CA\"},{\"label\":\"University of Quebec at Montreal\",\"language\":\"en-US\"}]", description = "")
-  @Valid
-  public List<LinguisticLabel> getOrganizationName() {
-    return organizationName;
-  }
-
-  public void setOrganizationName(List<LinguisticLabel> organizationName) {
-    this.organizationName = organizationName;
-  }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -316,20 +360,22 @@ import javax.validation.Valid;
     }
     PersonWithOfficeInfo personWithOfficeInfo = (PersonWithOfficeInfo) o;
     return Objects.equals(this.personType, personWithOfficeInfo.personType) &&
+        Objects.equals(this.id, personWithOfficeInfo.id) &&
+        Objects.equals(this.displayName, personWithOfficeInfo.displayName) &&
         Objects.equals(this.firstName, personWithOfficeInfo.firstName) &&
         Objects.equals(this.lastName, personWithOfficeInfo.lastName) &&
         Objects.equals(this.title, personWithOfficeInfo.title) &&
+        Objects.equals(this.secondaryTitle, personWithOfficeInfo.secondaryTitle) &&
         Objects.equals(this.eMail, personWithOfficeInfo.eMail) &&
         Objects.equals(this.secondaryMails, personWithOfficeInfo.secondaryMails) &&
         Objects.equals(this.telephone, personWithOfficeInfo.telephone) &&
-        Objects.equals(this.address, personWithOfficeInfo.address) &&
-        Objects.equals(this.organizationUnit, personWithOfficeInfo.organizationUnit) &&
-        Objects.equals(this.organizationName, personWithOfficeInfo.organizationName);
+        Objects.equals(this.organizationUnitId, personWithOfficeInfo.organizationUnitId) &&
+        Objects.equals(this.address, personWithOfficeInfo.address);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(personType, firstName, lastName, title, eMail, secondaryMails, telephone, address, organizationUnit, organizationName);
+    return Objects.hash(personType, id, displayName, firstName, lastName, title, secondaryTitle, eMail, secondaryMails, telephone, organizationUnitId, address);
   }
 
 
@@ -339,15 +385,17 @@ import javax.validation.Valid;
     sb.append("class PersonWithOfficeInfo {\n");
     
     sb.append("    personType: ").append(toIndentedString(personType)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
     sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");
     sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
+    sb.append("    secondaryTitle: ").append(toIndentedString(secondaryTitle)).append("\n");
     sb.append("    eMail: ").append(toIndentedString(eMail)).append("\n");
     sb.append("    secondaryMails: ").append(toIndentedString(secondaryMails)).append("\n");
     sb.append("    telephone: ").append(toIndentedString(telephone)).append("\n");
+    sb.append("    organizationUnitId: ").append(toIndentedString(organizationUnitId)).append("\n");
     sb.append("    address: ").append(toIndentedString(address)).append("\n");
-    sb.append("    organizationUnit: ").append(toIndentedString(organizationUnit)).append("\n");
-    sb.append("    organizationName: ").append(toIndentedString(organizationName)).append("\n");
     sb.append("}");
     return sb.toString();
   }

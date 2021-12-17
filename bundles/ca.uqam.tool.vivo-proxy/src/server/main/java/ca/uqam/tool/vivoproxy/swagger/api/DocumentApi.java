@@ -38,7 +38,7 @@ import javax.validation.constraints.*;
 @Path("/document")
 
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-12-15T09:09:12.506-05:00[America/New_York]")public class DocumentApi  {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-12-16T09:09:24.006-05:00[America/New_York]")public class DocumentApi  {
    private final DocumentApiService delegate;
 
    public DocumentApi(@Context ServletConfig servletContext) {
