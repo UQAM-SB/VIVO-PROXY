@@ -39,6 +39,6 @@
         </profile>
     </profiles>
     <activeProfiles>
-        <activeProfile>localhost</activeProfile>
+        <activeProfile>localhost-jetty</activeProfile>
     </activeProfiles>
 </settings>

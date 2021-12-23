@@ -9,7 +9,7 @@ import java.util.Properties;
  * @filename LOGIN.java
  * @date 22 sept. 2021
  */
-public class LOGIN extends AbstractCredential{
+public class LOGIN {
 	private static Properties loginProperties;
 	private static LOGIN login_instance;
 	public static LOGIN getInstance()

@@ -10,6 +10,7 @@ import ca.uqam.tool.vivoproxy.pattern.command.Command;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandFactory;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandInvoker;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
+import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddOrganizationCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
 import ca.uqam.tool.vivoproxy.swagger.api.NotFoundException;
 import ca.uqam.tool.vivoproxy.swagger.api.OrganizationApiService;
@@ -28,14 +29,14 @@ public class OrganizationApiServiceImpl extends OrganizationApiService {
 			throws NotFoundException {
 		String hostname=null;
 		VivoReceiver session = null;
-		Command addOrganisationCommand = null;
+		AddOrganizationCommand addOrganisationCommand = null;
 		try {
 			CommandFactory cf = CommandFactory.getInstance();
 			session = new VivoReceiver();
 			hostname = session.getHostName();
 			CommandInvoker invoker = new CommandInvoker();  
 //			Command loginCommand = cf.createLogin(YOUR_LOGIN, YOUR_PASSWD);
-			addOrganisationCommand = cf.createOrganization(organization);
+			addOrganisationCommand = (AddOrganizationCommand) cf.createOrganization(organization);
 //			Command logoutCommand = cf.createLogout();
 //			invoker.register(loginCommand);
 			invoker.register(addOrganisationCommand);

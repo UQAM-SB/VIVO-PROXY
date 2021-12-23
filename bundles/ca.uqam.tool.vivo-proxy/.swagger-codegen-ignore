@@ -35,6 +35,7 @@
 /src/main/java/ca/uqam/tool/vivoproxy/swagger/api/impl/IndvApiServiceImpl.java
 /src/main/java/ca/uqam/tool/vivoproxy/swagger/api/impl/ConceptApiServiceImpl.java
 /src/main/java/ca/uqam/tool/vivoproxy/swagger/api/impl/DocumentApiServiceImpl.java
+/src/main/java/ca/uqam/tool/vivoproxy/swagger/api/impl/AdminApiServiceImpl.java
 
 #
 # Associated to test

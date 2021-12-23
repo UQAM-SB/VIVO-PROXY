@@ -26,7 +26,7 @@ import javax.validation.Valid;
 /**
  * PersonWithOfficeInfo
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-12-16T09:09:24.006-05:00[America/New_York]")public class PersonWithOfficeInfo   {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-12-20T10:43:43.879-05:00[America/New_York]")public class PersonWithOfficeInfo   {
   @JsonProperty("personType")
   private String personType = null;
 
@@ -43,7 +43,7 @@ import javax.validation.Valid;
   private List<LinguisticLabel> lastName = new ArrayList<LinguisticLabel>();
 
   @JsonProperty("title")
-  private List<LinguisticLabel> title = new ArrayList<LinguisticLabel>();
+  private List<LinguisticLabel> title = null;
 
   @JsonProperty("secondaryTitle")
   private List<LinguisticLabel> secondaryTitle = null;
@@ -188,6 +188,9 @@ import javax.validation.Valid;
   }
 
   public PersonWithOfficeInfo addTitleItem(LinguisticLabel titleItem) {
+    if (this.title == null) {
+      this.title = new ArrayList<LinguisticLabel>();
+    }
     this.title.add(titleItem);
     return this;
   }
@@ -197,8 +200,7 @@ import javax.validation.Valid;
    * @return title
    **/
   @JsonProperty("title")
-  @Schema(example = "[{\"label\":\"Professeur\",\"language\":\"fr-CA\"},{\"label\":\"Professor\",\"language\":\"en-US\"}]", required = true, description = "")
-  @NotNull
+  @Schema(example = "[{\"label\":\"Professeur\",\"language\":\"fr-CA\"},{\"label\":\"Professor\",\"language\":\"en-US\"}]", description = "")
   @Valid
   public List<LinguisticLabel> getTitle() {
     return title;

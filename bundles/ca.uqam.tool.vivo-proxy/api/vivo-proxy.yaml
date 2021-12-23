@@ -591,7 +591,7 @@ paths:
       - basicAuth: []
   /indv/addImage:
     put:
-      deprecated: true
+      deprecated: false
       tags:
       - Individual
       summary: Associate an image to an individual
@@ -750,6 +750,64 @@ paths:
       security:
       - basicAuth: []
       x-codegen-request-body-name: body
+  /admin/ping:
+    get:
+      deprecated: false
+      tags:
+      - admin
+      summary: Ping VIVO instance
+      operationId: pingVivo
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API-Response'
+        400:
+          description: vivo not found
+          content: {}
+        401:
+          description: Authentication information is missing or invalid
+          headers:
+            WWW_Authenticate:
+              schema:
+                type: string
+          content: {}
+        404:
+          description: vivo not found
+          content: {}
+      security:
+      - basicAuth: []
+  /admin/reindex:
+    get:
+      deprecated: false
+      tags:
+      - admin
+      summary: Send reindex SOLR index signal to VIVO instance
+      operationId: reindexVIVO
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API-Response'
+        400:
+          description: vivo not found
+          content: {}
+        401:
+          description: Authentication information is missing or invalid
+          headers:
+            WWW_Authenticate:
+              schema:
+                type: string
+          content: {}
+        404:
+          description: vivo not found
+          content: {}
+      security:
+      - basicAuth: []
 components:
   schemas:
     positionOfPerson:
@@ -939,7 +997,6 @@ components:
         - personType
         - firstName
         - lastName
-        - title
         - eMail
       type: object
       properties:
@@ -1205,5 +1262,3 @@ The university offers training on the Montreal campus and on its regional campus
     basicAuth:
       type: http
       scheme: basic
-
-

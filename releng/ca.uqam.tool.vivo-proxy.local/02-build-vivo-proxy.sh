@@ -12,6 +12,6 @@
 export SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 source $SCRIPT_DIR/00-env.sh
 cd $VIVO_PROXY_SRC_HOME
-mvn -T2C clean install -s settings.xml -Plocalhost
+mvn -T2C clean install -s settings.xml -P$PROFILE
 
 

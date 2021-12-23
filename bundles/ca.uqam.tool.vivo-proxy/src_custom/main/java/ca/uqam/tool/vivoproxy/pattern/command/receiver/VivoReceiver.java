@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -39,6 +41,8 @@ import ca.uqam.tool.vivoproxy.pattern.command.AbstractReceiver;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
 import ca.uqam.tool.vivoproxy.pattern.command.receiver.util.EditKeyForPosition;
 import ca.uqam.tool.vivoproxy.pattern.command.util.VivoReceiverHelper;
+import ca.uqam.tool.vivoproxy.swagger.api.NotFoundException;
+import ca.uqam.tool.vivoproxy.swagger.api.impl.AdminApiServiceImpl;
 import ca.uqam.tool.vivoproxy.swagger.model.AddressSchema;
 import ca.uqam.tool.vivoproxy.swagger.model.AuthorOfADocument;
 import ca.uqam.tool.vivoproxy.swagger.model.Concept;
@@ -54,6 +58,7 @@ import ca.uqam.tool.vivoproxy.swagger.model.ResourceToResource;
 import ca.uqam.tool.vivoproxy.swagger.model.Statement;
 import ca.uqam.tool.vivoproxy.util.SemanticWebMediaType;
 import ca.uqam.tool.vivoproxy.util.SparqlHelper;
+import ca.uqam.util.CertificateUtils;
 import ca.uqam.vocab.uqam.UQAM_ORGANIZATION;
 import ca.uqam.vocab.uqam.UQAM_PEOPLE;
 import ca.uqam.vocab.vitro.VITRO;
@@ -77,8 +82,6 @@ public class VivoReceiver extends AbstractReceiver {
 
 	private OkHttpClient httpClient;
 	protected CookieManager cookieManager;
-	protected String hostName="http://192.168.7.23:8080";
-	protected String vivoSiteName="vivo";
 	protected String editKey;
 
 
@@ -98,7 +101,7 @@ public class VivoReceiver extends AbstractReceiver {
 		super();
 		cookieManager = new CookieManager();
 		cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
-		httpClient = new OkHttpClient();
+		httpClient = CertificateUtils.getUnsafeOkHttpClient();
 		httpClient.setCookieHandler(cookieManager);
 		httpClient.setConnectTimeout(10, TimeUnit.SECONDS);
 		httpClient.setWriteTimeout(5, TimeUnit.MINUTES);
@@ -136,8 +139,8 @@ public class VivoReceiver extends AbstractReceiver {
 		try {
 			response = getHttpClient().newCall(request).execute();
 		} catch (Exception e) {
-			LOGGER.info("Login for " + username +" with return code: "+response.code() + " (" +response.message() +  ") response url ("+ VivoReceiverHelper.getNetworkUri(response)+")");
-			throw new Exception("Login for " + username +" with return code: "+response.code() + " (" +response.message() +  ") response url ("+ VivoReceiverHelper.getNetworkUri(response)+")");
+			LOGGER.info(e.getCause()+ ": "+e.getMessage());
+			throw e;
 		}
 		return CommandResult.asCommandResult(response);
 	}
@@ -146,7 +149,6 @@ public class VivoReceiver extends AbstractReceiver {
 	 * @throws IOException
 	 */
 	public CommandResult logout() throws IOException{
-
 		String url = (getHostName()+"/"+getVivoSiteName() + "/logout").replaceAll("[/]+", "/");
 		String referer = (getHostName()+"/"+getVivoSiteName()+"/people").replaceAll("[/]+", "/");
 		Request request = new Request.Builder()
@@ -1767,4 +1769,63 @@ public class VivoReceiver extends AbstractReceiver {
 		Response response = client.newCall(request).execute();
 		return CommandResult.asCommandResult(response);
 	}
+	public CommandResult ReindexSolr() throws IOException {
+
+		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+		RequestBody body = RequestBody.create(mediaType, "rebuild=Reconstruire");
+		String url = null;
+		String referer = null;
+		try {
+			url = new URI(LOGIN.getVivoUrl()+"/"+LOGIN.getVivoSite() + "/SearchIndex?rebuild=true").toASCIIString();
+			referer = new URI(LOGIN.getVivoUrl()+"/"+LOGIN.getVivoSite()+"/SearchIndex").toASCIIString();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		Request request = new Request.Builder()
+				.url(url)
+				.method("POST", body)
+				.addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
+				.addHeader("Accept-Encoding", "gzip, deflate")
+				.addHeader("Content-Type", "application/x-www-form-urlencoded")
+				.addHeader("Connection", "keep-alive")
+				.addHeader("Origin", LOGIN.getVivoUrl())
+				.addHeader("Referer", referer)
+				.addHeader("Upgrade-Insecure-Requests", "1")
+				.build();
+		Response response = getHttpClient().newCall(request).execute();
+		LOGGER.info("Logout with return code: "+response.code() + " (" +response.message() +  ") ");
+		return CommandResult.asCommandResult(response);	
+	}
+	public CommandResult Ping() throws IOException {
+		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+		String url = null;
+		String referer = null;
+		try {
+			url = new URI(LOGIN.getVivoUrl()+"/"+LOGIN.getVivoSite() + "/termsOfUse").toASCIIString();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		Request request = new Request.Builder()
+				.url(url)
+				.method("GET", null)
+				.addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
+				.addHeader("Accept-Encoding", "gzip, deflate")
+				.addHeader("Content-Type", "application/x-www-form-urlencoded")
+				.addHeader("Connection", "keep-alive")
+				.addHeader("Origin", LOGIN.getVivoUrl())
+				.addHeader("Upgrade-Insecure-Requests", "1")
+				.build();
+		Response response = getHttpClient().newCall(request).execute();
+		return CommandResult.asCommandResult(response);	
+	}
+	public static void main(String[] args) throws NotFoundException, IOException {
+		VivoReceiver vr = new VivoReceiver();
+		CommandResult result = vr.Ping();
+		System.out.println(result);
+	}
+
 }
