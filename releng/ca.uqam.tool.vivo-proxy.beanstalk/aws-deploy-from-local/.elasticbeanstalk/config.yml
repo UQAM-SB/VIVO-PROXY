@@ -1,0 +1,25 @@
+branch-defaults:
+  default:
+    environment: null
+    group_suffix: null
+environment-defaults:
+  vivo-proxy-env:
+    branch: null
+    repository: null
+  vivo-proxy2-env:
+    branch: null
+    repository: null
+global:
+  application_name: vivo-proxy
+  branch: null
+  default_ec2_keyname: Cle-VIVO-Demo
+  default_platform: Tomcat 8.5 with Corretto 8 running on 64bit Amazon Linux 2
+  default_region: ca-central-1
+  include_git_submodules: true
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: null
+  repository: null
+  sc: null
+  workspace_type: Application

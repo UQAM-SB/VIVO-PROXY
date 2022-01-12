@@ -95,8 +95,10 @@ public class VivoReceiverHelper {
         return response;
     }
     public static Response gotoIndividualPage(String siteUrl, OkHttpClient httpClient, String personUri ) throws IOException {
+        HttpUrl url = HttpUrl.parse(siteUrl+"/individual").newBuilder()
+        		.addQueryParameter("uri", personUri).build();
         Request request = new Request.Builder()
-                .url(personUri)
+                .url(url)
                 .method("GET", null)
                 .addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0")
                 .addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
@@ -201,6 +203,32 @@ public class VivoReceiverHelper {
         }
         return editKey;
     }
+    
+    public static boolean isValidLogin(String html) {
+        //
+        // Extracting editKey value from html code returned by the get call. 
+        //
+        Document doc = Jsoup.parse(html);
+        Elements elements = doc.getAllElements();
+        for (Iterator iterator = elements.iterator(); iterator.hasNext();) {
+			Element element = (Element) iterator.next();
+			Element vivoAccountError = element.getElementById("vivoAccountError");
+			/*
+			 * Il y a une erreur de connexion
+			 */
+			if (vivoAccountError != null) {
+				return false;
+			}
+//			
+//			String el = element.toString();
+//			System.out.println("*******************************************");
+//			System.out.println("===== "+vivoAccountError);
+//			System.out.println(el);
+//			System.out.println("*******************************************\n");
+		}
+        return true;
+    }
+    
     public static String getUriResponse(String body) {
         String uri = null;
         //

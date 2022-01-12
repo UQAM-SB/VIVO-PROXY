@@ -35,6 +35,7 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
+import com.squareup.okhttp.ResponseBody;
 
 import ca.uqam.tool.util.credential.LOGIN;
 import ca.uqam.tool.vivoproxy.pattern.command.AbstractReceiver;
@@ -42,7 +43,6 @@ import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
 import ca.uqam.tool.vivoproxy.pattern.command.receiver.util.EditKeyForPosition;
 import ca.uqam.tool.vivoproxy.pattern.command.util.VivoReceiverHelper;
 import ca.uqam.tool.vivoproxy.swagger.api.NotFoundException;
-import ca.uqam.tool.vivoproxy.swagger.api.impl.AdminApiServiceImpl;
 import ca.uqam.tool.vivoproxy.swagger.model.AddressSchema;
 import ca.uqam.tool.vivoproxy.swagger.model.AuthorOfADocument;
 import ca.uqam.tool.vivoproxy.swagger.model.Concept;
@@ -80,8 +80,8 @@ public class VivoReceiver extends AbstractReceiver {
 	public static final String OBO_RO_0000053 = "http://purl.obolibrary.org/obo/RO_0000053";
 	public static final String NEW_INDIVIDUAL_FORM_GENERATOR = "edu.cornell.mannlib.vitro.webapp.edit.n3editing.configuration.generators.VIVONewIndividualFormGenerator";
 
-	private OkHttpClient httpClient;
-	protected CookieManager cookieManager;
+	private OkHttpClient httpClient = null;
+	protected CookieManager cookieManager = null;
 	protected String editKey;
 
 
@@ -99,15 +99,18 @@ public class VivoReceiver extends AbstractReceiver {
 	 */
 	public VivoReceiver() {
 		super();
-		cookieManager = new CookieManager();
-		cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
-		httpClient = CertificateUtils.getUnsafeOkHttpClient();
-		httpClient.setCookieHandler(cookieManager);
-		httpClient.setConnectTimeout(10, TimeUnit.SECONDS);
-		httpClient.setWriteTimeout(5, TimeUnit.MINUTES);
-		httpClient.setReadTimeout(5, TimeUnit.MINUTES);
 	}
 	public OkHttpClient getHttpClient() {
+		if (httpClient == null){
+			cookieManager = new CookieManager();
+			cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
+			httpClient = CertificateUtils.getUnsafeOkHttpClient();
+			httpClient = new OkHttpClient();
+			httpClient.setCookieHandler(cookieManager);
+			httpClient.setConnectTimeout(10, TimeUnit.SECONDS);
+			httpClient.setWriteTimeout(5, TimeUnit.MINUTES);
+			httpClient.setReadTimeout(5, TimeUnit.MINUTES);
+		}
 		return httpClient;
 	}
 
@@ -118,12 +121,12 @@ public class VivoReceiver extends AbstractReceiver {
 	 * @throws IOException
 	 */
 	public CommandResult login(String username, String password) throws Exception {
-		password = password +"";
+		password = password;
 		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
 		RequestBody body = RequestBody.create(mediaType, "loginName="+username+"&loginPassword="+password+"&loginForm=Connexion");
-		String url = getHostName()+"/"+getVivoSiteName() + "/authenticate";
+		String url = getSiteUrl() + "/authenticate";
 		String origin = getHostName();
-		String referer = getHostName()+"/"+getVivoSiteName()+"/login";
+		String referer = getSiteUrl()+"/login";
 		Request request = new Request.Builder()
 				.url(url)
 				.method("POST", body)
@@ -141,6 +144,10 @@ public class VivoReceiver extends AbstractReceiver {
 		} catch (Exception e) {
 			LOGGER.info(e.getCause()+ ": "+e.getMessage());
 			throw e;
+		}
+		String html = response.body().string();
+		if (!VivoReceiverHelper.isValidLogin(html)){
+			throw new Exception("Invalid login");
 		}
 		return CommandResult.asCommandResult(response);
 	}
@@ -302,36 +309,43 @@ public class VivoReceiver extends AbstractReceiver {
 	 * Upload image associated to an individual
 	 * @param image
 	 * @return
-	 * @throws IOException
+	 * @throws Exception 
 	 */
-	public CommandResult addImageToIndividual(Image image) throws IOException{
+	public CommandResult addImageToIndividual(Image image) throws Exception{
 		/* 
 		 * Goto individual page
 		 */
-		Response response = VivoReceiverHelper.gotoIndividualPage(getHostName()+"/"+getVivoSiteName(), getHttpClient(), image.getIndividualIRI());
+		Response response = VivoReceiverHelper.gotoIndividualPage(getSiteUrl(), getHttpClient(), image.getIndividualIRI());
 		/*
 		 * get editKey
 		 */
-		System.out.println("getEditKey");
-		HttpUrl url = HttpUrl.parse(getHostName()+"/"+getVivoSiteName() +"/uploadImages").newBuilder()
+	//	System.out.println("getEditKey");
+		HttpUrl url = HttpUrl.parse(getSiteUrl() +"/uploadImages").newBuilder()
 				.addQueryParameter("entityUri", image.getIndividualIRI())
 				.addQueryParameter("action", "add")
 				.build();
+		HttpUrl refererUrl = HttpUrl.parse(getSiteUrl() +"/individual").newBuilder()
+				.addQueryParameter("uri", image.getIndividualIRI())
+				.build();
+		String urlStr = "http://vivo-uqam.ca-central-1.elasticbeanstalk.com/uploadImages?entityUri=http%3A%2F%2Fpurl.org%2Fvivo.uqam.ca%2Fdata%2Fpeople%23abdallah_chahrazad_uqam_ca&action=add";
+		String refererUrlStr = "http://vivo-uqam.ca-central-1.elasticbeanstalk.com/individual?uri=http%3A%2F%2Fpurl.org%2Fvivo.uqam.ca%2Fdata%2Fpeople%23abdallah_chahrazad_uqam_ca";
 		Request request = new Request.Builder()
-				.url(url)
+				.url(urlStr)
 				.method("GET", null)
 				.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0")
 				.addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
 				.addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
 				.addHeader("Connection", "keep-alive")
-				.addHeader("Referer", image.getIndividualIRI())
+				.addHeader("Referer", refererUrlStr)
 				.addHeader("Upgrade-Insecure-Requests", "1")
 				.build();
 		response =  getHttpClient()
 				.newCall(request).execute();
 
-		editKey = VivoReceiverHelper.getKeyValue(response.body().string());
-
+//		editKey = VivoReceiverHelper.getKeyValue(response.body().string());
+//		if (editKey==null || editKey.isEmpty())
+//			throw new Exception("Can't get an 'editKey', maybe you are not logged in");
+//
 		/*
 		 * UploadImage
 		 */
