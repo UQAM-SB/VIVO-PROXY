@@ -47,6 +47,10 @@ public class CommandResult {
         CommandResult.vivoSiteName = vivoSiteName;
     }
     protected String getSiteUrl() {
-        return getHostName()+"/"+getVivoSiteName();
+    	if (getVivoSiteName().isEmpty()){
+            return getHostName();
+    	} else {
+            return getHostName()+"/"+getVivoSiteName();
+    	}
     }
 }

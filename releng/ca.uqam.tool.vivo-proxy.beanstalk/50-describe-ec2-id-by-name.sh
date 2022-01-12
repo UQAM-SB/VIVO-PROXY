@@ -1,5 +1,4 @@
-#!/bin/bash 
-
+#!/bin/bash
 ###################################################################
 # Script Name   :
 # Description   :
@@ -11,6 +10,4 @@
 ###################################################################
 export SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 source $SCRIPT_DIR/00-env.sh
-(cd $AWS_DEPLOY_HOME/$CNAME ; eb terminate --force )
-aws elasticbeanstalk delete-application --application-name $CNAME
-
+aws ec2 describe-instances --filters  "Name=tag:Name,Values=$1" "Name=instance-state-name,Values=running" --query "Reservations[].Instances[].InstanceId" --output=text

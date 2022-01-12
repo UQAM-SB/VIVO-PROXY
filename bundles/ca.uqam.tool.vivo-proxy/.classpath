@@ -10,7 +10,7 @@
 	<classpathentry kind="src" path="src_custom/main/java"/>
 	<classpathentry including="vivo-proxy.properties" kind="src" path="src/server/main/resources"/>
 	<classpathentry kind="src" path="src/server/main/java"/>
-	<classpathentry kind="src" output="target/classes" path="src_overlay/main/java">
+	<classpathentry excluding="**" kind="src" output="target/classes" path="src_overlay/main/java">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
