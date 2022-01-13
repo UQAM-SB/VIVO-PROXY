@@ -25,7 +25,7 @@ import javax.validation.Valid;
 /**
  * Concept
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-12-20T10:43:43.879-05:00[America/New_York]")public class Concept   {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2022-01-13T16:43:41.084-05:00[America/New_York]")public class Concept   {
   @JsonProperty("IRI")
   private String IRI = null;
 

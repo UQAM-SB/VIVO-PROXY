@@ -697,6 +697,6 @@
         <aws.skipCopy>true</aws.skipCopy>
         <webapp.target>target/${project.artifactId}-${project.version}</webapp.target>
         <skipJetty>false</skipJetty>
-        <webapp.depl>webapp-localhost-tomcat</webapp.depl>
+<!--         <webapp.depl>webapp-localhost-tomcat</webapp.depl> -->
     </properties>
 </project>

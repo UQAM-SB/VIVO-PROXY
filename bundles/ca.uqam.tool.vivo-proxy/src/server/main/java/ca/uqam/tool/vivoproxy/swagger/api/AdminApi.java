@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 import ca.uqam.tool.vivoproxy.swagger.model.ModelAPIResponse;
+import ca.uqam.tool.vivoproxy.swagger.model.VivoProperties;
 
 import java.util.Map;
 import java.util.List;
@@ -36,7 +37,7 @@ import javax.validation.constraints.*;
 @Path("/admin")
 
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-12-20T10:43:43.879-05:00[America/New_York]")public class AdminApi  {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2022-01-13T16:43:41.084-05:00[America/New_York]")public class AdminApi  {
    private final AdminApiService delegate;
 
    public AdminApi(@Context ServletConfig servletContext) {
@@ -60,6 +61,24 @@ import javax.validation.constraints.*;
       this.delegate = delegate;
    }
 
+    @GET
+    @Path("/vivo-properties")
+    
+    @Produces({ "application/json" })
+    @Operation(summary = "Get remote VIVO properties", description = "", security = {
+        @SecurityRequirement(name = "basicAuth")    }, tags={ "admin" })
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(mediaType = "application/json", schema = @Schema(implementation = VivoProperties.class))),
+        
+        @ApiResponse(responseCode = "400", description = "vivo not found"),
+        
+        @ApiResponse(responseCode = "401", description = "Authentication information is missing or invalid"),
+        
+        @ApiResponse(responseCode = "404", description = "vivo not found") })
+    public Response getVivoProperties(@Context SecurityContext securityContext)
+    throws NotFoundException {
+        return delegate.getVivoProperties(securityContext);
+    }
     @GET
     @Path("/ping")
     
@@ -95,5 +114,23 @@ import javax.validation.constraints.*;
     public Response reindexVIVO(@Context SecurityContext securityContext)
     throws NotFoundException {
         return delegate.reindexVIVO(securityContext);
+    }
+    @PUT
+    @Path("/set-vivo-properties")
+    
+    @Produces({ "application/json" })
+    @Operation(summary = "Get remote VIVO properties", description = "", security = {
+        @SecurityRequirement(name = "basicAuth")    }, tags={ "admin" })
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(mediaType = "application/json", schema = @Schema(implementation = VivoProperties.class))),
+        
+        @ApiResponse(responseCode = "400", description = "vivo not found"),
+        
+        @ApiResponse(responseCode = "401", description = "Authentication information is missing or invalid"),
+        
+        @ApiResponse(responseCode = "404", description = "vivo not found") })
+    public Response setVivoProperties(@Context SecurityContext securityContext)
+    throws NotFoundException {
+        return delegate.setVivoProperties(securityContext);
     }
 }

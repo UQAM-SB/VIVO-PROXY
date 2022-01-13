@@ -40,7 +40,7 @@ import javax.validation.constraints.*;
 @Path("/indv")
 
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-12-20T10:43:43.879-05:00[America/New_York]")public class IndvApi  {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2022-01-13T16:43:41.084-05:00[America/New_York]")public class IndvApi  {
    private final IndvApiService delegate;
 
    public IndvApi(@Context ServletConfig servletContext) {
@@ -102,7 +102,7 @@ import javax.validation.constraints.*;
     throws NotFoundException {
         return delegate.getIndvByLabel(label,securityContext);
     }
-    @PUT
+    @POST
     @Path("/addImage")
     @Consumes({ "application/json" })
     @Produces({ "application/json" })

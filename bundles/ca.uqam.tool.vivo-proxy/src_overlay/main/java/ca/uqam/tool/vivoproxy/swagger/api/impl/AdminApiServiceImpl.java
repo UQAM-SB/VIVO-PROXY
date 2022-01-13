@@ -15,6 +15,7 @@ import ca.uqam.tool.vivoproxy.swagger.api.AdminApiService;
 import ca.uqam.tool.vivoproxy.swagger.api.ApiResponseMessage;
 import ca.uqam.tool.vivoproxy.swagger.api.NotFoundException;
 import ca.uqam.tool.vivoproxy.swagger.model.ModelAPIResponse;
+import ca.uqam.tool.vivoproxy.swagger.model.VivoProperties;
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-12-19T15:35:48.156-05:00[America/New_York]")
 public class AdminApiServiceImpl extends AdminApiService {
 	private static final String SearchIndex = null;
@@ -130,6 +131,21 @@ public class AdminApiServiceImpl extends AdminApiService {
 		AdminApiServiceImpl adminApiService = new AdminApiServiceImpl();
 		Response result = adminApiService.pingVivo(null);
 		System.out.println(result);
+	}
+	@Override
+	public Response getVivoProperties(SecurityContext securityContext) throws NotFoundException {
+    	VivoProperties vivoProperties = new VivoProperties();
+    	vivoProperties.setSparqlQueryURL(LOGIN.getSparqlQueryURL());
+    	vivoProperties.setSparqlUpdateURL(LOGIN.getSparqlUpdateURL());
+    	vivoProperties.setViVOAdminLogin(LOGIN.getUserName());
+    	vivoProperties.setViVOAdminPassword("xxxxx");
+    	vivoProperties.setVivoURL(LOGIN.getVivoUrl());
+        return Response.ok().entity(vivoProperties).build();
+	}
+	@Override
+	public Response setVivoProperties(SecurityContext securityContext) throws NotFoundException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

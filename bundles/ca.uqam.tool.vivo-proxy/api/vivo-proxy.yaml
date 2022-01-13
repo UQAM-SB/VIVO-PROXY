@@ -14,10 +14,10 @@ externalDocs:
   description: Find out more about VIVO
   url: https://duraspace.org/vivo/
 servers:
+- url: http://localhost:9090/vivo-proxy
 - url: http://vivo-proxy.ca-central-1.elasticbeanstalk.com/vivo-proxy
 - url: http://localhost:8080/ca.uqam.tool.vivo-proxy/vivo-proxy
 - url: http://purl.org/vivo-uqam.ca/vivo-proxy
-- url: http://localhost:9090/vivo-proxy
 security:
 - basicAuth: []
 tags:
@@ -590,7 +590,7 @@ paths:
       security:
       - basicAuth: []
   /indv/addImage:
-    put:
+    post:
       deprecated: false
       tags:
       - Individual
@@ -750,6 +750,72 @@ paths:
       security:
       - basicAuth: []
       x-codegen-request-body-name: body
+  /admin/set-vivo-properties:
+    put:
+      deprecated: false
+      tags:
+      - admin
+      summary: Get remote VIVO properties
+      operationId: setVivoProperties
+      requestBody:
+        description: image associated to an individual
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VivoProperties'
+        required: true
+
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VivoProperties'
+        400:
+          description: vivo not found
+          content: {}
+        401:
+          description: Authentication information is missing or invalid
+          headers:
+            WWW_Authenticate:
+              schema:
+                type: string
+          content: {}
+        404:
+          description: vivo not found
+          content: {}
+      security:
+      - basicAuth: []
+  /admin/vivo-properties:
+    get:
+      deprecated: false
+      tags:
+      - admin
+      summary: Get remote VIVO properties
+      operationId: getVivoProperties
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VivoProperties'
+        400:
+          description: vivo not found
+          content: {}
+        401:
+          description: Authentication information is missing or invalid
+          headers:
+            WWW_Authenticate:
+              schema:
+                type: string
+          content: {}
+        404:
+          description: vivo not found
+          content: {}
+      security:
+      - basicAuth: []
   /admin/ping:
     get:
       deprecated: false
@@ -1218,6 +1284,30 @@ The university offers training on the Montreal campus and on its regional campus
                 ]
       xml:
         name: organization
+    VivoProperties:
+      type: object
+      description: Required properties for vivo-proxy to connect to a VIVO instance
+      properties:
+        vivo-URL:
+          type: string
+          description: Remote VIVO URL
+          example: http://vivo-uqam.ca-central-1.elasticbeanstalk.com/#
+        sparql-query-URL:
+          type: string
+          description: Remote SPARQL endPoint for query
+          example: https://vivo-demo-db.cluster-c2o1sdzzfasi.ca-central-1.neptune.amazonaws.com:8182/sparql
+        sparql-update-URL:
+          type: string
+          description: Remote SPARQL endPoint for update
+          example: https://vivo-demo-db.cluster-c2o1sdzzfasi.ca-central-1.neptune.amazonaws.com:8182/sparql
+        VIVO-admin-login:
+          type: string
+          description: Login name for VIVO admin (root)
+          example: vivo@uqam.ca
+        VIVO-admin-password:
+          type: string
+          description: Password used by VIVO admin (root)
+          example: Vivo1234.
     API-Response:
       type: object
       properties:
