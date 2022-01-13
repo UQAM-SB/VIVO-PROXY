@@ -23,7 +23,7 @@ public class AddImageToIndividualCommand extends Command {
             CommandResult result = ((VivoReceiver)vivo).addImageToIndividual(image);
             this.setCommandResult(result);
             return  result;
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;

@@ -1,13 +1,21 @@
 package ca.uqam.tool.vivoproxy.pattern.command.receiver;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLConnection;
+import java.nio.CharBuffer;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -15,6 +23,7 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.NotImplementedException;
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.rdf.model.Model;
@@ -28,6 +37,12 @@ import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
 import org.apache.jena.vocabulary.VCARD4;
 
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.GetObjectRequest;
+import com.amazonaws.services.s3.model.S3Object;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.MultipartBuilder;
@@ -65,6 +80,7 @@ import ca.uqam.vocab.vitro.VITRO;
 import ca.uqam.vocab.vivo.OBO;
 import ca.uqam.vocab.vivo.VCARD;
 import ca.uqam.vocab.vivo.VIVO;
+import okio.ByteString;
 
 /**
  * @author Michel Héon
@@ -89,6 +105,7 @@ public class VivoReceiver extends AbstractReceiver {
 	 * 
 	 */
 	private final static Logger LOGGER = Logger.getLogger(VivoReceiver.class.getName());
+	private static final String BUCKET_NAME = null;
 
 
 	/**
@@ -319,7 +336,7 @@ public class VivoReceiver extends AbstractReceiver {
 		/*
 		 * get editKey
 		 */
-	//	System.out.println("getEditKey");
+		//	System.out.println("getEditKey");
 		HttpUrl url = HttpUrl.parse(getSiteUrl() +"/uploadImages").newBuilder()
 				.addQueryParameter("entityUri", image.getIndividualIRI())
 				.addQueryParameter("action", "add")
@@ -327,40 +344,74 @@ public class VivoReceiver extends AbstractReceiver {
 		HttpUrl refererUrl = HttpUrl.parse(getSiteUrl() +"/individual").newBuilder()
 				.addQueryParameter("uri", image.getIndividualIRI())
 				.build();
-		String urlStr = "http://vivo-uqam.ca-central-1.elasticbeanstalk.com/uploadImages?entityUri=http%3A%2F%2Fpurl.org%2Fvivo.uqam.ca%2Fdata%2Fpeople%23abdallah_chahrazad_uqam_ca&action=add";
-		String refererUrlStr = "http://vivo-uqam.ca-central-1.elasticbeanstalk.com/individual?uri=http%3A%2F%2Fpurl.org%2Fvivo.uqam.ca%2Fdata%2Fpeople%23abdallah_chahrazad_uqam_ca";
 		Request request = new Request.Builder()
-				.url(urlStr)
+				.url(url)
 				.method("GET", null)
 				.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0")
 				.addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
 				.addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
 				.addHeader("Connection", "keep-alive")
-				.addHeader("Referer", refererUrlStr)
+				.addHeader("Referer", refererUrl.toString())
 				.addHeader("Upgrade-Insecure-Requests", "1")
 				.build();
 		response =  getHttpClient()
 				.newCall(request).execute();
 
-//		editKey = VivoReceiverHelper.getKeyValue(response.body().string());
-//		if (editKey==null || editKey.isEmpty())
-//			throw new Exception("Can't get an 'editKey', maybe you are not logged in");
-//
+		//		editKey = VivoReceiverHelper.getKeyValue(response.body().string());
+		//		if (editKey==null || editKey.isEmpty())
+		//			throw new Exception("Can't get an 'editKey', maybe you are not logged in");
+		//
 		/*
 		 * UploadImage
 		 */
 
-		File file = new File(image.getImageURL());
-		String contentType = file.toURL().openConnection().getContentType();
-		RequestBody fileBody = RequestBody.create(MediaType.parse(contentType), file);
+		//		File file = new File(image.getImageURL());
+		//		String contentType = file.toURL().openConnection().getContentType();
+		//		RequestBody fileBody = RequestBody.create(MediaType.parse(contentType), file);
+		//
+		//
+		//		RequestBody requestBody = new MultipartBuilder()
+		//				.type(MultipartBuilder.FORM)
+		//				.addFormDataPart("Content-Disposition","form-data; name=\"datafile\"; filename=\""+file.getName()+"\"")
+		//				.addFormDataPart("Content-Type",contentType)
+		//				.addFormDataPart("datafile",file.getName(),fileBody)
+		//				.build();
+		byte[] imageContent;
+		if (image.getImageURL().contains("amazonaws.com")){
+			/*
+			 *  Le fichier est dans un bucket AWS-S3
+			 */
+			URL imageUrl = new URL( image.getImageURL() );
+			String fileName = imageUrl.getFile().replace("/", "");
+			String bucket = imageUrl.getHost().replace(".s3.ca-central-1.amazonaws.com", "");
+	        AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
+	                .withRegion("ca-central-1")
+	                .withCredentials(new ProfileCredentialsProvider())
+	                .build();
+	        S3Object s3Object = s3Client.getObject(new GetObjectRequest(bucket,fileName));
+			InputStream objectData = s3Object.getObjectContent();
+			imageContent = IOUtils.toByteArray(objectData);
+			objectData.close();
+		} else {
+			URL imageUrl = new URL( image.getImageURL() );
+			URLConnection connection = imageUrl.openConnection();
+			BufferedReader input = new BufferedReader( new InputStreamReader( connection.getInputStream() ) );
+			File file = new File(image.getImageURL());
+			Reader reader = new BufferedReader(new FileReader(file));
+			imageContent = IOUtils.toByteArray(input);
+			input.close();
+		}
+		String contentType ="image/jpeg";
+		MediaType mt = MediaType.parse(contentType);
+		RequestBody fileBody = RequestBody.create(mt, imageContent);
 
 		RequestBody requestBody = new MultipartBuilder()
 				.type(MultipartBuilder.FORM)
-				.addFormDataPart("Content-Disposition","form-data; name=\"datafile\"; filename=\""+file.getName()+"\"")
+				.addFormDataPart("Content-Disposition","form-data; name=\"datafile\"; filename=\""+image.getImageURL()+"\"")
 				.addFormDataPart("Content-Type",contentType)
-				.addFormDataPart("datafile",file.getName(),fileBody)
+				.addFormDataPart("datafile",image.getImageURL(),fileBody)
 				.build();
-		HttpUrl upLoadUrl = HttpUrl.parse(getHostName()+"/"+getVivoSiteName() +"/uploadImages").newBuilder()
+		HttpUrl upLoadUrl = HttpUrl.parse(getSiteUrl()+"/uploadImages").newBuilder()
 				.addQueryParameter("entityUri", image.getIndividualIRI())
 				.addQueryParameter("action", "upload")
 				.addQueryParameter("imageUrl", image.getImageURL())
@@ -371,7 +422,7 @@ public class VivoReceiver extends AbstractReceiver {
 				.method("POST", requestBody)
 				.addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
 				.addHeader("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
-				.addHeader("Content-Type", "image/jpeg")
+				.addHeader("Content-Type", contentType)
 				.addHeader("Origin", getHostName())
 				.addHeader("Connection", "keep-alive")
 				.addHeader("Referer", url.toString())
@@ -382,6 +433,10 @@ public class VivoReceiver extends AbstractReceiver {
 				.addHeader("Sec-Fetch-User", "?1")
 				.build();
 		Response upLoadResponse =  getHttpClient().newCall(upLoadRequest).execute();
+		String resp = upLoadResponse.body().string();
+		VivoReceiverHelper.findErrorAlert(resp);
+
+
 		/*
 		 * Save image
 		 */
@@ -389,7 +444,7 @@ public class VivoReceiver extends AbstractReceiver {
 		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
 		RequestBody saveBody = RequestBody.create(mediaType, "x="+image.getOrigX()+"&y="+image.getOrigY()+"&w="+image.getWidth()+"&h="+image.getHeight());
 
-		HttpUrl saveUrl = HttpUrl.parse(getHostName()+"/"+getVivoSiteName() +"/uploadImages").newBuilder()
+		HttpUrl saveUrl = HttpUrl.parse(getSiteUrl() +"/uploadImages").newBuilder()
 				.addQueryParameter("entityUri", image.getIndividualIRI())
 				.addQueryParameter("action", "save")
 				.build();
@@ -410,6 +465,9 @@ public class VivoReceiver extends AbstractReceiver {
 				.addHeader("Sec-Fetch-User", "?1")
 				.build();
 		Response saveResponse =  getHttpClient().newCall(saveRequest).execute();
+		resp = saveResponse.body().string();
+		VivoReceiverHelper.findErrorAlert(resp);
+
 		return CommandResult.asCommandResult(saveResponse);       
 
 	}

@@ -268,5 +268,21 @@ public class VivoReceiverHelper {
 			model.add(res, property, ResourceFactory.createLangLiteral(linguisticLabel.getLabel(), linguisticLabel.getLanguage()));
 		}
 	}
-
+	public static void findErrorAlert(String html) throws Exception {
+        //
+        // Extracting editKey value from html code returned by the get call. 
+        //
+        Document doc = Jsoup.parse(html);
+        Elements elements = doc.getAllElements();
+        for (Iterator iterator = elements.iterator(); iterator.hasNext();) {
+			Element element = (Element) iterator.next();
+			Element errorAlert = element.getElementById("error-alert");
+			/*
+			 * Il y a une erreur de connexion
+			 */
+			if (errorAlert != null) {
+				throw new Exception("error-alert : ("+errorAlert.text()+")");
+			}
+		}
+	}
 }
