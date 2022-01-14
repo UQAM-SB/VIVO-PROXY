@@ -1,6 +1,6 @@
 # DocumentApi
 
-All URIs are relative to *http://vivo-proxy.ca-central-1.elasticbeanstalk.com/vivo-proxy*
+All URIs are relative to *http://localhost:9090/vivo-proxy*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 <a name="createDocument"></a>
 # **createDocument**
-> ModelAPIResponse createDocument(body)
+> ModelApiResponse createDocument(body)
 
 Create a document in VIVO
 
@@ -33,7 +33,7 @@ basicAuth.setPassword("YOUR PASSWORD");
 DocumentApi apiInstance = new DocumentApi();
 Document body = new Document(); // Document | Created a document
 try {
-    ModelAPIResponse result = apiInstance.createDocument(body);
+    ModelApiResponse result = apiInstance.createDocument(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DocumentApi#createDocument");
@@ -49,7 +49,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ModelAPIResponse**](ModelAPIResponse.md)
+[**ModelApiResponse**](ModelApiResponse.md)
 
 ### Authorization
 
@@ -62,7 +62,7 @@ Name | Type | Description  | Notes
 
 <a name="documentAddAuthorFor"></a>
 # **documentAddAuthorFor**
-> ModelAPIResponse documentAddAuthorFor(body)
+> ModelApiResponse documentAddAuthorFor(body)
 
 Associate a document to an Author
 
@@ -84,7 +84,7 @@ basicAuth.setPassword("YOUR PASSWORD");
 DocumentApi apiInstance = new DocumentApi();
 AuthorOfADocument body = new AuthorOfADocument(); // AuthorOfADocument | Author that need to be add to a document
 try {
-    ModelAPIResponse result = apiInstance.documentAddAuthorFor(body);
+    ModelApiResponse result = apiInstance.documentAddAuthorFor(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DocumentApi#documentAddAuthorFor");
@@ -100,7 +100,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ModelAPIResponse**](ModelAPIResponse.md)
+[**ModelApiResponse**](ModelApiResponse.md)
 
 ### Authorization
 

@@ -465,10 +465,10 @@ public class VivoReceiver extends AbstractReceiver {
 				.addHeader("Sec-Fetch-User", "?1")
 				.build();
 		Response saveResponse =  getHttpClient().newCall(saveRequest).execute();
-		resp = saveResponse.body().string();
-		VivoReceiverHelper.findErrorAlert(resp);
-
-		return CommandResult.asCommandResult(saveResponse);       
+		CommandResult cmdResult = new CommandResult();
+		cmdResult.setOkHttpResponse(saveResponse);
+		VivoReceiverHelper.findErrorAlert(cmdResult.getResultAsString());
+		return cmdResult;       
 
 	}
 
@@ -1875,7 +1875,7 @@ public class VivoReceiver extends AbstractReceiver {
 		String url = null;
 		String referer = null;
 		try {
-			url = new URI(LOGIN.getVivoUrl()+"/"+LOGIN.getVivoSite() + "/termsOfUse").toASCIIString();
+			url = new URI(LOGIN.getVivoSiteUrl() + "/termsOfUse").toASCIIString();
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

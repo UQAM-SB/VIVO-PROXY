@@ -81,7 +81,7 @@ public class LOGIN {
     	if (getVivoSite().isEmpty()){
             return getVivoUrl();
     	} else {
-            return getVivoUrl()+"/"+getVivoSite();
+            return getVivoUrl()+getVivoSite();
     	}
     }
 	public static void setSparqlQueryURL(String sparqlQueryURL) {
@@ -106,7 +106,7 @@ public class LOGIN {
 			URL vivoSiteUrl = new URL(vivoURL);
 			loginProperties.setProperty(VIVO_SITE,vivoSiteUrl.getPath());
 			loginProperties.setProperty(VIVO_URL,vivoSiteUrl.toExternalForm().replace(vivoSiteUrl.getPath(), ""));
-			System.out.println();
+			System.out.println(loginProperties);
 		} catch (MalformedURLException e) {
 			// TODO Bloc catch auto-généré
 			e.printStackTrace();

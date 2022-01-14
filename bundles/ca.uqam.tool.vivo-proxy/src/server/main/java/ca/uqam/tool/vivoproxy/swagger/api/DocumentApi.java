@@ -16,7 +16,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 import ca.uqam.tool.vivoproxy.swagger.model.AuthorOfADocument;
 import ca.uqam.tool.vivoproxy.swagger.model.Document;
-import ca.uqam.tool.vivoproxy.swagger.model.ModelAPIResponse;
+import ca.uqam.tool.vivoproxy.swagger.model.ModelApiResponse;
 
 import java.util.Map;
 import java.util.List;
@@ -38,7 +38,7 @@ import javax.validation.constraints.*;
 @Path("/document")
 
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2022-01-14T03:45:37.393-05:00[America/New_York]")public class DocumentApi  {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2022-01-14T06:17:43.487-05:00[America/New_York]")public class DocumentApi  {
    private final DocumentApiService delegate;
 
    public DocumentApi(@Context ServletConfig servletContext) {
@@ -69,7 +69,7 @@ import javax.validation.constraints.*;
     @Operation(summary = "Create a document in VIVO", description = "This can only be done by the logged in person.", security = {
         @SecurityRequirement(name = "basicAuth")    }, tags={ "document" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ModelAPIResponse.class))),
+        @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ModelApiResponse.class))),
         
         @ApiResponse(responseCode = "401", description = "Authentication information is missing or invalid"),
         
@@ -87,7 +87,7 @@ import javax.validation.constraints.*;
     @Operation(summary = "Associate a document to an Author", description = "", security = {
         @SecurityRequirement(name = "basicAuth")    }, tags={ "document" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ModelAPIResponse.class))),
+        @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ModelApiResponse.class))),
         
         @ApiResponse(responseCode = "401", description = "Authentication information is missing or invalid") })
     public Response documentAddAuthorFor(@Parameter(in = ParameterIn.DEFAULT, description = "Author that need to be add to a document" ,required=true) AuthorOfADocument body

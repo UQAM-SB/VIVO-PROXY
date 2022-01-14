@@ -1,6 +1,6 @@
 # PersonApi
 
-All URIs are relative to *http://vivo-proxy.ca-central-1.elasticbeanstalk.com/vivo-proxy*
+All URIs are relative to *http://localhost:9090/vivo-proxy*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 <a name="createPerson"></a>
 # **createPerson**
-> ModelAPIResponse createPerson(body)
+> ModelApiResponse createPerson(body)
 
 Create a person in VIVO
 
@@ -38,7 +38,7 @@ basicAuth.setPassword("YOUR PASSWORD");
 PersonApi apiInstance = new PersonApi();
 Person body = new Person(); // Person | Created person object
 try {
-    ModelAPIResponse result = apiInstance.createPerson(body);
+    ModelApiResponse result = apiInstance.createPerson(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling PersonApi#createPerson");
@@ -54,7 +54,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ModelAPIResponse**](ModelAPIResponse.md)
+[**ModelApiResponse**](ModelApiResponse.md)
 
 ### Authorization
 
@@ -67,7 +67,7 @@ Name | Type | Description  | Notes
 
 <a name="createPersonWithEmail"></a>
 # **createPersonWithEmail**
-> ModelAPIResponse createPersonWithEmail(body)
+> ModelApiResponse createPersonWithEmail(body)
 
 Create a user in VIVO using the eMail address as an IRI key
 
@@ -91,7 +91,7 @@ basicAuth.setPassword("YOUR PASSWORD");
 PersonApi apiInstance = new PersonApi();
 PersonWithOfficeInfo body = new PersonWithOfficeInfo(); // PersonWithOfficeInfo | Created person object with email
 try {
-    ModelAPIResponse result = apiInstance.createPersonWithEmail(body);
+    ModelApiResponse result = apiInstance.createPersonWithEmail(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling PersonApi#createPersonWithEmail");
@@ -107,7 +107,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ModelAPIResponse**](ModelAPIResponse.md)
+[**ModelApiResponse**](ModelApiResponse.md)
 
 ### Authorization
 
@@ -222,7 +222,7 @@ Name | Type | Description  | Notes
 
 <a name="personAddOrganisationalPositionTo"></a>
 # **personAddOrganisationalPositionTo**
-> ModelAPIResponse personAddOrganisationalPositionTo(body)
+> ModelApiResponse personAddOrganisationalPositionTo(body)
 
 Add an organizational position for
 
@@ -244,7 +244,7 @@ basicAuth.setPassword("YOUR PASSWORD");
 PersonApi apiInstance = new PersonApi();
 PositionOfPerson body = new PositionOfPerson(); // PositionOfPerson | Person that need to be in an organization
 try {
-    ModelAPIResponse result = apiInstance.personAddOrganisationalPositionTo(body);
+    ModelApiResponse result = apiInstance.personAddOrganisationalPositionTo(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling PersonApi#personAddOrganisationalPositionTo");
@@ -260,7 +260,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ModelAPIResponse**](ModelAPIResponse.md)
+[**ModelApiResponse**](ModelApiResponse.md)
 
 ### Authorization
 
@@ -273,7 +273,7 @@ Name | Type | Description  | Notes
 
 <a name="personAddResearchAreaOf"></a>
 # **personAddResearchAreaOf**
-> ModelAPIResponse personAddResearchAreaOf(body)
+> ModelApiResponse personAddResearchAreaOf(body)
 
 Create a &#x27;Research Area of&#x27; a person
 
@@ -295,7 +295,7 @@ basicAuth.setPassword("YOUR PASSWORD");
 PersonApi apiInstance = new PersonApi();
 ResourceToResource body = new ResourceToResource(); // ResourceToResource | Research Area of a person
 try {
-    ModelAPIResponse result = apiInstance.personAddResearchAreaOf(body);
+    ModelApiResponse result = apiInstance.personAddResearchAreaOf(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling PersonApi#personAddResearchAreaOf");
@@ -311,7 +311,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ModelAPIResponse**](ModelAPIResponse.md)
+[**ModelApiResponse**](ModelApiResponse.md)
 
 ### Authorization
 
@@ -324,7 +324,7 @@ Name | Type | Description  | Notes
 
 <a name="personHasAddResearchArea"></a>
 # **personHasAddResearchArea**
-> ModelAPIResponse personHasAddResearchArea(body)
+> ModelApiResponse personHasAddResearchArea(body)
 
 Create &#x27;has Research Area&#x27; for a person
 
@@ -346,7 +346,7 @@ basicAuth.setPassword("YOUR PASSWORD");
 PersonApi apiInstance = new PersonApi();
 ResourceToResource body = new ResourceToResource(); // ResourceToResource | Research Area of a person
 try {
-    ModelAPIResponse result = apiInstance.personHasAddResearchArea(body);
+    ModelApiResponse result = apiInstance.personHasAddResearchArea(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling PersonApi#personHasAddResearchArea");
@@ -362,7 +362,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ModelAPIResponse**](ModelAPIResponse.md)
+[**ModelApiResponse**](ModelApiResponse.md)
 
 ### Authorization
 

@@ -17,7 +17,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import ca.uqam.tool.vivoproxy.swagger.model.Image;
 import ca.uqam.tool.vivoproxy.swagger.model.IndividualType;
 import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
-import ca.uqam.tool.vivoproxy.swagger.model.ModelAPIResponse;
+import ca.uqam.tool.vivoproxy.swagger.model.ModelApiResponse;
 import ca.uqam.tool.vivoproxy.swagger.model.Statement;
 
 import java.util.Map;
@@ -40,7 +40,7 @@ import javax.validation.constraints.*;
 @Path("/indv")
 
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2022-01-14T03:45:37.393-05:00[America/New_York]")public class IndvApi  {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2022-01-14T06:17:43.487-05:00[America/New_York]")public class IndvApi  {
    private final IndvApiService delegate;
 
    public IndvApi(@Context ServletConfig servletContext) {
@@ -109,7 +109,7 @@ import javax.validation.constraints.*;
     @Operation(summary = "Associate an image to an individual", description = "", security = {
         @SecurityRequirement(name = "basicAuth")    }, tags={ "Individual" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ModelAPIResponse.class))),
+        @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ModelApiResponse.class))),
         
         @ApiResponse(responseCode = "401", description = "Authentication information is missing or invalid") })
     public Response indvAddImage(@Parameter(in = ParameterIn.DEFAULT, description = "image associated to an individual" ,required=true) Image body
@@ -125,7 +125,7 @@ import javax.validation.constraints.*;
     @Operation(summary = "Add a label to an individual", description = "", security = {
         @SecurityRequirement(name = "basicAuth")    }, tags={ "Individual" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ModelAPIResponse.class))),
+        @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ModelApiResponse.class))),
         
         @ApiResponse(responseCode = "401", description = "Authentication information is missing or invalid") })
     public Response indvAddLabel(@Parameter(in = ParameterIn.QUERY, description = "The IRI of the individual from which a label is added",required=true) @QueryParam("IRI") String IRI
@@ -142,7 +142,7 @@ import javax.validation.constraints.*;
     @Operation(summary = "Adding statement", description = "", security = {
         @SecurityRequirement(name = "basicAuth")    }, tags={ "Individual" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ModelAPIResponse.class))),
+        @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ModelApiResponse.class))),
         
         @ApiResponse(responseCode = "401", description = "Authentication information is missing or invalid") })
     public Response indvAddStatement(@Parameter(in = ParameterIn.DEFAULT, description = "Adding a triple to the graph" ,required=true) Statement body
@@ -158,7 +158,7 @@ import javax.validation.constraints.*;
     @Operation(summary = "Associate a type to an individual", description = "", security = {
         @SecurityRequirement(name = "basicAuth")    }, tags={ "Individual" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ModelAPIResponse.class))),
+        @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ModelApiResponse.class))),
         
         @ApiResponse(responseCode = "401", description = "Authentication information is missing or invalid") })
     public Response indvAddType(@Parameter(in = ParameterIn.DEFAULT, description = "Adding type associated to an existing individual" ,required=true) IndividualType body

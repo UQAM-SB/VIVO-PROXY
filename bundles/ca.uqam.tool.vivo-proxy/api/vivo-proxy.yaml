@@ -65,7 +65,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/API-Response'
+                $ref: '#/components/schemas/ApiResponse'
         401:
           description: Authentication information is missing or invalid
           headers:
@@ -111,7 +111,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/API-Response'
+                $ref: '#/components/schemas/ApiResponse'
         401:
           description: Authentication information is missing or invalid
           headers:
@@ -149,7 +149,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/API-Response'
+                $ref: '#/components/schemas/ApiResponse'
         401:
           description: Authentication information is missing or invalid
           headers:
@@ -182,7 +182,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/API-Response'
+                $ref: '#/components/schemas/ApiResponse'
         401:
           description: Authentication information is missing or invalid
           headers:
@@ -213,7 +213,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/API-Response'
+                $ref: '#/components/schemas/ApiResponse'
         401:
           description: Authentication information is missing or invalid
           headers:
@@ -247,7 +247,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/API-Response'
+                $ref: '#/components/schemas/ApiResponse'
         401:
           description: Authentication information is missing or invalid
           headers:
@@ -368,7 +368,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/API-Response'
+                $ref: '#/components/schemas/ApiResponse'
         401:
           description: Authentication information is missing or invalid
           headers:
@@ -397,7 +397,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/API-Response'
+                $ref: '#/components/schemas/ApiResponse'
         401:
           description: Authentication information is missing or invalid
           headers:
@@ -426,7 +426,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/API-Response'
+                $ref: '#/components/schemas/ApiResponse'
         401:
           description: Authentication information is missing or invalid
           headers:
@@ -458,7 +458,7 @@ paths:
                 type: string
             application/json:
               schema:
-                $ref: '#/components/schemas/API-Response'
+                $ref: '#/components/schemas/ApiResponse'
         401:
           description: Authentication information is missing or invalid
           headers:
@@ -609,7 +609,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/API-Response'
+                $ref: '#/components/schemas/ApiResponse'
         401:
           description: Authentication information is missing or invalid
           headers:
@@ -638,7 +638,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/API-Response'
+                $ref: '#/components/schemas/ApiResponse'
         401:
           description: Authentication information is missing or invalid
           headers:
@@ -667,7 +667,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/API-Response'
+                $ref: '#/components/schemas/ApiResponse'
         401:
           description: Authentication information is missing or invalid
           headers:
@@ -704,7 +704,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/API-Response'
+                $ref: '#/components/schemas/ApiResponse'
         401:
           description: Authentication information is missing or invalid
           headers:
@@ -733,13 +733,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/API-Response'
+                $ref: '#/components/schemas/ApiResponse'
         502:
           description: OK (successfully authenticated)
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/API-Response'
+                $ref: '#/components/schemas/ApiResponse'
         401:
           description: Authentication information is missing or invalid
           headers:
@@ -828,7 +828,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/API-Response'
+                $ref: '#/components/schemas/ApiResponse'
         400:
           description: vivo not found
           content: {}
@@ -857,7 +857,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/API-Response'
+                $ref: '#/components/schemas/ApiResponse'
         400:
           description: vivo not found
           content: {}
@@ -1307,7 +1307,7 @@ The university offers training on the Montreal campus and on its regional campus
           type: string
           description: Password used by VIVO admin (root)
           example: Vivo1234.
-    API-Response:
+    ApiResponse:
       type: object
       properties:
         code:
@@ -1323,7 +1323,7 @@ The university offers training on the Montreal campus and on its regional campus
           type: string
           example: http://localhost:8080/vivo/individual/n774
           description: The subject IRI of the created statement
-        VIVO-Message:
+        VivoMessage:
           type: string
           example: <H1>200 SPARQL update accepted.</H1>
           description: The transaction message transmitted by the VIVO server

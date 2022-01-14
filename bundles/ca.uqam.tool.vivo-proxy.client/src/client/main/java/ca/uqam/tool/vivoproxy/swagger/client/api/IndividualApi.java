@@ -29,7 +29,7 @@ import java.io.IOException;
 import ca.uqam.tool.vivoproxy.swagger.client.model.Image;
 import ca.uqam.tool.vivoproxy.swagger.client.model.IndividualType;
 import ca.uqam.tool.vivoproxy.swagger.client.model.LinguisticLabel;
-import ca.uqam.tool.vivoproxy.swagger.client.model.ModelAPIResponse;
+import ca.uqam.tool.vivoproxy.swagger.client.model.ModelApiResponse;
 import ca.uqam.tool.vivoproxy.swagger.client.model.Statement;
 
 import java.lang.reflect.Type;
@@ -355,7 +355,7 @@ public class IndividualApi {
         }
 
         String[] localVarAuthNames = new String[] { "basicAuth" };
-        return apiClient.buildCall(localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+        return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
     
     @SuppressWarnings("rawtypes")
@@ -378,11 +378,11 @@ public class IndividualApi {
      * Associate an image to an individual
      * 
      * @param body image associated to an individual (required)
-     * @return ModelAPIResponse
+     * @return ModelApiResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ModelAPIResponse indvAddImage(Image body) throws ApiException {
-        ApiResponse<ModelAPIResponse> resp = indvAddImageWithHttpInfo(body);
+    public ModelApiResponse indvAddImage(Image body) throws ApiException {
+        ApiResponse<ModelApiResponse> resp = indvAddImageWithHttpInfo(body);
         return resp.getData();
     }
 
@@ -390,12 +390,12 @@ public class IndividualApi {
      * Associate an image to an individual
      * 
      * @param body image associated to an individual (required)
-     * @return ApiResponse&lt;ModelAPIResponse&gt;
+     * @return ApiResponse&lt;ModelApiResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<ModelAPIResponse> indvAddImageWithHttpInfo(Image body) throws ApiException {
+    public ApiResponse<ModelApiResponse> indvAddImageWithHttpInfo(Image body) throws ApiException {
         com.squareup.okhttp.Call call = indvAddImageValidateBeforeCall(body, null, null);
-        Type localVarReturnType = new TypeToken<ModelAPIResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<ModelApiResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
@@ -407,7 +407,7 @@ public class IndividualApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call indvAddImageAsync(Image body, final ApiCallback<ModelAPIResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call indvAddImageAsync(Image body, final ApiCallback<ModelApiResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -429,7 +429,7 @@ public class IndividualApi {
         }
 
         com.squareup.okhttp.Call call = indvAddImageValidateBeforeCall(body, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<ModelAPIResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<ModelApiResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
@@ -506,11 +506,11 @@ public class IndividualApi {
      * 
      * @param IRI The IRI of the individual from which a label is added (required)
      * @param body Linguistic labels to add (optional)
-     * @return ModelAPIResponse
+     * @return ModelApiResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ModelAPIResponse indvAddLabel(String IRI, List<LinguisticLabel> body) throws ApiException {
-        ApiResponse<ModelAPIResponse> resp = indvAddLabelWithHttpInfo(IRI, body);
+    public ModelApiResponse indvAddLabel(String IRI, List<LinguisticLabel> body) throws ApiException {
+        ApiResponse<ModelApiResponse> resp = indvAddLabelWithHttpInfo(IRI, body);
         return resp.getData();
     }
 
@@ -519,12 +519,12 @@ public class IndividualApi {
      * 
      * @param IRI The IRI of the individual from which a label is added (required)
      * @param body Linguistic labels to add (optional)
-     * @return ApiResponse&lt;ModelAPIResponse&gt;
+     * @return ApiResponse&lt;ModelApiResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<ModelAPIResponse> indvAddLabelWithHttpInfo(String IRI, List<LinguisticLabel> body) throws ApiException {
+    public ApiResponse<ModelApiResponse> indvAddLabelWithHttpInfo(String IRI, List<LinguisticLabel> body) throws ApiException {
         com.squareup.okhttp.Call call = indvAddLabelValidateBeforeCall(IRI, body, null, null);
-        Type localVarReturnType = new TypeToken<ModelAPIResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<ModelApiResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
@@ -537,7 +537,7 @@ public class IndividualApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call indvAddLabelAsync(String IRI, List<LinguisticLabel> body, final ApiCallback<ModelAPIResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call indvAddLabelAsync(String IRI, List<LinguisticLabel> body, final ApiCallback<ModelApiResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -559,7 +559,7 @@ public class IndividualApi {
         }
 
         com.squareup.okhttp.Call call = indvAddLabelValidateBeforeCall(IRI, body, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<ModelAPIResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<ModelApiResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
@@ -632,11 +632,11 @@ public class IndividualApi {
      * Adding statement
      * 
      * @param body Adding a triple to the graph (required)
-     * @return ModelAPIResponse
+     * @return ModelApiResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ModelAPIResponse indvAddStatement(Statement body) throws ApiException {
-        ApiResponse<ModelAPIResponse> resp = indvAddStatementWithHttpInfo(body);
+    public ModelApiResponse indvAddStatement(Statement body) throws ApiException {
+        ApiResponse<ModelApiResponse> resp = indvAddStatementWithHttpInfo(body);
         return resp.getData();
     }
 
@@ -644,12 +644,12 @@ public class IndividualApi {
      * Adding statement
      * 
      * @param body Adding a triple to the graph (required)
-     * @return ApiResponse&lt;ModelAPIResponse&gt;
+     * @return ApiResponse&lt;ModelApiResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<ModelAPIResponse> indvAddStatementWithHttpInfo(Statement body) throws ApiException {
+    public ApiResponse<ModelApiResponse> indvAddStatementWithHttpInfo(Statement body) throws ApiException {
         com.squareup.okhttp.Call call = indvAddStatementValidateBeforeCall(body, null, null);
-        Type localVarReturnType = new TypeToken<ModelAPIResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<ModelApiResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
@@ -661,7 +661,7 @@ public class IndividualApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call indvAddStatementAsync(Statement body, final ApiCallback<ModelAPIResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call indvAddStatementAsync(Statement body, final ApiCallback<ModelApiResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -683,7 +683,7 @@ public class IndividualApi {
         }
 
         com.squareup.okhttp.Call call = indvAddStatementValidateBeforeCall(body, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<ModelAPIResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<ModelApiResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
@@ -756,11 +756,11 @@ public class IndividualApi {
      * Associate a type to an individual
      * 
      * @param body Adding type associated to an existing individual (required)
-     * @return ModelAPIResponse
+     * @return ModelApiResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ModelAPIResponse indvAddType(IndividualType body) throws ApiException {
-        ApiResponse<ModelAPIResponse> resp = indvAddTypeWithHttpInfo(body);
+    public ModelApiResponse indvAddType(IndividualType body) throws ApiException {
+        ApiResponse<ModelApiResponse> resp = indvAddTypeWithHttpInfo(body);
         return resp.getData();
     }
 
@@ -768,12 +768,12 @@ public class IndividualApi {
      * Associate a type to an individual
      * 
      * @param body Adding type associated to an existing individual (required)
-     * @return ApiResponse&lt;ModelAPIResponse&gt;
+     * @return ApiResponse&lt;ModelApiResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<ModelAPIResponse> indvAddTypeWithHttpInfo(IndividualType body) throws ApiException {
+    public ApiResponse<ModelApiResponse> indvAddTypeWithHttpInfo(IndividualType body) throws ApiException {
         com.squareup.okhttp.Call call = indvAddTypeValidateBeforeCall(body, null, null);
-        Type localVarReturnType = new TypeToken<ModelAPIResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<ModelApiResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
@@ -785,7 +785,7 @@ public class IndividualApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call indvAddTypeAsync(IndividualType body, final ApiCallback<ModelAPIResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call indvAddTypeAsync(IndividualType body, final ApiCallback<ModelApiResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -807,7 +807,7 @@ public class IndividualApi {
         }
 
         com.squareup.okhttp.Call call = indvAddTypeValidateBeforeCall(body, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<ModelAPIResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<ModelApiResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }

@@ -37,8 +37,8 @@ public class AdminApiServiceImpl extends AdminApiService {
 				apiResp.setType(new ApiResponseMessage(ApiResponseMessage.OK,"").getType());
 				apiResp.setIrIValue(LOGIN.getVivoSiteUrl()+"/termsOfUse");
 				apiResp.setApiMessage(String.valueOf(response.code()));
-				Response apiResponse = Response.ok().entity(apiResp).build();
 				apiResp.setViVOMessage("Pong");
+				Response apiResponse = Response.ok().entity(apiResp).build();
 				return apiResponse;
 			}
 		} catch (Exception e) {
@@ -59,7 +59,7 @@ public class AdminApiServiceImpl extends AdminApiService {
 		ModelAPIResponse apiResp = new ModelAPIResponse();
 		com.squareup.okhttp.Response result = invokerResult.getOkhttpResult();
 		apiResp.setCode(ApiResponseMessage.ERROR);
-		apiResp.setIrIValue(LOGIN.getVivoSiteUrl()+"/"+LOGIN.getVivoSite());
+		apiResp.setIrIValue(LOGIN.getVivoSiteUrl());
 		try {
 			apiResp.setType(String.valueOf(result.code()));
 			apiResp.viVOMessage(result.toString());
@@ -129,6 +129,10 @@ public class AdminApiServiceImpl extends AdminApiService {
 	}
 	public static void main(String[] args) throws NotFoundException {
 		AdminApiServiceImpl adminApiService = new AdminApiServiceImpl();
+		Response resp = adminApiService.getVivoProperties(null);
+		VivoProperties vivoProp = (VivoProperties) resp.getEntity();
+		vivoProp.setVivoURL("http://localhost:8080/vivo-uqam");
+		adminApiService.setVivoProperties(vivoProp, null);
 		Response result = adminApiService.pingVivo(null);
 		System.out.println(result);
 	}
@@ -139,7 +143,7 @@ public class AdminApiServiceImpl extends AdminApiService {
     	vivoProperties.setSparqlUpdateURL(LOGIN.getSparqlUpdateURL());
     	vivoProperties.setViVOAdminLogin(LOGIN.getUserName());
     	vivoProperties.setViVOAdminPassword("xxxxx");
-    	vivoProperties.setVivoURL(LOGIN.getVivoUrl());
+    	vivoProperties.setVivoURL(LOGIN.getVivoSiteUrl());
         return Response.ok().entity(vivoProperties).build();
 	}
 	@Override

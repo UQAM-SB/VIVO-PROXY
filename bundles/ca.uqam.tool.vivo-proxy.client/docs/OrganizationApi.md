@@ -1,6 +1,6 @@
 # OrganizationApi
 
-All URIs are relative to *http://vivo-proxy.ca-central-1.elasticbeanstalk.com/vivo-proxy*
+All URIs are relative to *http://localhost:9090/vivo-proxy*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 <a name="createOrganization"></a>
 # **createOrganization**
-> ModelAPIResponse createOrganization(body)
+> ModelApiResponse createOrganization(body)
 
 Create an organization in VIVO
 
@@ -32,7 +32,7 @@ basicAuth.setPassword("YOUR PASSWORD");
 OrganizationApi apiInstance = new OrganizationApi();
 Organization body = new Organization(); // Organization | Created organization object
 try {
-    ModelAPIResponse result = apiInstance.createOrganization(body);
+    ModelApiResponse result = apiInstance.createOrganization(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling OrganizationApi#createOrganization");
@@ -48,7 +48,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ModelAPIResponse**](ModelAPIResponse.md)
+[**ModelApiResponse**](ModelApiResponse.md)
 
 ### Authorization
 

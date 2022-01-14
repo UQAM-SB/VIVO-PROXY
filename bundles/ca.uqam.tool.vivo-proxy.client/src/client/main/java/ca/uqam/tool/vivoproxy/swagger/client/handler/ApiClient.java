@@ -53,7 +53,7 @@ import ca.uqam.tool.vivoproxy.swagger.client.handler.auth.OAuth;
 
 public class ApiClient {
 
-    private String basePath = "http://vivo-proxy.ca-central-1.elasticbeanstalk.com/vivo-proxy";
+    private String basePath = "http://localhost:9090/vivo-proxy";
     private boolean debugging = false;
     private Map<String, String> defaultHeaderMap = new HashMap<String, String>();
     private String tempFolderPath = null;
@@ -107,7 +107,7 @@ public class ApiClient {
     /**
      * Set base path
      *
-     * @param basePath Base path of the URL (e.g http://vivo-proxy.ca-central-1.elasticbeanstalk.com/vivo-proxy
+     * @param basePath Base path of the URL (e.g http://localhost:9090/vivo-proxy
      * @return An instance of OkHttpClient
      */
     public ApiClient setBasePath(String basePath) {

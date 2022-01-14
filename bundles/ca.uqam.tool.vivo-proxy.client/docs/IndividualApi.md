@@ -1,12 +1,12 @@
 # IndividualApi
 
-All URIs are relative to *http://vivo-proxy.ca-central-1.elasticbeanstalk.com/vivo-proxy*
+All URIs are relative to *http://localhost:9090/vivo-proxy*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**getIndvByIRI**](IndividualApi.md#getIndvByIRI) | **GET** /indv/byIri | Get an individual by IRI
 [**getIndvByLabel**](IndividualApi.md#getIndvByLabel) | **GET** /indv/byLabel | Get an individual IRI by label (rdfs:label)
-[**indvAddImage**](IndividualApi.md#indvAddImage) | **PUT** /indv/addImage | Associate an image to an individual
+[**indvAddImage**](IndividualApi.md#indvAddImage) | **POST** /indv/addImage | Associate an image to an individual
 [**indvAddLabel**](IndividualApi.md#indvAddLabel) | **PUT** /indv/addLabel | Add a label to an individual
 [**indvAddStatement**](IndividualApi.md#indvAddStatement) | **PUT** /indv/addStatement | Adding statement
 [**indvAddType**](IndividualApi.md#indvAddType) | **PUT** /indv/addType | Associate a type to an individual
@@ -115,7 +115,7 @@ Name | Type | Description  | Notes
 
 <a name="indvAddImage"></a>
 # **indvAddImage**
-> ModelAPIResponse indvAddImage(body)
+> ModelApiResponse indvAddImage(body)
 
 Associate an image to an individual
 
@@ -137,7 +137,7 @@ basicAuth.setPassword("YOUR PASSWORD");
 IndividualApi apiInstance = new IndividualApi();
 Image body = new Image(); // Image | image associated to an individual
 try {
-    ModelAPIResponse result = apiInstance.indvAddImage(body);
+    ModelApiResponse result = apiInstance.indvAddImage(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling IndividualApi#indvAddImage");
@@ -153,7 +153,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ModelAPIResponse**](ModelAPIResponse.md)
+[**ModelApiResponse**](ModelApiResponse.md)
 
 ### Authorization
 
@@ -166,7 +166,7 @@ Name | Type | Description  | Notes
 
 <a name="indvAddLabel"></a>
 # **indvAddLabel**
-> ModelAPIResponse indvAddLabel(IRI, body)
+> ModelApiResponse indvAddLabel(IRI, body)
 
 Add a label to an individual
 
@@ -189,7 +189,7 @@ IndividualApi apiInstance = new IndividualApi();
 String IRI = "IRI_example"; // String | The IRI of the individual from which a label is added
 List<LinguisticLabel> body = Arrays.asList(new LinguisticLabel()); // List<LinguisticLabel> | Linguistic labels to add
 try {
-    ModelAPIResponse result = apiInstance.indvAddLabel(IRI, body);
+    ModelApiResponse result = apiInstance.indvAddLabel(IRI, body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling IndividualApi#indvAddLabel");
@@ -206,7 +206,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ModelAPIResponse**](ModelAPIResponse.md)
+[**ModelApiResponse**](ModelApiResponse.md)
 
 ### Authorization
 
@@ -219,7 +219,7 @@ Name | Type | Description  | Notes
 
 <a name="indvAddStatement"></a>
 # **indvAddStatement**
-> ModelAPIResponse indvAddStatement(body)
+> ModelApiResponse indvAddStatement(body)
 
 Adding statement
 
@@ -241,7 +241,7 @@ basicAuth.setPassword("YOUR PASSWORD");
 IndividualApi apiInstance = new IndividualApi();
 Statement body = new Statement(); // Statement | Adding a triple to the graph
 try {
-    ModelAPIResponse result = apiInstance.indvAddStatement(body);
+    ModelApiResponse result = apiInstance.indvAddStatement(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling IndividualApi#indvAddStatement");
@@ -257,7 +257,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ModelAPIResponse**](ModelAPIResponse.md)
+[**ModelApiResponse**](ModelApiResponse.md)
 
 ### Authorization
 
@@ -270,7 +270,7 @@ Name | Type | Description  | Notes
 
 <a name="indvAddType"></a>
 # **indvAddType**
-> ModelAPIResponse indvAddType(body)
+> ModelApiResponse indvAddType(body)
 
 Associate a type to an individual
 
@@ -292,7 +292,7 @@ basicAuth.setPassword("YOUR PASSWORD");
 IndividualApi apiInstance = new IndividualApi();
 IndividualType body = new IndividualType(); // IndividualType | Adding type associated to an existing individual
 try {
-    ModelAPIResponse result = apiInstance.indvAddType(body);
+    ModelApiResponse result = apiInstance.indvAddType(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling IndividualApi#indvAddType");
@@ -308,7 +308,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ModelAPIResponse**](ModelAPIResponse.md)
+[**ModelApiResponse**](ModelApiResponse.md)
 
 ### Authorization
 

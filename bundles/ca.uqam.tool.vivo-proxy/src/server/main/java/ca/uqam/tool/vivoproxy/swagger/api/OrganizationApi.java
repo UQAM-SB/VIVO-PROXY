@@ -14,7 +14,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
-import ca.uqam.tool.vivoproxy.swagger.model.ModelAPIResponse;
+import ca.uqam.tool.vivoproxy.swagger.model.ModelApiResponse;
 import ca.uqam.tool.vivoproxy.swagger.model.Organization;
 
 import java.util.Map;
@@ -37,7 +37,7 @@ import javax.validation.constraints.*;
 @Path("/organization")
 
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2022-01-14T03:45:37.393-05:00[America/New_York]")public class OrganizationApi  {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2022-01-14T06:17:43.487-05:00[America/New_York]")public class OrganizationApi  {
    private final OrganizationApiService delegate;
 
    public OrganizationApi(@Context ServletConfig servletContext) {
@@ -68,9 +68,9 @@ import javax.validation.constraints.*;
     @Operation(summary = "Create an organization in VIVO", description = "This can only be done by the logged in VIVO.", security = {
         @SecurityRequirement(name = "basicAuth")    }, tags={ "organization" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ModelAPIResponse.class))),
+        @ApiResponse(responseCode = "200", description = "OK (successfully authenticated)", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ModelApiResponse.class))),
         
-        @ApiResponse(responseCode = "502", description = "OK (successfully authenticated)", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ModelAPIResponse.class))),
+        @ApiResponse(responseCode = "502", description = "OK (successfully authenticated)", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ModelApiResponse.class))),
         
         @ApiResponse(responseCode = "401", description = "Authentication information is missing or invalid") })
     public Response createOrganization(@Parameter(in = ParameterIn.DEFAULT, description = "Created organization object" ,required=true) Organization body

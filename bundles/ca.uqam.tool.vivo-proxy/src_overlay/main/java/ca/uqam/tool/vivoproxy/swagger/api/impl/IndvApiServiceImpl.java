@@ -110,12 +110,12 @@ public class IndvApiServiceImpl extends IndvApiService {
 			/*
 			 * Retreive and manage response
 			 */
-			com.squareup.okhttp.Response response = addImageToIndividualCommand.getCommandResult().getOkhttpResult();
-			String newrIri = VivoReceiverHelper.getUriResponse(response.body().string());
-			LOGGER.info("Adding image for individual at "+ newrIri+" with return code " + response.code());
+			CommandResult response = addImageToIndividualCommand.getCommandResult();
+			String newrIri = VivoReceiverHelper.getUriResponse(response.getResultAsString());
+			LOGGER.info("Adding image for individual at "+ newrIri+" with return code " + response.getCode());
 			ModelAPIResponse apiResp = new ModelAPIResponse();
 			apiResp.setIrIValue(newrIri);
-			apiResp.setViVOMessage(" return code: " +response.code()+ " "  +response.message());
+			apiResp.setViVOMessage(" return code: " +response.getCode()+ " "  +response.getMessage());
 			apiResp.setCode(ApiResponseMessage.OK);
 			apiResp.setType(new ApiResponseMessage(ApiResponseMessage.OK,"").getType());
 			Response apiResponse = Response.ok().entity(apiResp).build();

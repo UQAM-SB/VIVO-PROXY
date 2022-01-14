@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **displayName** | [**List&lt;LinguisticLabel&gt;**](LinguisticLabel.md) |  |  [optional]
 **firstName** | [**List&lt;LinguisticLabel&gt;**](LinguisticLabel.md) |  | 
 **lastName** | [**List&lt;LinguisticLabel&gt;**](LinguisticLabel.md) |  | 
-**title** | [**List&lt;LinguisticLabel&gt;**](LinguisticLabel.md) |  | 
+**title** | [**List&lt;LinguisticLabel&gt;**](LinguisticLabel.md) |  |  [optional]
 **secondaryTitle** | [**List&lt;LinguisticLabel&gt;**](LinguisticLabel.md) | Other useful title |  [optional]
 **eMail** | **String** | principal email that is used has key | 
 **secondaryMails** | **List&lt;String&gt;** | Other useful emails |  [optional]

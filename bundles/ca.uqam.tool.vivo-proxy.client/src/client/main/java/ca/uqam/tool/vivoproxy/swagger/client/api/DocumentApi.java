@@ -28,7 +28,7 @@ import java.io.IOException;
 
 import ca.uqam.tool.vivoproxy.swagger.client.model.AuthorOfADocument;
 import ca.uqam.tool.vivoproxy.swagger.client.model.Document;
-import ca.uqam.tool.vivoproxy.swagger.client.model.ModelAPIResponse;
+import ca.uqam.tool.vivoproxy.swagger.client.model.ModelApiResponse;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -124,11 +124,11 @@ public class DocumentApi {
      * Create a document in VIVO
      * This can only be done by the logged in person.
      * @param body Created a document (required)
-     * @return ModelAPIResponse
+     * @return ModelApiResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ModelAPIResponse createDocument(Document body) throws ApiException {
-        ApiResponse<ModelAPIResponse> resp = createDocumentWithHttpInfo(body);
+    public ModelApiResponse createDocument(Document body) throws ApiException {
+        ApiResponse<ModelApiResponse> resp = createDocumentWithHttpInfo(body);
         return resp.getData();
     }
 
@@ -136,12 +136,12 @@ public class DocumentApi {
      * Create a document in VIVO
      * This can only be done by the logged in person.
      * @param body Created a document (required)
-     * @return ApiResponse&lt;ModelAPIResponse&gt;
+     * @return ApiResponse&lt;ModelApiResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<ModelAPIResponse> createDocumentWithHttpInfo(Document body) throws ApiException {
+    public ApiResponse<ModelApiResponse> createDocumentWithHttpInfo(Document body) throws ApiException {
         com.squareup.okhttp.Call call = createDocumentValidateBeforeCall(body, null, null);
-        Type localVarReturnType = new TypeToken<ModelAPIResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<ModelApiResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
@@ -153,7 +153,7 @@ public class DocumentApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call createDocumentAsync(Document body, final ApiCallback<ModelAPIResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call createDocumentAsync(Document body, final ApiCallback<ModelApiResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -175,7 +175,7 @@ public class DocumentApi {
         }
 
         com.squareup.okhttp.Call call = createDocumentValidateBeforeCall(body, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<ModelAPIResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<ModelApiResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
@@ -248,11 +248,11 @@ public class DocumentApi {
      * Associate a document to an Author
      * 
      * @param body Author that need to be add to a document (required)
-     * @return ModelAPIResponse
+     * @return ModelApiResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ModelAPIResponse documentAddAuthorFor(AuthorOfADocument body) throws ApiException {
-        ApiResponse<ModelAPIResponse> resp = documentAddAuthorForWithHttpInfo(body);
+    public ModelApiResponse documentAddAuthorFor(AuthorOfADocument body) throws ApiException {
+        ApiResponse<ModelApiResponse> resp = documentAddAuthorForWithHttpInfo(body);
         return resp.getData();
     }
 
@@ -260,12 +260,12 @@ public class DocumentApi {
      * Associate a document to an Author
      * 
      * @param body Author that need to be add to a document (required)
-     * @return ApiResponse&lt;ModelAPIResponse&gt;
+     * @return ApiResponse&lt;ModelApiResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<ModelAPIResponse> documentAddAuthorForWithHttpInfo(AuthorOfADocument body) throws ApiException {
+    public ApiResponse<ModelApiResponse> documentAddAuthorForWithHttpInfo(AuthorOfADocument body) throws ApiException {
         com.squareup.okhttp.Call call = documentAddAuthorForValidateBeforeCall(body, null, null);
-        Type localVarReturnType = new TypeToken<ModelAPIResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<ModelApiResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
@@ -277,7 +277,7 @@ public class DocumentApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call documentAddAuthorForAsync(AuthorOfADocument body, final ApiCallback<ModelAPIResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call documentAddAuthorForAsync(AuthorOfADocument body, final ApiCallback<ModelApiResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -299,7 +299,7 @@ public class DocumentApi {
         }
 
         com.squareup.okhttp.Call call = documentAddAuthorForValidateBeforeCall(body, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<ModelAPIResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<ModelApiResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }

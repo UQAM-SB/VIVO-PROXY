@@ -26,7 +26,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import ca.uqam.tool.vivoproxy.swagger.client.model.ModelAPIResponse;
+import ca.uqam.tool.vivoproxy.swagger.client.model.ModelApiResponse;
 import ca.uqam.tool.vivoproxy.swagger.client.model.Organization;
 
 import java.lang.reflect.Type;
@@ -123,11 +123,11 @@ public class OrganizationApi {
      * Create an organization in VIVO
      * This can only be done by the logged in VIVO.
      * @param body Created organization object (required)
-     * @return ModelAPIResponse
+     * @return ModelApiResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ModelAPIResponse createOrganization(Organization body) throws ApiException {
-        ApiResponse<ModelAPIResponse> resp = createOrganizationWithHttpInfo(body);
+    public ModelApiResponse createOrganization(Organization body) throws ApiException {
+        ApiResponse<ModelApiResponse> resp = createOrganizationWithHttpInfo(body);
         return resp.getData();
     }
 
@@ -135,12 +135,12 @@ public class OrganizationApi {
      * Create an organization in VIVO
      * This can only be done by the logged in VIVO.
      * @param body Created organization object (required)
-     * @return ApiResponse&lt;ModelAPIResponse&gt;
+     * @return ApiResponse&lt;ModelApiResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<ModelAPIResponse> createOrganizationWithHttpInfo(Organization body) throws ApiException {
+    public ApiResponse<ModelApiResponse> createOrganizationWithHttpInfo(Organization body) throws ApiException {
         com.squareup.okhttp.Call call = createOrganizationValidateBeforeCall(body, null, null);
-        Type localVarReturnType = new TypeToken<ModelAPIResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<ModelApiResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
@@ -152,7 +152,7 @@ public class OrganizationApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call createOrganizationAsync(Organization body, final ApiCallback<ModelAPIResponse> callback) throws ApiException {
+    public com.squareup.okhttp.Call createOrganizationAsync(Organization body, final ApiCallback<ModelApiResponse> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -174,7 +174,7 @@ public class OrganizationApi {
         }
 
         com.squareup.okhttp.Call call = createOrganizationValidateBeforeCall(body, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<ModelAPIResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<ModelApiResponse>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }

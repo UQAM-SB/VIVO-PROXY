@@ -29,7 +29,7 @@ import java.util.List;
  * PersonWithOfficeInfo
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2021-12-16T08:26:24.631-05:00[America/New_York]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2022-01-14T06:04:56.236-05:00[America/New_York]")
 public class PersonWithOfficeInfo {
   @SerializedName("personType")
   private String personType = null;
@@ -47,7 +47,7 @@ public class PersonWithOfficeInfo {
   private List<LinguisticLabel> lastName = new ArrayList<LinguisticLabel>();
 
   @SerializedName("title")
-  private List<LinguisticLabel> title = new ArrayList<LinguisticLabel>();
+  private List<LinguisticLabel> title = null;
 
   @SerializedName("secondaryTitle")
   private List<LinguisticLabel> secondaryTitle = null;
@@ -181,6 +181,9 @@ public class PersonWithOfficeInfo {
   }
 
   public PersonWithOfficeInfo addTitleItem(LinguisticLabel titleItem) {
+    if (this.title == null) {
+      this.title = new ArrayList<LinguisticLabel>();
+    }
     this.title.add(titleItem);
     return this;
   }
@@ -189,7 +192,7 @@ public class PersonWithOfficeInfo {
    * Get title
    * @return title
   **/
-  @Schema(example = "[{\"label\":\"Professeur\",\"language\":\"fr-CA\"},{\"label\":\"Professor\",\"language\":\"en-US\"}]", required = true, description = "")
+  @Schema(example = "[{\"label\":\"Professeur\",\"language\":\"fr-CA\"},{\"label\":\"Professor\",\"language\":\"en-US\"}]", description = "")
   public List<LinguisticLabel> getTitle() {
     return title;
   }

@@ -1,5 +1,7 @@
 package ca.uqam.tool.vivoproxy.pattern.command;
 
+import java.io.IOException;
+
 import com.squareup.okhttp.Response;
 
 import ca.uqam.tool.util.credential.LOGIN;
@@ -8,7 +10,25 @@ public class CommandResult {
     private Object result;
     private static String hostName = LOGIN.getVivoUrl();
     private static String vivoSiteName = LOGIN.getVivoSite();
-
+    private int code;
+    private String message;
+    
+    
+    public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	public int getCode() {
+		return code;
+	}
+	public void setCode(int code) {
+		this.code = code;
+	}
+	public String getResultAsString() {
+        return (String) result;
+    }
     public Object getResult() {
         return result;
     }
@@ -53,4 +73,9 @@ public class CommandResult {
             return getHostName()+"/"+getVivoSiteName();
     	}
     }
+	public void setOkHttpResponse(Response response) throws IOException {
+		setCode(response.code());
+		setResult(response.body().string());
+		setMessage(response.message());		
+	}
 }

@@ -25,7 +25,7 @@ import javax.validation.Valid;
 /**
  * PositionOfPerson
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2022-01-14T03:45:37.393-05:00[America/New_York]")public class PositionOfPerson   {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2022-01-14T06:17:43.487-05:00[America/New_York]")public class PositionOfPerson   {
   @JsonProperty("personIRI")
   private String personIRI = null;
 

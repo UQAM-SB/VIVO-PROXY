@@ -10,33 +10,36 @@
  * Do not edit the class manually.
  */
 
-package ca.uqam.tool.vivoproxy.swagger.model;
+package ca.uqam.tool.vivoproxy.swagger.client.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import java.util.Arrays;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
-import javax.validation.constraints.*;
-import javax.validation.Valid;
-
+import java.io.IOException;
 /**
  * Required properties for vivo-proxy to connect to a VIVO instance
  */
 @Schema(description = "Required properties for vivo-proxy to connect to a VIVO instance")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2022-01-14T06:17:43.487-05:00[America/New_York]")public class VivoProperties   {
-  @JsonProperty("vivo-URL")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2022-01-14T06:04:56.236-05:00[America/New_York]")
+public class VivoProperties {
+  @SerializedName("vivo-URL")
   private String vivoURL = null;
 
-  @JsonProperty("sparql-query-URL")
+  @SerializedName("sparql-query-URL")
   private String sparqlQueryURL = null;
 
-  @JsonProperty("sparql-update-URL")
+  @SerializedName("sparql-update-URL")
   private String sparqlUpdateURL = null;
 
-  @JsonProperty("VIVO-admin-login")
+  @SerializedName("VIVO-admin-login")
   private String viVOAdminLogin = null;
 
-  @JsonProperty("VIVO-admin-password")
+  @SerializedName("VIVO-admin-password")
   private String viVOAdminPassword = null;
 
   public VivoProperties vivoURL(String vivoURL) {
@@ -44,11 +47,10 @@ import javax.validation.Valid;
     return this;
   }
 
-  /**
+   /**
    * Remote VIVO URL
    * @return vivoURL
-   **/
-  @JsonProperty("vivo-URL")
+  **/
   @Schema(example = "http://vivo-uqam.ca-central-1.elasticbeanstalk.com/#", description = "Remote VIVO URL")
   public String getVivoURL() {
     return vivoURL;
@@ -63,11 +65,10 @@ import javax.validation.Valid;
     return this;
   }
 
-  /**
+   /**
    * Remote SPARQL endPoint for query
    * @return sparqlQueryURL
-   **/
-  @JsonProperty("sparql-query-URL")
+  **/
   @Schema(example = "https://vivo-demo-db.cluster-c2o1sdzzfasi.ca-central-1.neptune.amazonaws.com:8182/sparql", description = "Remote SPARQL endPoint for query")
   public String getSparqlQueryURL() {
     return sparqlQueryURL;
@@ -82,11 +83,10 @@ import javax.validation.Valid;
     return this;
   }
 
-  /**
+   /**
    * Remote SPARQL endPoint for update
    * @return sparqlUpdateURL
-   **/
-  @JsonProperty("sparql-update-URL")
+  **/
   @Schema(example = "https://vivo-demo-db.cluster-c2o1sdzzfasi.ca-central-1.neptune.amazonaws.com:8182/sparql", description = "Remote SPARQL endPoint for update")
   public String getSparqlUpdateURL() {
     return sparqlUpdateURL;
@@ -101,11 +101,10 @@ import javax.validation.Valid;
     return this;
   }
 
-  /**
+   /**
    * Login name for VIVO admin (root)
    * @return viVOAdminLogin
-   **/
-  @JsonProperty("VIVO-admin-login")
+  **/
   @Schema(example = "vivo@uqam.ca", description = "Login name for VIVO admin (root)")
   public String getViVOAdminLogin() {
     return viVOAdminLogin;
@@ -120,11 +119,10 @@ import javax.validation.Valid;
     return this;
   }
 
-  /**
+   /**
    * Password used by VIVO admin (root)
    * @return viVOAdminPassword
-   **/
-  @JsonProperty("VIVO-admin-password")
+  **/
   @Schema(example = "Vivo1234.", description = "Password used by VIVO admin (root)")
   public String getViVOAdminPassword() {
     return viVOAdminPassword;
@@ -181,4 +179,5 @@ import javax.validation.Valid;
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
