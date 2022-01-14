@@ -30,12 +30,12 @@ public class AdminApiServiceImpl extends AdminApiService {
 		try {
 			invokerResult = invoker.execute();
 			com.squareup.okhttp.Response response = invokerResult.getOkhttpResult();
-			if (response.body().string().contains("/vivo/termsOfUse"))
+			if (response.body().string().contains("termsOfUse"))
 			{
 				ModelAPIResponse apiResp = new ModelAPIResponse();
 				apiResp.setCode(ApiResponseMessage.OK);
 				apiResp.setType(new ApiResponseMessage(ApiResponseMessage.OK,"").getType());
-				apiResp.setIrIValue(LOGIN.getVivoUrl()+"/"+LOGIN.getVivoSite()+"/termsOfUse");
+				apiResp.setIrIValue(LOGIN.getVivoSiteUrl()+"/termsOfUse");
 				apiResp.setApiMessage(String.valueOf(response.code()));
 				Response apiResponse = Response.ok().entity(apiResp).build();
 				apiResp.setViVOMessage("Pong");
@@ -47,7 +47,7 @@ public class AdminApiServiceImpl extends AdminApiService {
 			apiResp.setCode(ApiResponseMessage.ERROR);
 			apiResp.setType(e.getClass().toString());
 			apiResp.setApiMessage(e.getMessage());
-			apiResp.setIrIValue(LOGIN.getVivoUrl()+"/"+LOGIN.getVivoSite()+"/termsOfUse");
+			apiResp.setIrIValue(LOGIN.getVivoSiteUrl()+"/termsOfUse");
 			try {
 				com.squareup.okhttp.Response result = invokerResult.getOkhttpResult();
 				apiResp.viVOMessage(result.toString());
@@ -59,7 +59,7 @@ public class AdminApiServiceImpl extends AdminApiService {
 		ModelAPIResponse apiResp = new ModelAPIResponse();
 		com.squareup.okhttp.Response result = invokerResult.getOkhttpResult();
 		apiResp.setCode(ApiResponseMessage.ERROR);
-		apiResp.setIrIValue(LOGIN.getVivoUrl()+"/"+LOGIN.getVivoSite());
+		apiResp.setIrIValue(LOGIN.getVivoSiteUrl()+"/"+LOGIN.getVivoSite());
 		try {
 			apiResp.setType(String.valueOf(result.code()));
 			apiResp.viVOMessage(result.toString());
@@ -93,7 +93,7 @@ public class AdminApiServiceImpl extends AdminApiService {
 				ModelAPIResponse apiResp = new ModelAPIResponse();
 				apiResp.setCode(ApiResponseMessage.OK);
 				apiResp.setType(new ApiResponseMessage(ApiResponseMessage.OK,"").getType());
-				apiResp.setIrIValue(LOGIN.getVivoUrl()+"/"+LOGIN.getVivoSite()+"/SearchIndex?rebuild=true");
+				apiResp.setIrIValue(LOGIN.getVivoSiteUrl()+"/SearchIndex?rebuild=true");
 				apiResp.setApiMessage(String.valueOf(response.code()));
 				Response apiResponse = Response.ok().entity(apiResp).build();
 				apiResp.setViVOMessage("SearchIndex?status=true");
@@ -105,7 +105,7 @@ public class AdminApiServiceImpl extends AdminApiService {
 			apiResp.setCode(ApiResponseMessage.ERROR);
 			apiResp.setType(e.getClass().toString());
 			apiResp.setApiMessage(e.getMessage());
-			apiResp.setIrIValue(LOGIN.getVivoUrl()+"/"+LOGIN.getVivoSite());
+			apiResp.setIrIValue(LOGIN.getVivoSiteUrl());
 			try {
 				com.squareup.okhttp.Response result = invokerResult.getOkhttpResult();
 				apiResp.viVOMessage(result.toString());
@@ -117,7 +117,7 @@ public class AdminApiServiceImpl extends AdminApiService {
 		ModelAPIResponse apiResp = new ModelAPIResponse();
 		com.squareup.okhttp.Response result = reindexCommand.getCommandResult().getOkhttpResult();
 		apiResp.setCode(ApiResponseMessage.ERROR);
-		apiResp.setIrIValue(LOGIN.getVivoUrl()+"/"+LOGIN.getVivoSite());
+		apiResp.setIrIValue(LOGIN.getVivoSiteUrl());
 		try {
 			apiResp.setType(String.valueOf(result.code()));
 			apiResp.viVOMessage(result.toString());
@@ -143,9 +143,12 @@ public class AdminApiServiceImpl extends AdminApiService {
         return Response.ok().entity(vivoProperties).build();
 	}
 	@Override
-	public Response setVivoProperties(SecurityContext securityContext) throws NotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+	public Response setVivoProperties(VivoProperties vivoProperties,SecurityContext securityContext) throws NotFoundException {
+		LOGIN.setSparqlQueryURL(vivoProperties.getSparqlQueryURL());
+		LOGIN.setSparqlUpdateURL(vivoProperties.getSparqlUpdateURL());
+		LOGIN.setViVOAdminLogin(vivoProperties.getViVOAdminLogin());
+		LOGIN.setViVOAdminPassword(vivoProperties.getViVOAdminPassword());
+		LOGIN.setVivoSiteUrl(vivoProperties.getVivoURL());
+		return getVivoProperties(securityContext);
 	}
-
 }

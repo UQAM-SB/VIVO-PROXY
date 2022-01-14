@@ -750,21 +750,20 @@ paths:
       security:
       - basicAuth: []
       x-codegen-request-body-name: body
-  /admin/set-vivo-properties:
+  /admin/setVivoProperties:
     put:
       deprecated: false
       tags:
       - admin
-      summary: Get remote VIVO properties
+      summary: Set remote VIVO properties
       operationId: setVivoProperties
       requestBody:
-        description: image associated to an individual
+        description: VIVO properties
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/VivoProperties'
         required: true
-
       responses:
         200:
           description: successful operation
@@ -787,7 +786,7 @@ paths:
           content: {}
       security:
       - basicAuth: []
-  /admin/vivo-properties:
+  /admin/getVivoProperties:
     get:
       deprecated: false
       tags:

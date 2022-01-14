@@ -37,7 +37,7 @@ import javax.validation.constraints.*;
 @Path("/admin")
 
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2022-01-13T16:43:41.084-05:00[America/New_York]")public class AdminApi  {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2022-01-14T03:45:37.393-05:00[America/New_York]")public class AdminApi  {
    private final AdminApiService delegate;
 
    public AdminApi(@Context ServletConfig servletContext) {
@@ -62,7 +62,7 @@ import javax.validation.constraints.*;
    }
 
     @GET
-    @Path("/vivo-properties")
+    @Path("/getVivoProperties")
     
     @Produces({ "application/json" })
     @Operation(summary = "Get remote VIVO properties", description = "", security = {
@@ -116,10 +116,10 @@ import javax.validation.constraints.*;
         return delegate.reindexVIVO(securityContext);
     }
     @PUT
-    @Path("/set-vivo-properties")
-    
+    @Path("/setVivoProperties")
+    @Consumes({ "application/json" })
     @Produces({ "application/json" })
-    @Operation(summary = "Get remote VIVO properties", description = "", security = {
+    @Operation(summary = "Set remote VIVO properties", description = "", security = {
         @SecurityRequirement(name = "basicAuth")    }, tags={ "admin" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(mediaType = "application/json", schema = @Schema(implementation = VivoProperties.class))),
@@ -129,8 +129,10 @@ import javax.validation.constraints.*;
         @ApiResponse(responseCode = "401", description = "Authentication information is missing or invalid"),
         
         @ApiResponse(responseCode = "404", description = "vivo not found") })
-    public Response setVivoProperties(@Context SecurityContext securityContext)
+    public Response setVivoProperties(@Parameter(in = ParameterIn.DEFAULT, description = "VIVO properties" ,required=true) VivoProperties body
+
+,@Context SecurityContext securityContext)
     throws NotFoundException {
-        return delegate.setVivoProperties(securityContext);
+        return delegate.setVivoProperties(body,securityContext);
     }
 }
