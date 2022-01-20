@@ -12,7 +12,7 @@
 export SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 source $SCRIPT_DIR/00-env.sh
 cd $VIVO_PROXY_SRC_HOME
-mvn -T2C clean generate-sources  install -s settings.xml  -Paws-dev-local
+# mvn -T2C clean generate-sources  install -s settings.xml  -Paws-dev-local
 cd $AWS_DEPLOY_HOME
-eb deploy
+eb deploy $AWS_ENV
 

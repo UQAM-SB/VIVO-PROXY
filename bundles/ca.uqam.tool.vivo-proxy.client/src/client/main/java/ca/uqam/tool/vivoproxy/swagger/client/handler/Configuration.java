@@ -12,7 +12,7 @@
 
 package ca.uqam.tool.vivoproxy.swagger.client.handler;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2022-01-14T06:04:56.236-05:00[America/New_York]")public class Configuration {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2022-01-19T16:41:07.898-05:00[America/New_York]")public class Configuration {
     private static ApiClient defaultApiClient = new ApiClient();
 
     /**

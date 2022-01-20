@@ -11,7 +11,7 @@ import javax.ws.rs.core.SecurityContext;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
-import ca.uqam.tool.util.credential.LOGIN;
+import ca.uqam.tool.util.credential.VIVO_PROXY_Properties;
 import ca.uqam.tool.vivoproxy.pattern.command.Command;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandFactory;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandInvoker;
@@ -27,7 +27,7 @@ import ca.uqam.tool.vivoproxy.swagger.api.VivoProxyResponseMessage;
 import ca.uqam.tool.vivoproxy.swagger.api.impl.util.ApiServiceImplHelper;
 import ca.uqam.tool.vivoproxy.swagger.model.AuthorOfADocument;
 import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
-import ca.uqam.tool.vivoproxy.swagger.model.ModelAPIResponse;
+import ca.uqam.tool.vivoproxy.swagger.model.ModelApiResponse;
 import ca.uqam.tool.vivoproxy.swagger.model.Person;
 import ca.uqam.tool.vivoproxy.swagger.model.PersonWithOfficeInfo;
 import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
@@ -39,8 +39,8 @@ import ca.uqam.tool.vivoproxy.util.SemanticWebMediaType;
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-07-19T21:08:05.454-04:00[America/New_York]")
 public class PersonApiServiceImpl extends PersonApiService {
-	private static final String VIVO_PASSWD = LOGIN.getPasswd(); 
-	private static final String VIVO_LOGIN = LOGIN.getUserName();
+	private static final String VIVO_PASSWD = VIVO_PROXY_Properties.getPasswd(); 
+	private static final String VIVO_LOGIN = VIVO_PROXY_Properties.getUserName();
 	private final static Logger LOGGER = Logger.getLogger(PersonApiServiceImpl.class.getName());
 	/* (non-Javadoc)
 	 * @see ca.uqam.tool.vivoproxy.swagger.api.PersonApiService#createPerson(ca.uqam.tool.vivoproxy.swagger.model.Person, javax.ws.rs.core.SecurityContext)
@@ -53,7 +53,7 @@ public class PersonApiServiceImpl extends PersonApiService {
 			/*
 			 * Create commands
 			 */
-			Command loginCommand = cf.createLogin(LOGIN.getUserName(), LOGIN.getPasswd());
+			Command loginCommand = cf.createLogin(VIVO_PROXY_Properties.getUserName(), VIVO_PROXY_Properties.getPasswd());
 			Command addPersonCommand = cf.createAddPerson(person);
 			Command logOutCommand = cf.createLogout();
 
@@ -85,7 +85,7 @@ public class PersonApiServiceImpl extends PersonApiService {
 		/*
 		 * Create commands
 		 */
-		Command loginCommand = cf.createLogin(LOGIN.getUserName(), LOGIN.getPasswd());
+		Command loginCommand = cf.createLogin(VIVO_PROXY_Properties.getUserName(), VIVO_PROXY_Properties.getPasswd());
 		Command logOutCommand = cf.createLogout();
 
 		/*
@@ -104,7 +104,7 @@ public class PersonApiServiceImpl extends PersonApiService {
 		List<Person> personsList = new ArrayList<>();
 		result = createAddPersonCmd.getCommandResult();
 		List<String> uris = (List<String>) result.getResult();
-		Command sparqlDescribeCommand = cf.createSparqlDescribeCommand(LOGIN.getUserName(), LOGIN.getPasswd(), uris, SemanticWebMediaType.APPLICATION_RDF_XML.toString());
+		Command sparqlDescribeCommand = cf.createSparqlDescribeCommand(VIVO_PROXY_Properties.getUserName(), VIVO_PROXY_Properties.getPasswd(), uris, SemanticWebMediaType.APPLICATION_RDF_XML.toString());
 		invoker.flush();
 		invoker.register(sparqlDescribeCommand);
 
@@ -145,7 +145,7 @@ public class PersonApiServiceImpl extends PersonApiService {
 			/*
 			 * Commands creation
 			 */
-			Command loginCommand = cf.createLogin(LOGIN.getUserName(), LOGIN.getPasswd());
+			Command loginCommand = cf.createLogin(VIVO_PROXY_Properties.getUserName(), VIVO_PROXY_Properties.getPasswd());
 			Command createPositionForCmd = cf.createPositionFor(posOfPers);
 			Command logOutCommand = cf.createLogout();
 			/*
@@ -159,9 +159,9 @@ public class PersonApiServiceImpl extends PersonApiService {
 			//			String newUserIri = VivoReceiverHelper.getUriResponse(addOrganisationCommand.getCommandResult().getResult().toString());
 
 			String newUserIri = createPositionForCmd.getCommandResult().getResult().toString();
-			ModelAPIResponse apiResp = new ModelAPIResponse();
+			ModelApiResponse apiResp = new ModelApiResponse();
 			apiResp.setIrIValue(newUserIri);
-			apiResp.setViVOMessage("for person " + posOfPers.getPersonIRI());
+			apiResp.setVivoMessage("for person " + posOfPers.getPersonIRI());
 			apiResp.setCode(ApiResponseMessage.OK);
 			apiResp.setType(new ApiResponseMessage(ApiResponseMessage.OK,"").getType());
 			Response apiResponse = Response.ok().entity(apiResp).build();
@@ -184,9 +184,9 @@ public class PersonApiServiceImpl extends PersonApiService {
 			invoker.execute();
 			com.squareup.okhttp.Response createAddConceptResponse = addResearchAreaOfCommand.getCommandResult().getOkhttpResult();
 			String sparqlResp = createAddConceptResponse.body().string();
-			ModelAPIResponse apiResp = new ModelAPIResponse();
+			ModelApiResponse apiResp = new ModelApiResponse();
 			apiResp.setIrIValue(resourceToLink.getSubjectIRI());
-			apiResp.setViVOMessage(sparqlResp);
+			apiResp.setVivoMessage(sparqlResp);
 			apiResp.setCode(ApiResponseMessage.OK);
 			apiResp.setType(new ApiResponseMessage(ApiResponseMessage.OK,"").getType());
 			Response apiResponse = Response.ok().entity(apiResp).build();
@@ -211,9 +211,9 @@ public class PersonApiServiceImpl extends PersonApiService {
 			com.squareup.okhttp.Response createAddConceptResponse = addHasResearchAreaCommand.getCommandResult().getOkhttpResult();
 
 			String sparqlResp = createAddConceptResponse.body().string();
-			ModelAPIResponse apiResp = new ModelAPIResponse();
+			ModelApiResponse apiResp = new ModelApiResponse();
 			apiResp.setIrIValue(resourceToLink.getSubjectIRI());
-			apiResp.setViVOMessage(sparqlResp);
+			apiResp.setVivoMessage(sparqlResp);
 			apiResp.setCode(ApiResponseMessage.OK);
 			apiResp.setType(new ApiResponseMessage(ApiResponseMessage.OK,"").getType());
 			Response apiResponse = Response.ok().entity(apiResp).build();
@@ -231,7 +231,7 @@ public class PersonApiServiceImpl extends PersonApiService {
 			/*
 			 * Commands creation
 			 */
-			Command loginCommand = cf.createLogin(LOGIN.getUserName(), LOGIN.getPasswd());
+			Command loginCommand = cf.createLogin(VIVO_PROXY_Properties.getUserName(), VIVO_PROXY_Properties.getPasswd());
 			Command addAuthorOfDocumentCommand = cf.addAuthorOfDocument(author);
 			Command logOutCommand = cf.createLogout();
 			/*
@@ -242,9 +242,9 @@ public class PersonApiServiceImpl extends PersonApiService {
 			invoker.register(logOutCommand);
 			invoker.execute();
 			String sparqlResp = addAuthorOfDocumentCommand.getCommandResult().getOkhttpResult().body().string();
-			ModelAPIResponse apiResp = new ModelAPIResponse();
+			ModelApiResponse apiResp = new ModelApiResponse();
 			apiResp.setIrIValue(author.getPersonIRI());
-			apiResp.setViVOMessage(sparqlResp);
+			apiResp.setVivoMessage(sparqlResp);
 			apiResp.setCode(ApiResponseMessage.OK);
 			apiResp.setType(new ApiResponseMessage(ApiResponseMessage.OK,"").getType());
 			Response apiResponse = Response.ok().entity(apiResp).build();
@@ -300,7 +300,7 @@ public class PersonApiServiceImpl extends PersonApiService {
 			/*
 			 * Create commands
 			 */
-			Command loginCommand = cf.createLogin(LOGIN.getUserName(), LOGIN.getPasswd());
+			Command loginCommand = cf.createLogin(VIVO_PROXY_Properties.getUserName(), VIVO_PROXY_Properties.getPasswd());
 			Command addPersonCommand = cf.AddPersonWithEmailCommand(person);
 			Command logOutCommand = cf.createLogout();
 

@@ -29,7 +29,18 @@ curl -X 'POST' \
 }'
 
 
-
+curl -X 'POST' \
+  'http://vivo-proxy.ca-central-1.elasticbeanstalk.com/Individual/indvAddImage' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "individualIRI": "http://localhost:8080/vivo/individual/n2662",
+  "imageURL": "https://photos-uqam.s3.ca-central-1.amazonaws.com/abbondanza.mona.jpg",
+  "orig_X": 0,
+  "orig_Y": 0,
+  "width": 270,
+  "height": 270
+}'
 
 
 <!DOCTYPE html>

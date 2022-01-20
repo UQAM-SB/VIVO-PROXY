@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash 
 
 ###################################################################
 # Script Name   :
@@ -6,11 +6,11 @@
 # Args          : 
 # Author       	: Michel Héon PhD
 # Institution   : Université du Québec à Montréal
-# Copyright     : Université du Québec à Montréal (c) 2021
+# Copyright     : Université du Québec à Montréal (c) 2022
 # Email         : heon.michel@uqam.ca
 ###################################################################
 export SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 source $SCRIPT_DIR/00-env.sh
-(cd $AWS_DEPLOY_HOME/$CNAME ; eb terminate $AWS_ENV --force )
-aws elasticbeanstalk delete-application --application-name $CNAME
-
+curl -X 'GET' \
+  'http://localhost:9090/vivo-proxy/admin/getVivoProperties' \
+  -H 'accept: application/json' 

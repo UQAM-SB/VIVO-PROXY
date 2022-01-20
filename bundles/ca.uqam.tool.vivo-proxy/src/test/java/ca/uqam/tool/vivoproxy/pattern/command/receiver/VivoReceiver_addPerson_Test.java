@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import com.squareup.okhttp.Response;
 
-import ca.uqam.tool.util.credential.LOGIN;
+import ca.uqam.tool.util.credential.VIVO_PROXY_Properties;
 import ca.uqam.tool.vivoproxy.pattern.command.AbstractReceiver;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
 import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
@@ -17,8 +17,8 @@ import ca.uqam.tool.vivoproxy.swagger.model.Person;
  */
 public class VivoReceiver_addPerson_Test extends AbstractReceiver {
 	public static void main(String[] argv) throws Exception {
-		String username = LOGIN.getUserName();
-		String password = LOGIN.getPasswd();
+		String username = VIVO_PROXY_Properties.getUserName();
+		String password = VIVO_PROXY_Properties.getPasswd();
 		VivoReceiver vr = new VivoReceiver();
 		vr.login(username, password);
 		Person pers = new Person();
@@ -30,10 +30,7 @@ public class VivoReceiver_addPerson_Test extends AbstractReceiver {
 		pers.addLastNameItem(ln);
 		pers.setPersonType("http://vivoweb.org/ontology/core#FacultyMember");
 		CommandResult resu = vr.addPerson(pers);
-		Response response = resu.getOkhttpResult();
-		String model = response.body().string();
-		System.out.println(response.toString());
-		System.out.println(model);
+		System.out.println(resu.getMessage());
 		
 //		Organization org = new Organization();
 //		LinguisticLabel cLabelFr = new LinguisticLabel();

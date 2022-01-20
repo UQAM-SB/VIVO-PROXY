@@ -37,7 +37,7 @@ import javax.validation.constraints.*;
 @Path("/organization")
 
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2022-01-14T06:17:43.487-05:00[America/New_York]")public class OrganizationApi  {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2022-01-19T17:23:11.919-05:00[America/New_York]")public class OrganizationApi  {
    private final OrganizationApiService delegate;
 
    public OrganizationApi(@Context ServletConfig servletContext) {

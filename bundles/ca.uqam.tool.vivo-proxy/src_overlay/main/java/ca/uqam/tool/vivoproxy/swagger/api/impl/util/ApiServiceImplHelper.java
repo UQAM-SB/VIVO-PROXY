@@ -4,11 +4,11 @@ import java.io.IOException;
 
 import javax.ws.rs.core.Response;
 
-import ca.uqam.tool.util.credential.LOGIN;
+import ca.uqam.tool.util.credential.VIVO_PROXY_Properties;
 import ca.uqam.tool.vivoproxy.pattern.command.Command;
 import ca.uqam.tool.vivoproxy.pattern.command.util.VivoReceiverHelper;
 import ca.uqam.tool.vivoproxy.swagger.api.ApiResponseMessage;
-import ca.uqam.tool.vivoproxy.swagger.model.ModelAPIResponse;
+import ca.uqam.tool.vivoproxy.swagger.model.ModelApiResponse;
 import javassist.bytecode.ByteArray;
 
 /**
@@ -25,7 +25,7 @@ public class ApiServiceImplHelper {
 	 * @throws IOException
 	 */
 	public static Response buildMessage(Command aCommand)  {
-		ModelAPIResponse apiResp = new ModelAPIResponse();
+		ModelApiResponse apiResp = new ModelApiResponse();
 		String hostname = "";
 		String vivoSiteName =  "";
 		String eMessage = "NULL";
@@ -37,12 +37,12 @@ public class ApiServiceImplHelper {
 				String model;
 				model = response.body().string();
 				if (response == null ){
-					apiResp.setViVOMessage("Okhttp response is NULL");
+					apiResp.setVivoMessage("Okhttp response is NULL");
 					apiResp.setCode(ApiResponseMessage.ERROR);
 					apiResp.setApiMessage("Hostname = "+hostname + " VIVO Hostname = "+ vivoSiteName);
 				} else 	if (response.code() !=200) {
 					apiResp.setIrIValue(response.request().urlString());
-					apiResp.setViVOMessage(" return code: " +response.code()+ " "  +response.message());
+					apiResp.setVivoMessage(" return code: " +response.code()+ " "  +response.message());
 					apiResp.setApiMessage("\n" + model);
 					apiResp.setCode(ApiResponseMessage.ERROR);
 					apiResp.setType(new ApiResponseMessage(ApiResponseMessage.ERROR,"").getType());
@@ -51,7 +51,7 @@ public class ApiServiceImplHelper {
 				} else {
 					String newUserIris = VivoReceiverHelper.getUriResponseFromModel(model);
 					apiResp.setIrIValue(newUserIris);
-					apiResp.setViVOMessage(" return code: " +response.code()+ " "  +response.message());
+					apiResp.setVivoMessage(" return code: " +response.code()+ " "  +response.message());
 					apiResp.setApiMessage("\n" + model);
 					apiResp.setCode(ApiResponseMessage.OK);
 					apiResp.setType(new ApiResponseMessage(ApiResponseMessage.OK,"").getType());
@@ -69,8 +69,8 @@ public class ApiServiceImplHelper {
 					response = obj.toString();
 				}
 				apiResp.setIrIValue(response);
-				apiResp.setViVOMessage("return code: 200");
-				apiResp.setApiMessage("Send SPARQL to: " + LOGIN.getSparqlUpdateURL());
+				apiResp.setVivoMessage("return code: 200");
+				apiResp.setApiMessage("Send SPARQL to: " + VIVO_PROXY_Properties.getSparqlUpdateURL());
 				apiResp.setCode(ApiResponseMessage.OK);
 				apiResp.setType(new ApiResponseMessage(ApiResponseMessage.OK,"").getType());
 				Response apiResponse = Response.ok().entity(apiResp).build();
@@ -79,7 +79,7 @@ public class ApiServiceImplHelper {
 		} catch (IOException e) {
 			eMessage   = e.getMessage();
 		}
-		apiResp.setViVOMessage("Response is "+ eMessage);
+		apiResp.setVivoMessage("Response is "+ eMessage);
 		apiResp.setCode(ApiResponseMessage.ERROR);
 		apiResp.setApiMessage("Hostname = "+hostname + " VIVO Hostname = "+ vivoSiteName);
 		Response apiResponse = Response.ok().entity(apiResp).build();

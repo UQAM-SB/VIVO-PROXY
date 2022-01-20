@@ -23,7 +23,7 @@ import javax.validation.Valid;
  * Required properties for vivo-proxy to connect to a VIVO instance
  */
 @Schema(description = "Required properties for vivo-proxy to connect to a VIVO instance")
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2022-01-14T06:17:43.487-05:00[America/New_York]")public class VivoProperties   {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2022-01-19T17:23:11.919-05:00[America/New_York]")public class VivoProperties   {
   @JsonProperty("vivo-URL")
   private String vivoURL = null;
 
@@ -32,6 +32,9 @@ import javax.validation.Valid;
 
   @JsonProperty("sparql-update-URL")
   private String sparqlUpdateURL = null;
+
+  @JsonProperty("sparql-endPoint-type")
+  private String sparqlEndPointType = "vivo";
 
   @JsonProperty("VIVO-admin-login")
   private String viVOAdminLogin = null;
@@ -49,7 +52,8 @@ import javax.validation.Valid;
    * @return vivoURL
    **/
   @JsonProperty("vivo-URL")
-  @Schema(example = "http://vivo-uqam.ca-central-1.elasticbeanstalk.com/#", description = "Remote VIVO URL")
+  @Schema(example = "http://vivo-uqam.ca-central-1.elasticbeanstalk.com/#", required = true, description = "Remote VIVO URL")
+  @NotNull
   public String getVivoURL() {
     return vivoURL;
   }
@@ -68,7 +72,8 @@ import javax.validation.Valid;
    * @return sparqlQueryURL
    **/
   @JsonProperty("sparql-query-URL")
-  @Schema(example = "https://vivo-demo-db.cluster-c2o1sdzzfasi.ca-central-1.neptune.amazonaws.com:8182/sparql", description = "Remote SPARQL endPoint for query")
+  @Schema(example = "https://vivo-demo-db.cluster-c2o1sdzzfasi.ca-central-1.neptune.amazonaws.com:8182/sparql", required = true, description = "Remote SPARQL endPoint for query")
+  @NotNull
   public String getSparqlQueryURL() {
     return sparqlQueryURL;
   }
@@ -87,13 +92,34 @@ import javax.validation.Valid;
    * @return sparqlUpdateURL
    **/
   @JsonProperty("sparql-update-URL")
-  @Schema(example = "https://vivo-demo-db.cluster-c2o1sdzzfasi.ca-central-1.neptune.amazonaws.com:8182/sparql", description = "Remote SPARQL endPoint for update")
+  @Schema(example = "https://vivo-demo-db.cluster-c2o1sdzzfasi.ca-central-1.neptune.amazonaws.com:8182/sparql", required = true, description = "Remote SPARQL endPoint for update")
+  @NotNull
   public String getSparqlUpdateURL() {
     return sparqlUpdateURL;
   }
 
   public void setSparqlUpdateURL(String sparqlUpdateURL) {
     this.sparqlUpdateURL = sparqlUpdateURL;
+  }
+
+  public VivoProperties sparqlEndPointType(String sparqlEndPointType) {
+    this.sparqlEndPointType = sparqlEndPointType;
+    return this;
+  }
+
+  /**
+   * Indicates the SPARQL endPoint type {neptune|vivo}
+   * @return sparqlEndPointType
+   **/
+  @JsonProperty("sparql-endPoint-type")
+  @Schema(required = true, description = "Indicates the SPARQL endPoint type {neptune|vivo}")
+  @NotNull
+  public String getSparqlEndPointType() {
+    return sparqlEndPointType;
+  }
+
+  public void setSparqlEndPointType(String sparqlEndPointType) {
+    this.sparqlEndPointType = sparqlEndPointType;
   }
 
   public VivoProperties viVOAdminLogin(String viVOAdminLogin) {
@@ -106,7 +132,8 @@ import javax.validation.Valid;
    * @return viVOAdminLogin
    **/
   @JsonProperty("VIVO-admin-login")
-  @Schema(example = "vivo@uqam.ca", description = "Login name for VIVO admin (root)")
+  @Schema(example = "vivo@uqam.ca", required = true, description = "Login name for VIVO admin (root)")
+  @NotNull
   public String getViVOAdminLogin() {
     return viVOAdminLogin;
   }
@@ -125,7 +152,8 @@ import javax.validation.Valid;
    * @return viVOAdminPassword
    **/
   @JsonProperty("VIVO-admin-password")
-  @Schema(example = "Vivo1234.", description = "Password used by VIVO admin (root)")
+  @Schema(example = "Vivo1234.", required = true, description = "Password used by VIVO admin (root)")
+  @NotNull
   public String getViVOAdminPassword() {
     return viVOAdminPassword;
   }
@@ -147,13 +175,14 @@ import javax.validation.Valid;
     return Objects.equals(this.vivoURL, vivoProperties.vivoURL) &&
         Objects.equals(this.sparqlQueryURL, vivoProperties.sparqlQueryURL) &&
         Objects.equals(this.sparqlUpdateURL, vivoProperties.sparqlUpdateURL) &&
+        Objects.equals(this.sparqlEndPointType, vivoProperties.sparqlEndPointType) &&
         Objects.equals(this.viVOAdminLogin, vivoProperties.viVOAdminLogin) &&
         Objects.equals(this.viVOAdminPassword, vivoProperties.viVOAdminPassword);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(vivoURL, sparqlQueryURL, sparqlUpdateURL, viVOAdminLogin, viVOAdminPassword);
+    return Objects.hash(vivoURL, sparqlQueryURL, sparqlUpdateURL, sparqlEndPointType, viVOAdminLogin, viVOAdminPassword);
   }
 
 
@@ -165,6 +194,7 @@ import javax.validation.Valid;
     sb.append("    vivoURL: ").append(toIndentedString(vivoURL)).append("\n");
     sb.append("    sparqlQueryURL: ").append(toIndentedString(sparqlQueryURL)).append("\n");
     sb.append("    sparqlUpdateURL: ").append(toIndentedString(sparqlUpdateURL)).append("\n");
+    sb.append("    sparqlEndPointType: ").append(toIndentedString(sparqlEndPointType)).append("\n");
     sb.append("    viVOAdminLogin: ").append(toIndentedString(viVOAdminLogin)).append("\n");
     sb.append("    viVOAdminPassword: ").append(toIndentedString(viVOAdminPassword)).append("\n");
     sb.append("}");

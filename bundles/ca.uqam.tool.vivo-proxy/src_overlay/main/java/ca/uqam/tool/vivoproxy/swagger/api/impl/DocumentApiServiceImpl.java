@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
-import ca.uqam.tool.util.credential.LOGIN;
+import ca.uqam.tool.util.credential.VIVO_PROXY_Properties;
 import ca.uqam.tool.vivoproxy.pattern.command.Command;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandFactory;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandInvoker;
@@ -19,11 +19,11 @@ import ca.uqam.tool.vivoproxy.swagger.api.DocumentApiService;
 import ca.uqam.tool.vivoproxy.swagger.api.NotFoundException;
 import ca.uqam.tool.vivoproxy.swagger.model.AuthorOfADocument;
 import ca.uqam.tool.vivoproxy.swagger.model.Document;
-import ca.uqam.tool.vivoproxy.swagger.model.ModelAPIResponse;
+import ca.uqam.tool.vivoproxy.swagger.model.ModelApiResponse;
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-09-05T10:56:47.302-04:00[America/New_York]")
 public class DocumentApiServiceImpl extends DocumentApiService {
-	private static final String YOUR_PASSWD = LOGIN.getPasswd(); 
-	private static final String YOUR_LOGIN = LOGIN.getUserName();
+	private static final String YOUR_PASSWD = VIVO_PROXY_Properties.getPasswd(); 
+	private static final String YOUR_LOGIN = VIVO_PROXY_Properties.getUserName();
 	private final static Logger LOGGER = Logger.getLogger(DocumentApiServiceImpl.class.getName());
 
     public Response createDocument(Document document, SecurityContext securityContext) throws NotFoundException {
@@ -35,7 +35,7 @@ public class DocumentApiServiceImpl extends DocumentApiService {
 			/*
 			 * Create commands
 			 */
-			Command loginCommand = cf.createLogin(LOGIN.getUserName(), LOGIN.getPasswd());
+			Command loginCommand = cf.createLogin(VIVO_PROXY_Properties.getUserName(), VIVO_PROXY_Properties.getPasswd());
 			AddDocumentCommand addDocumentCommand = (AddDocumentCommand) cf.createAddDocumentCommand(document);
 			Command logOutCommand = cf.createLogout();
 
@@ -56,9 +56,9 @@ public class DocumentApiServiceImpl extends DocumentApiService {
 			com.squareup.okhttp.Response response = addDocumentCommand.getCommandResult().getOkhttpResult();
 			String newrIri = VivoReceiverHelper.getUriResponse(response.body().string());
 			LOGGER.info("Creating user at uri "+ newrIri+" with return code " + response.code());
-			ModelAPIResponse apiResp = new ModelAPIResponse();
+			ModelApiResponse apiResp = new ModelApiResponse();
 			apiResp.setIrIValue(newrIri);
-			apiResp.setViVOMessage(" return code: " +response.code()+ " "  +response.message());
+			apiResp.setVivoMessage(" return code: " +response.code()+ " "  +response.message());
 			apiResp.setCode(ApiResponseMessage.OK);
 			apiResp.setType(new ApiResponseMessage(ApiResponseMessage.OK,"").getType());
 			Response apiResponse = Response.ok().entity(apiResp).build();

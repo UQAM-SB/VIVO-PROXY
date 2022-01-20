@@ -13,7 +13,7 @@
 package ca.uqam.tool.vivoproxy.swagger.client.api;
 
 import ca.uqam.tool.vivoproxy.swagger.client.handler.ApiException;
-import ca.uqam.tool.vivoproxy.swagger.client.model.ModelAPIResponse;
+import ca.uqam.tool.vivoproxy.swagger.client.model.ModelApiResponse;
 import ca.uqam.tool.vivoproxy.swagger.client.model.Organization;
 import org.junit.Test;
 import org.junit.Ignore;
@@ -42,7 +42,7 @@ public class OrganizationApiTest {
     @Test
     public void createOrganizationTest() throws ApiException {
         Organization body = null;
-        ModelAPIResponse response = api.createOrganization(body);
+        ModelApiResponse response = api.createOrganization(body);
 
         // TODO: test validations
     }

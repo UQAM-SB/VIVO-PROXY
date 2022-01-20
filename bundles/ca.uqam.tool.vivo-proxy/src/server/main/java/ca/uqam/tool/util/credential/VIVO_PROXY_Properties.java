@@ -11,27 +11,39 @@ import java.util.Properties;
  * @filename LOGIN.java
  * @date 22 sept. 2021
  */
-public class LOGIN {
+public class VIVO_PROXY_Properties {
+	private static final String SPARQL_ENDPOINT_TYPE = "sparql-endPoint-type";
+	public static final String SPARQL_ENDPOINT_TYPE_VIVO = "vivo";
+	public static final String SPARQL_ENDPOINT_TYPE_NEPTUNE = "neptune";
 	private static final String PASSWORD = "password";
 	private static final String USERNAME = "username";
 	private static final String VIVO_URL = "vivo-url";
 	private static final String VIVO_SITE = "vivo-site";
-	private static final String VIVO_SPARQL_UPDATE_URL = "vivo-sparql-update-url";
-	private static final String VIVO_SPARQL_QUERY_URL = "vivo-sparql-query-url";
+	private static final String VIVO_SPARQL_UPDATE_URL = "sparql-update-url";
+	private static final String VIVO_SPARQL_QUERY_URL = "sparql-query-url";
 	private static Properties loginProperties;
-	private static LOGIN login_instance;
-	public static LOGIN getInstance()
+	public static String getSparqlEndpointType() {
+		VIVO_PROXY_Properties.getInstance();
+		return loginProperties.getProperty(SPARQL_ENDPOINT_TYPE);
+	}
+	public static void setSparqlEndpointType(String sparqlEndpointType) {
+		VIVO_PROXY_Properties.getInstance();
+		loginProperties.setProperty(SPARQL_ENDPOINT_TYPE, sparqlEndpointType);
+	}
+
+	private static VIVO_PROXY_Properties login_instance;
+	public static VIVO_PROXY_Properties getInstance()
 	{
 		if (login_instance == null)
-			login_instance = new LOGIN();
+			login_instance = new VIVO_PROXY_Properties();
 
 		return login_instance;
 	}
 	/**
 	 * 
 	 */
-	private LOGIN(){
-		try (InputStream input = LOGIN.class.getClassLoader().getResourceAsStream("vivo-proxy.properties")) {
+	private VIVO_PROXY_Properties(){
+		try (InputStream input = VIVO_PROXY_Properties.class.getClassLoader().getResourceAsStream("vivo-proxy.properties")) {
 			if (input == null) {
 				System.out.println("Sorry, unable to find vivo-proxy.properties");
 			}
@@ -46,35 +58,35 @@ public class LOGIN {
 	 * @return the passwd
 	 */
 	static public String getPasswd() {
-		LOGIN.getInstance();
+		VIVO_PROXY_Properties.getInstance();
 		return loginProperties.getProperty(PASSWORD);    
 	}
 	/**
 	 * @return the userName
 	 */
 	static public String getUserName() {
-		LOGIN.getInstance();
+		VIVO_PROXY_Properties.getInstance();
 		return loginProperties.getProperty(USERNAME);
 	}
 	static public String getVivoUrl() {
-		LOGIN.getInstance();
+		VIVO_PROXY_Properties.getInstance();
 		return loginProperties.getProperty(VIVO_URL);
 	}
 	static public String getVivoSite() {
-		LOGIN.getInstance();
+		VIVO_PROXY_Properties.getInstance();
 		return loginProperties.getProperty(VIVO_SITE);
 	}
 
 	static public String getIndvNS() {
-		LOGIN.getInstance();
+		VIVO_PROXY_Properties.getInstance();
 		return loginProperties.getProperty("indvNS");
 	}
 	static public String getSparqlQueryURL() {
-		LOGIN.getInstance();
+		VIVO_PROXY_Properties.getInstance();
 		return loginProperties.getProperty(VIVO_SPARQL_QUERY_URL);
 	}
 	static public String getSparqlUpdateURL() {
-		LOGIN.getInstance();
+		VIVO_PROXY_Properties.getInstance();
 		return loginProperties.getProperty(VIVO_SPARQL_UPDATE_URL);
 	}
 	static public String getVivoSiteUrl() {
@@ -85,23 +97,23 @@ public class LOGIN {
     	}
     }
 	public static void setSparqlQueryURL(String sparqlQueryURL) {
-		LOGIN.getInstance();
+		VIVO_PROXY_Properties.getInstance();
 		loginProperties.setProperty(VIVO_SPARQL_QUERY_URL, sparqlQueryURL);
 	}
 	public static void setSparqlUpdateURL(String sparqlUpdateURL) {
-		LOGIN.getInstance();
+		VIVO_PROXY_Properties.getInstance();
 		loginProperties.setProperty(VIVO_SPARQL_UPDATE_URL, sparqlUpdateURL);
 	}
 	public static void setViVOAdminLogin(String viVOAdminLogin) {
-		LOGIN.getInstance();
+		VIVO_PROXY_Properties.getInstance();
 		loginProperties.setProperty(USERNAME, viVOAdminLogin);
 	}
 	public static void setViVOAdminPassword(String viVOAdminPassword) {
-		LOGIN.getInstance();
+		VIVO_PROXY_Properties.getInstance();
 		loginProperties.setProperty(PASSWORD, viVOAdminPassword);
 	}
 	public static void setVivoSiteUrl(String vivoURL) {
-		LOGIN.getInstance();
+		VIVO_PROXY_Properties.getInstance();
 		try {
 			URL vivoSiteUrl = new URL(vivoURL);
 			loginProperties.setProperty(VIVO_SITE,vivoSiteUrl.getPath());
@@ -115,10 +127,10 @@ public class LOGIN {
 	}
 
 	public static void main(String[] args) {
-		LOGIN.setVivoSiteUrl("http://toto.com:8080/vivo/toto");
+		VIVO_PROXY_Properties.setVivoSiteUrl("http://toto.com:8080/vivo/toto");
 		//get the property value and print it out
-		System.out.println(LOGIN.getUserName());
-		System.out.println(LOGIN.getPasswd());
+		System.out.println(VIVO_PROXY_Properties.getUserName());
+		System.out.println(VIVO_PROXY_Properties.getPasswd());
 	}
 
 }

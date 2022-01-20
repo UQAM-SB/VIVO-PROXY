@@ -33,7 +33,7 @@ tags:
 paths:
   /concept/withIRI:
     post:
-      deprecated: true
+      deprecated: false
       tags:
       - concept
       summary: Create a concept(skos:Concept) in VIVO
@@ -379,7 +379,7 @@ paths:
       x-codegen-request-body-name: body
   /person/addHasResearchArea:
     put:
-      deprecated: true
+      deprecated: false
       tags:
       - person
       summary: Create 'has Research Area' for a person
@@ -1285,6 +1285,13 @@ The university offers training on the Montreal campus and on its regional campus
         name: organization
     VivoProperties:
       type: object
+      required: 
+        - vivo-URL
+        - sparql-query-URL
+        - sparql-update-URL
+        - sparql-endPoint-type
+        - VIVO-admin-login
+        - VIVO-admin-password
       description: Required properties for vivo-proxy to connect to a VIVO instance
       properties:
         vivo-URL:
@@ -1299,6 +1306,10 @@ The university offers training on the Montreal campus and on its regional campus
           type: string
           description: Remote SPARQL endPoint for update
           example: https://vivo-demo-db.cluster-c2o1sdzzfasi.ca-central-1.neptune.amazonaws.com:8182/sparql
+        sparql-endPoint-type:
+          type: string
+          description: Indicates the SPARQL endPoint type {neptune|vivo}
+          default: vivo
         VIVO-admin-login:
           type: string
           description: Login name for VIVO admin (root)

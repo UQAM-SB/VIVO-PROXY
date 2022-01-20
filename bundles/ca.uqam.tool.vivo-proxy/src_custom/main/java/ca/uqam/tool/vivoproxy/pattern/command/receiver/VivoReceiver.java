@@ -52,7 +52,7 @@ import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 import com.squareup.okhttp.ResponseBody;
 
-import ca.uqam.tool.util.credential.LOGIN;
+import ca.uqam.tool.util.credential.VIVO_PROXY_Properties;
 import ca.uqam.tool.vivoproxy.pattern.command.AbstractReceiver;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
 import ca.uqam.tool.vivoproxy.pattern.command.receiver.util.EditKeyForPosition;
@@ -125,8 +125,9 @@ public class VivoReceiver extends AbstractReceiver {
 			httpClient = new OkHttpClient();
 			httpClient.setCookieHandler(cookieManager);
 			httpClient.setConnectTimeout(10, TimeUnit.SECONDS);
-			httpClient.setWriteTimeout(5, TimeUnit.MINUTES);
-			httpClient.setReadTimeout(5, TimeUnit.MINUTES);
+			httpClient.setWriteTimeout(10, TimeUnit.SECONDS);
+			httpClient.setReadTimeout(10, TimeUnit.SECONDS);
+			
 		}
 		return httpClient;
 	}
@@ -162,11 +163,13 @@ public class VivoReceiver extends AbstractReceiver {
 			LOGGER.info(e.getCause()+ ": "+e.getMessage());
 			throw e;
 		}
-		String html = response.body().string();
+		
+		CommandResult resp = CommandResult.asCommandResult(response);
+		String html = resp.getResultAsString();
 		if (!VivoReceiverHelper.isValidLogin(html)){
 			throw new Exception("Invalid login");
 		}
-		return CommandResult.asCommandResult(response);
+		return resp;
 	}
 	/**
 	 * @return
@@ -257,8 +260,8 @@ public class VivoReceiver extends AbstractReceiver {
 		updateQuery += "	sfnc:hasNewIRI ?persIRI . \n";
 		updateQuery += " } " ;
 		String bodyValue = 
-				"email="+LOGIN.getUserName()+
-				"&password="+LOGIN.getPasswd()+ 
+				"email="+VIVO_PROXY_Properties.getUserName()+
+				"&password="+VIVO_PROXY_Properties.getPasswd()+ 
 				"&update="+updateQuery;
 		OkHttpClient client = new OkHttpClient();
 		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
@@ -433,10 +436,9 @@ public class VivoReceiver extends AbstractReceiver {
 				.addHeader("Sec-Fetch-User", "?1")
 				.build();
 		Response upLoadResponse =  getHttpClient().newCall(upLoadRequest).execute();
-		String resp = upLoadResponse.body().string();
-		VivoReceiverHelper.findErrorAlert(resp);
-
-
+		
+		CommandResult upLoadResult = CommandResult.asCommandResult(upLoadResponse);
+		VivoReceiverHelper.findErrorAlert(upLoadResult.getResultAsString());
 		/*
 		 * Save image
 		 */
@@ -465,8 +467,8 @@ public class VivoReceiver extends AbstractReceiver {
 				.addHeader("Sec-Fetch-User", "?1")
 				.build();
 		Response saveResponse =  getHttpClient().newCall(saveRequest).execute();
-		CommandResult cmdResult = new CommandResult();
-		cmdResult.setOkHttpResponse(saveResponse);
+		
+		CommandResult cmdResult = CommandResult.asCommandResult(saveResponse);
 		VivoReceiverHelper.findErrorAlert(cmdResult.getResultAsString());
 		return cmdResult;       
 
@@ -1008,8 +1010,8 @@ public class VivoReceiver extends AbstractReceiver {
 		// System.out.println(updateQuery); System.exit(0); //print and exit
 		//		 System.out.println(updateQuery); System.exit(0); //print and exit
 		String bodyValue = 
-				"email="+LOGIN.getUserName()+
-				"&password="+LOGIN.getPasswd()+ 
+				"email="+VIVO_PROXY_Properties.getUserName()+
+				"&password="+VIVO_PROXY_Properties.getPasswd()+ 
 				"&update="+updateQuery;
 		OkHttpClient client = new OkHttpClient();
 		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
@@ -1024,7 +1026,7 @@ public class VivoReceiver extends AbstractReceiver {
 		//		System.out.println(response.body().string());
 		String newIRI = "http://localhost:8080/vivo/individual/"+uuid;
 		//		System.out.println(newIRI);
-		return DESCRIBE(LOGIN.getUserName(), LOGIN.getPasswd(), newIRI, SemanticWebMediaType.TEXT_PLAIN.toString());
+		return DESCRIBE(VIVO_PROXY_Properties.getUserName(), VIVO_PROXY_Properties.getPasswd(), newIRI, SemanticWebMediaType.TEXT_PLAIN.toString());
 	}
 	//DescribeByUUID(uuid.toString());	}
 	private static boolean isValid(String vaToValidate) {
@@ -1049,10 +1051,10 @@ public class VivoReceiver extends AbstractReceiver {
 			queryCore+= predicate;
 			queryCore+= object;
 		}		
-		updateQuery += queryCore + "} } WHERE \n{ <"+LOGIN.getVivoUrl() +"/individual/n> sfnc:hasNewIRI ?orgIRI . 	} " ;
+		updateQuery += queryCore + "} } WHERE \n{ <"+VIVO_PROXY_Properties.getVivoUrl() +"/individual/n> sfnc:hasNewIRI ?orgIRI . 	} " ;
 		String bodyValue = 
-				"email="+LOGIN.getUserName()+
-				"&password="+LOGIN.getPasswd()+ 
+				"email="+VIVO_PROXY_Properties.getUserName()+
+				"&password="+VIVO_PROXY_Properties.getPasswd()+ 
 				"&update="+updateQuery;
 		OkHttpClient client = new OkHttpClient();
 		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
@@ -1242,8 +1244,8 @@ public class VivoReceiver extends AbstractReceiver {
 
 		updateConceptQuery += "} " ;
 		String bodyValue = 
-				"email="+LOGIN.getUserName()+
-				"&password="+LOGIN.getPasswd()+ 
+				"email="+VIVO_PROXY_Properties.getUserName()+
+				"&password="+VIVO_PROXY_Properties.getPasswd()+ 
 				"&update="+updateConceptQuery;
 		//		System.out.println(updateConceptQuery);
 		//		if (true ) return null;
@@ -1504,8 +1506,8 @@ public class VivoReceiver extends AbstractReceiver {
 				+ "<" +statement.getObject() +"> "
 				+ " . \n } }";
 		String bodyValue = 
-				"email="+LOGIN.getUserName()+
-				"&password="+LOGIN.getPasswd()+ 
+				"email="+VIVO_PROXY_Properties.getUserName()+
+				"&password="+VIVO_PROXY_Properties.getPasswd()+ 
 				"&update="+updateConceptQuery;
 		//		System.out.println(bodyValue);
 		OkHttpClient client = new OkHttpClient();
@@ -1541,8 +1543,8 @@ public class VivoReceiver extends AbstractReceiver {
 		}
 		updateConceptQuery += " \n } }";
 		String bodyValue = 
-				"email="+LOGIN.getUserName()+
-				"&password="+LOGIN.getPasswd()+ 
+				"email="+VIVO_PROXY_Properties.getUserName()+
+				"&password="+VIVO_PROXY_Properties.getPasswd()+ 
 				"&update="+updateConceptQuery;
 		OkHttpClient client = new OkHttpClient();
 		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
@@ -1572,8 +1574,8 @@ public class VivoReceiver extends AbstractReceiver {
 				+ predIRI
 				+ objIrI +" . } }";
 		String bodyValue = 
-				"email="+LOGIN.getUserName()+
-				"&password="+LOGIN.getPasswd()+ 
+				"email="+VIVO_PROXY_Properties.getUserName()+
+				"&password="+VIVO_PROXY_Properties.getPasswd()+ 
 				"&update="+updateConceptQuery;
 		//	System.out.println(bodyValue);
 		OkHttpClient client = new OkHttpClient();
@@ -1623,8 +1625,8 @@ public class VivoReceiver extends AbstractReceiver {
 		System.out.println(updateConceptQuery);
 
 		String bodyValue = 
-				"email="+LOGIN.getUserName()+
-				"&password="+LOGIN.getPasswd()+ 
+				"email="+VIVO_PROXY_Properties.getUserName()+
+				"&password="+VIVO_PROXY_Properties.getPasswd()+ 
 				"&update="+updateConceptQuery;
 		OkHttpClient client = new OkHttpClient();
 		MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
@@ -1794,8 +1796,8 @@ public class VivoReceiver extends AbstractReceiver {
 				" ?indv vitro:uuid \""+uuid+"\" . \n"+
 				" }";
 		String bodyValue = 
-				"email="+LOGIN.getUserName()+
-				"&password="+LOGIN.getPasswd()+ 
+				"email="+VIVO_PROXY_Properties.getUserName()+
+				"&password="+VIVO_PROXY_Properties.getPasswd()+ 
 				"&query="+describeQuery;
 
 		OkHttpClient client = new OkHttpClient();
@@ -1848,8 +1850,8 @@ public class VivoReceiver extends AbstractReceiver {
 		String url = null;
 		String referer = null;
 		try {
-			url = new URI(LOGIN.getVivoUrl()+"/"+LOGIN.getVivoSite() + "/SearchIndex?rebuild=true").toASCIIString();
-			referer = new URI(LOGIN.getVivoUrl()+"/"+LOGIN.getVivoSite()+"/SearchIndex").toASCIIString();
+			url = new URI(VIVO_PROXY_Properties.getVivoUrl()+"/"+VIVO_PROXY_Properties.getVivoSite() + "/SearchIndex?rebuild=true").toASCIIString();
+			referer = new URI(VIVO_PROXY_Properties.getVivoUrl()+"/"+VIVO_PROXY_Properties.getVivoSite()+"/SearchIndex").toASCIIString();
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1862,7 +1864,7 @@ public class VivoReceiver extends AbstractReceiver {
 				.addHeader("Accept-Encoding", "gzip, deflate")
 				.addHeader("Content-Type", "application/x-www-form-urlencoded")
 				.addHeader("Connection", "keep-alive")
-				.addHeader("Origin", LOGIN.getVivoUrl())
+				.addHeader("Origin", VIVO_PROXY_Properties.getVivoUrl())
 				.addHeader("Referer", referer)
 				.addHeader("Upgrade-Insecure-Requests", "1")
 				.build();
@@ -1875,7 +1877,7 @@ public class VivoReceiver extends AbstractReceiver {
 		String url = null;
 		String referer = null;
 		try {
-			url = new URI(LOGIN.getVivoSiteUrl() + "/termsOfUse").toASCIIString();
+			url = new URI(VIVO_PROXY_Properties.getVivoSiteUrl() + "/termsOfUse").toASCIIString();
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1888,7 +1890,7 @@ public class VivoReceiver extends AbstractReceiver {
 				.addHeader("Accept-Encoding", "gzip, deflate")
 				.addHeader("Content-Type", "application/x-www-form-urlencoded")
 				.addHeader("Connection", "keep-alive")
-				.addHeader("Origin", LOGIN.getVivoUrl())
+				.addHeader("Origin", VIVO_PROXY_Properties.getVivoUrl())
 				.addHeader("Upgrade-Insecure-Requests", "1")
 				.build();
 		Response response = getHttpClient().newCall(request).execute();

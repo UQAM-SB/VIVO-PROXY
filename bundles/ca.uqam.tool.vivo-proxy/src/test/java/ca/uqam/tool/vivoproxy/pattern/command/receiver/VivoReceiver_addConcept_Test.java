@@ -2,7 +2,7 @@ package ca.uqam.tool.vivoproxy.pattern.command.receiver;
 
 import java.io.IOException;
 
-import ca.uqam.tool.util.credential.LOGIN;
+import ca.uqam.tool.util.credential.VIVO_PROXY_Properties;
 import ca.uqam.tool.vivoproxy.pattern.command.AbstractReceiver;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
 import ca.uqam.tool.vivoproxy.swagger.model.Concept;
@@ -15,8 +15,8 @@ import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
 public class VivoReceiver_addConcept_Test extends AbstractReceiver {
 	public static void main (String[] argv) throws Exception
 	{
-		String username=LOGIN.getUserName();
-		String password=LOGIN.getPasswd();
+		String username=VIVO_PROXY_Properties.getUserName();
+		String password=VIVO_PROXY_Properties.getPasswd();
 		VivoReceiver vr = new VivoReceiver();
 		vr.login(username, password);
 		Concept concept = new Concept();

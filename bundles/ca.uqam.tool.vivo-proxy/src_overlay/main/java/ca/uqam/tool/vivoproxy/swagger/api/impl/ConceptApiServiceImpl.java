@@ -8,7 +8,7 @@ import java.util.List;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
-import ca.uqam.tool.util.credential.LOGIN;
+import ca.uqam.tool.util.credential.VIVO_PROXY_Properties;
 import ca.uqam.tool.vivoproxy.pattern.command.Command;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandFactory;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandInvoker;
@@ -21,8 +21,8 @@ import ca.uqam.tool.vivoproxy.swagger.model.Concept;
 import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-07-28T15:50:35.108-04:00[America/New_York]")
 public class ConceptApiServiceImpl extends ConceptApiService {
-	private static final String YOUR_PASSWD = LOGIN.getPasswd(); 
-	private static final String YOUR_LOGIN = LOGIN.getUserName();
+	private static final String YOUR_PASSWD = VIVO_PROXY_Properties.getPasswd(); 
+	private static final String YOUR_LOGIN = VIVO_PROXY_Properties.getUserName();
     public Response createConcept(Concept concept, SecurityContext securityContext) throws NotFoundException {
 		try {
 			CommandFactory cf = CommandFactory.getInstance();

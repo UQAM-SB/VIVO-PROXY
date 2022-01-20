@@ -15,7 +15,7 @@ package ca.uqam.tool.vivoproxy.swagger.client.api;
 import ca.uqam.tool.vivoproxy.swagger.client.handler.ApiException;
 import ca.uqam.tool.vivoproxy.swagger.client.model.AuthorOfADocument;
 import ca.uqam.tool.vivoproxy.swagger.client.model.Document;
-import ca.uqam.tool.vivoproxy.swagger.client.model.ModelAPIResponse;
+import ca.uqam.tool.vivoproxy.swagger.client.model.ModelApiResponse;
 import org.junit.Test;
 import org.junit.Ignore;
 
@@ -43,7 +43,7 @@ public class DocumentApiTest {
     @Test
     public void createDocumentTest() throws ApiException {
         Document body = null;
-        ModelAPIResponse response = api.createDocument(body);
+        ModelApiResponse response = api.createDocument(body);
 
         // TODO: test validations
     }
@@ -58,7 +58,7 @@ public class DocumentApiTest {
     @Test
     public void documentAddAuthorForTest() throws ApiException {
         AuthorOfADocument body = null;
-        ModelAPIResponse response = api.documentAddAuthorFor(body);
+        ModelApiResponse response = api.documentAddAuthorFor(body);
 
         // TODO: test validations
     }

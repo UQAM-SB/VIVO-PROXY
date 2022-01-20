@@ -9,15 +9,7 @@
         <!-- <sourceDirectory>src/main/java</sourceDirectory> -->
         <resources>
             <resource>
-                <directory>src/main/java</directory>
-            </resource>
-            <resource>
-                <directory>src_overlay/main/java</directory>
-                <includes>
-                    <include>**/*.java</include>
-                    <include>**/*.properties</include>
-                    <include>**/*.xml</include>
-                </includes>
+                <directory>src/client/main/java</directory>
             </resource>
         </resources>
         <!-- <sourceDirectory>src, src_custom, src_overlay</sourceDirectory> -->
@@ -34,10 +26,7 @@
                         </goals>
                         <configuration>
                             <sources>
-                                <source>src/main/java</source>
-                                <source>src/server/main/java</source>
-                                <source>src_overlay/main/java</source>
-                                <source>src_custom/main/java</source>
+                                <source>src/client/main/java</source>
                                 <source>conf</source>
                                 <!-- <source>src/client/main/java</source> -->
                             </sources>
@@ -604,7 +593,7 @@
         <swagger-version>1.6.2</swagger-version>
         <logback-version>1.2.0</logback-version>
         <servlet-version>2.5</servlet-version>
-        <skipGen-client>false</skipGen-client>
+        <skipGen-client>true</skipGen-client>
         <skipGen>true</skipGen>
         <aws.skipCopy>true</aws.skipCopy>
         <webapp.target>target/${project.artifactId}-${project.version}</webapp.target>

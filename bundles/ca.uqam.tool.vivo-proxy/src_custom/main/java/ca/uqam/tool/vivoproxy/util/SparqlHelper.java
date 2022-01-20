@@ -44,7 +44,7 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
-import ca.uqam.tool.util.credential.LOGIN;
+import ca.uqam.tool.util.credential.VIVO_PROXY_Properties;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
 import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
 import ca.uqam.tool.vivoproxy.pattern.command.util.VivoReceiverHelper;
@@ -100,8 +100,8 @@ public class SparqlHelper {
 		List<QuerySolution> solList = new ArrayList<>();
 		try ( QueryExecution qexec = QueryExecutionFactory.sparqlService(sparqlEndpointUrl, query) ) {
 			// L'authentification administrateur de vivo
-			((QueryEngineHTTP)qexec).addParam("email", LOGIN.getUserName()) ;
-			((QueryEngineHTTP)qexec).addParam("password", LOGIN.getPasswd()) ;
+			((QueryEngineHTTP)qexec).addParam("email", VIVO_PROXY_Properties.getUserName()) ;
+			((QueryEngineHTTP)qexec).addParam("password", VIVO_PROXY_Properties.getPasswd()) ;
 			// Lancer l'exécution
 			resultSet = qexec.execSelect();
 			while (resultSet.hasNext()) {
@@ -126,7 +126,7 @@ public class SparqlHelper {
 		return solList;
 	}
 	public static String updateVIVOWithModel(Model model) throws Exception {
-		String sparqlEndpointUrl = 	LOGIN.getSparqlUpdateURL();
+		String sparqlEndpointUrl = 	VIVO_PROXY_Properties.getSparqlUpdateURL();
 		ByteArrayOutputStream modelTriples = new ByteArrayOutputStream();
 		RDFDataMgr.write(modelTriples, model, Lang.NTRIPLES) ;
 		String modelString;
@@ -135,13 +135,19 @@ public class SparqlHelper {
 		} catch (UnsupportedEncodingException e) {
 			modelString = new String(modelTriples.toString());
 		}
-		//		String updateQuery = "update=INSERT DATA { "
-		//				+ "   GRAPH <http://vitro.mannlib.cornell.edu/default/vitro-kb-2> { "
-		//				+ modelString 
-		//				+ "    } }";
-		String updateQuery = "INSERT DATA { "
-				+ modelString 
-				+ " }";
+		String updateQuery;
+		if (VIVO_PROXY_Properties.SPARQL_ENDPOINT_TYPE_VIVO.equals(VIVO_PROXY_Properties.getSparqlEndpointType())) {
+			updateQuery = "INSERT DATA { "
+					+ "   GRAPH <http://vitro.mannlib.cornell.edu/default/vitro-kb-2> { "
+					+ modelString 
+					+ "    } }";
+		} else {
+			updateQuery = "INSERT DATA { "
+					+ modelString 
+					+ " }";
+
+		}
+
 		//		String bodyValue = 
 		//				"email="+LOGIN.getUserName()+
 		//				"&password="+LOGIN.getPasswd()+ 
@@ -156,6 +162,10 @@ public class SparqlHelper {
 		request.add(updateQuery);
 		// Construction de l'exécuteur
 		UpdateProcessor processor = UpdateExecutionFactory.createRemoteForm(request, sparqlEndpointUrl);
+		if (VIVO_PROXY_Properties.SPARQL_ENDPOINT_TYPE_VIVO.equals(VIVO_PROXY_Properties.getSparqlEndpointType())) {
+			((UpdateProcessRemoteBase)processor).addParam("email", VIVO_PROXY_Properties.getUserName());
+			((UpdateProcessRemoteBase)processor).addParam("password", VIVO_PROXY_Properties.getPasswd()) ;
+		}
 		// Les paramètres d"authentification de ViVo
 		//Exécuter la requête
 		processor.execute();

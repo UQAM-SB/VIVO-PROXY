@@ -14,7 +14,7 @@ package ca.uqam.tool.vivoproxy.swagger.client.api;
 
 import ca.uqam.tool.vivoproxy.swagger.client.handler.ApiException;
 import ca.uqam.tool.vivoproxy.swagger.client.model.AuthorOfADocument;
-import ca.uqam.tool.vivoproxy.swagger.client.model.ModelAPIResponse;
+import ca.uqam.tool.vivoproxy.swagger.client.model.ModelApiResponse;
 import ca.uqam.tool.vivoproxy.swagger.client.model.Person;
 import ca.uqam.tool.vivoproxy.swagger.client.model.PersonWithOfficeInfo;
 import ca.uqam.tool.vivoproxy.swagger.client.model.PositionOfPerson;
@@ -46,7 +46,7 @@ public class PersonApiTest {
     @Test
     public void createPersonTest() throws ApiException {
         Person body = null;
-        ModelAPIResponse response = api.createPerson(body);
+        ModelApiResponse response = api.createPerson(body);
 
         // TODO: test validations
     }
@@ -61,7 +61,7 @@ public class PersonApiTest {
     @Test
     public void createPersonWithEmailTest() throws ApiException {
         PersonWithOfficeInfo body = null;
-        ModelAPIResponse response = api.createPersonWithEmail(body);
+        ModelApiResponse response = api.createPersonWithEmail(body);
 
         // TODO: test validations
     }
@@ -106,7 +106,7 @@ public class PersonApiTest {
     @Test
     public void personAddOrganisationalPositionToTest() throws ApiException {
         PositionOfPerson body = null;
-        ModelAPIResponse response = api.personAddOrganisationalPositionTo(body);
+        ModelApiResponse response = api.personAddOrganisationalPositionTo(body);
 
         // TODO: test validations
     }
@@ -121,7 +121,7 @@ public class PersonApiTest {
     @Test
     public void personAddResearchAreaOfTest() throws ApiException {
         ResourceToResource body = null;
-        ModelAPIResponse response = api.personAddResearchAreaOf(body);
+        ModelApiResponse response = api.personAddResearchAreaOf(body);
 
         // TODO: test validations
     }
@@ -136,7 +136,7 @@ public class PersonApiTest {
     @Test
     public void personHasAddResearchAreaTest() throws ApiException {
         ResourceToResource body = null;
-        ModelAPIResponse response = api.personHasAddResearchArea(body);
+        ModelApiResponse response = api.personHasAddResearchArea(body);
 
         // TODO: test validations
     }

@@ -7,3 +7,7 @@ password=YOUR_PASSWORD
 
 vivo-url=http://purl.org/vivo-uqam.ca
 vivo-site=vivo
+
+
+# Valeur possible: neptune, vivo
+vivo-sparql-endPoint-type=aws

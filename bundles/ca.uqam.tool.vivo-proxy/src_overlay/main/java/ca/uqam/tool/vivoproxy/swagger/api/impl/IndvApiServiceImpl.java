@@ -1,6 +1,6 @@
 package ca.uqam.tool.vivoproxy.swagger.api.impl;
 
-import ca.uqam.tool.util.credential.LOGIN;
+import ca.uqam.tool.util.credential.VIVO_PROXY_Properties;
 import ca.uqam.tool.vivoproxy.pattern.command.Command;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandFactory;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandInvoker;
@@ -47,7 +47,7 @@ public class IndvApiServiceImpl extends IndvApiService {
 			CommandFactory cf = CommandFactory.getInstance();
 			VivoReceiver session = new VivoReceiver();
 			CommandInvoker invoker = new CommandInvoker();
-			Command sparqlDescribeByLabelCommand = cf.createSparqlDescribeByLabelCommand(LOGIN.getUserName(), LOGIN.getPasswd(), label,	"text/plain");
+			Command sparqlDescribeByLabelCommand = cf.createSparqlDescribeByLabelCommand(VIVO_PROXY_Properties.getUserName(), VIVO_PROXY_Properties.getPasswd(), label,	"text/plain");
 			invoker.register(sparqlDescribeByLabelCommand);
 			CommandResult resu;
 			resu = invoker.execute();
@@ -67,7 +67,7 @@ public class IndvApiServiceImpl extends IndvApiService {
 			CommandFactory cf = CommandFactory.getInstance();
 			VivoReceiver session = new VivoReceiver();
 			CommandInvoker invoker = new CommandInvoker();
-			Command sparqlDescribeCommand = cf.createSparqlDescribeCommand(LOGIN.getUserName(), LOGIN.getPasswd(), IRI,	"text/plain");
+			Command sparqlDescribeCommand = cf.createSparqlDescribeCommand(VIVO_PROXY_Properties.getUserName(), VIVO_PROXY_Properties.getPasswd(), IRI,	"text/plain");
 			invoker.register(sparqlDescribeCommand);
 			CommandResult resu;
 			resu = invoker.execute();
@@ -92,7 +92,7 @@ public class IndvApiServiceImpl extends IndvApiService {
 			/*
 			 * Create commands
 			 */
-			Command loginCommand = cf.createLogin(LOGIN.getUserName(), LOGIN.getPasswd());
+			Command loginCommand = cf.createLogin(VIVO_PROXY_Properties.getUserName(), VIVO_PROXY_Properties.getPasswd());
 			AddImageToIndividualCommand addImageToIndividualCommand = (AddImageToIndividualCommand) cf.createAddImageToIndividualCommand(body);
 			Command logOutCommand = cf.createLogout();
 
@@ -113,9 +113,9 @@ public class IndvApiServiceImpl extends IndvApiService {
 			CommandResult response = addImageToIndividualCommand.getCommandResult();
 			String newrIri = VivoReceiverHelper.getUriResponse(response.getResultAsString());
 			LOGGER.info("Adding image for individual at "+ newrIri+" with return code " + response.getCode());
-			ModelAPIResponse apiResp = new ModelAPIResponse();
+			ModelApiResponse apiResp = new ModelApiResponse();
 			apiResp.setIrIValue(newrIri);
-			apiResp.setViVOMessage(" return code: " +response.getCode()+ " "  +response.getMessage());
+			apiResp.setVivoMessage(" return code: " +response.getCode()+ " "  +response.getMessage());
 			apiResp.setCode(ApiResponseMessage.OK);
 			apiResp.setType(new ApiResponseMessage(ApiResponseMessage.OK,"").getType());
 			Response apiResponse = Response.ok().entity(apiResp).build();
@@ -134,7 +134,7 @@ public class IndvApiServiceImpl extends IndvApiService {
 			/*
 			 * Create commands
 			 */
-			Command loginCommand = cf.createLogin(LOGIN.getUserName(), LOGIN.getPasswd());
+			Command loginCommand = cf.createLogin(VIVO_PROXY_Properties.getUserName(), VIVO_PROXY_Properties.getPasswd());
 			AddTypeToIndividualCommand addTypeToIndividualCommand = (AddTypeToIndividualCommand) cf.createAddTypeToIndividual(body);
 			Command logOutCommand = cf.createLogout();
 
@@ -155,9 +155,9 @@ public class IndvApiServiceImpl extends IndvApiService {
 			com.squareup.okhttp.Response response = addTypeToIndividualCommand.getCommandResult().getOkhttpResult();
 			String newrIri = VivoReceiverHelper.getUriResponse(response.body().string());
 			LOGGER.info("Adding type for individual at "+ newrIri+" with return code " + response.code());
-			ModelAPIResponse apiResp = new ModelAPIResponse();
+			ModelApiResponse apiResp = new ModelApiResponse();
 			apiResp.setIrIValue(newrIri);
-			apiResp.setViVOMessage(" return code: " +response.code()+ " "  +response.message());
+			apiResp.setVivoMessage(" return code: " +response.code()+ " "  +response.message());
 			apiResp.setCode(ApiResponseMessage.OK);
 			apiResp.setType(new ApiResponseMessage(ApiResponseMessage.OK,"").getType());
 			Response apiResponse = Response.ok().entity(apiResp).build();
@@ -177,7 +177,7 @@ public class IndvApiServiceImpl extends IndvApiService {
 			/*
 			 * Create commands
 			 */
-			Command loginCommand = cf.createLogin(LOGIN.getUserName(), LOGIN.getPasswd());
+			Command loginCommand = cf.createLogin(VIVO_PROXY_Properties.getUserName(), VIVO_PROXY_Properties.getPasswd());
 			AddLabelsToIndividualCommand addLabelsToIndividualCommand = (AddLabelsToIndividualCommand) cf.createAddLabelsToIndividual(IRI, labels);
 			Command logOutCommand = cf.createLogout();
 
@@ -198,9 +198,9 @@ public class IndvApiServiceImpl extends IndvApiService {
 			com.squareup.okhttp.Response response = addLabelsToIndividualCommand.getCommandResult().getOkhttpResult();
 			String newrIri = VivoReceiverHelper.getUriResponse(response.body().string());
 			LOGGER.info("Adding label for individual at "+ newrIri+" with return code " + response.code());
-			ModelAPIResponse apiResp = new ModelAPIResponse();
+			ModelApiResponse apiResp = new ModelApiResponse();
 			apiResp.setIrIValue(newrIri);
-			apiResp.setViVOMessage(" return code: " +response.code()+ " "  +response.message());
+			apiResp.setVivoMessage(" return code: " +response.code()+ " "  +response.message());
 			apiResp.setCode(ApiResponseMessage.OK);
 			apiResp.setType(new ApiResponseMessage(ApiResponseMessage.OK,"").getType());
 			Response apiResponse = Response.ok().entity(apiResp).build();
@@ -218,7 +218,7 @@ public class IndvApiServiceImpl extends IndvApiService {
 			/*
 			 * Create commands
 			 */
-			Command loginCommand = cf.createLogin(LOGIN.getUserName(), LOGIN.getPasswd());
+			Command loginCommand = cf.createLogin(VIVO_PROXY_Properties.getUserName(), VIVO_PROXY_Properties.getPasswd());
 			AddStatementCommand addLabelsToIndividualCommand = (AddStatementCommand) cf.createAddStatementToIndividual(statement);
 			Command logOutCommand = cf.createLogout();
 
@@ -239,9 +239,9 @@ public class IndvApiServiceImpl extends IndvApiService {
 			com.squareup.okhttp.Response response = addLabelsToIndividualCommand.getCommandResult().getOkhttpResult();
 			String newrIri = VivoReceiverHelper.getUriResponse(response.body().string());
 			LOGGER.info("Adding a statement for individual at "+ newrIri+" with return code " + response.code());
-			ModelAPIResponse apiResp = new ModelAPIResponse();
+			ModelApiResponse apiResp = new ModelApiResponse();
 			apiResp.setIrIValue(newrIri);
-			apiResp.setViVOMessage(" return code: " +response.code()+ " "  +response.message());
+			apiResp.setVivoMessage(" return code: " +response.code()+ " "  +response.message());
 			apiResp.setCode(ApiResponseMessage.OK);
 			apiResp.setType(new ApiResponseMessage(ApiResponseMessage.OK,"").getType());
 			Response apiResponse = Response.ok().entity(apiResp).build();

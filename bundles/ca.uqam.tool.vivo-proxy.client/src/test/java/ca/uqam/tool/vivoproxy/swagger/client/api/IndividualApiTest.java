@@ -16,7 +16,7 @@ import ca.uqam.tool.vivoproxy.swagger.client.handler.ApiException;
 import ca.uqam.tool.vivoproxy.swagger.client.model.Image;
 import ca.uqam.tool.vivoproxy.swagger.client.model.IndividualType;
 import ca.uqam.tool.vivoproxy.swagger.client.model.LinguisticLabel;
-import ca.uqam.tool.vivoproxy.swagger.client.model.ModelAPIResponse;
+import ca.uqam.tool.vivoproxy.swagger.client.model.ModelApiResponse;
 import ca.uqam.tool.vivoproxy.swagger.client.model.Statement;
 import org.junit.Test;
 import org.junit.Ignore;
@@ -75,7 +75,7 @@ public class IndividualApiTest {
     @Test
     public void indvAddImageTest() throws ApiException {
         Image body = null;
-        ModelAPIResponse response = api.indvAddImage(body);
+        ModelApiResponse response = api.indvAddImage(body);
 
         // TODO: test validations
     }
@@ -91,7 +91,7 @@ public class IndividualApiTest {
     public void indvAddLabelTest() throws ApiException {
         String IRI = null;
         List<LinguisticLabel> body = null;
-        ModelAPIResponse response = api.indvAddLabel(IRI, body);
+        ModelApiResponse response = api.indvAddLabel(IRI, body);
 
         // TODO: test validations
     }
@@ -106,7 +106,7 @@ public class IndividualApiTest {
     @Test
     public void indvAddStatementTest() throws ApiException {
         Statement body = null;
-        ModelAPIResponse response = api.indvAddStatement(body);
+        ModelApiResponse response = api.indvAddStatement(body);
 
         // TODO: test validations
     }
@@ -121,7 +121,7 @@ public class IndividualApiTest {
     @Test
     public void indvAddTypeTest() throws ApiException {
         IndividualType body = null;
-        ModelAPIResponse response = api.indvAddType(body);
+        ModelApiResponse response = api.indvAddType(body);
 
         // TODO: test validations
     }

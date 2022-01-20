@@ -11,6 +11,9 @@
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src_overlay/main/java"/>
+        <dependent-module archiveName="ca.uqam.vivo.vocab-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ca.uqam.vivo.vocab/ca.uqam.vivo.vocab">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
                                                 
         
         

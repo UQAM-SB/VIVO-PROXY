@@ -1,15 +1,19 @@
 package ca.uqam.tool.vivoproxy.pattern.command;
 
 import java.io.IOException;
+import java.io.Reader;
+
+import org.apache.commons.io.IOUtils;
 
 import com.squareup.okhttp.Response;
+import com.squareup.okhttp.ResponseBody;
 
-import ca.uqam.tool.util.credential.LOGIN;
+import ca.uqam.tool.util.credential.VIVO_PROXY_Properties;
 
 public class CommandResult {
-    private Object result;
-    private static String hostName = LOGIN.getVivoUrl();
-    private static String vivoSiteName = LOGIN.getVivoSite();
+	private Object result;
+    private static String hostName = VIVO_PROXY_Properties.getVivoUrl();
+    private static String vivoSiteName = VIVO_PROXY_Properties.getVivoSite();
     private int code;
     private String message;
     
@@ -49,9 +53,12 @@ public class CommandResult {
         this.result = result;
     }
 
-    public static CommandResult asCommandResult(Object response) {
+    public static CommandResult asCommandResult(Object response) throws IOException {
         CommandResult cmdResult = new CommandResult();
-        cmdResult.setResult(response);
+    	if (response instanceof Response ) {
+    		cmdResult.setOkHttpResponse((Response) response);
+    	}
+    	else cmdResult.setResult(response);
         return cmdResult;
     }
     public static String getHostName() {
@@ -74,8 +81,20 @@ public class CommandResult {
     	}
     }
 	public void setOkHttpResponse(Response response) throws IOException {
+		ResponseBody body = response.body();
 		setCode(response.code());
-		setResult(response.body().string());
-		setMessage(response.message());		
+		setMessage(response.message());
+	    try ( Reader responseReader = body.charStream()) {
+	    	 String targetString = IOUtils.toString(responseReader);
+	    	 setResult(targetString);
+	    }
+	    finally {
+	    	body.close();
+	    }
 	}
+    @Override
+	public String toString() {
+		return "CommandResult [result=" + result + ", code=" + code + ", message=" + message + "]";
+	}
+
 }

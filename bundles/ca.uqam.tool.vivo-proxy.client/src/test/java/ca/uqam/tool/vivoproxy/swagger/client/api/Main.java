@@ -5,7 +5,7 @@ import java.util.Locale;
 import ca.uqam.tool.vivoproxy.swagger.client.handler.ApiClient;
 import ca.uqam.tool.vivoproxy.swagger.client.handler.ApiException;
 import ca.uqam.tool.vivoproxy.swagger.client.model.LinguisticLabel;
-import ca.uqam.tool.vivoproxy.swagger.client.model.ModelAPIResponse;
+import ca.uqam.tool.vivoproxy.swagger.client.model.ModelApiResponse;
 import ca.uqam.tool.vivoproxy.swagger.client.model.Organization;
 import ca.uqam.vocab.vivo.VIVO;
 
@@ -24,7 +24,7 @@ public class Main {
 		org.addOverviewItem(cLabelFr);
 		org.setOrganizationType(VIVO.AcademicDepartment.getURI());
 		OrganizationApi orgApi = new OrganizationApi(apiClient);
-		ModelAPIResponse resu = orgApi.createOrganization(org);
+		ModelApiResponse resu = orgApi.createOrganization(org);
 		System.out.println(resu.toString());
 		System.out.println("Done");
 	}

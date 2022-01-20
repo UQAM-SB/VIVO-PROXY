@@ -14,7 +14,7 @@ package ca.uqam.tool.vivoproxy.swagger.client.api;
 
 import ca.uqam.tool.vivoproxy.swagger.client.handler.ApiException;
 import ca.uqam.tool.vivoproxy.swagger.client.model.Concept;
-import ca.uqam.tool.vivoproxy.swagger.client.model.ModelAPIResponse;
+import ca.uqam.tool.vivoproxy.swagger.client.model.ModelApiResponse;
 import org.junit.Test;
 import org.junit.Ignore;
 
@@ -42,7 +42,7 @@ public class ConceptApiTest {
     @Test
     public void createConceptTest() throws ApiException {
         Concept body = null;
-        ModelAPIResponse response = api.createConcept(body);
+        ModelApiResponse response = api.createConcept(body);
 
         // TODO: test validations
     }
@@ -57,7 +57,7 @@ public class ConceptApiTest {
     @Test
     public void createConceptWithNewIRITest() throws ApiException {
         Concept body = null;
-        ModelAPIResponse response = api.createConceptWithNewIRI(body);
+        ModelApiResponse response = api.createConceptWithNewIRI(body);
 
         // TODO: test validations
     }

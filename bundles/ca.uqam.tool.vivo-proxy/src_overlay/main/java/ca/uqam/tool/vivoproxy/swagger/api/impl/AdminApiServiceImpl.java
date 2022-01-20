@@ -3,7 +3,7 @@ package ca.uqam.tool.vivoproxy.swagger.api.impl;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
-import ca.uqam.tool.util.credential.LOGIN;
+import ca.uqam.tool.util.credential.VIVO_PROXY_Properties;
 import ca.uqam.tool.vivoproxy.pattern.command.Command;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandFactory;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandInvoker;
@@ -14,7 +14,7 @@ import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
 import ca.uqam.tool.vivoproxy.swagger.api.AdminApiService;
 import ca.uqam.tool.vivoproxy.swagger.api.ApiResponseMessage;
 import ca.uqam.tool.vivoproxy.swagger.api.NotFoundException;
-import ca.uqam.tool.vivoproxy.swagger.model.ModelAPIResponse;
+import ca.uqam.tool.vivoproxy.swagger.model.ModelApiResponse;
 import ca.uqam.tool.vivoproxy.swagger.model.VivoProperties;
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-12-19T15:35:48.156-05:00[America/New_York]")
 public class AdminApiServiceImpl extends AdminApiService {
@@ -32,37 +32,37 @@ public class AdminApiServiceImpl extends AdminApiService {
 			com.squareup.okhttp.Response response = invokerResult.getOkhttpResult();
 			if (response.body().string().contains("termsOfUse"))
 			{
-				ModelAPIResponse apiResp = new ModelAPIResponse();
+				ModelApiResponse apiResp = new ModelApiResponse();
 				apiResp.setCode(ApiResponseMessage.OK);
 				apiResp.setType(new ApiResponseMessage(ApiResponseMessage.OK,"").getType());
-				apiResp.setIrIValue(LOGIN.getVivoSiteUrl()+"/termsOfUse");
+				apiResp.setIrIValue(VIVO_PROXY_Properties.getVivoSiteUrl()+"/termsOfUse");
 				apiResp.setApiMessage(String.valueOf(response.code()));
-				apiResp.setViVOMessage("Pong");
+				apiResp.setVivoMessage("Pong");
 				Response apiResponse = Response.ok().entity(apiResp).build();
 				return apiResponse;
 			}
 		} catch (Exception e) {
 			e.printStackTrace(System.err);
-			ModelAPIResponse apiResp = new ModelAPIResponse();
+			ModelApiResponse apiResp = new ModelApiResponse();
 			apiResp.setCode(ApiResponseMessage.ERROR);
 			apiResp.setType(e.getClass().toString());
 			apiResp.setApiMessage(e.getMessage());
-			apiResp.setIrIValue(LOGIN.getVivoSiteUrl()+"/termsOfUse");
+			apiResp.setIrIValue(VIVO_PROXY_Properties.getVivoSiteUrl()+"/termsOfUse");
 			try {
 				com.squareup.okhttp.Response result = invokerResult.getOkhttpResult();
-				apiResp.viVOMessage(result.toString());
+				apiResp.vivoMessage(result.toString());
 			} catch (Exception e2) {
 			}
 			Response apiResponse = Response.serverError().entity(apiResp).build();
 			return apiResponse;
 		}
-		ModelAPIResponse apiResp = new ModelAPIResponse();
+		ModelApiResponse apiResp = new ModelApiResponse();
 		com.squareup.okhttp.Response result = invokerResult.getOkhttpResult();
 		apiResp.setCode(ApiResponseMessage.ERROR);
-		apiResp.setIrIValue(LOGIN.getVivoSiteUrl());
+		apiResp.setIrIValue(VIVO_PROXY_Properties.getVivoSiteUrl());
 		try {
 			apiResp.setType(String.valueOf(result.code()));
-			apiResp.viVOMessage(result.toString());
+			apiResp.vivoMessage(result.toString());
 		} catch (Exception e) {
 		}
 		Response apiResponse = Response.serverError().entity(apiResp).build();
@@ -78,7 +78,7 @@ public class AdminApiServiceImpl extends AdminApiService {
 		VivoReceiver session = new VivoReceiver();
 		String hostname = session.getHostName();
 		CommandInvoker invoker = new CommandInvoker();  
-		Command loginCommand = cf.createLogin(LOGIN.getUserName(), LOGIN.getPasswd());
+		Command loginCommand = cf.createLogin(VIVO_PROXY_Properties.getUserName(), VIVO_PROXY_Properties.getPasswd());
 		ReindexSolrCommand reindexCommand = new ReindexSolrCommand();
 		cf.createLogout();
 		invoker.register(loginCommand);
@@ -90,37 +90,37 @@ public class AdminApiServiceImpl extends AdminApiService {
 			com.squareup.okhttp.Response response = reindexCommand.getCommandResult().getOkhttpResult();
 			if (response.body().string().contains("SearchIndex?status=true"))
 			{
-				ModelAPIResponse apiResp = new ModelAPIResponse();
+				ModelApiResponse apiResp = new ModelApiResponse();
 				apiResp.setCode(ApiResponseMessage.OK);
 				apiResp.setType(new ApiResponseMessage(ApiResponseMessage.OK,"").getType());
-				apiResp.setIrIValue(LOGIN.getVivoSiteUrl()+"/SearchIndex?rebuild=true");
+				apiResp.setIrIValue(VIVO_PROXY_Properties.getVivoSiteUrl()+"/SearchIndex?rebuild=true");
 				apiResp.setApiMessage(String.valueOf(response.code()));
 				Response apiResponse = Response.ok().entity(apiResp).build();
-				apiResp.setViVOMessage("SearchIndex?status=true");
+				apiResp.setVivoMessage("SearchIndex?status=true");
 				return apiResponse;
 			}
 		} catch (Exception e) {
 			e.printStackTrace(System.err);
-			ModelAPIResponse apiResp = new ModelAPIResponse();
+			ModelApiResponse apiResp = new ModelApiResponse();
 			apiResp.setCode(ApiResponseMessage.ERROR);
 			apiResp.setType(e.getClass().toString());
 			apiResp.setApiMessage(e.getMessage());
-			apiResp.setIrIValue(LOGIN.getVivoSiteUrl());
+			apiResp.setIrIValue(VIVO_PROXY_Properties.getVivoSiteUrl());
 			try {
 				com.squareup.okhttp.Response result = invokerResult.getOkhttpResult();
-				apiResp.viVOMessage(result.toString());
+				apiResp.vivoMessage(result.toString());
 			} catch (Exception e2) {
 			}
 			Response apiResponse = Response.serverError().entity(apiResp).build();
 			return apiResponse;
 		}
-		ModelAPIResponse apiResp = new ModelAPIResponse();
+		ModelApiResponse apiResp = new ModelApiResponse();
 		com.squareup.okhttp.Response result = reindexCommand.getCommandResult().getOkhttpResult();
 		apiResp.setCode(ApiResponseMessage.ERROR);
-		apiResp.setIrIValue(LOGIN.getVivoSiteUrl());
+		apiResp.setIrIValue(VIVO_PROXY_Properties.getVivoSiteUrl());
 		try {
 			apiResp.setType(String.valueOf(result.code()));
-			apiResp.viVOMessage(result.toString());
+			apiResp.vivoMessage(result.toString());
 		} catch (Exception e) {
 		}
 		Response apiResponse = Response.serverError().entity(apiResp).build();
@@ -139,20 +139,22 @@ public class AdminApiServiceImpl extends AdminApiService {
 	@Override
 	public Response getVivoProperties(SecurityContext securityContext) throws NotFoundException {
     	VivoProperties vivoProperties = new VivoProperties();
-    	vivoProperties.setSparqlQueryURL(LOGIN.getSparqlQueryURL());
-    	vivoProperties.setSparqlUpdateURL(LOGIN.getSparqlUpdateURL());
-    	vivoProperties.setViVOAdminLogin(LOGIN.getUserName());
+    	vivoProperties.setSparqlQueryURL(VIVO_PROXY_Properties.getSparqlQueryURL());
+    	vivoProperties.setSparqlUpdateURL(VIVO_PROXY_Properties.getSparqlUpdateURL());
+    	vivoProperties.setViVOAdminLogin(VIVO_PROXY_Properties.getUserName());
     	vivoProperties.setViVOAdminPassword("xxxxx");
-    	vivoProperties.setVivoURL(LOGIN.getVivoSiteUrl());
+    	vivoProperties.setVivoURL(VIVO_PROXY_Properties.getVivoSiteUrl());
+    	vivoProperties.setSparqlEndPointType(VIVO_PROXY_Properties.getSparqlEndpointType());
         return Response.ok().entity(vivoProperties).build();
 	}
 	@Override
 	public Response setVivoProperties(VivoProperties vivoProperties,SecurityContext securityContext) throws NotFoundException {
-		LOGIN.setSparqlQueryURL(vivoProperties.getSparqlQueryURL());
-		LOGIN.setSparqlUpdateURL(vivoProperties.getSparqlUpdateURL());
-		LOGIN.setViVOAdminLogin(vivoProperties.getViVOAdminLogin());
-		LOGIN.setViVOAdminPassword(vivoProperties.getViVOAdminPassword());
-		LOGIN.setVivoSiteUrl(vivoProperties.getVivoURL());
+		VIVO_PROXY_Properties.setSparqlQueryURL(vivoProperties.getSparqlQueryURL());
+		VIVO_PROXY_Properties.setSparqlUpdateURL(vivoProperties.getSparqlUpdateURL());
+		VIVO_PROXY_Properties.setSparqlEndpointType(vivoProperties.getSparqlEndPointType());
+		VIVO_PROXY_Properties.setViVOAdminLogin(vivoProperties.getViVOAdminLogin());
+		VIVO_PROXY_Properties.setViVOAdminPassword(vivoProperties.getViVOAdminPassword());
+		VIVO_PROXY_Properties.setVivoSiteUrl(vivoProperties.getVivoURL());
 		return getVivoProperties(securityContext);
 	}
 }
