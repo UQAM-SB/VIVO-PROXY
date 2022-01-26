@@ -12,7 +12,8 @@ import java.util.Properties;
  * @date 22 sept. 2021
  */
 public class VIVO_PROXY_Properties {
-	private static final String SPARQL_ENDPOINT_TYPE = "sparql-endPoint-type";
+	private static final String VIVO_PROXY_PROPERTIES = "vivo-proxy.properties";
+    private static final String SPARQL_ENDPOINT_TYPE = "sparql-endPoint-type";
 	public static final String SPARQL_ENDPOINT_TYPE_VIVO = "vivo";
 	public static final String SPARQL_ENDPOINT_TYPE_NEPTUNE = "neptune";
 	private static final String PASSWORD = "password";
@@ -31,21 +32,21 @@ public class VIVO_PROXY_Properties {
 		loginProperties.setProperty(SPARQL_ENDPOINT_TYPE, sparqlEndpointType);
 	}
 
-	private static VIVO_PROXY_Properties login_instance;
+	private static VIVO_PROXY_Properties thisInstance;
 	public static VIVO_PROXY_Properties getInstance()
 	{
-		if (login_instance == null)
-			login_instance = new VIVO_PROXY_Properties();
+		if (thisInstance == null)
+			thisInstance = new VIVO_PROXY_Properties();
 
-		return login_instance;
+		return thisInstance;
 	}
 	/**
 	 * 
 	 */
 	private VIVO_PROXY_Properties(){
-		try (InputStream input = VIVO_PROXY_Properties.class.getClassLoader().getResourceAsStream("vivo-proxy.properties")) {
+		try (InputStream input = VIVO_PROXY_Properties.class.getClassLoader().getResourceAsStream(VIVO_PROXY_PROPERTIES)) {
 			if (input == null) {
-				System.out.println("Sorry, unable to find vivo-proxy.properties");
+				System.out.println("Sorry, unable to find " + VIVO_PROXY_PROPERTIES);
 			}
 			loginProperties = new Properties();
 			//load a properties file from class path, inside static method
