@@ -6,8 +6,8 @@ import com.squareup.okhttp.Response;
 
 import ca.uqam.tool.vivoproxy.pattern.command.AbstractReceiver;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
-import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
-import ca.uqam.tool.vivoproxy.swagger.model.Organization;
+import ca.uqam.vocab.proxy.model.LinguisticLabel;
+import ca.uqam.vocab.proxy.model.Organization;
 import ca.uqam.vocab.vivo.VIVO;
 
 /**

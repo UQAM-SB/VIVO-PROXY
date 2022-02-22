@@ -1,6 +1,6 @@
 package ca.uqam.tool.vivoproxy.swagger.api;
 
-import ca.uqam.tool.vivoproxy.swagger.model.*;
+
 import ca.uqam.tool.vivoproxy.swagger.api.DocumentApiService;
 import ca.uqam.tool.vivoproxy.swagger.api.factories.DocumentApiServiceFactory;
 
@@ -14,9 +14,9 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
-import ca.uqam.tool.vivoproxy.swagger.model.AuthorOfADocument;
-import ca.uqam.tool.vivoproxy.swagger.model.Document;
-import ca.uqam.tool.vivoproxy.swagger.model.ModelApiResponse;
+import ca.uqam.vocab.proxy.model.AuthorOfADocument;
+import ca.uqam.vocab.proxy.model.Document;
+import ca.uqam.vocab.proxy.model.ModelApiResponse;
 
 import java.util.Map;
 import java.util.List;
@@ -38,7 +38,7 @@ import javax.validation.constraints.*;
 @Path("/document")
 
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2022-01-19T17:23:11.919-05:00[America/New_York]")public class DocumentApi  {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2022-02-22T15:03:56.936-05:00[America/New_York]")public class DocumentApi  {
    private final DocumentApiService delegate;
 
    public DocumentApi(@Context ServletConfig servletContext) {

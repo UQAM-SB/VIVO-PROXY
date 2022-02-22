@@ -14,9 +14,9 @@ import org.junit.Test;
 import com.squareup.okhttp.Response;
 
 import ca.uqam.tool.vivoproxy.pattern.command.util.VivoReceiverHelper;
-import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
-import ca.uqam.tool.vivoproxy.swagger.model.Person;
-import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
+import ca.uqam.vocab.proxy.model.LinguisticLabel;
+import ca.uqam.vocab.proxy.model.Person;
+import ca.uqam.vocab.proxy.model.PositionOfPerson;
 import ca.uqam.vocab.vivo.VIVO;
 
 public class CommandTest {

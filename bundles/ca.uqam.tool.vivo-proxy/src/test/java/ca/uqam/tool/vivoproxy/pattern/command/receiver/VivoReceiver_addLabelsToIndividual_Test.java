@@ -6,8 +6,8 @@ import java.util.Arrays;
 import ca.uqam.tool.util.credential.VIVO_PROXY_Properties;
 import ca.uqam.tool.vivoproxy.pattern.command.AbstractReceiver;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
-import ca.uqam.tool.vivoproxy.swagger.model.IndividualType;
-import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
+import ca.uqam.vocab.proxy.model.IndividualType;
+import ca.uqam.vocab.proxy.model.LinguisticLabel;
 
 /**
  * @author Michel Héon

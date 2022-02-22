@@ -14,8 +14,8 @@ import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
 import ca.uqam.tool.vivoproxy.swagger.api.AdminApiService;
 import ca.uqam.tool.vivoproxy.swagger.api.ApiResponseMessage;
 import ca.uqam.tool.vivoproxy.swagger.api.NotFoundException;
-import ca.uqam.tool.vivoproxy.swagger.model.ModelApiResponse;
-import ca.uqam.tool.vivoproxy.swagger.model.VivoProperties;
+import ca.uqam.vocab.proxy.model.ModelApiResponse;
+import ca.uqam.vocab.proxy.model.VivoProperties;
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-12-19T15:35:48.156-05:00[America/New_York]")
 public class AdminApiServiceImpl extends AdminApiService {
 	private static final String SearchIndex = null;

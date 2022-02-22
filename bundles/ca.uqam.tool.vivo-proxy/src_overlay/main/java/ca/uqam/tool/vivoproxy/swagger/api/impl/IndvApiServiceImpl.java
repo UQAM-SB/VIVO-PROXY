@@ -13,7 +13,7 @@ import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddTypeToIndividualComman
 import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
 import ca.uqam.tool.vivoproxy.pattern.command.util.VivoReceiverHelper;
 import ca.uqam.tool.vivoproxy.swagger.api.*;
-import ca.uqam.tool.vivoproxy.swagger.model.*;
+import ca.uqam.vocab.proxy.model.*;
 
 
 import java.util.Map;
@@ -81,7 +81,7 @@ public class IndvApiServiceImpl extends IndvApiService {
 	}
 
 	/* (non-Javadoc)
-	 * @see ca.uqam.tool.vivoproxy.swagger.api.IndvApiService#indvAddImage(ca.uqam.tool.vivoproxy.swagger.model.Image, javax.ws.rs.core.SecurityContext)
+	 * @see ca.uqam.tool.vivoproxy.swagger.api.IndvApiService#indvAddImage(ca.uqam.vocab.proxy.model.Image, javax.ws.rs.core.SecurityContext)
 	 */
 	public Response indvAddImage(Image body, SecurityContext securityContext) throws NotFoundException {
 		try {

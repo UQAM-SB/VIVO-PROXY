@@ -12,8 +12,8 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 import ca.uqam.tool.vivoproxy.swagger.api.NotFoundException;
 import ca.uqam.tool.vivoproxy.swagger.api.OrganizationApiService;
-import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
-import ca.uqam.tool.vivoproxy.swagger.model.Organization;
+import ca.uqam.vocab.proxy.model.LinguisticLabel;
+import ca.uqam.vocab.proxy.model.Organization;
 
 public class OrganizationApiServiceImplTest {
 	   /**

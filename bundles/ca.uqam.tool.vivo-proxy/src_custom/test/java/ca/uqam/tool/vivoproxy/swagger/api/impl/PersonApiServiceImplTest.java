@@ -12,7 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ca.uqam.tool.vivoproxy.swagger.api.NotFoundException;
-import ca.uqam.tool.vivoproxy.swagger.model.Person;
+import ca.uqam.vocab.proxy.model.Person;
 import ca.uqam.vivo.vocabulary.VIVO;
 
 public class PersonApiServiceImplTest {

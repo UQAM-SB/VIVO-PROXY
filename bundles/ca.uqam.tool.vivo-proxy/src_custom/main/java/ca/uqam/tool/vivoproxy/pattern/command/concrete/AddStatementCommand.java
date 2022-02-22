@@ -6,7 +6,7 @@ import ca.uqam.tool.vivoproxy.pattern.command.Command;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
 import ca.uqam.tool.vivoproxy.pattern.command.Receiver;
 import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
-import ca.uqam.tool.vivoproxy.swagger.model.Statement;
+import ca.uqam.vocab.proxy.model.Statement;
 
 /**
  * @author Michel Héon; Université du Québec à Montréal

@@ -8,7 +8,7 @@ import ca.uqam.tool.util.credential.VIVO_PROXY_Properties;
 import ca.uqam.tool.vivoproxy.pattern.command.Command;
 import ca.uqam.tool.vivoproxy.pattern.command.util.VivoReceiverHelper;
 import ca.uqam.tool.vivoproxy.swagger.api.ApiResponseMessage;
-import ca.uqam.tool.vivoproxy.swagger.model.ModelApiResponse;
+import ca.uqam.vocab.proxy.model.ModelApiResponse;
 import javassist.bytecode.ByteArray;
 
 /**

@@ -26,7 +26,7 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
 import ca.uqam.tool.vivoproxy.pattern.command.receiver.util.EditKeyForPosition;
-import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
+import ca.uqam.vocab.proxy.model.LinguisticLabel;
 
 public class VivoReceiverHelper {
 	private final static Logger LOGGER = Logger.getLogger(VivoReceiverHelper.class.getName());

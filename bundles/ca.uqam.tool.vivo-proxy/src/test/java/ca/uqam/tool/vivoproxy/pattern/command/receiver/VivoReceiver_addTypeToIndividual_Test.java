@@ -5,7 +5,7 @@ import java.io.IOException;
 import ca.uqam.tool.util.credential.VIVO_PROXY_Properties;
 import ca.uqam.tool.vivoproxy.pattern.command.AbstractReceiver;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
-import ca.uqam.tool.vivoproxy.swagger.model.IndividualType;
+import ca.uqam.vocab.proxy.model.IndividualType;
 
 /**
  * @author Michel Héon

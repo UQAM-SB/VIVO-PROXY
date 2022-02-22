@@ -17,8 +17,8 @@ import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
 import ca.uqam.tool.vivoproxy.swagger.api.ConceptApiService;
 import ca.uqam.tool.vivoproxy.swagger.api.NotFoundException;
 import ca.uqam.tool.vivoproxy.swagger.api.impl.util.ApiServiceImplHelper;
-import ca.uqam.tool.vivoproxy.swagger.model.Concept;
-import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
+import ca.uqam.vocab.proxy.model.Concept;
+import ca.uqam.vocab.proxy.model.LinguisticLabel;
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-07-28T15:50:35.108-04:00[America/New_York]")
 public class ConceptApiServiceImpl extends ConceptApiService {
 	private static final String YOUR_PASSWD = VIVO_PROXY_Properties.getPasswd(); 

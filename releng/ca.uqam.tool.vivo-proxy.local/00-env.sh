@@ -18,4 +18,5 @@ export VIVO_PROXY_CLIENT_SRC_HOME=$(cd $SCRIPT_DIR/../../bundles/ca.uqam.tool.vi
 
 export VIVO_PROXY_TARGET=$(cd $VIVO_PROXY_SRC_HOME/target/ca.uqam.tool.vivo-proxy-1.0.1-SNAPSHOT ; pwd) # Emplacement du target à déployer
 export PROFILE=localhost-jetty     #l'un des profiles disponibles dans settings.xml
+export VIVO_VOCAB_HOME=$(cd $SCRIPT_DIR/../../../ca.uqam.vivo.vocab ; pwd)
 # export PROFILE=localhost

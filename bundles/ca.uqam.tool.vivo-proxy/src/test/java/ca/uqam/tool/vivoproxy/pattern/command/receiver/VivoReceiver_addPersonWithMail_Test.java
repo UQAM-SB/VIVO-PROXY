@@ -7,9 +7,9 @@ import com.squareup.okhttp.Response;
 import ca.uqam.tool.util.credential.VIVO_PROXY_Properties;
 import ca.uqam.tool.vivoproxy.pattern.command.AbstractReceiver;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
-import ca.uqam.tool.vivoproxy.swagger.model.AddressSchema;
-import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
-import ca.uqam.tool.vivoproxy.swagger.model.PersonWithOfficeInfo;
+import ca.uqam.vocab.proxy.model.AddressSchema;
+import ca.uqam.vocab.proxy.model.LinguisticLabel;
+import ca.uqam.vocab.proxy.model.PersonWithOfficeInfo;
 
 /**
  * @author Michel Héon; Université du Québec à Montréal

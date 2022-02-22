@@ -1,6 +1,6 @@
 package ca.uqam.tool.vivoproxy.swagger.api;
 
-import ca.uqam.tool.vivoproxy.swagger.model.*;
+
 import ca.uqam.tool.vivoproxy.swagger.api.ConceptApiService;
 import ca.uqam.tool.vivoproxy.swagger.api.factories.ConceptApiServiceFactory;
 
@@ -14,8 +14,8 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
-import ca.uqam.tool.vivoproxy.swagger.model.Concept;
-import ca.uqam.tool.vivoproxy.swagger.model.ModelApiResponse;
+import ca.uqam.vocab.proxy.model.Concept;
+import ca.uqam.vocab.proxy.model.ModelApiResponse;
 
 import java.util.Map;
 import java.util.List;
@@ -37,7 +37,7 @@ import javax.validation.constraints.*;
 @Path("/concept")
 
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2022-01-19T17:23:11.919-05:00[America/New_York]")public class ConceptApi  {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2022-02-22T15:03:56.936-05:00[America/New_York]")public class ConceptApi  {
    private final ConceptApiService delegate;
 
    public ConceptApi(@Context ServletConfig servletContext) {

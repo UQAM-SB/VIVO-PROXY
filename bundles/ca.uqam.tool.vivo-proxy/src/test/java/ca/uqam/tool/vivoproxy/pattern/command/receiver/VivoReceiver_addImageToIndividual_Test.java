@@ -9,7 +9,7 @@ import ca.uqam.tool.util.credential.VIVO_PROXY_Properties;
 import ca.uqam.tool.vivoproxy.pattern.command.AbstractReceiver;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
 import ca.uqam.tool.vivoproxy.swagger.api.ApiException;
-import ca.uqam.tool.vivoproxy.swagger.model.Image;
+import ca.uqam.vocab.proxy.model.Image;
 
 /**
  * @author Michel Héon

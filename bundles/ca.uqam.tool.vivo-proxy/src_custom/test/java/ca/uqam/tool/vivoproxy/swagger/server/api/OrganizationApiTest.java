@@ -12,7 +12,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import ca.uqam.tool.vivoproxy.swagger.api.ApiException;
 import ca.uqam.tool.vivoproxy.swagger.api.NotFoundException;
 import ca.uqam.tool.vivoproxy.swagger.api.OrganizationApi;
-import ca.uqam.tool.vivoproxy.swagger.model.Organization;
+import ca.uqam.vocab.proxy.model.Organization;
 import ca.uqam.tool.vivoproxy.swagger.server.api.sample.SampleValues;
 
 /*

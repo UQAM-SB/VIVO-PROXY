@@ -5,8 +5,8 @@ import java.io.IOException;
 import ca.uqam.tool.util.credential.VIVO_PROXY_Properties;
 import ca.uqam.tool.vivoproxy.pattern.command.AbstractReceiver;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
-import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
-import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
+import ca.uqam.vocab.proxy.model.LinguisticLabel;
+import ca.uqam.vocab.proxy.model.PositionOfPerson;
 import ca.uqam.vocab.vivo.VIVO;
 
 /**

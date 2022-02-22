@@ -15,7 +15,7 @@ import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
 import ca.uqam.tool.vivoproxy.swagger.api.NotFoundException;
 import ca.uqam.tool.vivoproxy.swagger.api.OrganizationApiService;
 import ca.uqam.tool.vivoproxy.swagger.api.impl.util.ApiServiceImplHelper;
-import ca.uqam.tool.vivoproxy.swagger.model.Organization;
+import ca.uqam.vocab.proxy.model.Organization;
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-07-21T06:59:15.044-04:00[America/New_York]")
 public class OrganizationApiServiceImpl extends OrganizationApiService {
 	private static final String YOUR_PASSWD = VIVO_PROXY_Properties.getPasswd(); 
@@ -23,7 +23,7 @@ public class OrganizationApiServiceImpl extends OrganizationApiService {
 	private final static Logger LOGGER = Logger.getLogger(OrganizationApiService.class.getName());
 
 	/* (non-Javadoc)
-	 * @see ca.uqam.tool.vivoproxy.swagger.api.OrganizationApiService#createOrganization(ca.uqam.tool.vivoproxy.swagger.model.Organization, javax.ws.rs.core.SecurityContext)
+	 * @see ca.uqam.tool.vivoproxy.swagger.api.OrganizationApiService#createOrganization(ca.uqam.vocab.proxy.model.Organization, javax.ws.rs.core.SecurityContext)
 	 */
 	public Response createOrganization(Organization organization,SecurityContext securityContext)
 			throws NotFoundException {

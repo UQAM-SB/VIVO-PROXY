@@ -6,7 +6,7 @@ import ca.uqam.tool.vivoproxy.pattern.command.Command;
 import ca.uqam.tool.vivoproxy.pattern.command.CommandResult;
 import ca.uqam.tool.vivoproxy.pattern.command.Receiver;
 import ca.uqam.tool.vivoproxy.pattern.command.receiver.VivoReceiver;
-import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
+import ca.uqam.vocab.proxy.model.PositionOfPerson;
 
 public class CreatePositionForCommand extends Command {
 

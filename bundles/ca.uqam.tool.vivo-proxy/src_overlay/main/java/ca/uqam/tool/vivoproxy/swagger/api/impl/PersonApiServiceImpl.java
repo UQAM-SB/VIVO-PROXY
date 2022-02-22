@@ -25,13 +25,13 @@ import ca.uqam.tool.vivoproxy.swagger.api.NotFoundException;
 import ca.uqam.tool.vivoproxy.swagger.api.PersonApiService;
 import ca.uqam.tool.vivoproxy.swagger.api.VivoProxyResponseMessage;
 import ca.uqam.tool.vivoproxy.swagger.api.impl.util.ApiServiceImplHelper;
-import ca.uqam.tool.vivoproxy.swagger.model.AuthorOfADocument;
-import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
-import ca.uqam.tool.vivoproxy.swagger.model.ModelApiResponse;
-import ca.uqam.tool.vivoproxy.swagger.model.Person;
-import ca.uqam.tool.vivoproxy.swagger.model.PersonWithOfficeInfo;
-import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
-import ca.uqam.tool.vivoproxy.swagger.model.ResourceToResource;
+import ca.uqam.vocab.proxy.model.AuthorOfADocument;
+import ca.uqam.vocab.proxy.model.LinguisticLabel;
+import ca.uqam.vocab.proxy.model.ModelApiResponse;
+import ca.uqam.vocab.proxy.model.Person;
+import ca.uqam.vocab.proxy.model.PersonWithOfficeInfo;
+import ca.uqam.vocab.proxy.model.PositionOfPerson;
+import ca.uqam.vocab.proxy.model.ResourceToResource;
 import ca.uqam.tool.vivoproxy.util.SemanticWebMediaType;
 /**
  * @author heon
@@ -43,7 +43,7 @@ public class PersonApiServiceImpl extends PersonApiService {
 	private static final String VIVO_LOGIN = VIVO_PROXY_Properties.getUserName();
 	private final static Logger LOGGER = Logger.getLogger(PersonApiServiceImpl.class.getName());
 	/* (non-Javadoc)
-	 * @see ca.uqam.tool.vivoproxy.swagger.api.PersonApiService#createPerson(ca.uqam.tool.vivoproxy.swagger.model.Person, javax.ws.rs.core.SecurityContext)
+	 * @see ca.uqam.tool.vivoproxy.swagger.api.PersonApiService#createPerson(ca.uqam.vocab.proxy.model.Person, javax.ws.rs.core.SecurityContext)
 	 */
 	public Response createPerson(Person person,SecurityContext securityContext) throws NotFoundException {
 		try {

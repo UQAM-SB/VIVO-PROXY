@@ -17,9 +17,9 @@ import ca.uqam.tool.vivoproxy.pattern.command.util.VivoReceiverHelper;
 import ca.uqam.tool.vivoproxy.swagger.api.ApiResponseMessage;
 import ca.uqam.tool.vivoproxy.swagger.api.DocumentApiService;
 import ca.uqam.tool.vivoproxy.swagger.api.NotFoundException;
-import ca.uqam.tool.vivoproxy.swagger.model.AuthorOfADocument;
-import ca.uqam.tool.vivoproxy.swagger.model.Document;
-import ca.uqam.tool.vivoproxy.swagger.model.ModelApiResponse;
+import ca.uqam.vocab.proxy.model.AuthorOfADocument;
+import ca.uqam.vocab.proxy.model.Document;
+import ca.uqam.vocab.proxy.model.ModelApiResponse;
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-09-05T10:56:47.302-04:00[America/New_York]")
 public class DocumentApiServiceImpl extends DocumentApiService {
 	private static final String YOUR_PASSWD = VIVO_PROXY_Properties.getPasswd(); 

@@ -8,7 +8,7 @@ import java.io.IOException;
 
 import java.util.logging.Logger;
 
-import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;;
+import ca.uqam.vocab.proxy.model.PositionOfPerson;;
 
 public class Main {
     private final static Logger LOGGER = Logger.getLogger(Main.class.getName());

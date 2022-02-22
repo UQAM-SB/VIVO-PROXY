@@ -1,6 +1,6 @@
 package ca.uqam.tool.vivoproxy.swagger.api;
 
-import ca.uqam.tool.vivoproxy.swagger.model.*;
+
 import ca.uqam.tool.vivoproxy.swagger.api.IndvApiService;
 import ca.uqam.tool.vivoproxy.swagger.api.factories.IndvApiServiceFactory;
 
@@ -14,11 +14,11 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
-import ca.uqam.tool.vivoproxy.swagger.model.Image;
-import ca.uqam.tool.vivoproxy.swagger.model.IndividualType;
-import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
-import ca.uqam.tool.vivoproxy.swagger.model.ModelApiResponse;
-import ca.uqam.tool.vivoproxy.swagger.model.Statement;
+import ca.uqam.vocab.proxy.model.Image;
+import ca.uqam.vocab.proxy.model.IndividualType;
+import ca.uqam.vocab.proxy.model.LinguisticLabel;
+import ca.uqam.vocab.proxy.model.ModelApiResponse;
+import ca.uqam.vocab.proxy.model.Statement;
 
 import java.util.Map;
 import java.util.List;
@@ -40,7 +40,7 @@ import javax.validation.constraints.*;
 @Path("/indv")
 
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2022-01-19T17:23:11.919-05:00[America/New_York]")public class IndvApi  {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2022-02-22T15:03:56.936-05:00[America/New_York]")public class IndvApi  {
    private final IndvApiService delegate;
 
    public IndvApi(@Context ServletConfig servletContext) {

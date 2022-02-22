@@ -19,19 +19,19 @@ import ca.uqam.tool.vivoproxy.pattern.command.concrete.LoginCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.LogoutCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.SparqlDescribeByLabelCommand;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.SparqlDescribeCommand;
+import ca.uqam.vocab.proxy.model.AuthorOfADocument;
+import ca.uqam.vocab.proxy.model.Concept;
+import ca.uqam.vocab.proxy.model.Document;
+import ca.uqam.vocab.proxy.model.Image;
+import ca.uqam.vocab.proxy.model.IndividualType;
+import ca.uqam.vocab.proxy.model.LinguisticLabel;
+import ca.uqam.vocab.proxy.model.Organization;
+import ca.uqam.vocab.proxy.model.Person;
+import ca.uqam.vocab.proxy.model.PersonWithOfficeInfo;
+import ca.uqam.vocab.proxy.model.PositionOfPerson;
+import ca.uqam.vocab.proxy.model.ResourceToResource;
+import ca.uqam.vocab.proxy.model.Statement;
 import ca.uqam.tool.vivoproxy.pattern.command.concrete.AddPersonWithEmailCommand;
-import ca.uqam.tool.vivoproxy.swagger.model.AuthorOfADocument;
-import ca.uqam.tool.vivoproxy.swagger.model.Concept;
-import ca.uqam.tool.vivoproxy.swagger.model.Document;
-import ca.uqam.tool.vivoproxy.swagger.model.Image;
-import ca.uqam.tool.vivoproxy.swagger.model.IndividualType;
-import ca.uqam.tool.vivoproxy.swagger.model.LinguisticLabel;
-import ca.uqam.tool.vivoproxy.swagger.model.Organization;
-import ca.uqam.tool.vivoproxy.swagger.model.Person;
-import ca.uqam.tool.vivoproxy.swagger.model.PersonWithOfficeInfo;
-import ca.uqam.tool.vivoproxy.swagger.model.PositionOfPerson;
-import ca.uqam.tool.vivoproxy.swagger.model.ResourceToResource;
-import ca.uqam.tool.vivoproxy.swagger.model.Statement;
 
 /**
  * @author Michel Héon; Université du Québec à Montréal
